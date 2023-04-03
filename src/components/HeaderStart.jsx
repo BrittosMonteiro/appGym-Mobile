@@ -16,22 +16,22 @@ export default function HeaderStart() {
         styles.paddingStyle.px_3,
         styles.alignment.alignItems.center,
         styles.alignment.justifyContent.space_between,
-        styles.colors.backgroundColor.yellow_2,
+        styles.colors.backgroundColor.dark_2,
         {
-          borderBottomLeftRadius: 16,
-          borderBottomRightRadius: 16,
+          borderBottomColor: '#ff6500',
+          borderBottomWidth: 3,
         },
       ]}>
       <Text
         style={[
           styles.font.size.size_24,
           styles.font.weight.medium,
-          styles.colors.textColor.dark_2,
+          styles.colors.textColor.white_1,
         ]}>
         Olá, <Text style={[styles.font.weight.bold]}>Lucas!</Text>
       </Text>
       <Pressable onPress={() => dispatch(setOpen())}>
-        <List weight="bold" color="#1e1e1e" size={28} />
+        <List weight="bold" color="#fefefe" size={28} />
       </Pressable>
     </View>
   );

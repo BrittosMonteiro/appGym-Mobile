@@ -19,7 +19,7 @@ export default function ActivityItem({activity, isStopped}) {
           <Square
             weight="bold"
             size={24}
-            color="#fefefe"
+            color="#1e1e1e"
             style={isStopped && {opacity: 0.25}}
           />
         )}
@@ -27,7 +27,7 @@ export default function ActivityItem({activity, isStopped}) {
       <View style={[styles.main.column, styles.gapStyle.gap_1]}>
         <Text
           style={[
-            styles.colors.textColor.white_1,
+            styles.colors.textColor.dark_2,
             styles.font.size.size_20,
             styles.font.weight.medium,
           ]}>
@@ -37,7 +37,7 @@ export default function ActivityItem({activity, isStopped}) {
         {activity.time && (
           <Text
             style={[
-              styles.colors.textColor.white_1,
+              styles.colors.textColor.dark_3,
               styles.font.size.size_16,
               styles.font.weight.regular,
             ]}>
@@ -48,7 +48,7 @@ export default function ActivityItem({activity, isStopped}) {
         {activity.machine && (
           <Text
             style={[
-              styles.colors.textColor.white_1,
+              styles.colors.textColor.dark_3,
               styles.font.size.size_16,
               styles.font.weight.regular,
             ]}>
@@ -59,7 +59,7 @@ export default function ActivityItem({activity, isStopped}) {
         {activity.series && activity.repetitions && (
           <Text
             style={[
-              styles.colors.textColor.white_1,
+              styles.colors.textColor.dark_3,
               styles.font.size.size_16,
               styles.font.weight.regular,
             ]}>
@@ -70,7 +70,7 @@ export default function ActivityItem({activity, isStopped}) {
         {activity.load && (
           <Text
             style={[
-              styles.colors.textColor.white_1,
+              styles.colors.textColor.dark_3,
               styles.font.size.size_16,
               styles.font.weight.regular,
             ]}>

@@ -99,9 +99,9 @@ export default function TrainingCurrent({route, navigation}) {
         <View style={[styles.main.row, styles.alignment.justifyContent.center]}>
           <Text
             style={[
-              styles.font.size.size_24,
+              styles.font.size.size_42,
               styles.font.weight.semiBold,
-              styles.colors.textColor.white_1,
+              styles.colors.textColor.dark_2,
             ]}>
             {`${hours < 10 ? '0' + hours : hours}:${
               minutes < 10 ? '0' + minutes : minutes
@@ -125,7 +125,7 @@ export default function TrainingCurrent({route, navigation}) {
             <PauseCircle
               weight="bold"
               size={48}
-              color={isPaused || isStopped ? '#fefefe' : '#F2C94C'}
+              color={isPaused || isStopped ? '#eee' : '#F2C94C'}
               style={(isPaused || isStopped) && {opacity: 0.25}}
             />
           </Pressable>
@@ -138,7 +138,7 @@ export default function TrainingCurrent({route, navigation}) {
             <PlayCircle
               weight="bold"
               size={48}
-              color={isPlaying ? '#fefefe' : '#27AE60'}
+              color={isPlaying ? '#eee' : '#27AE60'}
               style={isPlaying && {opacity: 0.25}}
             />
           </Pressable>
@@ -151,7 +151,7 @@ export default function TrainingCurrent({route, navigation}) {
             <StopCircle
               weight="bold"
               size={48}
-              color={isStopped ? '#fefefe' : '#EB5757'}
+              color={isStopped ? '#eee' : '#EB5757'}
               style={isStopped && {opacity: 0.25}}
             />
           </Pressable>
@@ -165,7 +165,7 @@ export default function TrainingCurrent({route, navigation}) {
               <React.Fragment key={index}>
                 <ActivityItem activity={activity} isStopped={isStopped} />
                 {index < details.length - 1 && (
-                  <HorizontalRule color={'#F2C94C'} />
+                  <HorizontalRule color={'#FF6500'} />
                 )}
               </React.Fragment>
             ))}

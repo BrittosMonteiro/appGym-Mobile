@@ -12,14 +12,14 @@ export default function Dashboard({navigation}) {
       <View style={[styles.paddingStyle.px_3]}>
         <Text
           style={[
-            styles.colors.textColor.yellow_1,
+            styles.colors.textColor.dark_3,
             styles.font.size.size_28,
             styles.font.weight.bold,
           ]}>
           MEUS{'\n'}
           <Text
             style={[
-              styles.colors.textColor.yellow_2,
+              styles.colors.textColor.dark_2,
               styles.font.size.size_42,
               styles.font.weight.bold,
             ]}>

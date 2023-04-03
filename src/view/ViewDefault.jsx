@@ -3,10 +3,10 @@ import styles from '../styles';
 export default function ViewDefault(props) {
   return (
     <SafeAreaView style={{flex: 1}}>
-      <StatusBar backgroundColor={'#F2C24C'} barStyle={'dark-content'} />
+      <StatusBar backgroundColor={'#eee'} barStyle={'dark-content'} />
       <View
         style={[
-          styles.colors.backgroundColor.dark_2,
+          styles.colors.backgroundColor.white_2,
           styles.gapStyle.gap_5,
           styles.paddingStyle.pb_3,
           {

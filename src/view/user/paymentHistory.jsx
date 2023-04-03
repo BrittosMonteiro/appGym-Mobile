@@ -46,13 +46,13 @@ export default function PaymentHistory({navigation}) {
           style={[
             styles.font.size.size_18,
             styles.font.weight.regular,
-            styles.colors.textColor.white_2,
+            styles.colors.textColor.dark_2,
           ]}>
           Histórico de pagamentos do seu plano
         </Text>
         {paymentList.map((payment, index) => (
           <React.Fragment key={index}>
-            <View style={{display: 'flex', flexDirection: 'column', gap: 8}}>
+            <View style={[styles.main.column, styles.gapStyle.gap_1]}>
               <View
                 style={[
                   styles.main.row,
@@ -62,7 +62,7 @@ export default function PaymentHistory({navigation}) {
                   style={[
                     styles.font.size.size_16,
                     styles.font.weight.medium,
-                    styles.colors.textColor.white_2,
+                    styles.colors.textColor.dark_2,
                   ]}>
                   {payment.month}
                 </Text>
@@ -77,6 +77,7 @@ export default function PaymentHistory({navigation}) {
                       styles.main.borderRadiusDefault,
                       styles.paddingStyle.px_1,
                     ],
+                    !payment.status && [styles.colors.textColor.dark_2],
                   ]}>
                   {payment.status ? 'PAGO' : 'ABERTO'}
                 </Text>
@@ -85,7 +86,7 @@ export default function PaymentHistory({navigation}) {
                 style={[
                   styles.font.size.size_18,
                   styles.font.weight.medium,
-                  styles.colors.textColor.white_2,
+                  styles.colors.textColor.dark_2,
                 ]}>
                 {`R$ ${payment.total}`}
               </Text>

@@ -3,88 +3,136 @@ import {Text, View} from 'react-native';
 import Header from '../../components/Header';
 import ViewDefault from '../ViewDefault';
 import HorizontalRule from '../../components/HorizontalRule';
+import styles from '../../styles';
 
 export default function Profile({navigation}) {
   return (
     <ViewDefault>
       <Header navigation={navigation} title={'PERFIL'} />
       <View
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          paddingHorizontal: 16,
-          gap: 24,
-        }}>
-        <View style={{display: 'flex', flexDirection: 'column', gap: 24}}>
-          <View style={{display: 'flex', flexDirection: 'column', gap: 8}}>
-            <Text style={{color: '#fefefe', fontSize: 14, fontFamily: 'HindVadodara-Regular'}}>
+        style={[
+          styles.main.column,
+          styles.gapStyle.gap_5,
+          styles.paddingStyle.px_3,
+        ]}>
+        <View style={[styles.main.column, styles.gapStyle.gap_5]}>
+          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
+            <Text
+              style={[
+                styles.colors.textColor.dark_2,
+                styles.font.size.size_16,
+                styles.font.weight.regular,
+              ]}>
               NOME
             </Text>
-            <Text style={{color: '#fefefe', fontSize: 18, fontFamily: 'HindVadodara-Medium'}}>
+            <Text
+              style={[
+                styles.colors.textColor.dark_2,
+                styles.font.size.size_18,
+                styles.font.weight.medium,
+              ]}>
               Lucas
             </Text>
           </View>
 
-          <View style={{display: 'flex', flexDirection: 'column', gap: 8}}>
-            <Text style={{color: '#fefefe', fontSize: 14, fontFamily: 'HindVadodara-Regular'}}>
+          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
+            <Text
+              style={[
+                styles.colors.textColor.dark_2,
+                styles.font.size.size_16,
+                styles.font.weight.regular,
+              ]}>
               ACADEMIA
             </Text>
-            <Text style={{color: '#fefefe', fontSize: 18, fontFamily: 'HindVadodara-Medium'}}>
+            <Text
+              style={[
+                styles.colors.textColor.dark_2,
+                styles.font.size.size_18,
+                styles.font.weight.medium,
+              ]}>
               The Best
             </Text>
           </View>
 
-          <View style={{display: 'flex', flexDirection: 'column', gap: 8}}>
-            <Text style={{color: '#fefefe', fontSize: 14, fontFamily: 'HindVadodara-Regular'}}>
+          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
+            <Text
+              style={[
+                styles.colors.textColor.dark_2,
+                styles.font.size.size_16,
+                styles.font.weight.regular,
+              ]}>
               ID
             </Text>
-            <Text style={{color: '#fefefe', fontSize: 18, fontFamily: 'HindVadodara-Medium'}}>
+            <Text
+              style={[
+                styles.colors.textColor.dark_2,
+                styles.font.size.size_18,
+                styles.font.weight.medium,
+              ]}>
               01234
             </Text>
           </View>
 
-          <HorizontalRule />
+          <HorizontalRule color={'#ff6500'} />
 
-          <View style={{display: 'flex', flexDirection: 'column', gap: 8}}>
+          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
             <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'flex-start',
-              }}>
-              <Text style={{color: '#fefefe', fontSize: 14, fontFamily: 'HindVadodara-Regular'}}>
+              style={[
+                styles.main.row,
+                styles.alignment.justifyContent.space_between,
+                styles.alignment.alignItems.center,
+              ]}>
+              <Text
+                style={[
+                  styles.colors.textColor.dark_2,
+                  styles.font.size.size_16,
+                  styles.font.weight.regular,
+                ]}>
                 PLANO
               </Text>
               <Text
-                style={{
-                  color: '#fefefe',
-                  fontSize: 14,
-                  fontFamily: 'HindVadodara-Medium',
-                  backgroundColor: '#27AE60',
-                  padding: 8,
-                  borderRadius: 4,
-                }}>
+                style={[
+                  styles.colors.backgroundColor.green_1,
+                  styles.colors.textColor.white_1,
+                  styles.font.size.size_14,
+                  styles.font.weight.medium,
+                  styles.main.borderRadiusDefault,
+                  styles.paddingStyle.px_1,
+                ]}>
                 ATIVO
               </Text>
             </View>
 
             <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'flex-start',
-              }}>
-              <Text style={{color: '#fefefe', fontSize: 18, fontFamily: 'HindVadodara-Medium'}}>
+              style={[
+                styles.main.row,
+                styles.alignment.justifyContent.space_between,
+                styles.alignment.alignItems.flex_start,
+              ]}>
+              <Text
+                style={[
+                  styles.colors.textColor.dark_2,
+                  styles.font.size.size_18,
+                  styles.font.weight.medium,
+                ]}>
                 FN: SECO SEMESTRAL
               </Text>
-              <Text style={{color: '#fefefe', fontSize: 18, fontFamily: 'HindVadodara-Medium'}}>
+              <Text
+                style={[
+                  styles.colors.textColor.dark_2,
+                  styles.font.size.size_18,
+                  styles.font.weight.medium,
+                ]}>
                 R$ 720,00
               </Text>
             </View>
 
-            <Text style={{color: '#fefefe', fontSize: 14, fontFamily: 'HindVadodara-Regular'}}>
+            <Text
+              style={[
+                styles.colors.textColor.dark_2,
+                styles.font.size.size_16,
+                styles.font.weight.regular,
+              ]}>
               VÁLIDO ATÉ: 13-08-2023
             </Text>
           </View>

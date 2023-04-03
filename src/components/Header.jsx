@@ -12,26 +12,29 @@ export default function Header({title, navigation}) {
     <View
       style={[
         styles.main.row,
-        styles.paddingStyle.pa_3,
-        styles.colors.backgroundColor.yellow_2,
-        styles.alignment.justifyContent.space_between,
+        styles.paddingStyle.py_5,
+        styles.paddingStyle.px_3,
         styles.alignment.alignItems.center,
-        styles.main.borderBottomLeftRadius_16,
-        styles.main.borderBottomRightRadius_16,
+        styles.alignment.justifyContent.space_between,
+        styles.colors.backgroundColor.dark_2,
+        {
+          borderBottomColor: '#ff6500',
+          borderBottomWidth: 3,
+        },
       ]}>
       <Pressable onPress={() => navigation.goBack()}>
-        <CaretLeft weight="bold" color="#1e1e1e" />
+        <CaretLeft weight="bold" color="#fefefe" />
       </Pressable>
       <Text
         style={[
-          styles.colors.textColor.dark_2,
+          styles.colors.textColor.white_1,
           styles.font.size.size_24,
           styles.font.weight.bold,
         ]}>
         {title}
       </Text>
       <Pressable onPress={() => dispatch(setOpen())}>
-        <List weight="bold" color="#1e1e1e" />
+        <List weight="bold" color="#fefefe" />
       </Pressable>
     </View>
   );

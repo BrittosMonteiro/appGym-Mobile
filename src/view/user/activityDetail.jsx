@@ -30,7 +30,7 @@ export default function TrainingDetail({navigation}) {
   ];
   return (
     <ViewDefault>
-      <Header title={'TREINO'} navigation={navigation} />
+      <Header title={'TREINO A'} navigation={navigation} />
       <View
         style={[
           styles.main.column,
@@ -40,22 +40,22 @@ export default function TrainingDetail({navigation}) {
             height: '100%',
           },
         ]}>
-        <View style={[styles.main.row, styles.alignment.justifyContent.center]}>
+        {/* <View style={[styles.main.row, styles.alignment.justifyContent.center]}>
           <Text
             style={[
-              styles.colors.textColor.white_1,
+              styles.colors.textColor.dark_2,
               styles.font.size.size_28,
               styles.font.weight.semiBold,
             ]}>
             TREINO A
           </Text>
-        </View>
+        </View> */}
 
         <View
           style={[
             styles.main.column,
             styles.gapStyle.gap_1,
-            styles.colors.backgroundColor.dark_3,
+            styles.colors.backgroundColor.dark_2,
             styles.paddingStyle.pa_1,
             {
               borderRadius: 4,
@@ -65,7 +65,7 @@ export default function TrainingDetail({navigation}) {
             style={[
               styles.font.size.size_16,
               styles.font.weight.medium,
-              styles.colors.textColor.white_2,
+              styles.colors.textColor.white_1,
             ]}>
             TREINOS REALIZADOS: 7
           </Text>
@@ -73,7 +73,7 @@ export default function TrainingDetail({navigation}) {
             style={[
               styles.font.size.size_16,
               styles.font.weight.medium,
-              styles.colors.textColor.white_2,
+              styles.colors.textColor.white_1,
             ]}>
             ÚLTIMO TREINO: TER, 28 DE MARÇO DE 2023
           </Text>
@@ -89,7 +89,7 @@ export default function TrainingDetail({navigation}) {
                     style={[
                       styles.font.size.size_20,
                       styles.font.weight.medium,
-                      styles.colors.textColor.white_2,
+                      styles.colors.textColor.dark_2,
                     ]}>
                     {activity.title}
                   </Text>
@@ -99,7 +99,7 @@ export default function TrainingDetail({navigation}) {
                       style={[
                         styles.font.size.size_16,
                         styles.font.weight.medium,
-                        styles.colors.textColor.white_2,
+                        styles.colors.textColor.dark_3,
                       ]}>
                       {activity.time}
                     </Text>
@@ -110,7 +110,7 @@ export default function TrainingDetail({navigation}) {
                       style={[
                         styles.font.size.size_16,
                         styles.font.weight.medium,
-                        styles.colors.textColor.white_2,
+                        styles.colors.textColor.dark_3,
                       ]}>
                       {`Máquina: ${activity.machine}`}
                     </Text>
@@ -121,7 +121,7 @@ export default function TrainingDetail({navigation}) {
                       style={[
                         styles.font.size.size_16,
                         styles.font.weight.medium,
-                        styles.colors.textColor.white_2,
+                        styles.colors.textColor.dark_3,
                       ]}>
                       {`Séries & repetições: ${activity.series}x${activity.repetitions}`}
                     </Text>
@@ -132,14 +132,14 @@ export default function TrainingDetail({navigation}) {
                       style={[
                         styles.font.size.size_16,
                         styles.font.weight.medium,
-                        styles.colors.textColor.white_2,
+                        styles.colors.textColor.dark_3,
                       ]}>
                       {`Carga: ${activity.load}`}
                     </Text>
                   )}
                 </View>
                 {index < details.length - 1 && (
-                  <HorizontalRule color={'#F2C94C'} />
+                  <HorizontalRule color={'#ff6500'} />
                 )}
               </React.Fragment>
             ))}

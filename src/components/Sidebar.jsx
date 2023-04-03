@@ -59,7 +59,7 @@ export default function Sidebar({open}) {
               flex: 1,
               width: '50%',
             },
-            styles.colors.backgroundColor.yellow_2,
+            styles.colors.backgroundColor.white_3,
             styles.paddingStyle.pa_3,
             styles.gapStyle.gap_3,
           ]}>

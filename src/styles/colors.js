@@ -15,7 +15,7 @@ const textColor = StyleSheet.create({
 const backgroundColor = StyleSheet.create({
   white_1: {backgroundColor: '#ffffff'},
   white_2: {backgroundColor: '#fefefe'},
-  white_2: {backgroundColor: '#eee'},
+  white_3: {backgroundColor: '#eee'},
   dark_1: {backgroundColor: '#000000'},
   dark_2: {backgroundColor: '#1e1e1e'},
   dark_3: {backgroundColor: '#2d2d2d'},
