@@ -15,6 +15,8 @@ import {navigationRef} from './src/utils/RootNavigation';
 import GymProfile from './src/view/gym/profile';
 import Instructors from './src/view/gym/instructors';
 import Users from './src/view/gym/users';
+import ManageInstructor from './src/view/gym/manageInstructor';
+import ManageUser from './src/view/gym/manageUser';
 
 export default function App() {
   const sidebarState = useSelector(state => {
@@ -35,7 +37,9 @@ export default function App() {
 
           <Stack.Screen name="GymProfile" component={GymProfile} />
           <Stack.Screen name="Instructors" component={Instructors} />
+          <Stack.Screen name="ManageInstructor" component={ManageInstructor} />
           <Stack.Screen name="Users" component={Users} />
+          <Stack.Screen name="ManageUser" component={ManageUser} />
         </Stack.Navigator>
         <Sidebar open={sidebarState} />
       </NavigationContainer>

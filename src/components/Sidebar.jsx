@@ -57,7 +57,7 @@ export default function Sidebar({open}) {
           style={[
             {
               flex: 1,
-              width: '50%',
+              width: '100%',
             },
             styles.colors.backgroundColor.yellow_2,
             styles.paddingStyle.pa_3,
@@ -78,8 +78,8 @@ export default function Sidebar({open}) {
               <Text
                 style={[
                   styles.colors.textColor.dark_2,
-                  styles.font.size.size_20,
-                  styles.font.weight.semiBold,
+                  styles.font.size.size_24,
+                  styles.font.weight.bold,
                 ]}>
                 {item.title}
               </Text>

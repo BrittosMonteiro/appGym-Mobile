@@ -5,7 +5,8 @@ import Header from '../../components/Header';
 import ViewDefault from '../ViewDefault';
 import style from '../../styles/index';
 import HorizontalRule from '../../components/HorizontalRule';
-import {DotsThreeVertical} from 'phosphor-react-native';
+import {CaretRight} from 'phosphor-react-native';
+import Button from '../../components/Button';
 
 export default function Instructors({navigation}) {
   const instructorsList = [
@@ -53,28 +54,24 @@ export default function Instructors({navigation}) {
         </Text>
 
         <View style={[style.main.row]}>
-          <Pressable
-            style={[
-              style.colors.backgroundColor.dark_3,
-              style.paddingStyle.pa_1,
-              {borderRadius: 4},
-            ]}>
-            <Text
-              style={[
-                style.font.weight.medium,
-                style.font.size.size_16,
-                style.colors.textColor.white_2,
-              ]}>
-              ADICIONAR
-            </Text>
-          </Pressable>
+          <View style={[style.main.row]}>
+            <Pressable
+              onPress={() =>
+                navigation.navigate('ManageInstructor', {id: null})
+              }>
+              <Button title={'ADICIONAR'} type={2} />
+            </Pressable>
+          </View>
         </View>
 
         {instructorsList.length > 0 ? (
           <View style={[style.main.column, style.gapStyle.gap_3]}>
             {instructorsList.map((instructor, index) => (
               <React.Fragment key={index}>
-                <View
+                <Pressable
+                  onPress={() =>
+                    navigation.navigate('ManageInstructor', {id: instructor.id})
+                  }
                   style={[
                     style.main.row,
                     style.alignment.justifyContent.space_between,
@@ -87,13 +84,11 @@ export default function Instructors({navigation}) {
                     ]}>
                     {instructor.name}
                   </Text>
-                  <DotsThreeVertical
-                    color={'#fefefe'}
-                    weight={'bold'}
-                    size={28}
-                  />
-                </View>
-                {index < instructorsList.length - 1 && <HorizontalRule />}
+                  <CaretRight color={'#fefefe'} weight={'bold'} size={28} />
+                </Pressable>
+                {index < instructorsList.length - 1 && (
+                  <HorizontalRule color={'#F2c24c'} />
+                )}
               </React.Fragment>
             ))}
           </View>

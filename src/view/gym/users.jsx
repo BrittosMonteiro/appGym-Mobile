@@ -4,8 +4,9 @@ import {Pressable, Text, View} from 'react-native';
 import Header from '../../components/Header';
 import ViewDefault from '../ViewDefault';
 import styles from '../../styles';
-import {DotsThreeVertical} from 'phosphor-react-native';
+import {CaretRight} from 'phosphor-react-native';
 import HorizontalRule from '../../components/HorizontalRule';
+import Button from '../../components/Button';
 
 export default function Users({navigation}) {
   const usersList = [
@@ -54,27 +55,19 @@ export default function Users({navigation}) {
 
         <View style={[styles.main.row]}>
           <Pressable
-            style={[
-              styles.colors.backgroundColor.dark_3,
-              styles.paddingStyle.pa_1,
-              {borderRadius: 4},
-            ]}>
-            <Text
-              style={[
-                styles.font.weight.medium,
-                styles.font.size.size_16,
-                styles.colors.textColor.white_2,
-              ]}>
-              ADICIONAR
-            </Text>
+            onPress={() => navigation.navigate('ManageUser', {id: null})}>
+            <Button title={'ADICIONAR'} type={2} />
           </Pressable>
         </View>
 
         {usersList.length > 0 ? (
           <View style={[styles.main.column, styles.gapStyle.gap_3]}>
-            {usersList.map((instructor, index) => (
+            {usersList.map((user, index) => (
               <React.Fragment key={index}>
-                <View
+                <Pressable
+                  onPress={() =>
+                    navigation.navigate('ManageUser', {id: user.id})
+                  }
                   style={[
                     styles.main.row,
                     styles.alignment.justifyContent.space_between,
@@ -85,15 +78,13 @@ export default function Users({navigation}) {
                       styles.font.size.size_20,
                       styles.colors.textColor.white_2,
                     ]}>
-                    {instructor.name}
+                    {user.name}
                   </Text>
-                  <DotsThreeVertical
-                    color={'#fefefe'}
-                    weight={'bold'}
-                    size={28}
-                  />
-                </View>
-                {index < usersList.length - 1 && <HorizontalRule />}
+                  <CaretRight color={'#fefefe'} weight={'bold'} size={28} />
+                </Pressable>
+                {index < usersList.length - 1 && (
+                  <HorizontalRule color={'#f2c24c'} />
+                )}
               </React.Fragment>
             ))}
           </View>

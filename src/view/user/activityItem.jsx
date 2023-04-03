@@ -12,16 +12,11 @@ export default function ActivityItem({activity, isStopped}) {
         styles.gapStyle.gap_1,
         styles.alignment.alignItems.flex_start,
       ]}>
-      <Pressable onPress={() => setIsChecked(!isChecked)} disabled={isStopped}>
+      <Pressable onPress={() => setIsChecked(!isChecked)}>
         {isChecked ? (
           <CheckSquare weight="bold" size={24} color="#27AE60" />
         ) : (
-          <Square
-            weight="bold"
-            size={24}
-            color="#fefefe"
-            style={isStopped && {opacity: 0.25}}
-          />
+          <Square weight="bold" size={24} color="#fefefe" />
         )}
       </Pressable>
       <View style={[styles.main.column, styles.gapStyle.gap_1]}>

@@ -96,7 +96,7 @@ export default function TrainingCurrent({route, navigation}) {
             height: '100%',
           },
         ]}>
-        <View style={[styles.main.row, styles.alignment.justifyContent.center]}>
+        {/* <View style={[styles.main.row, styles.alignment.justifyContent.center]}>
           <Text
             style={[
               styles.font.size.size_24,
@@ -107,9 +107,9 @@ export default function TrainingCurrent({route, navigation}) {
               minutes < 10 ? '0' + minutes : minutes
             }:${seconds < 10 ? '0' + seconds : seconds}`}
           </Text>
-        </View>
+        </View> */}
 
-        <View
+        {/* <View
           style={[
             styles.main.row,
             styles.paddingStyle.pa_1,
@@ -155,7 +155,7 @@ export default function TrainingCurrent({route, navigation}) {
               style={isStopped && {opacity: 0.25}}
             />
           </Pressable>
-        </View>
+        </View> */}
 
         {details.length > 0 ? (
           <ScrollView
@@ -163,12 +163,15 @@ export default function TrainingCurrent({route, navigation}) {
             contentContainerStyle={[styles.main.column, styles.gapStyle.gap_3]}>
             {details.map((activity, index) => (
               <React.Fragment key={index}>
-                <ActivityItem activity={activity} isStopped={isStopped} />
+                <ActivityItem activity={activity} />
                 {index < details.length - 1 && (
                   <HorizontalRule color={'#F2C94C'} />
                 )}
               </React.Fragment>
             ))}
+            <Pressable>
+              <Button title={'FINALIZAR TREINO'} type={1} />
+            </Pressable>
             <Pressable>
               <Button title={'CANCELAR'} type={0} />
             </Pressable>
