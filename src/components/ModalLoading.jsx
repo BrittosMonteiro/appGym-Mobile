@@ -1,9 +1,15 @@
-import {Text, View} from 'react-native';
+import {ActivityIndicator, Modal, View} from 'react-native';
+import {useSelector} from 'react-redux';
+
 import styles from '../styles';
 
-export default function ModalFinishTraining() {
+export default function ModalLoading() {
+  const openLoading = useSelector(state => {
+    return state.loadingReducer;
+  });
+
   return (
-    <Modal animationType={'fade'} visible={false} transparent={true}>
+    <Modal animationType={'fade'} visible={openLoading} transparent={true}>
       <View
         style={[
           styles.alignment.alignItems.center,

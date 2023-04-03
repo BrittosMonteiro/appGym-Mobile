@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Pressable, ScrollView, Text, View} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {PauseCircle, PlayCircle, StopCircle} from 'phosphor-react-native';
 
 import ViewDefault from '../ViewDefault';
@@ -8,8 +9,10 @@ import ActivityItem from './activityItem';
 import HorizontalRule from '../../components/HorizontalRule';
 import styles from '../../styles';
 import Button from '../../components/Button';
+import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 
 export default function TrainingCurrent({route, navigation}) {
+  const dispatch = useDispatch();
   const {title} = route.params;
   const [isPaused, setIsPaused] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -83,6 +86,23 @@ export default function TrainingCurrent({route, navigation}) {
       return () => clearInterval(interval);
     }
   }, [isPlaying, seconds, minutes, hours]);
+
+  function activityFinish() {
+    cancel();
+  }
+
+  function cancel() {
+    dispatch(setLoading());
+
+    setHours(0);
+    setMinutes(0);
+    setSeconds(0);
+
+    setTimeout(() => {
+      dispatch(unsetLoading());
+      navigation.goBack();
+    }, 1000);
+  }
 
   return (
     <ViewDefault>
@@ -169,10 +189,10 @@ export default function TrainingCurrent({route, navigation}) {
                 )}
               </React.Fragment>
             ))}
-            <Pressable>
+            <Pressable onPress={() => activityFinish()}>
               <Button title={'FINALIZAR TREINO'} type={1} />
             </Pressable>
-            <Pressable>
+            <Pressable onPress={() => cancel()}>
               <Button title={'CANCELAR'} type={0} />
             </Pressable>
           </ScrollView>

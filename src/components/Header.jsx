@@ -12,7 +12,8 @@ export default function Header({title, navigation}) {
     <View
       style={[
         styles.main.row,
-        styles.paddingStyle.pa_3,
+        styles.paddingStyle.py_5,
+        styles.paddingStyle.px_3,
         styles.colors.backgroundColor.yellow_2,
         styles.alignment.justifyContent.space_between,
         styles.alignment.alignItems.center,

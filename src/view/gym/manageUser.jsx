@@ -1,18 +1,41 @@
 import React, {useEffect, useState} from 'react';
 import {Pressable, Text, TextInput, View} from 'react-native';
+import {useDispatch} from 'react-redux';
 
 import ViewDefault from '../ViewDefault';
 import Header from '../../components/Header';
 import Button from '../../components/Button';
 import styles from '../../styles';
+import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 
 export default function ManageUser({navigation, route}) {
+  const dispatch = useDispatch();
   const {id} = route.params;
   const [name, setName] = useState('Lucas');
   const [birthdate, setBirthdate] = useState('07-10-1994');
   const [phone, setPhone] = useState('(11) 99485-8446');
-  const [email, setEmail] = useState('brittosmonteiro@gmail.com ');
+  const [email, setEmail] = useState('brittosmonteiro@gmail.com');
   const [cpf, setCpf] = useState('000000000');
+
+  function createUser() {
+    manageLoading();
+  }
+  function updateUser() {
+    manageLoading();
+  }
+  function deleteUser() {
+    manageLoading();
+  }
+  function cancel() {
+    manageLoading();
+  }
+
+  function manageLoading() {
+    dispatch(setLoading());
+    setTimeout(() => {
+      dispatch(unsetLoading());
+    }, 1000);
+  }
 
   return (
     <ViewDefault>
@@ -145,19 +168,19 @@ export default function ManageUser({navigation, route}) {
         </View>
         {id ? (
           <>
-            <Pressable>
+            <Pressable onPress={() => updateUser()}>
               <Button title={'ATUALIZAR'} type={1} />
             </Pressable>
-            <Pressable>
+            <Pressable onPress={() => deleteUser()}>
               <Button title={'EXCLUIR'} type={0} />
             </Pressable>
           </>
         ) : (
           <>
-            <Pressable>
+            <Pressable onPress={() => createUser()}>
               <Button title={'SALVAR'} type={1} />
             </Pressable>
-            <Pressable>
+            <Pressable onPress={() => cancel()}>
               <Button title={'CANCELAR'} type={0} />
             </Pressable>
           </>

@@ -17,6 +17,7 @@ import Instructors from './src/view/gym/instructors';
 import Users from './src/view/gym/users';
 import ManageInstructor from './src/view/gym/manageInstructor';
 import ManageUser from './src/view/gym/manageUser';
+import ModalLoading from './src/components/ModalLoading';
 
 export default function App() {
   const sidebarState = useSelector(state => {
@@ -42,6 +43,7 @@ export default function App() {
           <Stack.Screen name="ManageUser" component={ManageUser} />
         </Stack.Navigator>
         <Sidebar open={sidebarState} />
+        <ModalLoading />
       </NavigationContainer>
     </>
   );

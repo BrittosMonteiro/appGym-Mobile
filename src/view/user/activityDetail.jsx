@@ -1,13 +1,16 @@
 import React from 'react';
+import {useDispatch} from 'react-redux';
 import {Pressable, ScrollView, Text, View} from 'react-native';
 
-import Header from '../../components/Header';
 import ViewDefault from '../ViewDefault';
+import Header from '../../components/Header';
 import HorizontalRule from '../../components/HorizontalRule';
-import styles from '../../styles';
 import Button from '../../components/Button';
+import styles from '../../styles';
+import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 
 export default function TrainingDetail({navigation}) {
+  const dispatch = useDispatch();
   const details = [
     {
       id: 1,
@@ -28,6 +31,16 @@ export default function TrainingDetail({navigation}) {
       title: 'SUPINO RETO - HALTER',
     },
   ];
+
+  function deleteActivity() {
+    dispatch(setLoading());
+
+    setTimeout(() => {
+      dispatch(unsetLoading());
+      navigation.goBack();
+    }, 1000);
+  }
+
   return (
     <ViewDefault>
       <Header title={'TREINO'} navigation={navigation} />
@@ -149,7 +162,7 @@ export default function TrainingDetail({navigation}) {
               }>
               <Button title={'IR PARA O TREINO'} type={1} />
             </Pressable>
-            <Pressable>
+            <Pressable onPress={() => deleteActivity()}>
               <Button title={'EXCLUIR'} type={0} />
             </Pressable>
           </ScrollView>
