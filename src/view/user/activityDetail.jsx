@@ -94,7 +94,8 @@ export default function TrainingDetail({navigation}) {
 
         {details.length > 0 ? (
           <ScrollView
-            contentContainerStyle={[styles.main.column, styles.gapStyle.gap_3]}>
+            contentContainerStyle={[styles.main.column, styles.gapStyle.gap_3]}
+            showsVerticalScrollIndicator={false}>
             {details.map((activity, index) => (
               <React.Fragment key={index}>
                 <View style={[styles.main.column]}>

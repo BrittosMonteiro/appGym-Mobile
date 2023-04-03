@@ -68,7 +68,7 @@ export default function PaymentHistory({navigation}) {
                 </Text>
                 <Text
                   style={[
-                    styles.font.size.size_14,
+                    styles.font.size.size_16,
                     styles.font.weight.medium,
                     styles.colors.textColor.white_2,
                     payment.status && [
