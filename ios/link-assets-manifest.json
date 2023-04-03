@@ -1,0 +1,33 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/HindVadodara-Bold.ttf",
+      "sha1": "964f1cb059a2be32f7b7b35abed8149f0964e879"
+    },
+    {
+      "path": "src/assets/fonts/HindVadodara-Light.ttf",
+      "sha1": "05cfb0f0f32178b2ec613dfe76b4c9f484be2c5e"
+    },
+    {
+      "path": "src/assets/fonts/HindVadodara-Medium.ttf",
+      "sha1": "eda2a75b68192a85456d58c4e8a349e4d0d84b90"
+    },
+    {
+      "path": "src/assets/fonts/HindVadodara-Regular.ttf",
+      "sha1": "2ddb41b601c7faf28475a8a7a6380d9647b47eb9"
+    },
+    {
+      "path": "src/assets/fonts/HindVadodara-SemiBold.ttf",
+      "sha1": "ca01460abce5d3d399ffe0833746c531855cf555"
+    },
+    {
+      "path": "src/assets/fonts/Hind_Vadodara.zip",
+      "sha1": "fc1ec26798f27da0203e68982eab348d6b399824"
+    },
+    {
+      "path": "src/assets/fonts/OFL.txt",
+      "sha1": "de20c169950818edb233c63f3d2644c92601f45e"
+    }
+  ]
+}
