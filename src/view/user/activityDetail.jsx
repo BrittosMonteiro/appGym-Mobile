@@ -14,21 +14,21 @@ export default function TrainingDetail({navigation}) {
   const details = [
     {
       id: 1,
-      load: null,
+      load: 12,
       machine: null,
-      repetitions: null,
-      series: null,
-      time: '5 minutos',
-      title: 'ESTEIRA',
+      repetitions: 3,
+      series: 3,
+      time: null,
+      title: 'PULL-UP',
     },
     {
       id: 2,
-      load: 23,
-      machine: 37,
-      repetitions: 12,
+      load: 15,
+      machine: null,
+      repetitions: 3,
       series: 3,
       time: null,
-      title: 'SUPINO RETO - HALTER',
+      title: 'DIP - BARRA',
     },
   ];
 
@@ -50,7 +50,7 @@ export default function TrainingDetail({navigation}) {
           styles.gapStyle.gap_5,
           styles.paddingStyle.px_3,
           {
-            height: '100%',
+            flex: 1,
           },
         ]}>
         <View style={[styles.main.row, styles.alignment.justifyContent.center]}>
@@ -161,7 +161,7 @@ export default function TrainingDetail({navigation}) {
             ))}
             <Pressable
               onPress={() =>
-                navigation.navigate('ActivityCurrent', {title: 'TREINO A'})
+                navigation.navigate('ActivityCurrent', {title: 'CALISTENIA'})
               }>
               <Button title={'IR PARA O TREINO'} type={1} />
             </Pressable>

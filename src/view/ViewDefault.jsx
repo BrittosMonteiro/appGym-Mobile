@@ -11,7 +11,7 @@ export default function ViewDefault(props) {
         style={[
           styles.colors.backgroundColor.dark_2,
           styles.gapStyle.gap_5,
-          styles.paddingStyle.pb_3,
+          styles.paddingStyle.pb_5,
           {
             flex: 1,
           },

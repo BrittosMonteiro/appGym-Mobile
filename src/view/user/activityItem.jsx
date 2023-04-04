@@ -77,7 +77,7 @@ export default function ActivityItem({activity, isStopped}) {
               styles.font.size.size_16,
               styles.font.weight.regular,
             ]}>
-            {`Carga: ${activity.load}`}
+            {`Carga: ${activity.load}kg`}
           </Text>
         )}
       </View>
