@@ -61,7 +61,7 @@ export default function Sidebar({open}) {
     );
     setMenu(newMenu);
   }, []);
-  
+
   return (
     <Modal animationType="fade" visible={open} transparent={true}>
       <View
@@ -110,7 +110,7 @@ export default function Sidebar({open}) {
               />
             </Pressable>
             {index < menu.length - 1 && (
-              <HorizontalRule color={styles.colors.textColor.white_1.color} />
+              <HorizontalRule color={styles.colors.textColor.orange_1.color} />
             )}
           </React.Fragment>
         ))}
