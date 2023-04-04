@@ -11,7 +11,11 @@ export default function ModalFinishTraining() {
           styles.colors.backgroundColor.dark_1,
           {flex: 1, opacity: 0.75},
         ]}>
-        <ActivityIndicator color={'#fefefe'} animating={true} size={'large'} />
+        <ActivityIndicator
+          color={styles.colors.textColor.white_1.color}
+          animating={true}
+          size={'large'}
+        />
       </View>
     </Modal>
   );

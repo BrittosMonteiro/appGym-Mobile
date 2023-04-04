@@ -85,7 +85,7 @@ export default function TrainingCurrent({route, navigation}) {
       }, 1000);
       return () => clearInterval(interval);
     }
-  }, [isPlaying, seconds, minutes, hours]);
+  }, [isPlaying, seconds]);
 
   function activityFinish() {
     cancel();
@@ -185,7 +185,9 @@ export default function TrainingCurrent({route, navigation}) {
               <React.Fragment key={index}>
                 <ActivityItem activity={activity} />
                 {index < details.length - 1 && (
-                  <HorizontalRule color={'#F2C94C'} />
+                  <HorizontalRule
+                    color={styles.border.color.orange_1.borderColor}
+                  />
                 )}
               </React.Fragment>
             ))}

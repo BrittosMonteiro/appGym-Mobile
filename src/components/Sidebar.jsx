@@ -1,11 +1,12 @@
 import {Modal, Pressable, Text, View} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {XCircle} from 'phosphor-react-native';
+import {CaretRight, XCircle} from 'phosphor-react-native';
 
 import {setClose} from '../store/actions/sidebarAction';
 
 import * as RootNavigation from '../utils/RootNavigation';
 import styles from '../styles';
+import HorizontalRule from './HorizontalRule';
 
 export default function Sidebar({open}) {
   const dispatch = useDispatch();
@@ -44,48 +45,55 @@ export default function Sidebar({open}) {
     <Modal animationType="fade" visible={open} transparent={true}>
       <View
         style={[
-          styles.alignment.justifyContent.flex_end,
-          styles.alignment.alignItems.flex_end,
-          styles.colors.backgroundColor.dark_1,
-          styles.gapStyle.gap_5,
+          styles.colors.backgroundColor.dark_2,
+          styles.gapStyle.gap_1,
+          styles.paddingStyle.pa_3,
           {
             flex: 1,
             width: '100%',
           },
         ]}>
-        <View
-          style={[
-            {
-              flex: 1,
-              width: '100%',
-            },
-            styles.colors.backgroundColor.yellow_2,
-            styles.paddingStyle.pa_3,
-            styles.gapStyle.gap_3,
-          ]}>
-          <Pressable
-            style={{alignItems: 'flex-end'}}
-            onPress={() => dispatch(setClose())}>
-            <XCircle weight="bold" size={28} />
-          </Pressable>
-          {options.map((item, index) => (
+        <Pressable
+          style={[styles.alignment.alignItems.flex_end, {marginBottom: 24}]}
+          onPress={() => dispatch(setClose())}>
+          <XCircle
+            weight="bold"
+            size={28}
+            color={styles.colors.textColor.white_1.color}
+          />
+        </Pressable>
+        {options.map((item, index) => (
+          <>
             <Pressable
               key={index}
               onPress={() => {
                 dispatch(setClose());
                 RootNavigation.navigate(item.goTo);
-              }}>
+              }}
+              style={[
+                styles.main.row,
+                styles.alignment.alignItems.center,
+                styles.alignment.justifyContent.space_between,
+              ]}>
               <Text
                 style={[
-                  styles.colors.textColor.dark_2,
+                  styles.colors.textColor.white_1,
                   styles.font.size.size_24,
                   styles.font.weight.bold,
                 ]}>
                 {item.title}
               </Text>
+              <CaretRight
+                weight="bold"
+                size={28}
+                color={styles.colors.textColor.white_1.color}
+              />
             </Pressable>
-          ))}
-        </View>
+            {index < options.length - 1 && (
+              <HorizontalRule color={styles.colors.textColor.white_1.color} />
+            )}
+          </>
+        ))}
       </View>
     </Modal>
   );

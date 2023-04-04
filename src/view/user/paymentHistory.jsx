@@ -91,7 +91,9 @@ export default function PaymentHistory({navigation}) {
               </Text>
             </View>
             {index < paymentList.length - 1 && (
-              <HorizontalRule color={'#F2C24C'} />
+              <HorizontalRule
+                color={styles.border.color.orange_1.borderColor}
+              />
             )}
           </React.Fragment>
         ))}

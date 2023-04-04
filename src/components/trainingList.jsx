@@ -53,7 +53,11 @@ export default function TrainingList({navigation}) {
                 ]}>
                 {item.title}
               </Text>
-              <CaretRight weight="bold" color="#fefefe" size={28} />
+              <CaretRight
+                weight="bold"
+                color={styles.colors.textColor.white_1.color}
+                size={28}
+              />
             </View>
             {item?.qty && (
               <Text
@@ -66,7 +70,9 @@ export default function TrainingList({navigation}) {
               </Text>
             )}
           </Pressable>
-          {index < DATA.length - 1 && <HorizontalRule color={'#F2C24C'} />}
+          {index < DATA.length - 1 && (
+            <HorizontalRule color={styles.border.color.orange_1.borderColor} />
+          )}
         </React.Fragment>
       )}
       keyExtractor={item => item.id}

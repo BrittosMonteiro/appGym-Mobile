@@ -80,10 +80,16 @@ export default function Users({navigation}) {
                     ]}>
                     {user.name}
                   </Text>
-                  <CaretRight color={'#fefefe'} weight={'bold'} size={28} />
+                  <CaretRight
+                    color={styles.colors.textColor.white_1.color}
+                    weight={'bold'}
+                    size={28}
+                  />
                 </Pressable>
                 {index < usersList.length - 1 && (
-                  <HorizontalRule color={'#f2c24c'} />
+                  <HorizontalRule
+                    color={styles.border.color.orange_1.borderColor}
+                  />
                 )}
               </React.Fragment>
             ))}

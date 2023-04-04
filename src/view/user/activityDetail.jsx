@@ -43,7 +43,7 @@ export default function TrainingDetail({navigation}) {
 
   return (
     <ViewDefault>
-      <Header title={'TREINO'} navigation={navigation} />
+      <Header title={'DESCRIÇÃO'} navigation={navigation} />
       <View
         style={[
           styles.main.column,
@@ -153,7 +153,9 @@ export default function TrainingDetail({navigation}) {
                   )}
                 </View>
                 {index < details.length - 1 && (
-                  <HorizontalRule color={'#F2C94C'} />
+                  <HorizontalRule
+                    color={styles.border.color.orange_1.borderColor}
+                  />
                 )}
               </React.Fragment>
             ))}

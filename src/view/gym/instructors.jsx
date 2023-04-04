@@ -84,10 +84,16 @@ export default function Instructors({navigation}) {
                     ]}>
                     {instructor.name}
                   </Text>
-                  <CaretRight color={'#fefefe'} weight={'bold'} size={28} />
+                  <CaretRight
+                    color={style.colors.textColor.white_1.color}
+                    weight={'bold'}
+                    size={28}
+                  />
                 </Pressable>
                 {index < instructorsList.length - 1 && (
-                  <HorizontalRule color={'#F2c24c'} />
+                  <HorizontalRule
+                    color={style.border.color.orange_1.borderColor}
+                  />
                 )}
               </React.Fragment>
             ))}

@@ -4,6 +4,7 @@ import gapStyle from './gap';
 import font from './font';
 import colors from './colors';
 import alignment from './alignment';
+import border from './border';
 
 const main = StyleSheet.create({
   row: {
@@ -25,4 +26,4 @@ const main = StyleSheet.create({
   },
 });
 
-export default {main, paddingStyle, gapStyle, font, colors, alignment};
+export default {main, paddingStyle, gapStyle, font, colors, alignment, border};

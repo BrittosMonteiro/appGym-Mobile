@@ -7,7 +7,7 @@ export default function Button({title, type}) {
       style={[
         styles.alignment.justifyContent.center,
         styles.alignment.alignItems.center,
-        styles.main.borderRadiusDefault,
+        // styles.main.borderRadiusDefault,
         styles.paddingStyle.pa_1,
         type === 0 && styles.colors.backgroundColor.red_1,
         type === 1 && styles.colors.backgroundColor.green_1,

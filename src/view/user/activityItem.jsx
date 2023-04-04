@@ -14,9 +14,17 @@ export default function ActivityItem({activity, isStopped}) {
       ]}>
       <Pressable onPress={() => setIsChecked(!isChecked)}>
         {isChecked ? (
-          <CheckSquare weight="bold" size={24} color="#27AE60" />
+          <CheckSquare
+            weight="bold"
+            size={24}
+            color={styles.colors.textColor.green_1.color}
+          />
         ) : (
-          <Square weight="bold" size={24} color="#fefefe" />
+          <Square
+            weight="bold"
+            size={24}
+            color={styles.colors.textColor.white_1.color}
+          />
         )}
       </Pressable>
       <View style={[styles.main.column, styles.gapStyle.gap_1]}>
