@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Modal, Pressable, Text, View} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {CaretRight, XCircle} from 'phosphor-react-native';
 
 import {setClose} from '../store/actions/sidebarAction';
@@ -11,37 +11,57 @@ import HorizontalRule from './HorizontalRule';
 
 export default function Sidebar({open}) {
   const dispatch = useDispatch();
+  const userSessionReducer = useSelector(state => {
+    return state.userSessionReducer;
+  });
+  const [menu, setMenu] = useState([]);
 
   const options = [
     {
       title: 'INÍCIO',
       goTo: 'Dashboard',
+      canSee: 3,
     },
     {
       title: 'PERFIL',
       goTo: 'Profile',
+      canSee: 3,
     },
     {
       title: 'PERFIL ACADEMIA',
       goTo: 'GymProfile',
+      canSee: 1,
     },
     {
       title: 'INSTRUTORES',
       goTo: 'Instructors',
+      canSee: 1,
     },
     {
       title: 'ALUNOS',
       goTo: 'Users',
+      canSee: 2,
     },
     {
       title: 'HISTÓRICO DE PAGAMENTO',
       goTo: 'PaymentHistory',
+      canSee: 3,
     },
     {
       title: 'SAIR',
       goTo: 'Logout',
+      canSee: null,
     },
   ];
+
+  useEffect(() => {
+    const newMenu = options.filter(
+      option =>
+        option.canSee === userSessionReducer.userType || option.canSee === null,
+    );
+    setMenu(newMenu);
+  }, []);
+  
   return (
     <Modal animationType="fade" visible={open} transparent={true}>
       <View
@@ -63,7 +83,7 @@ export default function Sidebar({open}) {
             color={styles.colors.textColor.white_1.color}
           />
         </Pressable>
-        {options.map((item, index) => (
+        {menu.map((item, index) => (
           <React.Fragment key={index}>
             <Pressable
               onPress={() => {
@@ -79,7 +99,7 @@ export default function Sidebar({open}) {
                 style={[
                   styles.colors.textColor.white_1,
                   styles.font.size.size_24,
-                  styles.font.weight.bold,
+                  styles.font.weight.regular,
                 ]}>
                 {item.title}
               </Text>
@@ -89,7 +109,7 @@ export default function Sidebar({open}) {
                 color={styles.colors.textColor.white_1.color}
               />
             </Pressable>
-            {index < options.length - 1 && (
+            {index < menu.length - 1 && (
               <HorizontalRule color={styles.colors.textColor.white_1.color} />
             )}
           </React.Fragment>

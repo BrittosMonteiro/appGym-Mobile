@@ -30,11 +30,11 @@ const size = StyleSheet.create({
 const weight = StyleSheet.create({
   regular: {
     fontFamily: 'HindVadodara-Regular',
-    lineHeight: 20,
+    // lineHeight: 20,
   },
   medium: {
     fontFamily: 'HindVadodara-Medium',
-    lineHeight: 26,
+    // lineHeight: 26,
   },
   semiBold: {
     fontFamily: 'HindVadodara-SemiBold',
