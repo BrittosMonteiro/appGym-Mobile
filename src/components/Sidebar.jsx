@@ -1,3 +1,4 @@
+import React from 'react';
 import {Modal, Pressable, Text, View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {CaretRight, XCircle} from 'phosphor-react-native';
@@ -63,9 +64,8 @@ export default function Sidebar({open}) {
           />
         </Pressable>
         {options.map((item, index) => (
-          <>
+          <React.Fragment key={index}>
             <Pressable
-              key={index}
               onPress={() => {
                 dispatch(setClose());
                 RootNavigation.navigate(item.goTo);
@@ -92,7 +92,7 @@ export default function Sidebar({open}) {
             {index < options.length - 1 && (
               <HorizontalRule color={styles.colors.textColor.white_1.color} />
             )}
-          </>
+          </React.Fragment>
         ))}
       </View>
     </Modal>
