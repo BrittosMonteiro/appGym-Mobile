@@ -18,6 +18,10 @@ import Users from './src/view/gym/users';
 import ManageInstructor from './src/view/gym/manageInstructor';
 import ManageUser from './src/view/gym/manageUser';
 import ModalLoading from './src/components/ModalLoading';
+import ManageActivity from './src/view/gym/manageActivity';
+import Login from './src/view/login/login';
+import CreateUserAccount from './src/view/login/createUserAccount';
+import CreateGymAccount from './src/view/login/createGymAccount';
 
 export default function App() {
   const sidebarState = useSelector(state => {
@@ -28,7 +32,7 @@ export default function App() {
     <>
       <NavigationContainer ref={navigationRef}>
         <Stack.Navigator
-          initialRouteName="Dashboard"
+          initialRouteName="Login"
           screenOptions={{headerShown: false}}>
           <Stack.Screen name="Dashboard" component={Dashboard} />
           <Stack.Screen name="ActivityDetail" component={ActivityDetail} />
@@ -41,6 +45,14 @@ export default function App() {
           <Stack.Screen name="ManageInstructor" component={ManageInstructor} />
           <Stack.Screen name="Users" component={Users} />
           <Stack.Screen name="ManageUser" component={ManageUser} />
+          <Stack.Screen name="ManageActivity" component={ManageActivity} />
+
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen
+            name="CreateUserAccount"
+            component={CreateUserAccount}
+          />
+          <Stack.Screen name="CreateGymAccount" component={CreateGymAccount} />
         </Stack.Navigator>
         <Sidebar open={sidebarState} />
         <ModalLoading />

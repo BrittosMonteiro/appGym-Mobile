@@ -8,6 +8,7 @@ import HorizontalRule from '../../components/HorizontalRule';
 import Button from '../../components/Button';
 import styles from '../../styles';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
+import {PencilSimple} from 'phosphor-react-native';
 
 export default function TrainingDetail({navigation}) {
   const dispatch = useDispatch();
@@ -53,15 +54,26 @@ export default function TrainingDetail({navigation}) {
             flex: 1,
           },
         ]}>
-        <View style={[styles.main.row, styles.alignment.justifyContent.center]}>
+        <View
+          style={[
+            styles.main.row,
+            styles.alignment.justifyContent.space_between,
+            styles.alignment.alignItems.center,
+          ]}>
           <Text
             style={[
               styles.colors.textColor.white_1,
               styles.font.size.size_28,
               styles.font.weight.semiBold,
             ]}>
-            TREINO A
+            CALISTENIA
           </Text>
+          <Pressable onPress={() => navigation.navigate('ManageActivity')}>
+            <PencilSimple
+              weight="bold"
+              color={styles.colors.textColor.white_1.color}
+            />
+          </Pressable>
         </View>
 
         <View

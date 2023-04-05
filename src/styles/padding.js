@@ -1,6 +1,9 @@
 import {StyleSheet} from 'react-native';
 
 const paddingStyle = StyleSheet.create({
+  pa_0: {
+    padding: 0,
+  },
   pa_1: {
     padding: 8,
   },
@@ -17,6 +20,9 @@ const paddingStyle = StyleSheet.create({
     padding: 24,
   },
 
+  pt_0: {
+    paddingTop: 0,
+  },
   pt_1: {
     paddingTop: 8,
   },
@@ -33,6 +39,9 @@ const paddingStyle = StyleSheet.create({
     paddingTop: 24,
   },
 
+  pb_0: {
+    paddingBottom: 0,
+  },
   pb_1: {
     paddingBottom: 8,
   },
@@ -49,6 +58,9 @@ const paddingStyle = StyleSheet.create({
     paddingBottom: 24,
   },
 
+  pl_0: {
+    paddingLeft: 0,
+  },
   pl_1: {
     paddingLeft: 8,
   },
@@ -65,6 +77,9 @@ const paddingStyle = StyleSheet.create({
     paddingLeft: 24,
   },
 
+  pr_0: {
+    paddingRight: 0,
+  },
   pr_1: {
     paddingRight: 8,
   },
@@ -81,6 +96,9 @@ const paddingStyle = StyleSheet.create({
     paddingRight: 24,
   },
 
+  px_0: {
+    paddingHorizontal: 0,
+  },
   px_1: {
     paddingHorizontal: 8,
   },
@@ -97,6 +115,9 @@ const paddingStyle = StyleSheet.create({
     paddingHorizontal: 24,
   },
 
+  py_0: {
+    paddingVertical: 0,
+  },
   py_1: {
     paddingVertical: 8,
   },
