@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Pressable, Text, View} from 'react-native';
 
 import Header from '../../components/Header';
@@ -7,34 +7,31 @@ import styles from '../../styles';
 import {CaretRight} from 'phosphor-react-native';
 import HorizontalRule from '../../components/HorizontalRule';
 import Button from '../../components/Button';
+import {readGymUsersListService} from '../../service/user';
+import {useSelector} from 'react-redux';
 
 export default function Users({navigation}) {
-  const usersList = [
-    {
-      id: 1,
-      name: 'Lucas',
-    },
-    {
-      id: 2,
-      name: 'Khetllyn',
-    },
-    {
-      id: 3,
-      name: 'Eduardo',
-    },
-    {
-      id: 4,
-      name: 'Ronaldo',
-    },
-    {
-      id: 5,
-      name: 'Nildo',
-    },
-    {
-      id: 6,
-      name: 'Amilton',
-    },
-  ];
+  const userSession = useSelector(state => {
+    return state.userSessionReducer;
+  });
+  const [usersList, setUserList] = useState([]);
+
+  async function loadGymUsers() {
+    await readGymUsersListService(userSession.idGym)
+      .then(responseFind => {
+        if (responseFind.status === 200) {
+          return responseFind.json();
+        }
+      })
+      .then(response => {
+        setUserList(response.data);
+      })
+      .catch(err => {});
+  }
+
+  useEffect(() => {
+    loadGymUsers();
+  }, []);
   return (
     <ViewDefault>
       <Header navigation={navigation} title={'ALUNOS'} />
@@ -66,7 +63,7 @@ export default function Users({navigation}) {
               <React.Fragment key={index}>
                 <Pressable
                   onPress={() =>
-                    navigation.navigate('ManageUser', {id: user.id})
+                    navigation.navigate('ManageUser', {id: user.idUser})
                   }
                   style={[
                     styles.main.row,

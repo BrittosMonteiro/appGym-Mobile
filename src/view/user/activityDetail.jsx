@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import {Pressable, ScrollView, Text, View} from 'react-native';
 
@@ -9,29 +9,45 @@ import Button from '../../components/Button';
 import styles from '../../styles';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import {PencilSimple} from 'phosphor-react-native';
+import {readActivityByIdService} from '../../service/activity';
+import {readActivityHistoryByIdService} from '../../service/activityHistory';
 
-export default function TrainingDetail({navigation}) {
+export default function TrainingDetail({navigation, route}) {
+  const {idActivity} = route.params;
   const dispatch = useDispatch();
-  const details = [
-    {
-      id: 1,
-      load: 12,
-      machine: null,
-      repetitions: 3,
-      series: 3,
-      time: null,
-      title: 'PULL-UP',
-    },
-    {
-      id: 2,
-      load: 15,
-      machine: null,
-      repetitions: 3,
-      series: 3,
-      time: null,
-      title: 'DIP - BARRA',
-    },
-  ];
+  const [activity, setActivity] = useState([]);
+  const [activityHistory, setActivityHistory] = useState('');
+
+  async function loadActivity() {
+    await readActivityByIdService(idActivity)
+      .then(responseFind => {
+        if (responseFind) {
+          return responseFind.json();
+        }
+      })
+      .then(response => {
+        setActivity(response.data);
+      })
+      .catch(err => {});
+  }
+
+  async function loadActivityHistory() {
+    await readActivityHistoryByIdService({idActivity})
+      .then(responseFind => {
+        if (responseFind) {
+          return responseFind.json();
+        }
+      })
+      .then(response => {
+        setActivityHistory(response.data);
+      })
+      .catch(err => {});
+  }
+
+  useEffect(() => {
+    loadActivity();
+    loadActivityHistory();
+  }, []);
 
   function deleteActivity() {
     dispatch(setLoading());
@@ -41,6 +57,12 @@ export default function TrainingDetail({navigation}) {
       navigation.goBack();
     }, 1000);
   }
+
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      loadActivityHistory();
+    });
+  }, [navigation]);
 
   return (
     <ViewDefault>
@@ -66,9 +88,10 @@ export default function TrainingDetail({navigation}) {
               styles.font.size.size_28,
               styles.font.weight.semiBold,
             ]}>
-            CALISTENIA
+            {activity.title}
           </Text>
-          <Pressable onPress={() => navigation.navigate('ManageActivity')}>
+          <Pressable
+            onPress={() => navigation.navigate('ManageActivity', {idActivity})}>
             <PencilSimple
               weight="bold"
               color={styles.colors.textColor.white_1.color}
@@ -76,39 +99,42 @@ export default function TrainingDetail({navigation}) {
           </Pressable>
         </View>
 
-        <View
-          style={[
-            styles.main.column,
-            styles.gapStyle.gap_1,
-            styles.colors.backgroundColor.dark_3,
-            styles.paddingStyle.pa_1,
-            {
-              borderRadius: 4,
-            },
-          ]}>
-          <Text
+        {activityHistory.qty > 0 && (
+          <View
             style={[
-              styles.font.size.size_16,
-              styles.font.weight.medium,
-              styles.colors.textColor.white_2,
+              styles.main.column,
+              styles.gapStyle.gap_1,
+              styles.colors.backgroundColor.dark_3,
+              styles.paddingStyle.pa_1,
+              {
+                borderRadius: 4,
+              },
             ]}>
-            TREINOS REALIZADOS: 7
-          </Text>
-          <Text
-            style={[
-              styles.font.size.size_16,
-              styles.font.weight.medium,
-              styles.colors.textColor.white_2,
-            ]}>
-            ÚLTIMO TREINO: TER, 28 DE MARÇO DE 2023
-          </Text>
-        </View>
+            <Text
+              style={[
+                styles.font.size.size_16,
+                styles.font.weight.medium,
+                styles.colors.textColor.white_2,
+              ]}>
+              TREINOS REALIZADOS: {activityHistory.qty}
+            </Text>
+            <Text
+              style={[
+                styles.font.size.size_16,
+                styles.font.weight.medium,
+                styles.colors.textColor.white_2,
+              ]}>
+              ÚLTIMO TREINO:{' '}
+              {new Date(activityHistory.last).toLocaleDateString()}
+            </Text>
+          </View>
+        )}
 
-        {details.length > 0 ? (
+        {activity?.items ? (
           <ScrollView
             contentContainerStyle={[styles.main.column, styles.gapStyle.gap_3]}
             showsVerticalScrollIndicator={false}>
-            {details.map((activity, index) => (
+            {activity.items.map((activity, index) => (
               <React.Fragment key={index}>
                 <View style={[styles.main.column]}>
                   <Text
@@ -127,7 +153,7 @@ export default function TrainingDetail({navigation}) {
                         styles.font.weight.medium,
                         styles.colors.textColor.white_2,
                       ]}>
-                      {activity.time}
+                      {`${activity.time} minutos`}
                     </Text>
                   )}
 
@@ -160,11 +186,11 @@ export default function TrainingDetail({navigation}) {
                         styles.font.weight.medium,
                         styles.colors.textColor.white_2,
                       ]}>
-                      {`Carga: ${activity.load}`}
+                      {`Carga: ${activity.load}kg`}
                     </Text>
                   )}
                 </View>
-                {index < details.length - 1 && (
+                {index < activity.length - 1 && (
                   <HorizontalRule
                     color={styles.border.color.orange_1.borderColor}
                   />
@@ -173,7 +199,7 @@ export default function TrainingDetail({navigation}) {
             ))}
             <Pressable
               onPress={() =>
-                navigation.navigate('ActivityCurrent', {title: 'CALISTENIA'})
+                navigation.navigate('ActivityCurrent', {activity, idActivity})
               }>
               <Button title={'IR PARA O TREINO'} type={1} />
             </Pressable>

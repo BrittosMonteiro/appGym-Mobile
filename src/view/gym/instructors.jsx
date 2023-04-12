@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Pressable, Text, View} from 'react-native';
 
 import Header from '../../components/Header';
@@ -7,34 +7,38 @@ import style from '../../styles/index';
 import HorizontalRule from '../../components/HorizontalRule';
 import {CaretRight} from 'phosphor-react-native';
 import Button from '../../components/Button';
+import {useSelector} from 'react-redux';
+import {readInstructorListService} from '../../service/instructor';
 
 export default function Instructors({navigation}) {
-  const instructorsList = [
-    {
-      id: 1,
-      name: 'Lucas',
-    },
-    {
-      id: 2,
-      name: 'Khetllyn',
-    },
-    {
-      id: 3,
-      name: 'Eduardo',
-    },
-    {
-      id: 4,
-      name: 'Ronaldo',
-    },
-    {
-      id: 5,
-      name: 'Nildo',
-    },
-    {
-      id: 6,
-      name: 'Amilton',
-    },
-  ];
+  const userSession = useSelector(state => {
+    return state.userSessionReducer;
+  });
+  const [instructorsList, setInstructorList] = useState([]);
+
+  async function loadInstructors() {
+    await readInstructorListService(userSession.id)
+      .then(responseFind => {
+        if (responseFind.status === 200) {
+          return responseFind.json();
+        }
+      })
+      .then(response => {
+        setInstructorList(response.data);
+      })
+      .catch(err => {});
+  }
+
+  useEffect(() => {
+    loadInstructors();
+  }, []);
+
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      loadInstructors();
+    });
+  }, [navigation]);
+
   return (
     <ViewDefault>
       <Header navigation={navigation} title={'INSTRUTORES'} />
@@ -70,7 +74,9 @@ export default function Instructors({navigation}) {
               <React.Fragment key={index}>
                 <Pressable
                   onPress={() =>
-                    navigation.navigate('ManageInstructor', {id: instructor.id})
+                    navigation.navigate('ManageInstructor', {
+                      idInstructor: instructor._id.toString(),
+                    })
                   }
                   style={[
                     style.main.row,

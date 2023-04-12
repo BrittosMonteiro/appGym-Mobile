@@ -12,6 +12,7 @@ export default function ManageActivityList({
   availableActivities,
   title,
   addItemToList,
+  deleteItemFromList,
 }) {
   const [openModal, setOpenModal] = useState(false);
 
@@ -50,7 +51,11 @@ export default function ManageActivityList({
             contentContainerStyle={[styles.main.column, styles.gapStyle.gap_1]}>
             {selectedActivities.map((activity, index) => (
               <React.Fragment key={index}>
-                <ManageActivityItem activity={activity} />
+                <ManageActivityItem
+                  activity={activity}
+                  index={index}
+                  deleteItemFromList={deleteItemFromList}
+                />
                 {index < selectedActivities.length - 1 && (
                   <HorizontalRule
                     color={styles.colors.textColor.orange_1.color}

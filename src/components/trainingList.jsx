@@ -1,19 +1,39 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, Pressable, Text, View} from 'react-native';
 import {CaretRight} from 'phosphor-react-native';
 
 import HorizontalRule from './HorizontalRule';
 import styles from '../styles';
 import Button from './Button';
+import {useSelector} from 'react-redux';
+import {readActivityListService} from '../service/activity';
 
 export default function TrainingList({navigation}) {
-  const DATA = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'CALISTENIA',
-      qty: 2,
-    },
-  ];
+  const [activities, setActivities] = useState([]);
+  const userSession = useSelector(state => {
+    return state.userSessionReducer;
+  });
+
+  async function loadActivities() {
+    await readActivityListService(userSession.id)
+      .then(responseFind => {
+        return responseFind.json();
+      })
+      .then(response => {
+        setActivities(response.data);
+      })
+      .catch(err => {});
+  }
+
+  useEffect(() => {
+    loadActivities();
+  }, []);
+
+  React.useEffect(() => {
+    navigation.addListener('focus', () => {
+      loadActivities();
+    });
+  }, [navigation]);
 
   return (
     <View
@@ -24,18 +44,20 @@ export default function TrainingList({navigation}) {
       ]}>
       <View style={[styles.main.row]}>
         <Pressable
-          onPress={() => navigation.navigate('ManageActivity', {idUser: 123})}>
+          onPress={() =>
+            navigation.navigate('ManageActivity', {idActivity: null})
+          }>
           <Button title={'CRIAR TREINO'} type={2} />
         </Pressable>
       </View>
       <FlatList
         contentContainerStyle={[styles.gapStyle.gap_1]}
-        data={DATA}
+        data={activities}
         renderItem={({item, index}) => (
           <React.Fragment key={index}>
             <Pressable
               onPress={() => {
-                navigation.navigate('ActivityDetail');
+                navigation.navigate('ActivityDetail', {idActivity: item.id});
               }}
               style={[styles.main.column, styles.gapStyle.gap_1]}>
               <View
@@ -68,7 +90,7 @@ export default function TrainingList({navigation}) {
                 </Text>
               )}
             </Pressable>
-            {index < DATA.length - 1 && (
+            {index < activities.length - 1 && (
               <HorizontalRule
                 color={styles.border.color.orange_1.borderColor}
               />

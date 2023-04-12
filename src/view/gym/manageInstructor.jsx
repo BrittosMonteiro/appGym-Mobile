@@ -1,47 +1,152 @@
 import React, {useEffect, useState} from 'react';
-import {Pressable, Text, TextInput, View} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {Pressable, ScrollView, Text, TextInput, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 
 import ViewDefault from '../ViewDefault';
 import Header from '../../components/Header';
 import Button from '../../components/Button';
 import styles from '../../styles';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
+import {
+  createInstructorService,
+  deleteInstructorService,
+  readInstructorByIdService,
+  updateInstructorService,
+} from '../../service/instructor';
 
 export default function ManageInstructor({navigation, route}) {
   const dispatch = useDispatch();
-  const {id} = route.params;
-  const [name, setName] = useState('Lucas');
-  const [birthdate, setBirthdate] = useState('07-10-1994');
-  const [phone, setPhone] = useState('(11) 99485-8446');
-  const [email, setEmail] = useState('brittosmonteiro@gmail.com');
-  const [cref, setCref] = useState('000000000');
+  const userSession = useSelector(state => {
+    return state.userSessionReducer;
+  });
+  const {idInstructor} = route.params;
+  const [name, setName] = useState('');
+  const [birthdate, setBirthdate] = useState('');
+  const [email, setEmail] = useState('');
+  const [cref, setCref] = useState('');
 
-  function createInstructor() {
-    manageLoading();
-  }
-  function updateInstructor() {
-    manageLoading();
-  }
-  function deleteInstructor() {
-    manageLoading();
-  }
-  function cancel() {
-    manageLoading();
-  }
-
-  function manageLoading() {
+  async function createInstructor() {
     dispatch(setLoading());
-    setTimeout(() => {
+    if (!name || !email) {
       dispatch(unsetLoading());
-    }, 1000);
+      return;
+    }
+
+    const data = {
+      idGym: userSession.id,
+      name,
+      birthdate,
+      username: `${name
+        .split(' ')[0]
+        .replace(' ', '')
+        .toLocaleLowerCase()}${name
+        .split(' ')[1]
+        .replace(' ', '')
+        .toLocaleLowerCase()}_${userSession.displayName
+        .replace(' ', '')
+        .toLowerCase()}`,
+      email,
+      cref,
+      userLevel: 2,
+    };
+
+    await createInstructorService(data)
+      .then(responseCreate => {
+        if (responseCreate.status === 201) {
+          navigation.goBack();
+        }
+      })
+      .catch(err => {})
+      .finally(() => {
+        dispatch(unsetLoading());
+      });
   }
+
+  async function readInstructor() {
+    dispatch(setLoading());
+
+    await readInstructorByIdService(idInstructor)
+      .then(responseFind => {
+        if (responseFind.status === 200) {
+          return responseFind.json();
+        }
+      })
+      .then(response => {
+        setName(response.data.name);
+        setBirthdate(response.data.birthdate);
+        setEmail(response.data.email);
+        setCref(response.data.cref);
+      })
+      .catch(err => {})
+      .finally(() => {
+        dispatch(unsetLoading());
+      });
+  }
+
+  async function updateInstructor() {
+    dispatch(setLoading());
+
+    if (!name || !email) {
+      dispatch(unsetLoading());
+      return;
+    }
+
+    const update = {
+      idInstructor,
+      data: {
+        name,
+        birthdate,
+        username: `${name
+          .split(' ')[0]
+          .replace(' ', '')
+          .toLocaleLowerCase()}${name
+          .split(' ')[1]
+          .replace(' ', '')
+          .toLocaleLowerCase()}_${userSession.displayName
+          .replace(' ', '')
+          .toLowerCase()}`,
+        email,
+        cref,
+      },
+    };
+
+    await updateInstructorService(update)
+      .then(responseUpdate => {
+        if (responseUpdate.status === 200) {
+          navigation.goBack();
+        }
+      })
+      .catch(err => {})
+      .finally(() => {
+        dispatch(unsetLoading());
+      });
+  }
+
+  async function deleteInstructor() {
+    dispatch(setLoading());
+    await deleteInstructorService({idInstructor})
+      .then(responseDelete => {
+        if (responseDelete) {
+          navigation.goBack();
+        }
+      })
+      .catch(err => {})
+      .finally(() => {
+        dispatch(unsetLoading());
+      });
+  }
+
+  useEffect(() => {
+    if (idInstructor) {
+      readInstructor();
+    }
+  }, [idInstructor]);
 
   return (
     <ViewDefault>
       <Header navigation={navigation} title={'GERENCIAR INSTRUTOR'} />
-      <View
-        style={[
+      <ScrollView
+        contentContainerStyle={[
           styles.main.column,
           styles.gapStyle.gap_5,
           styles.paddingStyle.px_3,
@@ -65,7 +170,7 @@ export default function ManageInstructor({navigation, route}) {
               styles.font.weight.medium,
             ]}
             placeholderTextColor={[styles.colors.textColor.white_2]}
-            placeholder="placeholder"
+            placeholder="NOME DO INSTRUTOR"
             defaultValue={name}
             onChangeText={data => setName(data)}
           />
@@ -89,33 +194,9 @@ export default function ManageInstructor({navigation, route}) {
               styles.font.weight.medium,
             ]}
             placeholderTextColor={[styles.colors.textColor.white_2]}
-            placeholder="placeholder"
+            placeholder="DATA DE NASCIMENTO"
             defaultValue={birthdate}
             onChangeText={data => setBirthdate(data)}
-          />
-        </View>
-        <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-          <Text
-            style={[
-              styles.colors.textColor.white_1,
-              styles.font.size.size_16,
-              styles.font.weight.regular,
-            ]}>
-            TELEFONE
-          </Text>
-          <TextInput
-            style={[
-              styles.colors.backgroundColor.dark_3,
-              styles.colors.textColor.white_1,
-              styles.paddingStyle.pa_1,
-              styles.main.borderRadiusDefault,
-              styles.font.size.size_18,
-              styles.font.weight.medium,
-            ]}
-            placeholderTextColor={[styles.colors.textColor.white_2]}
-            placeholder="placeholder"
-            defaultValue={phone}
-            onChangeText={data => setPhone(data)}
           />
         </View>
         <View style={[styles.main.column, styles.gapStyle.gap_1]}>
@@ -137,7 +218,8 @@ export default function ManageInstructor({navigation, route}) {
               styles.font.weight.medium,
             ]}
             placeholderTextColor={[styles.colors.textColor.white_2]}
-            placeholder="placeholder"
+            placeholder="E-MAIL"
+            keyboardType="default"
             defaultValue={email}
             onChangeText={data => setEmail(data)}
           />
@@ -161,12 +243,12 @@ export default function ManageInstructor({navigation, route}) {
               styles.font.weight.medium,
             ]}
             placeholderTextColor={[styles.colors.textColor.white_2]}
-            placeholder="placeholder"
+            placeholder="CREF"
             defaultValue={cref}
             onChangeText={data => setCref(data)}
           />
         </View>
-        {id ? (
+        {idInstructor ? (
           <>
             <Pressable onPress={() => updateInstructor()}>
               <Button title={'ATUALIZAR'} type={1} />
@@ -180,12 +262,12 @@ export default function ManageInstructor({navigation, route}) {
             <Pressable onPress={() => createInstructor()}>
               <Button title={'SALVAR'} type={1} />
             </Pressable>
-            <Pressable onPress={() => cancel()}>
+            <Pressable onPress={() => navigation.goBack()}>
               <Button title={'CANCELAR'} type={0} />
             </Pressable>
           </>
         )}
-      </View>
+      </ScrollView>
     </ViewDefault>
   );
 }

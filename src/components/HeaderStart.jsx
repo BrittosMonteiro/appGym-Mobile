@@ -1,5 +1,5 @@
 import {Pressable, Text, View} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {List} from 'phosphor-react-native';
 
 import styles from '../styles';
@@ -7,6 +7,9 @@ import {setOpen} from '../store/actions/sidebarAction';
 
 export default function HeaderStart() {
   const dispatch = useDispatch();
+  const userSession = useSelector(state => {
+    return state.userSessionReducer;
+  });
 
   return (
     <View
@@ -26,7 +29,8 @@ export default function HeaderStart() {
           styles.font.size.size_24,
           styles.font.weight.medium,
         ]}>
-        Olá, <Text style={[styles.font.weight.bold]}>Lucas!</Text>
+        Olá,{' '}
+        <Text style={[styles.font.weight.bold]}>{userSession.displayName}!</Text>
       </Text>
       <Pressable onPress={() => dispatch(setOpen())}>
         <List

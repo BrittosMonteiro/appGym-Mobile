@@ -1,45 +1,74 @@
-import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
+import {
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import HeaderStart from '../../components/HeaderStart';
 import ViewDefault from '../ViewDefault';
 import HorizontalRule from '../../components/HorizontalRule';
+import Button from '../../components/Button';
 
 export default function GymProfile({navigation}) {
+  async function logout() {
+    try {
+      const storedData = await AsyncStorage.removeItem('userSession');
+      if (!storedData) {
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'Login'}],
+        });
+        return;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <ViewDefault>
       <HeaderStart />
-      <View style={[style.column, style.gap_6, {paddingHorizontal: 16}]}>
+      <ScrollView
+        contentContainerStyle={[
+          style.column,
+          style.gap_6,
+          {paddingHorizontal: 16},
+        ]}>
         <View style={[style.column]}>
-          <Text style={[style.fontRegular, style.font_16, style.whiteColor]}>
+          <Text style={[style.fontRegular, style.font_18, style.whiteColor]}>
             NOME
           </Text>
-          <Text style={[style.fontMedium, style.font_18, style.whiteColor]}>
+          <Text style={[style.fontMedium, style.font_20, style.whiteColor]}>
             The Best Academy
           </Text>
         </View>
         <View style={[style.column]}>
-          <Text style={[style.fontRegular, style.font_16, style.whiteColor]}>
+          <Text style={[style.fontRegular, style.font_18, style.whiteColor]}>
             NOME DE EXIBIÇÃO
           </Text>
-          <Text style={[style.fontMedium, style.font_18, style.whiteColor]}>
+          <Text style={[style.fontMedium, style.font_20, style.whiteColor]}>
             The Best
           </Text>
         </View>
         <View style={[style.column]}>
-          <Text style={[style.fontRegular, style.font_16, style.whiteColor]}>
+          <Text style={[style.fontRegular, style.font_18, style.whiteColor]}>
             ID
           </Text>
-          <Text style={[style.fontMedium, style.font_18, style.whiteColor]}>
+          <Text style={[style.fontMedium, style.font_20, style.whiteColor]}>
             01234
           </Text>
         </View>
         <HorizontalRule />
         <View style={[style.column, style.gap_6]}>
-          <Text style={[style.fontRegular, style.font_18, style.whiteColor]}>
+          <Text style={[style.fontRegular, style.font_20, style.whiteColor]}>
             ALTERAR SENHA
           </Text>
           <View style={[style.column, style.gap_2]}>
-            <Text style={[style.fontRegular, style.font_16, style.whiteColor]}>
+            <Text style={[style.fontRegular, style.font_18, style.whiteColor]}>
               NOVA SENHA
             </Text>
             <TextInput
@@ -48,13 +77,15 @@ export default function GymProfile({navigation}) {
               style={[
                 style.dark_2_BackgroundColor,
                 style.whiteColor,
-                {padding: 8, borderRadius: 4},
+                style.font_20,
+                style.fontMedium,
+                {padding: 8},
               ]}
               placeholderTextColor={'#777'}
             />
           </View>
           <View style={[style.column, style.gap_2]}>
-            <Text style={[style.fontRegular, style.font_16, style.whiteColor]}>
+            <Text style={[style.fontRegular, style.font_18, style.whiteColor]}>
               CONFIRMAR SENHA
             </Text>
             <TextInput
@@ -63,13 +94,18 @@ export default function GymProfile({navigation}) {
               style={[
                 style.dark_2_BackgroundColor,
                 style.whiteColor,
-                {padding: 8, borderRadius: 4},
+                style.font_20,
+                style.fontMedium,
+                {padding: 8},
               ]}
               placeholderTextColor={'#777'}
             />
           </View>
         </View>
-      </View>
+        <Pressable onPress={() => logout()}>
+          <Button title={'SAIR'} type={2} />
+        </Pressable>
+      </ScrollView>
     </ViewDefault>
   );
 }

@@ -10,10 +10,12 @@ import HorizontalRule from '../../components/HorizontalRule';
 import styles from '../../styles';
 import Button from '../../components/Button';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
+import {createActivityHistoryService} from '../../service/activityHistory';
 
 export default function TrainingCurrent({route, navigation}) {
   const dispatch = useDispatch();
-  const {title} = route.params;
+  const {activity, idActivity} = route.params;
+  const [items, setItems] = useState(activity.items);
   const [isPaused, setIsPaused] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isStopped, setIsStopped] = useState(true);
@@ -21,27 +23,6 @@ export default function TrainingCurrent({route, navigation}) {
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [hours, setHours] = useState(0);
-
-  const details = [
-    {
-      id: 1,
-      load: 12,
-      machine: null,
-      repetitions: 3,
-      series: 3,
-      time: null,
-      title: 'PULL-UP',
-    },
-    {
-      id: 2,
-      load: 15,
-      machine: null,
-      repetitions: 3,
-      series: 3,
-      time: null,
-      title: 'DIP - BARRA',
-    },
-  ];
 
   function manageButtons(pause, play, stop) {
     setIsPaused(pause);
@@ -69,8 +50,16 @@ export default function TrainingCurrent({route, navigation}) {
     }
   }, [isPlaying, seconds]);
 
-  function activityFinish() {
-    cancel();
+  async function activityFinish() {
+    dispatch(setLoading());
+    await createActivityHistoryService({idActivity})
+      .then(() => {
+        navigation.goBack();
+      })
+      .catch(err => {})
+      .finally(() => {
+        dispatch(unsetLoading());
+      });
   }
 
   function cancel() {
@@ -88,7 +77,7 @@ export default function TrainingCurrent({route, navigation}) {
 
   return (
     <ViewDefault>
-      <Header title={title} navigation={navigation} />
+      <Header title={activity.title} navigation={navigation} />
       <View
         style={[
           styles.main.column,
@@ -159,14 +148,14 @@ export default function TrainingCurrent({route, navigation}) {
           </Pressable>
         </View> */}
 
-        {details.length > 0 ? (
+        {activity ? (
           <ScrollView
             showsVerticalScrollIndicator={false}
             contentContainerStyle={[styles.main.column, styles.gapStyle.gap_3]}>
-            {details.map((activity, index) => (
+            {items.map((activity, index) => (
               <React.Fragment key={index}>
                 <ActivityItem activity={activity} />
-                {index < details.length - 1 && (
+                {index < items.length - 1 && (
                   <HorizontalRule
                     color={styles.border.color.orange_1.borderColor}
                   />

@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Pressable,
@@ -6,31 +6,99 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
+import {CaretRight, Eye, EyeSlash} from 'phosphor-react-native';
 
 import ViewDefault from '../ViewDefault';
 import styles from '../../styles';
 import Button from '../../components/Button';
-import {CaretRight, Eye, EyeSlash} from 'phosphor-react-native';
 import HorizontalRule from '../../components/HorizontalRule';
+import {loginService} from '../../service/login';
+import {setUser} from '../../store/actions/userSessionAction';
 
 export default function Login({navigation}) {
+  const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  function access() {
+  const setUserSession = async data => {
+    try {
+      await AsyncStorage.setItem('userSession', JSON.stringify(data));
+      getUserSession();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const getUserSession = async () => {
+    setIsLoading(true);
+    try {
+      const jsonUserSession = await AsyncStorage.getItem('userSession');
+      const jsonUserData = JSON.parse(jsonUserSession);
+      if (jsonUserData !== null) {
+        dispatch(setUser(jsonUserData));
+        navigation.reset({
+          index: 0,
+          routes: [{name: goTo(jsonUserData.userLevel)}],
+        });
+        setIsLoading(false);
+        return;
+      }
+      setIsLoading(false);
+    } catch (e) {
+      setIsLoading(false);
+    }
+  };
+
+  async function access() {
+    setIsLoading(true);
+
+    if (!username || !password) {
+      setIsLoading(false);
+      return;
+    }
+
     const data = {
       username,
       password,
     };
 
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      navigation.navigate('Dashboard');
-    }, 2000);
+    await loginService(data)
+      .then(responseFind => {
+        if (responseFind.status === 200) {
+          return responseFind.json();
+        }
+      })
+      .then(response => {
+        setUserSession(response);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
+
+  function goTo(userLevel) {
+    switch (userLevel) {
+      case 1:
+        return 'GymProfile';
+      case 2:
+        return 'ProfileInstructor';
+      case 3:
+        return 'Dashboard';
+      default:
+        'Login';
+    }
+  }
+
+  useEffect(() => {
+    getUserSession();
+  }, []);
 
   return (
     <ViewDefault>
@@ -76,6 +144,7 @@ export default function Login({navigation}) {
                 styles.paddingStyle.px_2,
                 styles.paddingStyle.py_1,
               ]}
+              editable={!isLoading}
               placeholder="USUÁRIO"
               placeholderTextColor={styles.colors.textColor.gray_1}
               defaultValue={username}
@@ -109,6 +178,7 @@ export default function Login({navigation}) {
                   styles.paddingStyle.pa_0,
                   {flex: 1},
                 ]}
+                editable={!isLoading}
                 secureTextEntry={!showPassword}
                 placeholder="SENHA"
                 placeholderTextColor={styles.colors.textColor.gray_1}
@@ -133,7 +203,7 @@ export default function Login({navigation}) {
             </View>
           </View>
 
-          <Pressable onPress={() => access()}>
+          <Pressable onPress={() => access()} disabled={isLoading}>
             <Button
               title={
                 isLoading ? (
@@ -153,7 +223,9 @@ export default function Login({navigation}) {
 
           <View style={[styles.main.column, styles.gapStyle.gap_3]}>
             <Pressable
-              onPress={() => navigation.navigate('CreateUserAccount')}
+              onPress={() =>
+                navigation.navigate('CreateGymAccount', {userLevel: 3})
+              }
               style={[
                 styles.main.row,
                 styles.alignment.justifyContent.space_between,
@@ -173,7 +245,9 @@ export default function Login({navigation}) {
               />
             </Pressable>
             <Pressable
-              onPress={() => navigation.navigate('CreateGymAccount')}
+              onPress={() =>
+                navigation.navigate('CreateGymAccount', {userLevel: 1})
+              }
               style={[
                 styles.main.row,
                 styles.alignment.justifyContent.space_between,

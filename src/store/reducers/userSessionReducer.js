@@ -1,7 +1,9 @@
 let initialState = {
-  id: null,
-  token: null,
-  userType: 3,
+  id: '',
+  idGym: '',
+  displayName: '',
+  token: '',
+  userLevel: '',
 };
 
 export default function userSessionReducer(state = initialState, action) {
@@ -11,6 +13,6 @@ export default function userSessionReducer(state = initialState, action) {
     case 'UNSET_USER':
       return (state = initialState);
     default:
-      return (state = initialState);
+      return state;
   }
 }

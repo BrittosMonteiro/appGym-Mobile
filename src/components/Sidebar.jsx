@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {CaretRight, XCircle} from 'phosphor-react-native';
 
 import {setClose} from '../store/actions/sidebarAction';
-
 import * as RootNavigation from '../utils/RootNavigation';
 import styles from '../styles';
 import HorizontalRule from './HorizontalRule';
@@ -18,6 +17,28 @@ export default function Sidebar({open}) {
 
   const options = [
     {
+      title: 'PERFIL ACADEMIA',
+      goTo: 'GymProfile',
+      canSee: 1,
+    },
+    {
+      title: 'INSTRUTORES',
+      goTo: 'Instructors',
+      canSee: 1,
+    },
+
+    {
+      title: 'PERFIL DO INSTRUTOR',
+      goTo: 'ProfileInstructor',
+      canSee: 2,
+    },
+    {
+      title: 'ALUNOS',
+      goTo: 'Users',
+      canSee: 2,
+    },
+
+    {
       title: 'INÍCIO',
       goTo: 'Dashboard',
       canSee: 3,
@@ -28,39 +49,20 @@ export default function Sidebar({open}) {
       canSee: 3,
     },
     {
-      title: 'PERFIL ACADEMIA',
-      goTo: 'GymProfile',
-      canSee: 1,
-    },
-    {
-      title: 'INSTRUTORES',
-      goTo: 'Instructors',
-      canSee: 1,
-    },
-    {
-      title: 'ALUNOS',
-      goTo: 'Users',
-      canSee: 2,
-    },
-    {
       title: 'HISTÓRICO DE PAGAMENTO',
       goTo: 'PaymentHistory',
       canSee: 3,
-    },
-    {
-      title: 'SAIR',
-      goTo: 'Logout',
-      canSee: null,
     },
   ];
 
   useEffect(() => {
     const newMenu = options.filter(
       option =>
-        option.canSee === userSessionReducer.userType || option.canSee === null,
+        option.canSee === userSessionReducer.userLevel ||
+        option.canSee === null,
     );
     setMenu(newMenu);
-  }, []);
+  }, [userSessionReducer]);
 
   return (
     <Modal animationType="fade" visible={open} transparent={true}>

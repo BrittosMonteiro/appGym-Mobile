@@ -6,8 +6,19 @@ import ViewDefault from '../ViewDefault';
 import styles from '../../styles';
 import Button from '../../components/Button';
 import ManageActivityList from './components/manageActivityList';
+import {useDispatch, useSelector} from 'react-redux';
+import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
+import {
+  createActivityService,
+  readActivityByIdService,
+} from '../../service/activity';
 
 export default function ManageActivity({navigation, route}) {
+  const {idActivity} = route.params;
+  const dispatch = useDispatch();
+  const userSession = useSelector(state => {
+    return state.userSessionReducer;
+  });
   const [name, setName] = useState('');
   const [selectedActivities, setSelectedActivities] = useState([]);
   const [availableActivities, setAvailableActivities] = useState([]);
@@ -81,19 +92,56 @@ export default function ManageActivity({navigation, route}) {
       id: 16,
       title: 'ALONGAMENTO',
     },
+    {
+      id: 17,
+      title: 'PULL UP',
+    },
+    {
+      id: 18,
+      title: 'DIP',
+    },
   ];
+
+  async function loadActivity() {
+    await readActivityByIdService(idActivity)
+      .then(responseFind => {
+        if (responseFind) {
+          return responseFind.json();
+        }
+      })
+      .then(response => {
+        setSelectedActivities(response.data.items);
+        setName(response.data.title);
+      })
+      .catch(err => {});
+  }
 
   useEffect(() => {
     setAvailableActivities(activitiesList);
+    loadActivity();
   }, []);
 
-  function createActivity() {
+  async function createActivity() {
+    dispatch(setLoading());
+    if (!name) {
+      dispatch(unsetLoading());
+      return;
+    }
     const data = {
-      idUser: null,
-      activityList: selectedActivities,
+      idUser: userSession.id,
+      items: selectedActivities,
+      title: name,
     };
 
-    console.log(data);
+    await createActivityService(data)
+      .then(() => {
+        dispatch(setLoading());
+        navigation.goBack();
+      })
+      .catch(err => {})
+      .finally(() => {
+        dispatch(unsetLoading());
+      });
   }
 
   function addItemToList(data) {
@@ -108,6 +156,12 @@ export default function ManageActivity({navigation, route}) {
     };
     selectedActivities.push(newActivity);
     setSelectedActivities(selectedActivities);
+  }
+
+  function deleteItemFromList(index) {
+    setSelectedActivities(selected =>
+      selected.filter((items, key) => key !== index),
+    );
   }
 
   return (
@@ -150,13 +204,17 @@ export default function ManageActivity({navigation, route}) {
           selectedActivities={selectedActivities}
           availableActivities={availableActivities}
           addItemToList={addItemToList}
+          deleteItemFromList={deleteItemFromList}
         />
-        <Pressable onPress={() => createActivity()}>
-          <Button title={'CRIAR'} type={1} />
-        </Pressable>
-        <Pressable onPress={() => createActivity()}>
-          <Button title={'ATUALIZAR'} type={1} />
-        </Pressable>
+        {idActivity ? (
+          <Pressable onPress={() => createActivity()}>
+            <Button title={'ATUALIZAR'} type={1} />
+          </Pressable>
+        ) : (
+          <Pressable onPress={() => createActivity()}>
+            <Button title={'CRIAR'} type={1} />
+          </Pressable>
+        )}
       </View>
     </ViewDefault>
   );
