@@ -26,6 +26,11 @@ export default function Sidebar({open}) {
       goTo: 'Instructors',
       canSee: 1,
     },
+    {
+      title: 'PLANOS',
+      goTo: 'PlanList',
+      canSee: 1,
+    },
 
     {
       title: 'PERFIL DO INSTRUTOR',

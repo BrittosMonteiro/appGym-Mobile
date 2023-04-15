@@ -1,3 +1,4 @@
+import {useEffect, useState} from 'react';
 import {
   Pressable,
   ScrollView,
@@ -12,8 +13,18 @@ import HeaderStart from '../../components/HeaderStart';
 import ViewDefault from '../ViewDefault';
 import HorizontalRule from '../../components/HorizontalRule';
 import Button from '../../components/Button';
+import {useDispatch, useSelector} from 'react-redux';
+import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
+import {readUserByIdService} from '../../service/user';
 
 export default function GymProfile({navigation}) {
+  const dispatch = useDispatch();
+  const userSession = useSelector(state => {
+    return state.userSessionReducer;
+  });
+  const [name, setName] = useState('');
+  const [shortName, setShortName] = useState('');
+
   async function logout() {
     try {
       const storedData = await AsyncStorage.removeItem('userSession');
@@ -29,6 +40,28 @@ export default function GymProfile({navigation}) {
     }
   }
 
+  async function loadProfile() {
+    dispatch(setLoading());
+    await readUserByIdService(userSession.id)
+      .then(responseFind => {
+        if (responseFind.status === 200) {
+          return responseFind.json();
+        }
+      })
+      .then(response => {
+        setName(response.data.name);
+        setShortName(response.data.shortName);
+      })
+      .catch(() => {})
+      .finally(() => {
+        dispatch(unsetLoading());
+      });
+  }
+
+  useEffect(() => {
+    loadProfile();
+  }, []);
+
   return (
     <ViewDefault>
       <HeaderStart />
@@ -43,7 +76,7 @@ export default function GymProfile({navigation}) {
             NOME
           </Text>
           <Text style={[style.fontMedium, style.font_20, style.whiteColor]}>
-            The Best Academy
+            {name}
           </Text>
         </View>
         <View style={[style.column]}>
@@ -51,17 +84,17 @@ export default function GymProfile({navigation}) {
             NOME DE EXIBIÇÃO
           </Text>
           <Text style={[style.fontMedium, style.font_20, style.whiteColor]}>
-            The Best
+            {shortName}
           </Text>
         </View>
-        <View style={[style.column]}>
+        {/* <View style={[style.column]}>
           <Text style={[style.fontRegular, style.font_18, style.whiteColor]}>
             ID
           </Text>
           <Text style={[style.fontMedium, style.font_20, style.whiteColor]}>
             01234
           </Text>
-        </View>
+        </View> */}
         <HorizontalRule />
         <View style={[style.column, style.gap_6]}>
           <Text style={[style.fontRegular, style.font_20, style.whiteColor]}>

@@ -4,39 +4,46 @@ import {Pressable, ScrollView, Text, View} from 'react-native';
 import Header from '../../components/Header';
 import ViewDefault from '../ViewDefault';
 import styles from '../../styles';
-import {CaretRight} from 'phosphor-react-native';
-import HorizontalRule from '../../components/HorizontalRule';
 import Button from '../../components/Button';
-import {readGymUsersListService} from '../../service/user';
+import HorizontalRule from '../../components/HorizontalRule';
+import {CaretRight} from 'phosphor-react-native';
+import {readPlanListService} from '../../service/plan';
 import {useSelector} from 'react-redux';
 
-export default function Users({navigation}) {
+export default function PlanList({navigation}) {
   const userSession = useSelector(state => {
     return state.userSessionReducer;
   });
-  const [usersList, setUserList] = useState([]);
+  const [planList, setPlanList] = useState([]);
 
-  async function loadGymUsers() {
-    await readGymUsersListService(userSession.idGym)
+  async function loadPlans() {
+    await readPlanListService(userSession.id)
       .then(responseFind => {
         if (responseFind.status === 200) {
           return responseFind.json();
         }
       })
       .then(response => {
-        setUserList(response.data);
+        setPlanList(response.data);
       })
       .catch(err => {});
   }
 
   useEffect(() => {
-    loadGymUsers();
+    loadPlans();
   }, []);
+
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      loadPlans();
+    });
+  }, [navigation]);
+
   return (
     <ViewDefault>
-      <Header navigation={navigation} title={'ALUNOS'} />
+      <Header navigation={navigation} title={'PLANOS'} />
       <ScrollView
-        style={[
+        contentContainerStyle={[
           styles.main.column,
           styles.paddingStyle.px_3,
           styles.gapStyle.gap_5,
@@ -47,23 +54,21 @@ export default function Users({navigation}) {
             styles.font.weight.regular,
             styles.colors.textColor.white_2,
           ]}>
-          Lista de alunos cadastrados no nosso sistema
+          Lista de planos cadastrados
         </Text>
-
         <View style={[styles.main.row]}>
           <Pressable
-            onPress={() => navigation.navigate('ManageUser', {id: null})}>
+            onPress={() => navigation.navigate('PlanManagement', {id: null})}>
             <Button title={'ADICIONAR'} type={2} />
           </Pressable>
         </View>
-
-        {usersList.length > 0 ? (
+        {planList.length > 0 ? (
           <View style={[styles.main.column, styles.gapStyle.gap_3]}>
-            {usersList.map((user, index) => (
+            {planList.map((plan, index) => (
               <React.Fragment key={index}>
                 <Pressable
                   onPress={() =>
-                    navigation.navigate('ManageUser', {id: user.idUser})
+                    navigation.navigate('PlanManagement', {id: plan.idPlan})
                   }
                   style={[
                     styles.main.row,
@@ -75,7 +80,7 @@ export default function Users({navigation}) {
                       styles.font.size.size_20,
                       styles.colors.textColor.white_2,
                     ]}>
-                    {user.name}
+                    {plan.title}
                   </Text>
                   <CaretRight
                     color={styles.colors.textColor.white_1.color}
@@ -83,7 +88,7 @@ export default function Users({navigation}) {
                     size={28}
                   />
                 </Pressable>
-                {index < usersList.length - 1 && (
+                {index < planList.length - 1 && (
                   <HorizontalRule
                     color={styles.border.color.orange_1.borderColor}
                   />
@@ -91,7 +96,9 @@ export default function Users({navigation}) {
               </React.Fragment>
             ))}
           </View>
-        ) : null}
+        ) : (
+          ''
+        )}
       </ScrollView>
     </ViewDefault>
   );

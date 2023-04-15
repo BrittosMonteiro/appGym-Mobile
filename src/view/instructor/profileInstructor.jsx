@@ -160,6 +160,27 @@ export default function ProfileInstructor({navigation}) {
             </Text>
           </View>
 
+          {username && (
+            <View style={[styles.main.column, styles.gapStyle.gap_1]}>
+              <Text
+                style={[
+                  styles.font.weight.regular,
+                  styles.font.size.size_18,
+                  styles.colors.textColor.white_1,
+                ]}>
+                USERNAME
+              </Text>
+              <Text
+                style={[
+                  styles.font.weight.medium,
+                  styles.font.size.size_20,
+                  styles.colors.textColor.white_1,
+                ]}>
+                {username}
+              </Text>
+            </View>
+          )}
+
           <View style={[styles.main.column, styles.gapStyle.gap_1]}>
             <Text
               style={[

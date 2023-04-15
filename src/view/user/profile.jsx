@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Pressable, ScrollView, Text, TextInput, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Eye, EyeSlash, ToggleLeft, ToggleRight} from 'phosphor-react-native';
@@ -8,7 +8,7 @@ import ViewDefault from '../ViewDefault';
 import HorizontalRule from '../../components/HorizontalRule';
 import styles from '../../styles';
 import Button from '../../components/Button';
-import {updatePasswordService} from '../../service/user';
+import {readUserByIdService, updatePasswordService} from '../../service/user';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -18,10 +18,35 @@ export default function Profile({navigation}) {
   });
   const dispatch = useDispatch();
 
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [birthdate, setBirthdate] = useState('');
+  const [gymName, setGymName] = useState('');
+
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [toggleUpdatePassword, setToggleUpdatePassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  async function loadProfile() {
+    await readUserByIdService(userSession.id)
+      .then(responseFind => {
+        if (responseFind.status === 200) {
+          return responseFind.json();
+        }
+      })
+      .then(response => {
+        setName(response.data.name);
+        setEmail(response.data.email);
+        setUsername(response.data.username);
+        setBirthdate(response.data.birthdate);
+        setCpf(response.data.cpf);
+        setGymName(response.data.gym);
+      })
+      .catch(err => {});
+  }
 
   async function logout() {
     try {
@@ -71,6 +96,10 @@ export default function Profile({navigation}) {
       });
   }
 
+  useEffect(() => {
+    loadProfile();
+  }, []);
+
   return (
     <ViewDefault>
       <Header navigation={navigation} title={'PERFIL'} />
@@ -96,7 +125,83 @@ export default function Profile({navigation}) {
                 styles.font.size.size_20,
                 styles.font.weight.medium,
               ]}>
-              Lucas
+              {name}
+            </Text>
+          </View>
+
+          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
+            <Text
+              style={[
+                styles.colors.textColor.white_2,
+                styles.font.size.size_18,
+                styles.font.weight.regular,
+              ]}>
+              E-MAIL
+            </Text>
+            <Text
+              style={[
+                styles.colors.textColor.white_1,
+                styles.font.size.size_20,
+                styles.font.weight.medium,
+              ]}>
+              {email}
+            </Text>
+          </View>
+
+          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
+            <Text
+              style={[
+                styles.colors.textColor.white_2,
+                styles.font.size.size_18,
+                styles.font.weight.regular,
+              ]}>
+              USERNAME
+            </Text>
+            <Text
+              style={[
+                styles.colors.textColor.white_1,
+                styles.font.size.size_20,
+                styles.font.weight.medium,
+              ]}>
+              {username}
+            </Text>
+          </View>
+
+          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
+            <Text
+              style={[
+                styles.colors.textColor.white_2,
+                styles.font.size.size_18,
+                styles.font.weight.regular,
+              ]}>
+              DATA DE NASCIMENTO
+            </Text>
+            <Text
+              style={[
+                styles.colors.textColor.white_1,
+                styles.font.size.size_20,
+                styles.font.weight.medium,
+              ]}>
+              {birthdate}
+            </Text>
+          </View>
+
+          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
+            <Text
+              style={[
+                styles.colors.textColor.white_2,
+                styles.font.size.size_18,
+                styles.font.weight.regular,
+              ]}>
+              CPF
+            </Text>
+            <Text
+              style={[
+                styles.colors.textColor.white_1,
+                styles.font.size.size_20,
+                styles.font.weight.medium,
+              ]}>
+              {cpf}
             </Text>
           </View>
 
@@ -115,26 +220,7 @@ export default function Profile({navigation}) {
                 styles.font.size.size_20,
                 styles.font.weight.medium,
               ]}>
-              The Best
-            </Text>
-          </View>
-
-          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-            <Text
-              style={[
-                styles.colors.textColor.white_2,
-                styles.font.size.size_18,
-                styles.font.weight.regular,
-              ]}>
-              ID
-            </Text>
-            <Text
-              style={[
-                styles.colors.textColor.white_1,
-                styles.font.size.size_20,
-                styles.font.weight.medium,
-              ]}>
-              01234
+              {gymName}
             </Text>
           </View>
 
