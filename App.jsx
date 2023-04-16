@@ -32,6 +32,7 @@ import ManageActivity from './src/view/instructor/manageActivity';
 import ProfileInstructor from './src/view/instructor/profileInstructor';
 import PlanList from './src/view/gym/planList';
 import PlanManagement from './src/view/gym/planManagement';
+import UserPlanSelect from './src/view/instructor/userPlanSelect';
 
 export default function App() {
   const sidebarState = useSelector(state => {
@@ -63,6 +64,7 @@ export default function App() {
           <Stack.Screen name="Users" component={Users} />
           <Stack.Screen name="ManageUser" component={ManageUser} />
           <Stack.Screen name="ManageActivity" component={ManageActivity} />
+          <Stack.Screen name="UserPlanSelect" component={UserPlanSelect} />
 
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="CreateGymAccount" component={CreateGymAccount} />

@@ -32,11 +32,18 @@ export default function Users({navigation}) {
   useEffect(() => {
     loadGymUsers();
   }, []);
+
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      loadGymUsers();
+    });
+  }, [navigation]);
+
   return (
     <ViewDefault>
       <Header navigation={navigation} title={'ALUNOS'} />
       <ScrollView
-        style={[
+        contentContainerStyle={[
           styles.main.column,
           styles.paddingStyle.px_3,
           styles.gapStyle.gap_5,

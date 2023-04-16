@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {Pressable, Text, TextInput, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import DatePicker from 'react-native-date-picker';
 
 import ViewDefault from '../ViewDefault';
 import Header from '../../components/Header';
 import Button from '../../components/Button';
 import styles from '../../styles';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
-import {createGymUser, readUserByIdService} from '../../service/user';
+import {readUserByIdService} from '../../service/user';
 
 export default function ManageUser({navigation, route}) {
   const userSession = useSelector(state => {
@@ -20,12 +21,11 @@ export default function ManageUser({navigation, route}) {
   const [email, setEmail] = useState('');
   const [cpf, setCpf] = useState('');
   const [username, setUsername] = useState('');
+  const [openDatePicker, setOpenDatePicker] = useState(false);
 
-  async function createUser() {
-    dispatch(setLoading());
+  function proceedToPlan() {
     if (!name || !birthdate || !email || !cpf) {
       console.log('Preencher corretamente');
-      dispatch(unsetLoading());
       return;
     }
 
@@ -36,20 +36,11 @@ export default function ManageUser({navigation, route}) {
       cpf,
       idGym: userSession.idGym,
     };
-
-    await createGymUser(data)
-      .then(responseCreate => {
-        if (responseCreate.status === 201) {
-          navigation.goBack();
-        }
-      })
-      .catch(err => {})
-      .finally(() => {
-        dispatch(unsetLoading());
-      });
+    navigation.navigate('UserPlanSelect', {user: data});
   }
 
   async function loadUserInformation() {
+    dispatch(setLoading());
     await readUserByIdService(id)
       .then(responseFind => {
         if (responseFind.status === 200) {
@@ -63,7 +54,10 @@ export default function ManageUser({navigation, route}) {
         setCpf(response.data.cpf);
         setUsername(response.data.username);
       })
-      .catch(err => {});
+      .catch(err => {})
+      .finally(() => {
+        dispatch(unsetLoading());
+      });
   }
 
   useEffect(() => {
@@ -100,37 +94,13 @@ export default function ManageUser({navigation, route}) {
               styles.font.weight.medium,
             ]}
             placeholderTextColor={[styles.colors.textColor.white_2]}
-            placeholder="placeholder"
+            placeholder="NOME"
             defaultValue={name}
             editable={!id}
             onChangeText={data => setName(data)}
           />
         </View>
-        <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-          <Text
-            style={[
-              styles.colors.textColor.white_1,
-              styles.font.size.size_16,
-              styles.font.weight.regular,
-            ]}>
-            DATA NASCIMENTO
-          </Text>
-          <TextInput
-            style={[
-              styles.colors.backgroundColor.dark_3,
-              styles.colors.textColor.white_1,
-              styles.paddingStyle.pa_1,
-              styles.main.borderRadiusDefault,
-              styles.font.size.size_18,
-              styles.font.weight.medium,
-            ]}
-            placeholderTextColor={[styles.colors.textColor.white_2]}
-            placeholder="placeholder"
-            defaultValue={birthdate}
-            editable={!id}
-            onChangeText={data => setBirthdate(data)}
-          />
-        </View>
+
         <View style={[styles.main.column, styles.gapStyle.gap_1]}>
           <Text
             style={[
@@ -150,12 +120,87 @@ export default function ManageUser({navigation, route}) {
               styles.font.weight.medium,
             ]}
             placeholderTextColor={[styles.colors.textColor.white_2]}
-            placeholder="placeholder"
+            placeholder="E-MAIL"
             defaultValue={email}
             editable={!id}
             onChangeText={data => setEmail(data)}
           />
         </View>
+
+        {username && (
+          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
+            <Text
+              style={[
+                styles.colors.textColor.white_1,
+                styles.font.size.size_16,
+                styles.font.weight.regular,
+              ]}>
+              USUÁRIO
+            </Text>
+            <TextInput
+              style={[
+                styles.colors.backgroundColor.dark_3,
+                styles.colors.textColor.white_1,
+                styles.paddingStyle.pa_1,
+                styles.main.borderRadiusDefault,
+                styles.font.size.size_18,
+                styles.font.weight.medium,
+              ]}
+              placeholderTextColor={[styles.colors.textColor.white_2]}
+              placeholder="USUÁRIO"
+              defaultValue={username}
+              editable={false}
+              onChangeText={data => setEmail(data)}
+            />
+          </View>
+        )}
+
+        <Pressable
+          style={[styles.main.column, styles.gapStyle.gap_1]}
+          onPress={() => setOpenDatePicker(true)}>
+          <Text
+            style={[
+              styles.colors.textColor.white_1,
+              styles.font.size.size_16,
+              styles.font.weight.regular,
+            ]}>
+            DATA NASCIMENTO
+          </Text>
+          <TextInput
+            style={[
+              styles.colors.backgroundColor.dark_3,
+              styles.colors.textColor.white_1,
+              styles.paddingStyle.pa_1,
+              styles.main.borderRadiusDefault,
+              styles.font.size.size_18,
+              styles.font.weight.medium,
+            ]}
+            placeholderTextColor={[styles.colors.textColor.white_2]}
+            placeholder="DATA DE NASCIMENTO"
+            defaultValue={
+              birthdate ? new Date(birthdate).toLocaleDateString() : null
+            }
+            editable={false}
+          />
+          <DatePicker
+            modal
+            open={openDatePicker}
+            date={new Date()}
+            androidVariant="nativeAndroid"
+            mode="date"
+            onConfirm={date => {
+              setOpenDatePicker(false);
+              setBirthdate(date);
+            }}
+            onCancel={() => {
+              setOpenDatePicker(false);
+            }}
+            title={null}
+            confirmText="CONFIRMAR"
+            cancelText="CANCELAR"
+          />
+        </Pressable>
+
         <View style={[styles.main.column, styles.gapStyle.gap_1]}>
           <Text
             style={[
@@ -175,7 +220,7 @@ export default function ManageUser({navigation, route}) {
               styles.font.weight.medium,
             ]}
             placeholderTextColor={[styles.colors.textColor.white_2]}
-            placeholder="placeholder"
+            placeholder="CPF"
             defaultValue={cpf}
             editable={!id}
             onChangeText={data => setCpf(data)}
@@ -192,8 +237,8 @@ export default function ManageUser({navigation, route}) {
           </>
         ) : (
           <>
-            <Pressable onPress={() => createUser()}>
-              <Button title={'SALVAR'} type={1} />
+            <Pressable onPress={() => proceedToPlan()}>
+              <Button title={'AVANÇAR'} type={1} />
             </Pressable>
             <Pressable onPress={() => cancel()}>
               <Button title={'CANCELAR'} type={0} />

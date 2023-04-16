@@ -196,7 +196,7 @@ export default function ProfileInstructor({navigation}) {
                 styles.font.size.size_20,
                 styles.colors.textColor.white_1,
               ]}>
-              {birthdate}
+              {new Date(birthdate).toLocaleDateString()}
             </Text>
           </View>
 
