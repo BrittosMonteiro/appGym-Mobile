@@ -1,6 +1,6 @@
 import {Text, View} from 'react-native';
-import HorizontalRule from '../HorizontalRule';
-import styles from '../../styles';
+import HorizontalRule from '../../../components/HorizontalRule';
+import styles from '../../../styles';
 
 export default function Plan({plan}) {
   return (

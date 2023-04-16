@@ -17,7 +17,6 @@ import CreateGymAccount from './src/view/login/createGymAccount';
 import Dashboard from './src/view/user/dashboard';
 import ActivityDetail from './src/view/user/activityDetail';
 import ActivityCurrent from './src/view/user/activityCurrent';
-import Profile from './src/view/user/profile';
 import PaymentHistory from './src/view/user/paymentHistory';
 
 // Gym admin
@@ -31,6 +30,9 @@ import ManageActivity from './src/view/instructor/manageActivity';
 import PlanList from './src/view/gym/planList';
 import PlanManagement from './src/view/gym/planManagement';
 import UserPlanSelect from './src/view/instructor/userPlanSelect';
+
+// Profile
+import Profile from './src/view/profile/profile';
 
 export default function App() {
   const sidebarState = useSelector(state => {

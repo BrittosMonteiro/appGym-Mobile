@@ -2,18 +2,22 @@ import {useEffect, useState} from 'react';
 import {Pressable, ScrollView, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from '../../styles';
+
+import ViewDefault from '../ViewDefault';
 
 import Header from '../../components/Header';
-import ViewDefault from '../ViewDefault';
-import HorizontalRule from '../../components/HorizontalRule';
-import styles from '../../styles';
-import Button from '../../components/Button';
-import {readUserByIdService} from '../../service/user';
-import Plan from '../../components/profile/profilePlan';
-import ProfilePassword from '../../components/profile/profilePassword';
-import ProfileData from '../../components/profile/profileData';
-import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import HeaderStart from '../../components/HeaderStart';
+
+import Plan from './components/profilePlan';
+import ProfilePassword from './components/profilePassword';
+import ProfileData from './components/profileData';
+
+import HorizontalRule from '../../components/HorizontalRule';
+import Button from '../../components/Button';
+
+import {readUserByIdService} from '../../service/user';
+import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 
 export default function Profile({navigation}) {
   const dispatch = useDispatch();
