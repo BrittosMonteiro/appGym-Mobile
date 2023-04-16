@@ -27,6 +27,7 @@ export default function PlanManagement({navigation, route}) {
   const [status, setStatus] = useState(false);
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
+  const [validMonths, setValidMonths] = useState('');
   const [isIncluded, setIsIncluded] = useState([]);
   const [notIncluded, setNotIncluded] = useState([]);
   const [itemPlanTitle, setItemPlanTitle] = useState('');
@@ -108,6 +109,7 @@ export default function PlanManagement({navigation, route}) {
         setDescription(response.data.description);
         setIsIncluded(response.data.isIncluded);
         setNotIncluded(response.data.notIncluded);
+        setValidMonths(response.data.validMonths);
       })
       .catch(err => {})
       .finally(() => {
@@ -279,6 +281,30 @@ export default function PlanManagement({navigation, route}) {
               placeholder="DESCRIÇÃO"
               defaultValue={description}
               onChangeText={data => setDescription(data)}
+            />
+          </View>
+
+          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
+            <Text
+              style={[
+                styles.colors.textColor.white_1,
+                styles.font.size.size_16,
+                styles.font.weight.regular,
+              ]}>
+              DURAÇÃO (MESES)
+            </Text>
+            <TextInput
+              style={[
+                styles.colors.backgroundColor.dark_3,
+                styles.colors.textColor.white_1,
+                styles.paddingStyle.pa_1,
+                styles.font.size.size_18,
+                styles.font.weight.medium,
+              ]}
+              placeholderTextColor={[styles.colors.textColor.white_2]}
+              placeholder="DURAÇÃO (MESES)"
+              defaultValue={validMonths}
+              onChangeText={data => setValidMonths(data)}
             />
           </View>
 

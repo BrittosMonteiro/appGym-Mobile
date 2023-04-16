@@ -47,7 +47,12 @@ export default function UserPlanSelect({navigation, route}) {
       return;
     }
 
-    const data = {...user, idPlan};
+    const today = new Date();
+    const validDate = new Date(
+      today.setMonth(today.getMonth() + selectedPlan.validMonths),
+    );
+
+    const data = {...user, idPlan, planValidDate: validDate};
 
     await createGymUser(data)
       .then(responseCreate => {

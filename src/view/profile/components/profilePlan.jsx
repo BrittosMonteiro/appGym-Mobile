@@ -2,7 +2,7 @@ import {Text, View} from 'react-native';
 import HorizontalRule from '../../../components/HorizontalRule';
 import styles from '../../../styles';
 
-export default function Plan({plan}) {
+export default function Plan({plan, planValidDate}) {
   return (
     <>
       <View style={[styles.main.column, styles.gapStyle.gap_1]}>
@@ -64,7 +64,7 @@ export default function Plan({plan}) {
             styles.font.size.size_16,
             styles.font.weight.regular,
           ]}>
-          VÁLIDO ATÉ: 13-08-2023
+          VÁLIDO ATÉ: {new Date(planValidDate).toLocaleDateString()}
         </Text>
       </View>
       <HorizontalRule />

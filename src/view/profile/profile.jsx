@@ -35,6 +35,7 @@ export default function Profile({navigation}) {
   const [cref, setCref] = useState('');
   const [gymName, setGymName] = useState('');
   const [plan, setPlan] = useState('');
+  const [planValidDate, setPlanValidDate] = useState('');
 
   async function loadProfile() {
     dispatch(setLoading());
@@ -53,6 +54,7 @@ export default function Profile({navigation}) {
         setGymName(response.data.gym);
         setBirthdate(response.data.birthdate);
         setPlan(response.data.plan);
+        setPlanValidDate(response.data.planValidDate);
         setShortName(response.data.shortName);
         setCnpj(response.data.cnpj);
         setCref(response.data.cref);
@@ -109,7 +111,7 @@ export default function Profile({navigation}) {
 
         <HorizontalRule />
 
-        {plan && <Plan plan={plan} />}
+        {plan && <Plan plan={plan} planValidDate={planValidDate} />}
 
         <ProfilePassword />
 
