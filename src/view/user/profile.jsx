@@ -99,6 +99,7 @@ export default function Profile({navigation}) {
           email={email}
           gymName={gymName}
           name={name}
+          shortName={shortName}
           username={username}
         />
 
