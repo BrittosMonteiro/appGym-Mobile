@@ -21,7 +21,6 @@ import Profile from './src/view/user/profile';
 import PaymentHistory from './src/view/user/paymentHistory';
 
 // Gym admin
-import GymProfile from './src/view/gym/profile';
 import Instructors from './src/view/gym/instructors';
 import ManageInstructor from './src/view/gym/manageInstructor';
 
@@ -29,7 +28,6 @@ import ManageInstructor from './src/view/gym/manageInstructor';
 import Users from './src/view/instructor/users';
 import ManageUser from './src/view/instructor/manageUser';
 import ManageActivity from './src/view/instructor/manageActivity';
-import ProfileInstructor from './src/view/instructor/profileInstructor';
 import PlanList from './src/view/gym/planList';
 import PlanManagement from './src/view/gym/planManagement';
 import UserPlanSelect from './src/view/instructor/userPlanSelect';
@@ -51,16 +49,13 @@ export default function App() {
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="PaymentHistory" component={PaymentHistory} />
 
-          <Stack.Screen name="GymProfile" component={GymProfile} />
+          <Stack.Screen name="GymProfile" component={Profile} />
           <Stack.Screen name="Instructors" component={Instructors} />
           <Stack.Screen name="ManageInstructor" component={ManageInstructor} />
           <Stack.Screen name="PlanList" component={PlanList} />
           <Stack.Screen name="PlanManagement" component={PlanManagement} />
 
-          <Stack.Screen
-            name="ProfileInstructor"
-            component={ProfileInstructor}
-          />
+          <Stack.Screen name="ProfileInstructor" component={Profile} />
           <Stack.Screen name="Users" component={Users} />
           <Stack.Screen name="ManageUser" component={ManageUser} />
           <Stack.Screen name="ManageActivity" component={ManageActivity} />

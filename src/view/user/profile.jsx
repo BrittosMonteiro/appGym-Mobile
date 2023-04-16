@@ -9,10 +9,11 @@ import HorizontalRule from '../../components/HorizontalRule';
 import styles from '../../styles';
 import Button from '../../components/Button';
 import {readUserByIdService} from '../../service/user';
-import Plan from './components/profilePlan';
-import ProfilePassword from './components/profilePassword';
-import ProfileData from './components/profileData';
+import Plan from '../../components/profile/profilePlan';
+import ProfilePassword from '../../components/profile/profilePassword';
+import ProfileData from '../../components/profile/profileData';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
+import HeaderStart from '../../components/HeaderStart';
 
 export default function Profile({navigation}) {
   const dispatch = useDispatch();
@@ -22,9 +23,12 @@ export default function Profile({navigation}) {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [shortName, setShortName] = useState('');
   const [username, setUsername] = useState('');
-  const [cpf, setCpf] = useState('');
   const [birthdate, setBirthdate] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [cnpj, setCnpj] = useState('');
+  const [cref, setCref] = useState('');
   const [gymName, setGymName] = useState('');
   const [plan, setPlan] = useState('');
 
@@ -40,10 +44,14 @@ export default function Profile({navigation}) {
         setName(response.data.name);
         setEmail(response.data.email);
         setUsername(response.data.username);
-        setBirthdate(response.data.birthdate);
+
         setCpf(response.data.cpf);
         setGymName(response.data.gym);
+        setBirthdate(response.data.birthdate);
         setPlan(response.data.plan);
+        setShortName(response.data.shortName);
+        setCnpj(response.data.cnpj);
+        setCref(response.data.cref);
       })
       .catch(err => {})
       .finally(() => {
@@ -72,7 +80,11 @@ export default function Profile({navigation}) {
 
   return (
     <ViewDefault>
-      <Header navigation={navigation} title={'PERFIL'} />
+      {userSession.userLevel === 3 ? (
+        <Header navigation={navigation} title={'PERFIL'} />
+      ) : (
+        <HeaderStart />
+      )}
       <ScrollView
         contentContainerStyle={[
           styles.main.column,
@@ -80,11 +92,13 @@ export default function Profile({navigation}) {
           styles.gapStyle.gap_5,
         ]}>
         <ProfileData
-          name={name}
           birthdate={birthdate}
+          cnpj={cnpj}
           cpf={cpf}
+          cref={cref}
           email={email}
           gymName={gymName}
+          name={name}
           username={username}
         />
 

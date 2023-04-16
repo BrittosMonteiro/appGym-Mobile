@@ -3,11 +3,11 @@ import {Pressable, Text, TextInput, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Eye, EyeSlash, ToggleLeft, ToggleRight} from 'phosphor-react-native';
 
-import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
-import {updatePasswordService} from '../../../service/user';
-import styles from '../../../styles';
-import Button from '../../../components/Button';
-import HorizontalRule from '../../../components/HorizontalRule';
+import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
+import {updatePasswordService} from '../../service/user';
+import styles from '../../styles';
+import Button from '../Button';
+import HorizontalRule from '../HorizontalRule';
 
 export default function ProfilePassword() {
   const dispatch = useDispatch();
