@@ -4,6 +4,8 @@ let initialState = {
   displayName: '',
   token: '',
   userLevel: '',
+  hasPlan: '',
+  planValidDate: '',
 };
 
 export default function userSessionReducer(state = initialState, action) {
