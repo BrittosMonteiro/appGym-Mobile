@@ -7,11 +7,13 @@ import HorizontalRule from '../../components/HorizontalRule';
 import Button from '../../components/Button';
 import {readGymUsersListService} from '../../service/user';
 import {useSelector} from 'react-redux';
+import Search from '../../components/Search';
 
 export default function UsersAttached({navigation}) {
   const userSession = useSelector(state => {
     return state.userSessionReducer;
   });
+  const [originalList, setOriginalList] = useState([]);
   const [usersList, setUserList] = useState([]);
 
   async function loadGymUsers() {
@@ -22,6 +24,7 @@ export default function UsersAttached({navigation}) {
         }
       })
       .then(response => {
+        setOriginalList(response.data);
         setUserList(response.data);
       })
       .catch(err => {});
@@ -30,6 +33,16 @@ export default function UsersAttached({navigation}) {
   useEffect(() => {
     loadGymUsers();
   }, []);
+
+  function filterList(text) {
+    setUserList(
+      originalList.filter(
+        item =>
+          item.name.includes(text.toLowerCase()) ||
+          item.name.includes(text.toUpperCase()),
+      ),
+    );
+  }
 
   return (
     <React.Fragment>
@@ -41,6 +54,8 @@ export default function UsersAttached({navigation}) {
         ]}>
         Lista de alunos cadastrados no nosso sistema
       </Text>
+
+      <Search search={filterList} />
 
       <View style={[styles.main.row]}>
         <Pressable

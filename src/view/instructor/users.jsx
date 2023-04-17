@@ -14,11 +14,11 @@ export default function Users({navigation}) {
   const tabList = [
     {
       title: 'USUÁRIOS ATRELADOS',
-      component: <UsersAttached />,
+      component: <UsersAttached navigation={navigation} />,
     },
     {
       title: 'DEMAIS USUÁRIOS',
-      component: <UsersNotAttached />,
+      component: <UsersNotAttached navigation={navigation} />,
     },
   ];
 
