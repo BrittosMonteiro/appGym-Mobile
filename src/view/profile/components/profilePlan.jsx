@@ -1,9 +1,11 @@
-import {useEffect, useState} from 'react';
-import {Text, View} from 'react-native';
-
-import HorizontalRule from '../../../components/HorizontalRule';
-import styles from '../../../styles';
+import React, {useEffect, useState} from 'react';
+import {Pressable, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
+
+import styles from '../../../styles';
+import HorizontalRule from '../../../components/HorizontalRule';
+import PlanItems from './planItems';
+import {CaretDown, CaretUp} from 'phosphor-react-native';
 
 export default function Plan({plan}) {
   const userSession = useSelector(state => {
@@ -11,6 +13,7 @@ export default function Plan({plan}) {
   });
   const [planStatusTitle, setPlanStatusTitle] = useState('');
   const [planStatusColor, setPlanStatusColor] = useState('');
+  const [expand, setExpand] = useState(false);
 
   const planStatus = [
     {
@@ -44,12 +47,12 @@ export default function Plan({plan}) {
 
   return (
     <>
-      <View style={[styles.main.column, styles.gapStyle.gap_1]}>
+      <View style={[styles.main.column, styles.gapStyle.gap_3]}>
         <View
           style={[
             styles.main.row,
             styles.alignment.justifyContent.space_between,
-            styles.alignment.alignItems.flex_start,
+            styles.alignment.alignItems.center,
           ]}>
           <Text
             style={[
@@ -59,54 +62,86 @@ export default function Plan({plan}) {
             ]}>
             PLANO
           </Text>
-          <Text
-            style={[
-              styles.font.size.size_16,
-              styles.font.weight.medium,
-              styles.colors.textColor.white_1,
-              styles.font.weight.medium,
-              styles.main.borderRadiusDefault,
-              styles.paddingStyle.px_1,
-              planStatusColor,
-            ]}>
-            {planStatusTitle}
-          </Text>
+
+          <Pressable onPress={() => setExpand(!expand)}>
+            {expand ? (
+              <CaretDown
+                color={styles.colors.textColor.white_1.color}
+                weight="bold"
+                size={24}
+              />
+            ) : (
+              <CaretUp
+                color={styles.colors.textColor.white_1.color}
+                weight="bold"
+                size={24}
+              />
+            )}
+          </Pressable>
         </View>
 
-        <View
-          style={[
-            styles.main.row,
-            styles.alignment.justifyContent.space_between,
-            styles.alignment.alignItems.flex_start,
-          ]}>
-          <Text
-            style={[
-              styles.colors.textColor.white_1,
-              styles.font.size.size_18,
-              styles.font.weight.medium,
-            ]}>
-            {plan.title}
-          </Text>
-          <Text
-            style={[
-              styles.colors.textColor.white_1,
-              styles.font.size.size_18,
-              styles.font.weight.medium,
-            ]}>
-            R$ {plan.price.toString().replace('.', ',')}
-          </Text>
-        </View>
+        {expand && (
+          <React.Fragment>
+            <View
+              style={[
+                styles.main.row,
+                styles.alignment.justifyContent.space_between,
+                styles.alignment.alignItems.flex_start,
+              ]}>
+              <Text
+                style={[
+                  styles.colors.textColor.white_1,
+                  styles.font.size.size_18,
+                  styles.font.weight.medium,
+                ]}>
+                {plan.title}
+              </Text>
+              <Text
+                style={[
+                  styles.colors.textColor.white_1,
+                  styles.font.size.size_18,
+                  styles.font.weight.medium,
+                ]}>
+                R$ {plan.price.toString().replace('.', ',')}
+              </Text>
+            </View>
 
-        {userSession.planValidDate && (
-          <Text
-            style={[
-              styles.colors.textColor.white_2,
-              styles.font.size.size_16,
-              styles.font.weight.regular,
-            ]}>
-            VÁLIDO ATÉ:{' '}
-            {new Date(userSession.planValidDate).toLocaleDateString()}
-          </Text>
+            <View
+              style={[
+                styles.main.row,
+                styles.alignment.justifyContent.space_between,
+                styles.alignment.alignItems.flex_start,
+              ]}>
+              <Text
+                style={[
+                  styles.font.size.size_16,
+                  styles.font.weight.medium,
+                  styles.colors.textColor.white_1,
+                  styles.font.weight.medium,
+                  styles.main.borderRadiusDefault,
+                  styles.paddingStyle.px_1,
+                  planStatusColor,
+                ]}>
+                {planStatusTitle}
+              </Text>
+              {userSession.planValidDate && (
+                <Text
+                  style={[
+                    styles.colors.textColor.white_2,
+                    styles.font.size.size_16,
+                    styles.font.weight.regular,
+                  ]}>
+                  VÁLIDO ATÉ:{' '}
+                  {new Date(userSession.planValidDate).toLocaleDateString()}
+                </Text>
+              )}
+            </View>
+
+            <PlanItems
+              isIncluded={plan.isIncluded}
+              notIncluded={plan.notIncluded}
+            />
+          </React.Fragment>
         )}
       </View>
       <HorizontalRule />

@@ -1,13 +1,14 @@
 import {useState} from 'react';
 import {Pressable, Text, TextInput, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {Eye, EyeSlash, ToggleLeft, ToggleRight} from 'phosphor-react-native';
+import {CaretDown, CaretUp, Eye, EyeSlash} from 'phosphor-react-native';
 
-import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
-import {updatePasswordService} from '../../../service/user';
 import styles from '../../../styles';
 import Button from '../../../components/Button';
 import HorizontalRule from '../../../components/HorizontalRule';
+
+import {updatePasswordService} from '../../../service/user';
+import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
 
 export default function ProfilePassword() {
   const dispatch = useDispatch();
@@ -71,16 +72,16 @@ export default function ProfilePassword() {
           <Pressable
             onPress={() => setToggleUpdatePassword(!toggleUpdatePassword)}>
             {toggleUpdatePassword ? (
-              <ToggleRight
-                size={32}
-                weight="fill"
-                color={styles.colors.textColor.green_1.color}
+              <CaretDown
+                size={24}
+                weight="bold"
+                color={styles.colors.textColor.white_1.color}
               />
             ) : (
-              <ToggleLeft
-                size={32}
-                weight="fill"
-                color={styles.colors.textColor.red_1.color}
+              <CaretUp
+                size={24}
+                weight="bold"
+                color={styles.colors.textColor.white_1.color}
               />
             )}
           </Pressable>
