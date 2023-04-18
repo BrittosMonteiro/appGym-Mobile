@@ -16,6 +16,10 @@ export async function readUserByIdService(idUser) {
   return await fetch(`${API_URL}/user/byId/${idUser}`);
 }
 
+export async function readUsersNotAttachedToGymService(idGym) {
+  return await fetch(`${API_URL}/user/usersNotAttached/${idGym}`);
+}
+
 export async function updatePasswordService(data) {
   return await fetch(`${API_URL}/user/updatePassword`, {
     method: 'PUT',
