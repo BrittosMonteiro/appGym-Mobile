@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Pressable, Text, TextInput, View} from 'react-native';
+import {Pressable, ScrollView, Text, TextInput, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import DatePicker from 'react-native-date-picker';
 
@@ -8,7 +8,12 @@ import Header from '../../components/Header';
 import Button from '../../components/Button';
 import styles from '../../styles';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
-import {readUserByIdService} from '../../service/user';
+import {
+  readUserByIdService,
+  removePlanFromUserService,
+} from '../../service/user';
+import Plan from '../profile/components/profilePlan';
+import HorizontalRule from '../../components/HorizontalRule';
 
 export default function ManageUser({navigation, route}) {
   const userSession = useSelector(state => {
@@ -22,6 +27,8 @@ export default function ManageUser({navigation, route}) {
   const [cpf, setCpf] = useState('');
   const [username, setUsername] = useState('');
   const [openDatePicker, setOpenDatePicker] = useState(false);
+  const [plan, setPlan] = useState('');
+  const [planValidDate, setPlanValidDate] = useState('');
 
   function proceedToPlan() {
     if (!name || !birthdate || !email || !cpf) {
@@ -53,6 +60,24 @@ export default function ManageUser({navigation, route}) {
         setEmail(response.data.email);
         setCpf(response.data.cpf);
         setUsername(response.data.username);
+        setPlan(response.data.plan);
+        setPlanValidDate(response.data.planValidDate);
+      })
+      .catch(err => {})
+      .finally(() => {
+        dispatch(unsetLoading());
+      });
+  }
+
+  async function setPlanToUser() {}
+
+  async function removePlanFromUser() {
+    dispatch(setLoading());
+    await removePlanFromUserService({idUser: id})
+      .then(responseUpdate => {
+        if (responseUpdate.status === 200) {
+          navigation.goBack();
+        }
       })
       .catch(err => {})
       .finally(() => {
@@ -69,8 +94,8 @@ export default function ManageUser({navigation, route}) {
   return (
     <ViewDefault>
       <Header navigation={navigation} title={'GERENCIAR USUÁRIO'} />
-      <View
-        style={[
+      <ScrollView
+        contentContainerStyle={[
           styles.main.column,
           styles.gapStyle.gap_5,
           styles.paddingStyle.px_3,
@@ -157,7 +182,7 @@ export default function ManageUser({navigation, route}) {
 
         <Pressable
           style={[styles.main.column, styles.gapStyle.gap_1]}
-          onPress={() => setOpenDatePicker(true)}>
+          onPress={() => (id ? null : setOpenDatePicker(true))}>
           <Text
             style={[
               styles.colors.textColor.white_1,
@@ -226,14 +251,28 @@ export default function ManageUser({navigation, route}) {
             onChangeText={data => setCpf(data)}
           />
         </View>
+
+        {plan && (
+          <>
+            <HorizontalRule />
+            <Plan plan={plan} planValidDate={planValidDate} />
+          </>
+        )}
+
         {id ? (
           <>
             <Pressable onPress={() => null}>
               <Button title={'CRIAR TREINO'} type={1} />
             </Pressable>
-            <Pressable onPress={() => null}>
-              <Button title={'REMOVER PLANO'} type={0} />
-            </Pressable>
+            {plan ? (
+              <Pressable onPress={() => removePlanFromUser()}>
+                <Button title={'REMOVER PLANO'} type={0} />
+              </Pressable>
+            ) : (
+              <Pressable onPress={() => null}>
+                <Button title={'ADICIONAR PLANO'} type={1} />
+              </Pressable>
+            )}
           </>
         ) : (
           <>
@@ -245,7 +284,7 @@ export default function ManageUser({navigation, route}) {
             </Pressable>
           </>
         )}
-      </View>
+      </ScrollView>
     </ViewDefault>
   );
 }

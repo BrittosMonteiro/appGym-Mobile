@@ -7,7 +7,7 @@ import HorizontalRule from '../../../components/HorizontalRule';
 import PlanItems from './planItems';
 import {CaretDown, CaretUp} from 'phosphor-react-native';
 
-export default function Plan({plan}) {
+export default function Plan({plan, planValidDate}) {
   const userSession = useSelector(state => {
     return state.userSessionReducer;
   });
@@ -27,23 +27,26 @@ export default function Plan({plan}) {
   ];
 
   function compareDates() {
-    const today = new Date().getTime();
-    const formatedDate = new Date(userSession.planValidDate).getTime();
-
-    if (today <= formatedDate) {
-      setPlanStatusTitle(planStatus[0].title);
-      setPlanStatusColor(planStatus[0].color);
-    } else {
-      if (today > formatedDate) {
-        setPlanStatusTitle(planStatus[1].title);
-        setPlanStatusColor(planStatus[1].color);
+    if (userSession.planValidDate || planValidDate) {
+      const today = new Date().getTime();
+      const formatedDate = new Date(
+        userSession.planValidDate || planValidDate,
+      ).getTime();
+      if (today <= formatedDate) {
+        setPlanStatusTitle(planStatus[0].title);
+        setPlanStatusColor(planStatus[0].color);
+      } else {
+        if (today > formatedDate) {
+          setPlanStatusTitle(planStatus[1].title);
+          setPlanStatusColor(planStatus[1].color);
+        }
       }
     }
   }
 
   useEffect(() => {
     compareDates();
-  }, [userSession.planValidDate]);
+  }, [planValidDate]);
 
   return (
     <>
@@ -124,7 +127,7 @@ export default function Plan({plan}) {
                 ]}>
                 {planStatusTitle}
               </Text>
-              {userSession.planValidDate && (
+              {(userSession.planValidDate || planValidDate) && (
                 <Text
                   style={[
                     styles.colors.textColor.white_2,
@@ -132,7 +135,9 @@ export default function Plan({plan}) {
                     styles.font.weight.regular,
                   ]}>
                   VÁLIDO ATÉ:{' '}
-                  {new Date(userSession.planValidDate).toLocaleDateString()}
+                  {new Date(
+                    userSession.planValidDate || planValidDate,
+                  ).toLocaleDateString()}
                 </Text>
               )}
             </View>

@@ -33,6 +33,12 @@ export default function UsersAttached({navigation}) {
     loadGymUsers();
   }, []);
 
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      loadGymUsers();
+    });
+  }, []);
+
   function filterList(text) {
     setUserList(
       originalList.filter(

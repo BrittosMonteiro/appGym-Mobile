@@ -14,7 +14,7 @@ export default function UsersNotAttached({navigation}) {
   const [originalList, setOriginalList] = useState([]);
   const [usersList, setUserList] = useState([]);
 
-  async function loadGymUsers() {
+  async function loadUsers() {
     await readUsersNotAttachedToGymService(userSession.idGym)
       .then(responseFind => {
         if (responseFind.status === 200) {
@@ -30,11 +30,17 @@ export default function UsersNotAttached({navigation}) {
   }
 
   useEffect(() => {
-    loadGymUsers();
+    loadUsers();
+  }, []);
+
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      loadUsers();
+    });
   }, []);
 
   function filterList(text) {
-    if (text.length > 0) {
+    if (text.length >= 3) {
       setUserList(
         originalList.filter(
           item =>
