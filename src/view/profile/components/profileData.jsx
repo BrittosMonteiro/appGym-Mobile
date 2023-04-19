@@ -1,18 +1,72 @@
-import {Text, View} from 'react-native';
+import {useEffect, useState} from 'react';
+import {Pressable, Text, TextInput, View} from 'react-native';
 
 import styles from '../../../styles';
+import Button from '../../../components/Button';
+import {useSelector} from 'react-redux';
 
-export default function ProfileData({
-  birthdate,
-  cpf,
-  cnpj,
-  cref,
-  email,
-  gymName,
-  name,
-  shortName,
-  username,
-}) {
+export default function ProfileData({userData, updateProfile}) {
+  const userSession = useSelector(state => {
+    return state.userSessionReducer;
+  });
+  const [birthdate, setBirthdate] = useState('');
+  const [cnpj, setCnpj] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [cref, setCref] = useState('');
+  const [email, setEmail] = useState('');
+  const [gymName, setGymName] = useState('');
+  const [name, setName] = useState('');
+  const [shortName, setShortName] = useState('');
+  const [username, setUsername] = useState('');
+  const [edit, setEdit] = useState(false);
+
+  useEffect(() => {
+    setOriginalData();
+  }, [userData]);
+
+  function setOriginalData() {
+    setBirthdate(userData.birthdate);
+    setCnpj(userData.cnpj);
+    setCpf(userData.cpf);
+    setCref(userData.cref);
+    setEmail(userData.email);
+    setGymName(userData.gym);
+    setName(userData.name);
+    setShortName(userData.shortName);
+    setUsername(userData.username);
+  }
+
+  async function update() {
+    let data = {
+      name,
+      username,
+      email,
+    };
+
+    let updateData = manageData(data);
+    updateData = {updateData, idUser: userSession.id};
+    updateProfile(updateData);
+    setEdit(false);
+  }
+
+  function manageData(data) {
+    switch (userSession.userLevel) {
+      case 1:
+        return (data = {...data, cnpj, shortName});
+      case 2:
+        return (data = {...data, birthdate, cref});
+      case 3:
+        return (data = {...data, birthdate, cpf});
+      default:
+        return data;
+    }
+  }
+
+  function cancel() {
+    setEdit(!edit);
+    setOriginalData();
+  }
+
   return (
     <View style={[styles.gapStyle.gap_5]}>
       <View style={[styles.main.column, styles.gapStyle.gap_1]}>
@@ -24,14 +78,21 @@ export default function ProfileData({
           ]}>
           NOME
         </Text>
-        <Text
+        <TextInput
           style={[
             styles.colors.textColor.white_1,
             styles.font.size.size_20,
             styles.font.weight.medium,
-          ]}>
-          {name}
-        </Text>
+            edit
+              ? [styles.colors.backgroundColor.dark_1, styles.paddingStyle.pa_1]
+              : [styles.paddingStyle.px_0, styles.paddingStyle.py_1],
+          ]}
+          placeholder="NOME"
+          placeholderTextColor={styles.colors.textColor.white_1.color}
+          editable={edit}
+          defaultValue={name}
+          onChangeText={text => setName(text)}
+        />
       </View>
 
       {shortName && (
@@ -44,14 +105,24 @@ export default function ProfileData({
             ]}>
             NOME DE EXIBIÇÃO
           </Text>
-          <Text
+          <TextInput
             style={[
               styles.colors.textColor.white_1,
               styles.font.size.size_20,
               styles.font.weight.medium,
-            ]}>
-            {shortName}
-          </Text>
+              edit
+                ? [
+                    styles.colors.backgroundColor.dark_1,
+                    styles.paddingStyle.pa_1,
+                  ]
+                : [styles.paddingStyle.px_0, styles.paddingStyle.py_1],
+            ]}
+            placeholder="NOME DE EXIBIÇÃO"
+            placeholderTextColor={styles.colors.textColor.white_1.color}
+            editable={edit}
+            defaultValue={shortName}
+            onChangeText={text => setShortName(text)}
+          />
         </View>
       )}
 
@@ -64,14 +135,21 @@ export default function ProfileData({
           ]}>
           E-MAIL
         </Text>
-        <Text
+        <TextInput
           style={[
             styles.colors.textColor.white_1,
             styles.font.size.size_20,
             styles.font.weight.medium,
-          ]}>
-          {email}
-        </Text>
+            edit
+              ? [styles.colors.backgroundColor.dark_1, styles.paddingStyle.pa_1]
+              : [styles.paddingStyle.px_0, styles.paddingStyle.py_1],
+          ]}
+          placeholder="E-MAIL"
+          placeholderTextColor={styles.colors.textColor.white_1.color}
+          editable={edit}
+          defaultValue={email}
+          onChangeText={text => setEmail(text)}
+        />
       </View>
 
       <View style={[styles.main.column, styles.gapStyle.gap_1]}>
@@ -83,14 +161,21 @@ export default function ProfileData({
           ]}>
           USERNAME
         </Text>
-        <Text
+        <TextInput
           style={[
             styles.colors.textColor.white_1,
             styles.font.size.size_20,
             styles.font.weight.medium,
-          ]}>
-          {username}
-        </Text>
+            edit
+              ? [styles.colors.backgroundColor.dark_1, styles.paddingStyle.pa_1]
+              : [styles.paddingStyle.px_0, styles.paddingStyle.py_1],
+          ]}
+          placeholder="USUÁRIO"
+          placeholderTextColor={styles.colors.textColor.white_1.color}
+          editable={edit}
+          defaultValue={username}
+          onChangeText={text => setUsername(text)}
+        />
       </View>
 
       {birthdate && (
@@ -103,14 +188,23 @@ export default function ProfileData({
             ]}>
             DATA DE NASCIMENTO
           </Text>
-          <Text
+          <TextInput
             style={[
               styles.colors.textColor.white_1,
               styles.font.size.size_20,
               styles.font.weight.medium,
-            ]}>
-            {new Date(birthdate).toLocaleDateString()}
-          </Text>
+              edit
+                ? [
+                    styles.colors.backgroundColor.dark_1,
+                    styles.paddingStyle.pa_1,
+                  ]
+                : [styles.paddingStyle.px_0, styles.paddingStyle.py_1],
+            ]}
+            placeholder="DATA DE NASCIMENTO"
+            placeholderTextColor={styles.colors.textColor.white_1.color}
+            editable={false}
+            value={new Date(birthdate).toLocaleDateString()}
+          />
         </View>
       )}
 
@@ -124,16 +218,27 @@ export default function ProfileData({
             ]}>
             CPF
           </Text>
-          <Text
+          <TextInput
             style={[
               styles.colors.textColor.white_1,
               styles.font.size.size_20,
               styles.font.weight.medium,
-            ]}>
-            {cpf}
-          </Text>
+              edit
+                ? [
+                    styles.colors.backgroundColor.dark_1,
+                    styles.paddingStyle.pa_1,
+                  ]
+                : [styles.paddingStyle.px_0, styles.paddingStyle.py_1],
+            ]}
+            placeholder="CPF"
+            placeholderTextColor={styles.colors.textColor.white_1.color}
+            editable={edit}
+            defaultValue={cpf}
+            onChangeText={text => setCpf(text)}
+          />
         </View>
       )}
+
       {cnpj && (
         <View style={[styles.main.column, styles.gapStyle.gap_1]}>
           <Text
@@ -144,14 +249,24 @@ export default function ProfileData({
             ]}>
             CNPJ
           </Text>
-          <Text
+          <TextInput
             style={[
               styles.colors.textColor.white_1,
               styles.font.size.size_20,
               styles.font.weight.medium,
-            ]}>
-            {cnpj}
-          </Text>
+              edit
+                ? [
+                    styles.colors.backgroundColor.dark_1,
+                    styles.paddingStyle.pa_1,
+                  ]
+                : [styles.paddingStyle.px_0, styles.paddingStyle.py_1],
+            ]}
+            placeholder="CNPJ"
+            placeholderTextColor={styles.colors.textColor.white_1.color}
+            editable={edit}
+            defaultValue={cnpj}
+            onChangeText={text => setCnpj(text)}
+          />
         </View>
       )}
 
@@ -165,14 +280,24 @@ export default function ProfileData({
             ]}>
             CREF
           </Text>
-          <Text
+          <TextInput
             style={[
               styles.colors.textColor.white_1,
               styles.font.size.size_20,
               styles.font.weight.medium,
-            ]}>
-            {cref}
-          </Text>
+              edit
+                ? [
+                    styles.colors.backgroundColor.dark_1,
+                    styles.paddingStyle.pa_1,
+                  ]
+                : [styles.paddingStyle.px_0, styles.paddingStyle.py_1],
+            ]}
+            placeholder="CREF"
+            placeholderTextColor={styles.colors.textColor.white_1.color}
+            editable={edit}
+            defaultValue={cref}
+            onChangeText={text => setCref(text)}
+          />
         </View>
       )}
 
@@ -195,6 +320,20 @@ export default function ProfileData({
             {gymName}
           </Text>
         </View>
+      )}
+      {!edit ? (
+        <Pressable onPress={() => setEdit(!edit)}>
+          <Button title={'EDITAR'} type={2} />
+        </Pressable>
+      ) : (
+        <>
+          <Pressable onPress={() => update()}>
+            <Button title={'CONFIRMAR'} type={1} />
+          </Pressable>
+          <Pressable onPress={() => cancel()}>
+            <Button title={'CANCELAR'} type={0} />
+          </Pressable>
+        </>
       )}
     </View>
   );

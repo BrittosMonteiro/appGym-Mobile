@@ -16,7 +16,7 @@ import ProfileData from './components/profileData';
 import HorizontalRule from '../../components/HorizontalRule';
 import Button from '../../components/Button';
 
-import {readUserByIdService} from '../../service/user';
+import {readUserByIdService, updateUserService} from '../../service/user';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 
 export default function Profile({navigation}) {
@@ -24,17 +24,8 @@ export default function Profile({navigation}) {
   const userSession = useSelector(state => {
     return state.userSessionReducer;
   });
-
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [shortName, setShortName] = useState('');
-  const [username, setUsername] = useState('');
-  const [birthdate, setBirthdate] = useState('');
-  const [cpf, setCpf] = useState('');
-  const [cnpj, setCnpj] = useState('');
-  const [cref, setCref] = useState('');
-  const [gymName, setGymName] = useState('');
   const [plan, setPlan] = useState('');
+  const [userData, setUserData] = useState('');
 
   async function loadProfile() {
     dispatch(setLoading());
@@ -45,17 +36,22 @@ export default function Profile({navigation}) {
         }
       })
       .then(response => {
-        setName(response.data.name);
-        setEmail(response.data.email);
-        setUsername(response.data.username);
-
-        setCpf(response.data.cpf);
-        setGymName(response.data.gym);
-        setBirthdate(response.data.birthdate);
         setPlan(response.data.plan);
-        setShortName(response.data.shortName);
-        setCnpj(response.data.cnpj);
-        setCref(response.data.cref);
+        setUserData(response.data);
+      })
+      .catch(err => {})
+      .finally(() => {
+        dispatch(unsetLoading());
+      });
+  }
+
+  async function updateUser(updateData) {
+    dispatch(setLoading());
+    await updateUserService(updateData)
+      .then(responseUpdate => {
+        if (responseUpdate.status === 200) {
+          loadProfile();
+        }
       })
       .catch(err => {})
       .finally(() => {
@@ -95,17 +91,7 @@ export default function Profile({navigation}) {
           styles.paddingStyle.px_3,
           styles.gapStyle.gap_5,
         ]}>
-        <ProfileData
-          birthdate={birthdate}
-          cnpj={cnpj}
-          cpf={cpf}
-          cref={cref}
-          email={email}
-          gymName={gymName}
-          name={name}
-          shortName={shortName}
-          username={username}
-        />
+        <ProfileData userData={userData} updateProfile={updateUser} />
 
         <HorizontalRule />
 

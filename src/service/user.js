@@ -43,3 +43,11 @@ export async function updatePasswordService(data) {
     body: JSON.stringify(data),
   });
 }
+
+export async function updateUserService(data) {
+  return await fetch(`${API_URL}/user/`, {
+    method: 'PUT',
+    headers: {'Content-type': 'application/json'},
+    body: JSON.stringify(data),
+  });
+}
