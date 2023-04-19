@@ -36,13 +36,17 @@ export default function ManageUser({navigation, route}) {
       return;
     }
 
-    const data = {
+    let data = {
       name,
       email,
       birthdate,
       cpf,
       idGym: userSession.idGym,
     };
+
+    if (id) {
+      data = {...data, id};
+    }
     navigation.navigate('UserPlanSelect', {user: data});
   }
 
@@ -68,8 +72,6 @@ export default function ManageUser({navigation, route}) {
         dispatch(unsetLoading());
       });
   }
-
-  async function setPlanToUser() {}
 
   async function removePlanFromUser() {
     dispatch(setLoading());
@@ -261,15 +263,17 @@ export default function ManageUser({navigation, route}) {
 
         {id ? (
           <>
-            <Pressable onPress={() => null}>
-              <Button title={'CRIAR TREINO'} type={1} />
-            </Pressable>
             {plan ? (
-              <Pressable onPress={() => removePlanFromUser()}>
-                <Button title={'REMOVER PLANO'} type={0} />
-              </Pressable>
+              <>
+                <Pressable onPress={() => null}>
+                  <Button title={'CRIAR TREINO'} type={1} />
+                </Pressable>
+                <Pressable onPress={() => removePlanFromUser()}>
+                  <Button title={'REMOVER PLANO'} type={0} />
+                </Pressable>
+              </>
             ) : (
-              <Pressable onPress={() => null}>
+              <Pressable onPress={() => proceedToPlan()}>
                 <Button title={'ADICIONAR PLANO'} type={1} />
               </Pressable>
             )}

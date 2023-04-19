@@ -10,7 +10,7 @@ import {CaretRight, Check, Circle, X} from 'phosphor-react-native';
 import HorizontalRule from '../../components/HorizontalRule';
 import Button from '../../components/Button';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
-import {createGymUser} from '../../service/user';
+import {createGymUser, setPlanToUserService} from '../../service/user';
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
@@ -47,10 +47,7 @@ export default function UserPlanSelect({navigation, route}) {
       return;
     }
 
-    const today = new Date();
-    const validDate = new Date(
-      today.setMonth(today.getMonth() + selectedPlan.validMonths),
-    );
+    const {validDate} = manageDates();
 
     const data = {...user, idPlan, planValidDate: validDate};
 
@@ -64,6 +61,44 @@ export default function UserPlanSelect({navigation, route}) {
       .finally(() => {
         dispatch(unsetLoading());
       });
+  }
+
+  async function setPlanToUser() {
+    dispatch(setLoading());
+    if (!idPlan) {
+      console.log('Escolha um plano');
+      dispatch(unsetLoading());
+      return;
+    }
+
+    const {validDate} = manageDates();
+
+    const data = {
+      idUser: user.id,
+      idPlan,
+      idGym: userSession.idGym,
+      planValidDate: validDate,
+    };
+
+    await setPlanToUserService(data)
+      .then(responseCreate => {
+        if (responseCreate.status === 200) {
+          navigation.navigate('Users');
+        }
+      })
+      .catch(err => {})
+      .finally(() => {
+        dispatch(unsetLoading());
+      });
+  }
+
+  function manageDates() {
+    const today = new Date();
+    const validDate = new Date(
+      today.setMonth(today.getMonth() + selectedPlan.validMonths),
+    );
+
+    return {validDate};
   }
 
   useEffect(() => {
@@ -266,9 +301,15 @@ export default function UserPlanSelect({navigation, route}) {
         ) : (
           ''
         )}
-        <Pressable onPress={() => createUser()}>
-          <Button title={'CONCLUIR'} type={1} />
-        </Pressable>
+        {user?.id ? (
+          <Pressable onPress={() => setPlanToUser()}>
+            <Button title={'CONCLUIR'} type={1} />
+          </Pressable>
+        ) : (
+          <Pressable onPress={() => createUser()}>
+            <Button title={'CONCLUIR'} type={1} />
+          </Pressable>
+        )}
       </View>
     </ViewDefault>
   );

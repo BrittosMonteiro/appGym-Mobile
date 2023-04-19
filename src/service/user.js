@@ -20,7 +20,13 @@ export async function readUsersNotAttachedToGymService(idGym) {
   return await fetch(`${API_URL}/user/usersNotAttached/${idGym}`);
 }
 
-export async function setPlanToUserService(idGym) {}
+export async function setPlanToUserService(data) {
+  return await fetch(`${API_URL}/user/setPlan`, {
+    method: 'PUT',
+    headers: {'Content-type': 'application/json'},
+    body: JSON.stringify(data),
+  });
+}
 
 export async function removePlanFromUserService(idUser) {
   return await fetch(`${API_URL}/user/removePlan`, {
