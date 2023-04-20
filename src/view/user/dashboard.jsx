@@ -4,8 +4,12 @@ import HeaderStart from '../../components/HeaderStart';
 import TrainingList from '../../components/trainingList';
 import ViewDefault from '../ViewDefault';
 import styles from '../../styles';
+import {useSelector} from 'react-redux';
 
 export default function Dashboard({navigation}) {
+  const userSession = useSelector(state => {
+    return state.userSessionReducer;
+  });
   return (
     <ViewDefault>
       <HeaderStart />
@@ -27,7 +31,9 @@ export default function Dashboard({navigation}) {
           </Text>
         </Text>
       </View>
-      <TrainingList navigation={navigation} />
+      <View style={[styles.paddingStyle.px_3]}>
+        <TrainingList navigation={navigation} userId={userSession.id} />
+      </View>
     </ViewDefault>
   );
 }

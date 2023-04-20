@@ -152,12 +152,16 @@ export default function Plan({
               isIncluded={plan.isIncluded}
               notIncluded={plan.notIncluded}
             />
-            <Pressable onPress={() => proceedToPlan(plan._id.toString())}>
-              <Button title={'ALTERAR PLANO'} type={1} />
-            </Pressable>
-            <Pressable onPress={() => removePlanFromUser()}>
-              <Button title={'REMOVER PLANO'} type={0} />
-            </Pressable>
+            {userSession.userLevel === 2 && (
+              <React.Fragment>
+                <Pressable onPress={() => proceedToPlan(plan._id.toString())}>
+                  <Button title={'ALTERAR PLANO'} type={1} />
+                </Pressable>
+                <Pressable onPress={() => removePlanFromUser()}>
+                  <Button title={'REMOVER PLANO'} type={0} />
+                </Pressable>
+              </React.Fragment>
+            )}
           </React.Fragment>
         )}
       </View>

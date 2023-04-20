@@ -6,9 +6,10 @@ import Header from '../../components/Header';
 import Tab from '../../components/Tab';
 import styles from '../../styles';
 import ManageUserData from './components/manageUserData';
+import TrainingList from '../../components/trainingList';
 
 export default function ManageUser({navigation, route}) {
-  const {isAttached} = route.params;
+  const {id, isAttached} = route.params;
 
   const [selectedTab, setSelectedTab] = useState(0);
 
@@ -19,6 +20,7 @@ export default function ManageUser({navigation, route}) {
     },
     {
       title: 'TREINOS',
+      component: <TrainingList navigation={navigation} userId={id} />,
     },
   ];
 
