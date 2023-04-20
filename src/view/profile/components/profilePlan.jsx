@@ -6,8 +6,14 @@ import styles from '../../../styles';
 import HorizontalRule from '../../../components/HorizontalRule';
 import PlanItems from './planItems';
 import {CaretDown, CaretUp} from 'phosphor-react-native';
+import Button from '../../../components/Button';
 
-export default function Plan({plan, planValidDate}) {
+export default function Plan({
+  plan,
+  planValidDate,
+  proceedToPlan,
+  removePlanFromUser,
+}) {
   const userSession = useSelector(state => {
     return state.userSessionReducer;
   });
@@ -146,6 +152,12 @@ export default function Plan({plan, planValidDate}) {
               isIncluded={plan.isIncluded}
               notIncluded={plan.notIncluded}
             />
+            <Pressable onPress={() => proceedToPlan(plan._id.toString())}>
+              <Button title={'ALTERAR PLANO'} type={1} />
+            </Pressable>
+            <Pressable onPress={() => removePlanFromUser()}>
+              <Button title={'REMOVER PLANO'} type={0} />
+            </Pressable>
           </React.Fragment>
         )}
       </View>

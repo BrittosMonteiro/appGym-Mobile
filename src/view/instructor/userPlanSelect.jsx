@@ -6,7 +6,7 @@ import ViewDefault from '../ViewDefault';
 import styles from '../../styles';
 import {useDispatch, useSelector} from 'react-redux';
 import {readPlanListService} from '../../service/plan';
-import {CaretRight, Check, Circle, X} from 'phosphor-react-native';
+import {Check, Circle, X} from 'phosphor-react-native';
 import HorizontalRule from '../../components/HorizontalRule';
 import Button from '../../components/Button';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
@@ -21,7 +21,7 @@ export default function UserPlanSelect({navigation, route}) {
   const userSession = useSelector(state => {
     return state.userSessionReducer;
   });
-  const {user} = route.params;
+  const {user, hasPlan} = route.params;
   const [planList, setPlanList] = useState([]);
   const [idPlan, setIdPlan] = useState('');
   const [selectedPlan, setSelectedPlan] = useState('');
@@ -103,6 +103,9 @@ export default function UserPlanSelect({navigation, route}) {
 
   useEffect(() => {
     loadPlans();
+    if (hasPlan) {
+      setIdPlan(hasPlan);
+    }
   }, []);
 
   return (

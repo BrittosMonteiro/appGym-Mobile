@@ -28,7 +28,7 @@ export default function ManageUserData({navigation, route}) {
   const [plan, setPlan] = useState('');
   const [planValidDate, setPlanValidDate] = useState('');
 
-  function proceedToPlan() {
+  function proceedToPlan(hasPlan) {
     if (!name || !birthdate || !email || !cpf) {
       console.log('Preencher corretamente');
       return;
@@ -45,7 +45,7 @@ export default function ManageUserData({navigation, route}) {
     if (id) {
       data = {...data, id};
     }
-    navigation.navigate('UserPlanSelect', {user: data});
+    navigation.navigate('UserPlanSelect', {user: data, hasPlan});
   }
 
   async function loadUserInformation() {
@@ -248,19 +248,18 @@ export default function ManageUserData({navigation, route}) {
       {plan && (
         <>
           <HorizontalRule />
-          <Plan plan={plan} planValidDate={planValidDate} />
+          <Plan
+            plan={plan}
+            planValidDate={planValidDate}
+            removePlanFromUser={removePlanFromUser}
+            proceedToPlan={proceedToPlan}
+          />
         </>
       )}
 
       {id ? (
         <>
-          {plan ? (
-            <>
-              <Pressable onPress={() => removePlanFromUser()}>
-                <Button title={'REMOVER PLANO'} type={0} />
-              </Pressable>
-            </>
-          ) : (
+          {!plan && (
             <Pressable onPress={() => proceedToPlan()}>
               <Button title={'ADICIONAR PLANO'} type={1} />
             </Pressable>
