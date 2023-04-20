@@ -5,13 +5,15 @@ import {CaretRight} from 'phosphor-react-native';
 import styles from '../../../styles';
 import HorizontalRule from '../../../components/HorizontalRule';
 
-export default function UsersList({list, navigation}) {
+export default function UsersList({isAttached, list, navigation}) {
   return (
     <View style={[styles.main.column, styles.gapStyle.gap_3]}>
       {list.map((user, index) => (
         <React.Fragment key={index}>
           <Pressable
-            onPress={() => navigation.navigate('ManageUser', {id: user.idUser})}
+            onPress={() =>
+              navigation.navigate('ManageUser', {id: user.idUser, isAttached})
+            }
             style={[
               styles.main.row,
               styles.alignment.justifyContent.space_between,

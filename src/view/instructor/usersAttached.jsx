@@ -8,7 +8,7 @@ import {useSelector} from 'react-redux';
 import Search from '../../components/Search';
 import UsersList from './components/UsersList';
 
-export default function UsersAttached({navigation}) {
+export default function UsersAttached({isAttached, navigation}) {
   const userSession = useSelector(state => {
     return state.userSessionReducer;
   });
@@ -70,7 +70,7 @@ export default function UsersAttached({navigation}) {
       </View>
 
       {usersList.length > 0 ? (
-        <UsersList list={usersList} navigation={navigation} />
+        <UsersList list={usersList} navigation={navigation} isAttached={true} />
       ) : null}
     </React.Fragment>
   );

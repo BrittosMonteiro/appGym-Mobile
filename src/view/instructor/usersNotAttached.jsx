@@ -67,7 +67,11 @@ export default function UsersNotAttached({navigation}) {
       <Search search={filterList} />
 
       {usersList.length > 0 ? (
-        <UsersList list={usersList} navigation={navigation} />
+        <UsersList
+          list={usersList}
+          navigation={navigation}
+          isAttached={false}
+        />
       ) : null}
     </React.Fragment>
   );
