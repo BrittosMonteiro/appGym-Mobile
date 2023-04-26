@@ -6,7 +6,7 @@ import ViewDefault from '../ViewDefault';
 import styles from '../../styles';
 import Button from '../../components/Button';
 import ManageActivityList from './components/manageActivityList';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import {
   createActivityService,
@@ -14,11 +14,9 @@ import {
 } from '../../service/activity';
 
 export default function ManageActivity({navigation, route}) {
-  const {idActivity} = route.params;
+  const {userId, idActivity} = route.params;
   const dispatch = useDispatch();
-  const userSession = useSelector(state => {
-    return state.userSessionReducer;
-  });
+
   const [name, setName] = useState('');
   const [selectedActivities, setSelectedActivities] = useState([]);
   const [availableActivities, setAvailableActivities] = useState([]);
@@ -128,7 +126,7 @@ export default function ManageActivity({navigation, route}) {
       return;
     }
     const data = {
-      idUser: userSession.id,
+      idUser: userId,
       items: selectedActivities,
       title: name,
     };

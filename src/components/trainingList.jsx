@@ -36,7 +36,7 @@ export default function TrainingList({navigation, userId}) {
       <View style={[styles.main.row]}>
         <Pressable
           onPress={() =>
-            navigation.navigate('ManageActivity', {idActivity: null})
+            navigation.navigate('ManageActivity', {userId, idActivity: null})
           }>
           <Button title={'CRIAR TREINO'} type={2} />
         </Pressable>
@@ -69,7 +69,7 @@ export default function TrainingList({navigation, userId}) {
                     size={28}
                   />
                 </View>
-                {item?.qty && (
+                {item.qty ? (
                   <Text
                     style={[
                       styles.colors.textColor.white_1,
@@ -78,7 +78,7 @@ export default function TrainingList({navigation, userId}) {
                     ]}>
                     {item.qty} exercícios
                   </Text>
-                )}
+                ) : null}
               </Pressable>
               {index < activities.length - 1 && (
                 <HorizontalRule
