@@ -20,7 +20,7 @@ import {setUser} from '../../store/actions/userSessionAction';
 export default function Login({navigation}) {
   const dispatch = useDispatch();
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('teste123');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -90,7 +90,8 @@ export default function Login({navigation}) {
       case 2:
         return 'ProfileInstructor';
       case 3:
-        return 'Dashboard';
+        // return 'Dashboard';
+        return 'Home';
       default:
         'Login';
     }

@@ -58,6 +58,20 @@
 		<string>HindVadodara-Medium.ttf</string>
 		<string>HindVadodara-Regular.ttf</string>
 		<string>HindVadodara-SemiBold.ttf</string>
+		<string>IBMPlexSansCondensed-Bold.ttf</string>
+		<string>IBMPlexSansCondensed-BoldItalic.ttf</string>
+		<string>IBMPlexSansCondensed-ExtraLight.ttf</string>
+		<string>IBMPlexSansCondensed-ExtraLightItalic.ttf</string>
+		<string>IBMPlexSansCondensed-Italic.ttf</string>
+		<string>IBMPlexSansCondensed-Light.ttf</string>
+		<string>IBMPlexSansCondensed-LightItalic.ttf</string>
+		<string>IBMPlexSansCondensed-Medium.ttf</string>
+		<string>IBMPlexSansCondensed-MediumItalic.ttf</string>
+		<string>IBMPlexSansCondensed-Regular.ttf</string>
+		<string>IBMPlexSansCondensed-SemiBold.ttf</string>
+		<string>IBMPlexSansCondensed-SemiBoldItalic.ttf</string>
+		<string>IBMPlexSansCondensed-Thin.ttf</string>
+		<string>IBMPlexSansCondensed-ThinItalic.ttf</string>
 	</array>
 </dict>
 </plist>

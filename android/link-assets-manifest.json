@@ -26,6 +26,66 @@
       "sha1": "fc1ec26798f27da0203e68982eab348d6b399824"
     },
     {
+      "path": "src/assets/fonts/IBMPlexSansCondensed-Bold.ttf",
+      "sha1": "04cbd753ec1ea08181641ecf08aff5e4a2b4db51"
+    },
+    {
+      "path": "src/assets/fonts/IBMPlexSansCondensed-BoldItalic.ttf",
+      "sha1": "696af39017da0e2b7026b83ad5978af08c4a0356"
+    },
+    {
+      "path": "src/assets/fonts/IBMPlexSansCondensed-ExtraLight.ttf",
+      "sha1": "1893fc22003bcc3883999aa9009a35792df5a342"
+    },
+    {
+      "path": "src/assets/fonts/IBMPlexSansCondensed-ExtraLightItalic.ttf",
+      "sha1": "96911c4702c72f46e15f51029a35ebce24837e16"
+    },
+    {
+      "path": "src/assets/fonts/IBMPlexSansCondensed-Italic.ttf",
+      "sha1": "50ddb29c1d55893ed7e0cf3f8b309702c1adc143"
+    },
+    {
+      "path": "src/assets/fonts/IBMPlexSansCondensed-Light.ttf",
+      "sha1": "02c9576dcb90cfd5ca935d96cfc6cdc8668df440"
+    },
+    {
+      "path": "src/assets/fonts/IBMPlexSansCondensed-LightItalic.ttf",
+      "sha1": "3a4816d8789f620f400944c263cc1d2c307c6094"
+    },
+    {
+      "path": "src/assets/fonts/IBMPlexSansCondensed-Medium.ttf",
+      "sha1": "1de36340225d5f7610f209d2196896b87ea858f4"
+    },
+    {
+      "path": "src/assets/fonts/IBMPlexSansCondensed-MediumItalic.ttf",
+      "sha1": "4db0a809733b830ef673c727b13b638775dad4e3"
+    },
+    {
+      "path": "src/assets/fonts/IBMPlexSansCondensed-Regular.ttf",
+      "sha1": "e52ee89bf17f29163f22de0665ae220ea9cd710b"
+    },
+    {
+      "path": "src/assets/fonts/IBMPlexSansCondensed-SemiBold.ttf",
+      "sha1": "922c97e0802fdd4d92da7a23863aa60e3fe7eb54"
+    },
+    {
+      "path": "src/assets/fonts/IBMPlexSansCondensed-SemiBoldItalic.ttf",
+      "sha1": "f7121eb74b395cfd94de8f64a6ecbec40657392b"
+    },
+    {
+      "path": "src/assets/fonts/IBMPlexSansCondensed-Thin.ttf",
+      "sha1": "24ee1f4d547e345a720139c57b7eaae809af9953"
+    },
+    {
+      "path": "src/assets/fonts/IBMPlexSansCondensed-ThinItalic.ttf",
+      "sha1": "07f5e17b90b9b4fa2af928bd539e50df3c1d87d1"
+    },
+    {
+      "path": "src/assets/fonts/OFL copy.txt",
+      "sha1": "80db3361b0ff3da772a7517b76566c101d0aae75"
+    },
+    {
       "path": "src/assets/fonts/OFL.txt",
       "sha1": "de20c169950818edb233c63f3d2644c92601f45e"
     }

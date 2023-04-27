@@ -6,18 +6,19 @@ import styles from '../../styles';
 
 import ViewDefault from '../ViewDefault';
 
-import Header from '../../components/Header';
-import HeaderStart from '../../components/HeaderStart';
+import Header from '../../components/Header/Header';
+import HeaderStart from '../../components/Header/HeaderStart';
 
 import Plan from './components/profilePlan';
 import ProfilePassword from './components/profilePassword';
 import ProfileData from './components/profileData';
 
-import HorizontalRule from '../../components/HorizontalRule';
 import Button from '../../components/Button';
 
 import {readUserByIdService, updateUserService} from '../../service/user';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
+import {ContainerScroll} from '../style';
+import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 
 export default function Profile({navigation}) {
   const dispatch = useDispatch();
@@ -85,24 +86,17 @@ export default function Profile({navigation}) {
       ) : (
         <HeaderStart />
       )}
-      <ScrollView
-        contentContainerStyle={[
-          styles.main.column,
-          styles.paddingStyle.px_3,
-          styles.gapStyle.gap_5,
-        ]}>
+      <HorizontalRule color={'#202020'} />
+      <ContainerScroll
+        contentContainerStyle={{alignItems: 'flex-start', gap: 16}}>
         <ProfileData userData={userData} updateProfile={updateUser} />
-
-        <HorizontalRule />
-
+        {/* <HorizontalRule />
         {plan && <Plan plan={plan} />}
-
         <ProfilePassword />
-
         <Pressable onPress={() => logout()}>
           <Button title={'SAIR'} type={2} />
-        </Pressable>
-      </ScrollView>
+        </Pressable> */}
+      </ContainerScroll>
     </ViewDefault>
   );
 }

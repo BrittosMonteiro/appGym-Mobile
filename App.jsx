@@ -33,6 +33,7 @@ import UserPlanSelect from './src/view/instructor/userPlanSelect';
 
 // Profile
 import Profile from './src/view/profile/profile';
+import Home from './src/view/home/home';
 
 export default function App() {
   const sidebarState = useSelector(state => {
@@ -65,6 +66,8 @@ export default function App() {
 
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="CreateGymAccount" component={CreateGymAccount} />
+          {/* New Layout */}
+          <Stack.Screen name="Home" component={Home} />
         </Stack.Navigator>
         <Sidebar open={sidebarState} />
         <ModalLoading />

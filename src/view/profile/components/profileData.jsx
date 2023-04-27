@@ -1,14 +1,17 @@
-import {useEffect, useState} from 'react';
-import {Pressable, Text, TextInput, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Pressable} from 'react-native';
 
-import styles from '../../../styles';
-import Button from '../../../components/Button';
 import {useSelector} from 'react-redux';
+import Card from '../../../components/Card/Card';
+import {Column, InputText, Label, Row} from './style';
+import {ContainerTitle} from '../../style';
+import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
 
 export default function ProfileData({userData, updateProfile}) {
   const userSession = useSelector(state => {
     return state.userSessionReducer;
   });
+
   const [birthdate, setBirthdate] = useState('');
   const [cnpj, setCnpj] = useState('');
   const [cpf, setCpf] = useState('');
@@ -68,273 +71,126 @@ export default function ProfileData({userData, updateProfile}) {
   }
 
   return (
-    <View style={[styles.gapStyle.gap_5]}>
-      <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-        <Text
-          style={[
-            styles.colors.textColor.white_2,
-            styles.font.size.size_18,
-            styles.font.weight.regular,
-          ]}>
-          NOME
-        </Text>
-        <TextInput
-          style={[
-            styles.colors.textColor.white_1,
-            styles.font.size.size_20,
-            styles.font.weight.medium,
-            edit
-              ? [styles.colors.backgroundColor.dark_1, styles.paddingStyle.pa_1]
-              : [styles.paddingStyle.px_0, styles.paddingStyle.py_1],
-          ]}
-          placeholder="NOME"
-          placeholderTextColor={styles.colors.textColor.white_1.color}
+    <Card>
+      <Row>
+        <ContainerTitle $white>DADOS</ContainerTitle>
+        {!edit ? (
+          <Pressable onPress={() => setEdit(!edit)}>
+            <Label>EDITAR</Label>
+          </Pressable>
+        ) : (
+          <React.Fragment>
+            <Pressable onPress={() => update()}>
+              <Label>CANCELAR</Label>
+            </Pressable>
+            <Pressable onPress={() => cancel()}>
+              <Label>CANCELAR</Label>
+            </Pressable>
+          </React.Fragment>
+        )}
+      </Row>
+
+      <HorizontalRule color={'#fcf3f3'} />
+
+      <Column>
+        <Label>NOME</Label>
+        <InputText
+          placeholder={'NOME'}
           editable={edit}
           defaultValue={name}
           onChangeText={text => setName(text)}
         />
-      </View>
+      </Column>
 
       {shortName && (
-        <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-          <Text
-            style={[
-              styles.colors.textColor.white_2,
-              styles.font.size.size_18,
-              styles.font.weight.regular,
-            ]}>
-            NOME DE EXIBIÇÃO
-          </Text>
-          <TextInput
-            style={[
-              styles.colors.textColor.white_1,
-              styles.font.size.size_20,
-              styles.font.weight.medium,
-              edit
-                ? [
-                    styles.colors.backgroundColor.dark_1,
-                    styles.paddingStyle.pa_1,
-                  ]
-                : [styles.paddingStyle.px_0, styles.paddingStyle.py_1],
-            ]}
-            placeholder="NOME DE EXIBIÇÃO"
-            placeholderTextColor={styles.colors.textColor.white_1.color}
+        <Column>
+          <Label>NOME DE EXIBIÇÃO</Label>
+          <InputText
+            placeholder={'NOME DE EXIBIÇÃO'}
             editable={edit}
             defaultValue={shortName}
             onChangeText={text => setShortName(text)}
           />
-        </View>
+        </Column>
       )}
 
-      <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-        <Text
-          style={[
-            styles.colors.textColor.white_2,
-            styles.font.size.size_18,
-            styles.font.weight.regular,
-          ]}>
-          E-MAIL
-        </Text>
-        <TextInput
-          style={[
-            styles.colors.textColor.white_1,
-            styles.font.size.size_20,
-            styles.font.weight.medium,
-            edit
-              ? [styles.colors.backgroundColor.dark_1, styles.paddingStyle.pa_1]
-              : [styles.paddingStyle.px_0, styles.paddingStyle.py_1],
-          ]}
-          placeholder="E-MAIL"
-          placeholderTextColor={styles.colors.textColor.white_1.color}
+      <Column>
+        <Label>E-MAIL</Label>
+        <InputText
+          placeholder={'E-MAIL'}
           editable={edit}
           defaultValue={email}
           onChangeText={text => setEmail(text)}
         />
-      </View>
+      </Column>
 
-      <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-        <Text
-          style={[
-            styles.colors.textColor.white_2,
-            styles.font.size.size_18,
-            styles.font.weight.regular,
-          ]}>
-          USERNAME
-        </Text>
-        <TextInput
-          style={[
-            styles.colors.textColor.white_1,
-            styles.font.size.size_20,
-            styles.font.weight.medium,
-            edit
-              ? [styles.colors.backgroundColor.dark_1, styles.paddingStyle.pa_1]
-              : [styles.paddingStyle.px_0, styles.paddingStyle.py_1],
-          ]}
-          placeholder="USUÁRIO"
-          placeholderTextColor={styles.colors.textColor.white_1.color}
+      <Column>
+        <Label>USUÁRIO</Label>
+        <InputText
+          placeholder={'USUÁRIO'}
           editable={edit}
           defaultValue={username}
           onChangeText={text => setUsername(text)}
         />
-      </View>
+      </Column>
 
       {birthdate && (
-        <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-          <Text
-            style={[
-              styles.colors.textColor.white_2,
-              styles.font.size.size_18,
-              styles.font.weight.regular,
-            ]}>
-            DATA DE NASCIMENTO
-          </Text>
-          <TextInput
-            style={[
-              styles.colors.textColor.white_1,
-              styles.font.size.size_20,
-              styles.font.weight.medium,
-              edit
-                ? [
-                    styles.colors.backgroundColor.dark_1,
-                    styles.paddingStyle.pa_1,
-                  ]
-                : [styles.paddingStyle.px_0, styles.paddingStyle.py_1],
-            ]}
-            placeholder="DATA DE NASCIMENTO"
-            placeholderTextColor={styles.colors.textColor.white_1.color}
-            editable={false}
-            value={new Date(birthdate).toLocaleDateString()}
+        <Column>
+          <Label>DATA DE NASCIMENTO</Label>
+          <InputText
+            placeholder={'DATA DE NASCIMENTO'}
+            editable={edit}
+            defaultValue={new Date(birthdate).toLocaleDateString()}
           />
-        </View>
+        </Column>
       )}
 
       {cpf && (
-        <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-          <Text
-            style={[
-              styles.colors.textColor.white_2,
-              styles.font.size.size_18,
-              styles.font.weight.regular,
-            ]}>
-            CPF
-          </Text>
-          <TextInput
-            style={[
-              styles.colors.textColor.white_1,
-              styles.font.size.size_20,
-              styles.font.weight.medium,
-              edit
-                ? [
-                    styles.colors.backgroundColor.dark_1,
-                    styles.paddingStyle.pa_1,
-                  ]
-                : [styles.paddingStyle.px_0, styles.paddingStyle.py_1],
-            ]}
-            placeholder="CPF"
-            placeholderTextColor={styles.colors.textColor.white_1.color}
+        <Column>
+          <Label>CPF</Label>
+          <InputText
+            placeholder={'CPF'}
             editable={edit}
             defaultValue={cpf}
             onChangeText={text => setCpf(text)}
           />
-        </View>
+        </Column>
       )}
 
       {cnpj && (
-        <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-          <Text
-            style={[
-              styles.colors.textColor.white_2,
-              styles.font.size.size_18,
-              styles.font.weight.regular,
-            ]}>
-            CNPJ
-          </Text>
-          <TextInput
-            style={[
-              styles.colors.textColor.white_1,
-              styles.font.size.size_20,
-              styles.font.weight.medium,
-              edit
-                ? [
-                    styles.colors.backgroundColor.dark_1,
-                    styles.paddingStyle.pa_1,
-                  ]
-                : [styles.paddingStyle.px_0, styles.paddingStyle.py_1],
-            ]}
-            placeholder="CNPJ"
-            placeholderTextColor={styles.colors.textColor.white_1.color}
+        <Column>
+          <Label>CNPJ</Label>
+          <InputText
+            placeholder={'CNPJ'}
             editable={edit}
             defaultValue={cnpj}
             onChangeText={text => setCnpj(text)}
           />
-        </View>
+        </Column>
       )}
 
       {cref && (
-        <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-          <Text
-            style={[
-              styles.colors.textColor.white_2,
-              styles.font.size.size_18,
-              styles.font.weight.regular,
-            ]}>
-            CREF
-          </Text>
-          <TextInput
-            style={[
-              styles.colors.textColor.white_1,
-              styles.font.size.size_20,
-              styles.font.weight.medium,
-              edit
-                ? [
-                    styles.colors.backgroundColor.dark_1,
-                    styles.paddingStyle.pa_1,
-                  ]
-                : [styles.paddingStyle.px_0, styles.paddingStyle.py_1],
-            ]}
-            placeholder="CREF"
-            placeholderTextColor={styles.colors.textColor.white_1.color}
+        <Column>
+          <Label>CREF</Label>
+          <InputText
+            placeholder={'CREF'}
             editable={edit}
             defaultValue={cref}
             onChangeText={text => setCref(text)}
           />
-        </View>
+        </Column>
       )}
 
       {gymName && (
-        <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-          <Text
-            style={[
-              styles.colors.textColor.white_2,
-              styles.font.size.size_18,
-              styles.font.weight.regular,
-            ]}>
-            ACADEMIA
-          </Text>
-          <Text
-            style={[
-              styles.colors.textColor.white_1,
-              styles.font.size.size_20,
-              styles.font.weight.medium,
-            ]}>
-            {gymName}
-          </Text>
-        </View>
+        <Column>
+          <Label>ACADEMIA</Label>
+          <InputText
+            placeholder={'ACADEMIA'}
+            editable={false}
+            defaultValue={gymName}
+          />
+        </Column>
       )}
-      {!edit ? (
-        <Pressable onPress={() => setEdit(!edit)}>
-          <Button title={'EDITAR'} type={2} />
-        </Pressable>
-      ) : (
-        <>
-          <Pressable onPress={() => update()}>
-            <Button title={'CONFIRMAR'} type={1} />
-          </Pressable>
-          <Pressable onPress={() => cancel()}>
-            <Button title={'CANCELAR'} type={0} />
-          </Pressable>
-        </>
-      )}
-    </View>
+    </Card>
   );
 }

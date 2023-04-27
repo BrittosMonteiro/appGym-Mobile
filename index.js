@@ -3,12 +3,17 @@ import React from 'react';
 import App from './App';
 import {name as appName} from './app.json';
 import {Provider} from 'react-redux';
+import {ThemeProvider} from 'styled-components';
 
 import store from './src/store/index';
 
+import styles from './index_style';
+
 const AppRedux = () => (
   <Provider store={store}>
-    <App />
+    <ThemeProvider theme={styles}>
+      <App />
+    </ThemeProvider>
   </Provider>
 );
 
