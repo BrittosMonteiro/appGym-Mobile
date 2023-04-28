@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {Pressable, Text, View} from 'react-native';
+import {Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
-
-import styles from '../../../styles';
-import HorizontalRule from '../../../components/HorizontalRule';
-import PlanItems from './planItems';
 import {CaretDown, CaretUp} from 'phosphor-react-native';
+
+import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
+import PlanItems from './planItems';
 import Button from '../../../components/Button';
+import {Label, Row} from './style';
+import {Card, ContainerTitle} from '../../style';
 
 export default function Plan({
   plan,
@@ -18,17 +19,14 @@ export default function Plan({
     return state.userSessionReducer;
   });
   const [planStatusTitle, setPlanStatusTitle] = useState('');
-  const [planStatusColor, setPlanStatusColor] = useState('');
   const [expand, setExpand] = useState(false);
 
   const planStatus = [
     {
       title: 'ATIVO',
-      color: styles.colors.backgroundColor.green_1,
     },
     {
       title: 'EXPIRADO',
-      color: styles.colors.backgroundColor.red_1,
     },
   ];
 
@@ -40,11 +38,9 @@ export default function Plan({
       ).getTime();
       if (today <= formatedDate) {
         setPlanStatusTitle(planStatus[0].title);
-        setPlanStatusColor(planStatus[0].color);
       } else {
         if (today > formatedDate) {
           setPlanStatusTitle(planStatus[1].title);
-          setPlanStatusColor(planStatus[1].color);
         }
       }
     }
@@ -55,117 +51,57 @@ export default function Plan({
   }, [planValidDate]);
 
   return (
-    <>
-      <View style={[styles.main.column, styles.gapStyle.gap_3]}>
-        <View
-          style={[
-            styles.main.row,
-            styles.alignment.justifyContent.space_between,
-            styles.alignment.alignItems.center,
-          ]}>
-          <Text
-            style={[
-              styles.colors.textColor.white_1,
-              styles.font.size.size_20,
-              styles.font.weight.medium,
-            ]}>
-            PLANO
-          </Text>
-
+    <React.Fragment>
+      <Card $black={true} $padding={true} $fullWidth={true}>
+        <Row $align={'center'} $justifyContent={'space-between'}>
+          <ContainerTitle $white>PLANO</ContainerTitle>
           <Pressable onPress={() => setExpand(!expand)}>
             {expand ? (
-              <CaretDown
-                color={styles.colors.textColor.white_1.color}
-                weight="bold"
-                size={24}
-              />
+              <CaretDown color={'#FCF3F3'} weight="bold" size={24} />
             ) : (
-              <CaretUp
-                color={styles.colors.textColor.white_1.color}
-                weight="bold"
-                size={24}
-              />
+              <CaretUp color={'#FCF3F3'} weight="bold" size={24} />
             )}
           </Pressable>
-        </View>
-
+        </Row>
         {expand && (
           <React.Fragment>
-            <View
-              style={[
-                styles.main.row,
-                styles.alignment.justifyContent.space_between,
-                styles.alignment.alignItems.flex_start,
-              ]}>
-              <Text
-                style={[
-                  styles.colors.textColor.white_1,
-                  styles.font.size.size_18,
-                  styles.font.weight.medium,
-                ]}>
-                {plan.title}
-              </Text>
-              <Text
-                style={[
-                  styles.colors.textColor.white_1,
-                  styles.font.size.size_18,
-                  styles.font.weight.medium,
-                ]}>
-                R$ {plan.price.toString().replace('.', ',')}
-              </Text>
-            </View>
+            {userSession.userLevel === 2 && (
+              <Row $align={'center'} $justifyContent={'space-between'}>
+                <Pressable onPress={() => proceedToPlan(plan._id.toString())}>
+                  <Label>ALTERAR PLANO</Label>
+                </Pressable>
+                <Pressable onPress={() => removePlanFromUser()}>
+                  <Button title={'REMOVER PLANO'} type={0} />
+                  <Label>REMOVER PLANO</Label>
+                </Pressable>
+              </Row>
+            )}
 
-            <View
-              style={[
-                styles.main.row,
-                styles.alignment.justifyContent.space_between,
-                styles.alignment.alignItems.flex_start,
-              ]}>
-              <Text
-                style={[
-                  styles.font.size.size_16,
-                  styles.font.weight.medium,
-                  styles.colors.textColor.white_1,
-                  styles.font.weight.medium,
-                  styles.main.borderRadiusDefault,
-                  styles.paddingStyle.px_1,
-                  planStatusColor,
-                ]}>
-                {planStatusTitle}
-              </Text>
-              {(userSession.planValidDate || planValidDate) && (
-                <Text
-                  style={[
-                    styles.colors.textColor.white_2,
-                    styles.font.size.size_16,
-                    styles.font.weight.regular,
-                  ]}>
-                  VÁLIDO ATÉ:{' '}
-                  {new Date(
-                    userSession.planValidDate || planValidDate,
-                  ).toLocaleDateString()}
-                </Text>
-              )}
-            </View>
+            <HorizontalRule color={'#FCF3F3'} />
+
+            <Row $align={'center'} $justifyContent={'space-between'}>
+              <Label>{plan.title}</Label>
+              <Label>R$ {plan.price.toString().replace('.', ',')}</Label>
+            </Row>
+
+            <Row $align={'center'} $justifyContent={'space-between'}>
+              <Label>{planStatusTitle}</Label>
+              <Label>
+                VÁLIDO ATÉ:{' '}
+                {new Date(
+                  userSession.planValidDate || planValidDate,
+                ).toLocaleDateString()}
+              </Label>
+            </Row>
 
             <PlanItems
               isIncluded={plan.isIncluded}
               notIncluded={plan.notIncluded}
             />
-            {userSession.userLevel === 2 && (
-              <React.Fragment>
-                <Pressable onPress={() => proceedToPlan(plan._id.toString())}>
-                  <Button title={'ALTERAR PLANO'} type={1} />
-                </Pressable>
-                <Pressable onPress={() => removePlanFromUser()}>
-                  <Button title={'REMOVER PLANO'} type={0} />
-                </Pressable>
-              </React.Fragment>
-            )}
           </React.Fragment>
         )}
-      </View>
-      <HorizontalRule />
-    </>
+      </Card>
+      <HorizontalRule color={'#202020'} />
+    </React.Fragment>
   );
 }

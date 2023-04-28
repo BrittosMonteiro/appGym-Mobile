@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Pressable} from 'react-native';
-
 import {useSelector} from 'react-redux';
-import Card from '../../../components/Card/Card';
-import {Column, InputText, Label, Row} from './style';
-import {ContainerTitle} from '../../style';
+
 import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
+import {Column, InputText, Label, Row} from './style';
+import {Card, ContainerTitle} from '../../style';
 
 export default function ProfileData({userData, updateProfile}) {
   const userSession = useSelector(state => {
@@ -71,22 +70,22 @@ export default function ProfileData({userData, updateProfile}) {
   }
 
   return (
-    <Card>
-      <Row>
+    <Card $black={true} $fullWidth={true} $padding={true}>
+      <Row $align={'center'} $justifyContent={'space-between'}>
         <ContainerTitle $white>DADOS</ContainerTitle>
         {!edit ? (
           <Pressable onPress={() => setEdit(!edit)}>
             <Label>EDITAR</Label>
           </Pressable>
         ) : (
-          <React.Fragment>
+          <Row $align={'center'} $justifyContent={'space-between'}>
             <Pressable onPress={() => update()}>
-              <Label>CANCELAR</Label>
+              <Label>ATUALIZAR</Label>
             </Pressable>
             <Pressable onPress={() => cancel()}>
               <Label>CANCELAR</Label>
             </Pressable>
-          </React.Fragment>
+          </Row>
         )}
       </Row>
 

@@ -10,8 +10,8 @@ export const Row = styled.View`
   gap: 8px;
   display: flex;
   flex-direction: row;
-  justify-content:space-between;
-  align-items: center;
+  ${props => `justify-content: ${props.$justifyContent}`}
+  ${props => `align-items: ${props.$align}`}
 `;
 export const Label = styled.Text`
   fontSize: 14px;

@@ -1,24 +1,21 @@
 import {useEffect, useState} from 'react';
-import {Pressable, ScrollView, View} from 'react-native';
+import {Pressable} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import styles from '../../styles';
 
 import ViewDefault from '../ViewDefault';
-
+import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import Header from '../../components/Header/Header';
 import HeaderStart from '../../components/Header/HeaderStart';
-
 import Plan from './components/profilePlan';
 import ProfilePassword from './components/profilePassword';
 import ProfileData from './components/profileData';
-
 import Button from '../../components/Button';
+
+import {ContainerScroll} from '../style';
 
 import {readUserByIdService, updateUserService} from '../../service/user';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
-import {ContainerScroll} from '../style';
-import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 
 export default function Profile({navigation}) {
   const dispatch = useDispatch();
@@ -40,7 +37,9 @@ export default function Profile({navigation}) {
         setPlan(response.data.plan);
         setUserData(response.data);
       })
-      .catch(err => {})
+      .catch(err => {
+        console.log(err);
+      })
       .finally(() => {
         dispatch(unsetLoading());
       });
@@ -90,12 +89,13 @@ export default function Profile({navigation}) {
       <ContainerScroll
         contentContainerStyle={{alignItems: 'flex-start', gap: 16}}>
         <ProfileData userData={userData} updateProfile={updateUser} />
-        {/* <HorizontalRule />
+        <HorizontalRule color={'#202020'} />
         {plan && <Plan plan={plan} />}
         <ProfilePassword />
+
         <Pressable onPress={() => logout()}>
           <Button title={'SAIR'} type={2} />
-        </Pressable> */}
+        </Pressable>
       </ContainerScroll>
     </ViewDefault>
   );

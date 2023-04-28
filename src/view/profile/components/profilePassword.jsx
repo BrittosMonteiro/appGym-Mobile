@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Pressable, Text, TextInput, View} from 'react-native';
+import {Pressable} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {CaretDown, CaretUp, Eye, EyeSlash} from 'phosphor-react-native';
 
@@ -7,8 +7,11 @@ import styles from '../../../styles';
 import Button from '../../../components/Button';
 import HorizontalRule from '../../../components/HorizontalRule';
 
-import {updatePasswordService} from '../../../service/user';
 import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
+import {Column, Row, Label, InputText} from './style';
+import {Card, ContainerTitle} from '../../style';
+
+import {updatePasswordService} from '../../../service/user';
 
 export default function ProfilePassword() {
   const dispatch = useDispatch();
@@ -55,20 +58,9 @@ export default function ProfilePassword() {
 
   return (
     <>
-      <View style={[styles.main.column, styles.gapStyle.gap_3]}>
-        <View
-          style={[
-            styles.main.row,
-            styles.alignment.justifyContent.space_between,
-          ]}>
-          <Text
-            style={[
-              styles.colors.textColor.white_1,
-              styles.font.weight.medium,
-              styles.font.size.size_20,
-            ]}>
-            ALTERAR SENHA
-          </Text>
+      <Card $black={true} $padding={true} $fullWidth={true}>
+        <Row $align={'center'} $justifyContent={'space-between'}>
+          <ContainerTitle $white>ALTERAR SENHA</ContainerTitle>
           <Pressable
             onPress={() => setToggleUpdatePassword(!toggleUpdatePassword)}>
             {toggleUpdatePassword ? (
@@ -85,37 +77,15 @@ export default function ProfilePassword() {
               />
             )}
           </Pressable>
-        </View>
+        </Row>
         {toggleUpdatePassword && (
           <>
-            <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-              <Text
-                style={[
-                  styles.colors.textColor.white_1,
-                  styles.font.size.size_18,
-                  styles.font.weight.regular,
-                ]}>
-                SENHA
-              </Text>
-              <View
-                style={[
-                  styles.colors.backgroundColor.dark_3,
-                  styles.paddingStyle.px_2,
-                  styles.paddingStyle.py_1,
-                  styles.alignment.alignItems.center,
-                  styles.main.row,
-                ]}>
-                <TextInput
-                  style={[
-                    styles.colors.textColor.white_1,
-                    styles.font.size.size_20,
-                    styles.font.weight.medium,
-                    styles.colors.backgroundColor.dark_3,
-                    styles.paddingStyle.pa_0,
-                    {flex: 1},
-                  ]}
+            <Column>
+              <Label>NOVA SENHA</Label>
+              <Row $align={'center'} $justifyContent={'space-between'}>
+                <InputText
+                  placeholder={'SUA NOVA SENHA'}
                   secureTextEntry={!showPassword}
-                  placeholder="SENHA"
                   placeholderTextColor={styles.colors.textColor.gray_1}
                   defaultValue={password}
                   onChangeText={text => setPassword(text)}
@@ -135,37 +105,15 @@ export default function ProfilePassword() {
                     />
                   )}
                 </Pressable>
-              </View>
-            </View>
+              </Row>
+            </Column>
 
-            <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-              <Text
-                style={[
-                  styles.colors.textColor.white_1,
-                  styles.font.size.size_18,
-                  styles.font.weight.regular,
-                ]}>
-                CONFIRMAR SENHA
-              </Text>
-              <View
-                style={[
-                  styles.colors.backgroundColor.dark_3,
-                  styles.paddingStyle.px_2,
-                  styles.paddingStyle.py_1,
-                  styles.alignment.alignItems.center,
-                  styles.main.row,
-                ]}>
-                <TextInput
-                  style={[
-                    styles.colors.textColor.white_1,
-                    styles.font.size.size_20,
-                    styles.font.weight.medium,
-                    styles.colors.backgroundColor.dark_3,
-                    styles.paddingStyle.pa_0,
-                    {flex: 1},
-                  ]}
+            <Column>
+              <Label>CONFIRMAR NOVA SENHA</Label>
+              <Row $align={'center'} $justifyContent={'space-between'}>
+                <InputText
+                  placeholder={'CONFIRME SUA NOVA SENHA'}
                   secureTextEntry={!showPassword}
-                  placeholder="CONFIRMAR SENHA"
                   placeholderTextColor={styles.colors.textColor.gray_1}
                   defaultValue={confirmPassword}
                   onChangeText={text => setConfirmPassword(text)}
@@ -185,14 +133,15 @@ export default function ProfilePassword() {
                     />
                   )}
                 </Pressable>
-              </View>
-            </View>
+              </Row>
+            </Column>
+
             <Pressable onPress={() => updatePassword()}>
               <Button title={'ALTERAR'} type={1} />
             </Pressable>
           </>
         )}
-      </View>
+      </Card>
 
       {toggleUpdatePassword && <HorizontalRule />}
     </>

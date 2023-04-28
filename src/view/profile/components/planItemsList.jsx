@@ -1,39 +1,18 @@
-import {Text, View} from 'react-native';
-
-import styles from '../../../styles';
+import {Label, Row} from './style';
+import {Card, ContainerTitle} from '../../style';
 
 export default function PlanItemsList({icon, list, title}) {
   return (
-    <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-      <Text
-        style={[
-          styles.colors.textColor.white_1,
-          styles.font.size.size_20,
-          styles.font.weight.medium,
-        ]}>
-        {title}
-      </Text>
-      <View style={[styles.main.column]}>
+    <Card>
+      <ContainerTitle $white>{title}</ContainerTitle>
+      <Card>
         {list.map((item, index) => (
-          <View
-            key={index}
-            style={[
-              styles.main.row,
-              styles.gapStyle.gap_1,
-              styles.alignment.alignItems.center,
-            ]}>
+          <Row key={index} $align={'center'} $justifyContent={'flex-start'}>
             {icon}
-            <Text
-              style={[
-                styles.font.size.size_18,
-                styles.font.weight.regular,
-                styles.colors.textColor.white_1,
-              ]}>
-              {item.title}
-            </Text>
-          </View>
+            <Label>{item.title}</Label>
+          </Row>
         ))}
-      </View>
-    </View>
+      </Card>
+    </Card>
   );
 }

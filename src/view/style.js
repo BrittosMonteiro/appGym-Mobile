@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const SafeAreaView = styled.SafeAreaView`
   padding: 16px;
-  background: ${props => props.theme.colors.sand_03};
+  background: ${props => props.theme.colors.white_02};
   flex: 1;
 `;
 
@@ -27,9 +27,22 @@ export const ContainerTitle = styled.Text`
   font-weight: 400;
   font-size: 22px;
   line-height: 29px;
-  ${props => props.$white ? `
+  ${props =>
+    props.$white
+      ? `
     color: ${props.theme.colors.white_02};
-  `:`
+  `
+      : `
   color: ${props.theme.colors.black_01};
 `}
+`;
+
+export const Card = styled.View`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border-radius: 4px;
+  ${props => props.$fullWidth && `width: 100%;`};
+  ${props => props.$padding && `padding: 16px;`};
+  ${props => props.$black && `background:${props.theme.colors.black_01}`};
 `;
