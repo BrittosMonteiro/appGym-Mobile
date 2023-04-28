@@ -1,44 +1,49 @@
-import {Container, ContainerTitle} from '../../view/style';
-import ItemList from './ItemList';
-import {ContainerList} from './style';
+import React, {useEffect, useState} from 'react';
 
-export default function TrainingList({navigation}) {
-  const trainingList = [
-    {
-      idTraining: 0,
-      activitiesQty: 7,
-      title: 'TREINO A',
-      type: 0,
-    },
-    {
-      idTraining: 1,
-      activitiesQty: 7,
-      title: 'TREINO B',
-      type: 1,
-    },
-    {
-      idTraining: 2,
-      activitiesQty: 7,
-      title: 'TREINO C',
-      type: 2,
-    },
-    {
-      idTraining: 3,
-      activitiesQty: 7,
-      title: 'TREINO D',
-      type: 3,
-    },
-  ];
+import HorizontalRule from '../HorizontalRule/HorizontalRule';
+import ItemList from './ItemList';
+import {Card, Container, ContainerTitle} from '../../view/style';
+
+import {readActivityListService} from '../../service/activity';
+
+export default function TrainingList({userId, navigation}) {
+  const [trainingList, setTrainingList] = useState([]);
+
+  async function loadActivities() {
+    await readActivityListService(userId)
+      .then(responseFind => {
+        return responseFind.json();
+      })
+      .then(response => {
+        setTrainingList(response.data);
+      })
+      .catch(err => {});
+  }
+
+  useEffect(() => {
+    loadActivities();
+  }, []);
+
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      loadActivities();
+    });
+  }, [navigation]);
 
   return (
     <Container>
       <ContainerTitle>MEUS TREINOS</ContainerTitle>
       {trainingList.length > 0 ? (
-        <ContainerList>
+        <Card $black={true} $padding={true} $fullWidth={true}>
           {trainingList.map((training, index) => (
-            <ItemList item={training} navigation={navigation} key={index} />
+            <React.Fragment key={index}>
+              <ItemList item={training} navigation={navigation} />
+              {index < trainingList.length - 1 && (
+                <HorizontalRule color={'#fcf3f3'} />
+              )}
+            </React.Fragment>
           ))}
-        </ContainerList>
+        </Card>
       ) : null}
     </Container>
   );

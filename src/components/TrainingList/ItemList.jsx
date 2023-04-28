@@ -19,7 +19,10 @@ export default function ItemList({item, navigation}) {
     <PersonSimpleRun color={'#EB5757'} size={32} />,
   ];
   return (
-    <ContainerListItem>
+    <ContainerListItem
+      onPress={() => {
+        navigation.navigate('ActivityDetail', {idActivity: item.id});
+      }}>
       <View
         style={{
           display: 'flex',
@@ -27,8 +30,10 @@ export default function ItemList({item, navigation}) {
           alignItems: 'center',
           gap: 8,
         }}>
-        {activityIcon[item.type]}
-        <ContainerListItemTitle>{item.title}</ContainerListItemTitle>
+        {item.type ? activityIcon[item.type] : activityIcon[0]}
+        <ContainerListItemTitle>
+          {item.title.toUpperCase()}
+        </ContainerListItemTitle>
       </View>
       <ContainerListItemSubtitle>
         {item.activitiesQty} EXERCÍCIOS

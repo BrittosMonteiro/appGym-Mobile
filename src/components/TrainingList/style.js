@@ -13,10 +13,9 @@ export const ContainerListItem = styled.Pressable`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 8px;
+  paddingVertical: 8px;
   gap: 8px;
   border-radius: 4px;
-  background: ${props => props.theme.colors.black_01};
   width: 100%;
 `;
 
