@@ -86,11 +86,10 @@ export default function Login({navigation}) {
   function goTo(userLevel) {
     switch (userLevel) {
       case 1:
-        return 'GymProfile';
+        return 'Profile';
       case 2:
-        return 'ProfileInstructor';
+        return 'Profile';
       case 3:
-        // return 'Dashboard';
         return 'Home';
       default:
         'Login';

@@ -115,11 +115,11 @@ export default function CreateGymAccount({navigation, route}) {
   function goTo(userLevel) {
     switch (userLevel) {
       case 1:
-        return 'GymProfile';
+        return 'Profile';
       case 2:
-        return 'GymProfile';
+        return 'Profile';
       case 3:
-        return 'Dashboard';
+        return 'Home';
       default:
         'Login';
     }

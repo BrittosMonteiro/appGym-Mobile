@@ -46,3 +46,17 @@ export const Card = styled.View`
   ${props => props.$padding && `padding: 16px;`};
   ${props => props.$black && `background:${props.theme.colors.black_01}`};
 `;
+
+export const ButtonDefault = styled.Pressable`
+  align-items: center;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: center;
+  padding: 8px;
+  ${props => props.$green && `background: ${props.theme.colors.green_01}`};
+  ${props => props.$red && `background: ${props.theme.colors.red_01}`};
+  ${props =>
+    props.$turquoise && `background: ${props.theme.colors.turquoise_01}`};
+`;

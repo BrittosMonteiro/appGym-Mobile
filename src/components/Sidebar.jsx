@@ -18,7 +18,7 @@ export default function Sidebar({open}) {
   const options = [
     {
       title: 'PERFIL ACADEMIA',
-      goTo: 'GymProfile',
+      goTo: 'Profile',
       canSee: 1,
     },
     {
@@ -34,7 +34,7 @@ export default function Sidebar({open}) {
 
     {
       title: 'PERFIL DO INSTRUTOR',
-      goTo: 'ProfileInstructor',
+      goTo: 'Profile',
       canSee: 2,
     },
     {
@@ -45,7 +45,7 @@ export default function Sidebar({open}) {
 
     {
       title: 'INÍCIO',
-      goTo: 'Dashboard',
+      goTo: 'Home',
       canSee: 3,
     },
     {

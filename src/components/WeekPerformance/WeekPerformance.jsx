@@ -1,47 +1,41 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {Container, ContainerWeek} from './weekPerformance_style';
 import {ContainerTitle} from '../../view/style';
 import Weekday from './Weekday';
 
 export default function WeekPerformance({navigation}) {
-  const week = [
-    {
-      weekday: 'D',
-      monthday: 23,
-    },
-    {
-      weekday: 'S',
-      monthday: 24,
-    },
-    {
-      weekday: 'T',
-      monthday: 25,
-    },
-    {
-      weekday: 'Q',
-      monthday: 26,
-    },
-    {
-      weekday: 'Q',
-      monthday: 27,
-    },
-    {
-      weekday: 'S',
-      monthday: 28,
-    },
-    {
-      weekday: 'S',
-      monthday: 29,
-    },
-  ];
+  const week = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
+  const [currentWeek, setCurrentWeek] = useState([]);
+
+  function getCurrentWeek(current) {
+    var week = new Array();
+
+    // Starting Sunday
+    current.setDate(current.getDate() - current.getDay());
+    for (var i = 0; i < 7; i++) {
+      week.push(new Date(current).getDate());
+      current.setDate(current.getDate() + 1);
+    }
+    setCurrentWeek(week);
+  }
+
+  useEffect(() => {
+    getCurrentWeek(new Date());
+  }, []);
 
   return (
     <Container>
       <ContainerTitle>DESEMPENHO SEMANAL</ContainerTitle>
       <ContainerWeek>
         {week.map((day, index) => (
-          <Weekday day={day} navigation={navigation} key={index} />
+          <Weekday
+            day={day}
+            monthDate={currentWeek[index]}
+            isToday={new Date().getDate() === currentWeek[index]}
+            navigation={navigation}
+            key={index}
+          />
         ))}
       </ContainerWeek>
     </Container>

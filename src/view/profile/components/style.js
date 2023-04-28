@@ -17,7 +17,7 @@ export const Label = styled.Text`
   fontSize: 14px;
   line-height: 18px;
   font-family: IBMPlexSansCondensed-Regular;
-  color: ${props => props.theme.colors.white_02};
+  color: ${props => !props.$black ? props.theme.colors.white_02 : props.theme.colors.black_01};
 `;
 
 export const InputText = styled.TextInput.attrs(props => ({

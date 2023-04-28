@@ -47,7 +47,7 @@ export default function TrainingList({navigation, userId}) {
             <React.Fragment key={index}>
               <Pressable
                 onPress={() => {
-                  navigation.navigate('ActivityDetail', {idActivity: item.id});
+                  navigation.navigate('TrainingDetail', {idActivity: item.id});
                 }}
                 style={[styles.main.column, styles.gapStyle.gap_1]}>
                 <View

@@ -12,10 +12,11 @@ import ProfilePassword from './components/profilePassword';
 import ProfileData from './components/profileData';
 import Button from '../../components/Button';
 
-import {ContainerScroll} from '../style';
+import {ButtonDefault, ContainerScroll} from '../style';
 
 import {readUserByIdService, updateUserService} from '../../service/user';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
+import {Label} from './components/style';
 
 export default function Profile({navigation}) {
   const dispatch = useDispatch();
@@ -86,16 +87,14 @@ export default function Profile({navigation}) {
         <HeaderStart />
       )}
       <HorizontalRule color={'#202020'} />
-      <ContainerScroll
-        contentContainerStyle={{alignItems: 'flex-start', gap: 16}}>
+      <ContainerScroll contentContainerStyle={{gap: 16}}>
         <ProfileData userData={userData} updateProfile={updateUser} />
         <HorizontalRule color={'#202020'} />
         {plan && <Plan plan={plan} />}
         <ProfilePassword />
-
-        <Pressable onPress={() => logout()}>
-          <Button title={'SAIR'} type={2} />
-        </Pressable>
+        <ButtonDefault $red onPress={() => logout()}>
+          <Label>SAIR</Label>
+        </ButtonDefault>
       </ContainerScroll>
     </ViewDefault>
   );

@@ -5,11 +5,11 @@ import {CaretDown, CaretUp, Eye, EyeSlash} from 'phosphor-react-native';
 
 import styles from '../../../styles';
 import Button from '../../../components/Button';
-import HorizontalRule from '../../../components/HorizontalRule';
+import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
 
 import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
 import {Column, Row, Label, InputText} from './style';
-import {Card, ContainerTitle} from '../../style';
+import {ButtonDefault, Card, ContainerTitle} from '../../style';
 
 import {updatePasswordService} from '../../../service/user';
 
@@ -136,14 +136,14 @@ export default function ProfilePassword() {
               </Row>
             </Column>
 
-            <Pressable onPress={() => updatePassword()}>
-              <Button title={'ALTERAR'} type={1} />
-            </Pressable>
+            <ButtonDefault $green>
+              <Label>ALTERAR</Label>
+            </ButtonDefault>
           </>
         )}
       </Card>
 
-      {toggleUpdatePassword && <HorizontalRule />}
+      {toggleUpdatePassword && <HorizontalRule color={'#202020'} />}
     </>
   );
 }

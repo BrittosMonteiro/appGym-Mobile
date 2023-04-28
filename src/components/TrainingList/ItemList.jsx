@@ -21,7 +21,7 @@ export default function ItemList({item, navigation}) {
   return (
     <ContainerListItem
       onPress={() => {
-        navigation.navigate('ActivityDetail', {idActivity: item.id});
+        navigation.navigate('TrainingDetail', {idActivity: item.id});
       }}>
       <View
         style={{
@@ -36,7 +36,7 @@ export default function ItemList({item, navigation}) {
         </ContainerListItemTitle>
       </View>
       <ContainerListItemSubtitle>
-        {item.activitiesQty} EXERCÍCIOS
+        {item.qty} EXERCÍCIOS
       </ContainerListItemSubtitle>
     </ContainerListItem>
   );

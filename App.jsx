@@ -9,31 +9,24 @@ import {navigationRef} from './src/utils/RootNavigation';
 import Sidebar from './src/components/Sidebar';
 import ModalLoading from './src/components/ModalLoading';
 
-// Access
+// Views
 import Login from './src/view/login/login';
 import CreateGymAccount from './src/view/login/createGymAccount';
+import Home from './src/view/home/home';
+import Profile from './src/view/profile/profile';
+import TrainingDetail from './src/view/training/trainingDetail';
+import TrainingOnGoing from './src/view/training/trainingOnGoing';
 
-// Users
-import Dashboard from './src/view/user/dashboard';
-import ActivityDetail from './src/view/user/activityDetail';
-import ActivityCurrent from './src/view/user/activityCurrent';
+// Views - Pending
 import PaymentHistory from './src/view/user/paymentHistory';
-
-// Gym admin
 import Instructors from './src/view/gym/instructors';
 import ManageInstructor from './src/view/gym/manageInstructor';
-
-// Instructors
 import Users from './src/view/instructor/users';
 import ManageUser from './src/view/instructor/manageUser';
 import ManageActivity from './src/view/instructor/manageActivity';
 import PlanList from './src/view/gym/planList';
 import PlanManagement from './src/view/gym/planManagement';
 import UserPlanSelect from './src/view/instructor/userPlanSelect';
-
-// Profile
-import Profile from './src/view/profile/profile';
-import Home from './src/view/home/home';
 
 export default function App() {
   const sidebarState = useSelector(state => {
@@ -46,28 +39,22 @@ export default function App() {
         <Stack.Navigator
           initialRouteName="Login"
           screenOptions={{headerShown: false}}>
-          <Stack.Screen name="Dashboard" component={Dashboard} />
-          <Stack.Screen name="ActivityDetail" component={ActivityDetail} />
-          <Stack.Screen name="ActivityCurrent" component={ActivityCurrent} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="CreateGymAccount" component={CreateGymAccount} />
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="TrainingDetail" component={TrainingDetail} />
+          <Stack.Screen name="TrainingOnGoing" component={TrainingOnGoing} />
           <Stack.Screen name="Profile" component={Profile} />
-          <Stack.Screen name="PaymentHistory" component={PaymentHistory} />
 
-          <Stack.Screen name="GymProfile" component={Profile} />
+          <Stack.Screen name="PaymentHistory" component={PaymentHistory} />
           <Stack.Screen name="Instructors" component={Instructors} />
           <Stack.Screen name="ManageInstructor" component={ManageInstructor} />
           <Stack.Screen name="PlanList" component={PlanList} />
           <Stack.Screen name="PlanManagement" component={PlanManagement} />
-
-          <Stack.Screen name="ProfileInstructor" component={Profile} />
           <Stack.Screen name="Users" component={Users} />
           <Stack.Screen name="ManageUser" component={ManageUser} />
           <Stack.Screen name="ManageActivity" component={ManageActivity} />
           <Stack.Screen name="UserPlanSelect" component={UserPlanSelect} />
-
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="CreateGymAccount" component={CreateGymAccount} />
-          {/* New Layout */}
-          <Stack.Screen name="Home" component={Home} />
         </Stack.Navigator>
         <Sidebar open={sidebarState} />
         <ModalLoading />

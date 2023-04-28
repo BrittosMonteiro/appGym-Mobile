@@ -21,7 +21,10 @@ export default function HeaderStart({navigation}) {
     <Header>
       <HeaderColumn>
         <HeaderGreetings>
-          Olá, <HeaderGreetingsStrong>Lucas!</HeaderGreetingsStrong>
+          Olá,{' '}
+          <HeaderGreetingsStrong>
+            {userSession.displayName}!
+          </HeaderGreetingsStrong>
         </HeaderGreetings>
         <Pressable onPress={() => navigation.navigate('Profile')}>
           <HeaderSubtitle>VER PERFIL</HeaderSubtitle>
