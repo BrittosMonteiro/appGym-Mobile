@@ -18,15 +18,19 @@ import TrainingDetail from './src/view/training/trainingDetail';
 import TrainingOnGoing from './src/view/training/trainingOnGoing';
 
 // Views - Pending
-import PaymentHistory from './src/view/user/paymentHistory';
-import Instructors from './src/view/gym/instructors';
-import ManageInstructor from './src/view/gym/manageInstructor';
-import Users from './src/view/instructor/users';
-import ManageUser from './src/view/instructor/manageUser';
-import ManageActivity from './src/view/instructor/manageActivity';
-import PlanList from './src/view/gym/planList';
-import PlanManagement from './src/view/gym/planManagement';
-import UserPlanSelect from './src/view/instructor/userPlanSelect';
+import PaymentHistory from './src/view/payment/paymentHistory';
+
+import Instructors from './src/view/instructors/instructors';
+import ManageInstructor from './src/view/instructors/manageInstructor';
+
+import Users from './src/view/users/users';
+import ManageUser from './src/view/users/manageUser';
+import UserPlanSelect from './src/view/users/userPlanSelect';
+
+import ManageTraining from './src/view/training/manageTraining';
+
+import PlanList from './src/view/plan/planList';
+import PlanManagement from './src/view/plan/planManagement';
 
 export default function App() {
   const sidebarState = useSelector(state => {
@@ -53,7 +57,7 @@ export default function App() {
           <Stack.Screen name="PlanManagement" component={PlanManagement} />
           <Stack.Screen name="Users" component={Users} />
           <Stack.Screen name="ManageUser" component={ManageUser} />
-          <Stack.Screen name="ManageActivity" component={ManageActivity} />
+          <Stack.Screen name="ManageTraining" component={ManageTraining} />
           <Stack.Screen name="UserPlanSelect" component={UserPlanSelect} />
         </Stack.Navigator>
         <Sidebar open={sidebarState} />

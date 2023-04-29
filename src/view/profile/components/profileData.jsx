@@ -91,7 +91,7 @@ export default function ProfileData({userData, updateProfile}) {
 
       <HorizontalRule color={'#fcf3f3'} />
 
-      <Column>
+      <Column $gap>
         <Label>NOME</Label>
         <InputText
           placeholder={'NOME'}
@@ -102,7 +102,7 @@ export default function ProfileData({userData, updateProfile}) {
       </Column>
 
       {shortName && (
-        <Column>
+        <Column $gap>
           <Label>NOME DE EXIBIÇÃO</Label>
           <InputText
             placeholder={'NOME DE EXIBIÇÃO'}
@@ -113,7 +113,7 @@ export default function ProfileData({userData, updateProfile}) {
         </Column>
       )}
 
-      <Column>
+      <Column $gap>
         <Label>E-MAIL</Label>
         <InputText
           placeholder={'E-MAIL'}
@@ -123,7 +123,7 @@ export default function ProfileData({userData, updateProfile}) {
         />
       </Column>
 
-      <Column>
+      <Column $gap>
         <Label>USUÁRIO</Label>
         <InputText
           placeholder={'USUÁRIO'}
@@ -134,7 +134,7 @@ export default function ProfileData({userData, updateProfile}) {
       </Column>
 
       {birthdate && (
-        <Column>
+        <Column $gap>
           <Label>DATA DE NASCIMENTO</Label>
           <InputText
             placeholder={'DATA DE NASCIMENTO'}
@@ -145,7 +145,7 @@ export default function ProfileData({userData, updateProfile}) {
       )}
 
       {cpf && (
-        <Column>
+        <Column $gap>
           <Label>CPF</Label>
           <InputText
             placeholder={'CPF'}
@@ -157,7 +157,7 @@ export default function ProfileData({userData, updateProfile}) {
       )}
 
       {cnpj && (
-        <Column>
+        <Column $gap>
           <Label>CNPJ</Label>
           <InputText
             placeholder={'CNPJ'}
@@ -169,7 +169,7 @@ export default function ProfileData({userData, updateProfile}) {
       )}
 
       {cref && (
-        <Column>
+        <Column $gap>
           <Label>CREF</Label>
           <InputText
             placeholder={'CREF'}
@@ -181,7 +181,7 @@ export default function ProfileData({userData, updateProfile}) {
       )}
 
       {gymName && (
-        <Column>
+        <Column $gap>
           <Label>ACADEMIA</Label>
           <InputText
             placeholder={'ACADEMIA'}

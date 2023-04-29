@@ -5,7 +5,7 @@ import Header from '../../components/Header';
 import ViewDefault from '../ViewDefault';
 import styles from '../../styles';
 import Button from '../../components/Button';
-import ManageActivityList from './components/manageActivityList';
+import ManageActivityList from '../instructor/components/manageActivityList';
 import {useDispatch} from 'react-redux';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import {

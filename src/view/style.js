@@ -10,6 +10,9 @@ export const Container = styled.View`
   width: 100%;
   gap: 24px;
   flex: 1;
+  ${props => props.$alignItems && `align-items: ${props.$alignItems}`}
+  ${props =>
+    props.$justifyContent && `justify-content: ${props.$justifyContent}`}
 `;
 
 export const ContainerScroll = styled.ScrollView.attrs(() => ({
@@ -59,4 +62,11 @@ export const ButtonDefault = styled.Pressable`
   ${props => props.$red && `background: ${props.theme.colors.red_01}`};
   ${props =>
     props.$turquoise && `background: ${props.theme.colors.turquoise_01}`};
+`;
+
+export const CustomText = styled.Text`
+  font-family: IBMPlexSansCondensed-${props => props.$weight || 'Regular'};
+  ${props => `fontSize: ${props.$fontSize || 16}px`}
+  ${props => `color: ${props.$color || '#202020'}`}
+  line-height: ${props => props.$fontSize + 6 || 22}px
 `;

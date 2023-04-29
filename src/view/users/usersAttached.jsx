@@ -6,7 +6,7 @@ import Button from '../../components/Button';
 import {readGymUsersListService} from '../../service/user';
 import {useSelector} from 'react-redux';
 import Search from '../../components/Search';
-import UsersList from './components/UsersList';
+import UsersList from '../instructor/components/UsersList';
 
 export default function UsersAttached({isAttached, navigation}) {
   const userSession = useSelector(state => {

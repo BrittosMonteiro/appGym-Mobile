@@ -13,10 +13,10 @@ export const ContainerListItem = styled.Pressable`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  paddingVertical: 8px;
   gap: 8px;
   border-radius: 4px;
   width: 100%;
+  ${props => (!props.$paddingVertical ? null : `paddingVertical: 8px;`)}
 `;
 
 export const ContainerListItemTitle = styled.Text`

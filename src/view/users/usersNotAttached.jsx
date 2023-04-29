@@ -5,7 +5,7 @@ import {useSelector} from 'react-redux';
 import {readUsersNotAttachedToGymService} from '../../service/user';
 import styles from '../../styles';
 import Search from '../../components/Search';
-import UsersList from './components/UsersList';
+import UsersList from '../instructor/components/UsersList';
 
 export default function UsersNotAttached({navigation}) {
   const userSession = useSelector(state => {

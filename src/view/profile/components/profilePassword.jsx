@@ -80,7 +80,7 @@ export default function ProfilePassword() {
         </Row>
         {toggleUpdatePassword && (
           <>
-            <Column>
+            <Column $gap>
               <Label>NOVA SENHA</Label>
               <Row $align={'center'} $justifyContent={'space-between'}>
                 <InputText
@@ -108,7 +108,7 @@ export default function ProfilePassword() {
               </Row>
             </Column>
 
-            <Column>
+            <Column $gap>
               <Label>CONFIRMAR NOVA SENHA</Label>
               <Row $align={'center'} $justifyContent={'space-between'}>
                 <InputText

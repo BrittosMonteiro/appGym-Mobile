@@ -5,7 +5,7 @@ import ViewDefault from '../ViewDefault';
 import Header from '../../components/Header';
 import Tab from '../../components/Tab';
 import styles from '../../styles';
-import ManageUserData from './components/manageUserData';
+import ManageUserData from '../instructor/components/manageUserData';
 import TrainingList from '../../components/trainingList';
 
 export default function ManageUser({navigation, route}) {
