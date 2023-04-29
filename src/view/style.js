@@ -16,7 +16,6 @@ export const Container = styled.View`
 `;
 
 export const ContainerScroll = styled.ScrollView.attrs(() => ({
-  type: 'text',
   showsVerticalScrollIndicator: false,
 }))`
   display: flex;
@@ -66,7 +65,7 @@ export const ButtonDefault = styled.Pressable`
 
 export const CustomText = styled.Text`
   font-family: IBMPlexSansCondensed-${props => props.$weight || 'Regular'};
-  ${props => `fontSize: ${props.$fontSize || 16}px`}
-  ${props => `color: ${props.$color || '#202020'}`}
+  fontSize: ${props => props.$fontSize || 16}px
+  color: ${props => props.$color || '#202020'}
   line-height: ${props => props.$fontSize + 6 || 22}px
 `;

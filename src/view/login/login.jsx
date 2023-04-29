@@ -5,7 +5,6 @@ import {useDispatch} from 'react-redux';
 import {CaretRight, Eye, EyeSlash} from 'phosphor-react-native';
 
 import ViewDefault from '../ViewDefault';
-import styles from '../../styles';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import {ButtonDefault, Container, CustomText} from '../style';
 import {Card} from '../style';
@@ -100,7 +99,7 @@ export default function Login({navigation}) {
       <Container $justifyContent={'center'}>
         <Column>
           <CustomText $fontSize={28} $weight={'Medium'}>
-            CRIAR
+            ACESSAR
           </CustomText>
           <CustomText $fontSize={38} $weight={'Medium'}>
             MINHA CONTA
@@ -128,17 +127,9 @@ export default function Login({navigation}) {
               />
               <Pressable onPress={() => setShowPassword(!showPassword)}>
                 {showPassword ? (
-                  <Eye
-                    weight="bold"
-                    color={styles.colors.textColor.white_1.color}
-                    size={24}
-                  />
+                  <Eye weight="bold" color={'#fcf3f3'} size={24} />
                 ) : (
-                  <EyeSlash
-                    weight="bold"
-                    color={styles.colors.textColor.white_1.color}
-                    size={24}
-                  />
+                  <EyeSlash weight="bold" color={'#fcf3f3'} size={24} />
                 )}
               </Pressable>
             </Row>

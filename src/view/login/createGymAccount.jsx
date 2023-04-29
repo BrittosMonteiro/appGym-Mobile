@@ -1,22 +1,16 @@
 import {useState} from 'react';
-import {
-  ActivityIndicator,
-  Pressable,
-  ScrollView,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import {ActivityIndicator, Pressable} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
 import {CaretRight, Eye, EyeSlash} from 'phosphor-react-native';
 
 import ViewDefault from '../ViewDefault';
 import styles from '../../styles';
-import Button from '../../components/Button';
-import HorizontalRule from '../../components/HorizontalRule';
+import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import {createAccountService} from '../../service/login';
 import {setUser} from '../../store/actions/userSessionAction';
+import {ButtonDefault, Card, ContainerScroll, CustomText} from '../style';
+import {Column, InputText, Label, Row} from '../profile/components/style';
 
 export default function CreateGymAccount({navigation, route}) {
   const dispatch = useDispatch();
@@ -114,9 +108,7 @@ export default function CreateGymAccount({navigation, route}) {
 
   function goTo(userLevel) {
     switch (userLevel) {
-      case 1:
-        return 'Profile';
-      case 2:
+      case 1 || 2:
         return 'Profile';
       case 3:
         return 'Home';
@@ -127,331 +119,144 @@ export default function CreateGymAccount({navigation, route}) {
 
   return (
     <ViewDefault>
-      <View
-        style={[
-          styles.alignment.alignItems.center,
-          styles.alignment.justifyContent.center,
-          styles.paddingStyle.pa_3,
-          {flex: 1},
-        ]}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={[
-            styles.gapStyle.gap_3,
-            styles.main.column,
-            styles.main.borderRadiusDefault,
-          ]}
-          style={[{width: '100%', maxWidth: 400}]}>
-          <Text
-            style={[
-              styles.colors.textColor.white_1,
-              styles.font.weight.bold,
-              styles.font.size.size_28,
-            ]}>
-            CRIAR {'\n'}
-            <Text style={[styles.font.size.size_42]}>MINHA CONTA</Text>
-            {'\n'}
+      <ContainerScroll
+        contentContainerStyle={{gap: 24, justifyContent: 'center'}}>
+        <Column>
+          <CustomText $fontSize={28} $weight={'Medium'}>
+            CRIAR
+          </CustomText>
+          <CustomText $fontSize={38} $weight={'Medium'}>
+            MINHA CONTA
+          </CustomText>
+          <CustomText $fontSize={28} $weight={'Regular'}>
             {userLevel === 1 ? 'ACADEMIA' : 'USUÁRIO'}
-          </Text>
+          </CustomText>
+        </Column>
 
-          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-            <Text
-              style={[
-                styles.colors.textColor.white_1,
-                styles.font.size.size_18,
-                styles.font.weight.regular,
-              ]}>
-              NOME
-            </Text>
-            <TextInput
-              style={[
-                styles.colors.textColor.white_1,
-                styles.font.size.size_20,
-                styles.font.weight.medium,
-                styles.colors.backgroundColor.dark_3,
-                styles.paddingStyle.px_2,
-                styles.paddingStyle.py_1,
-              ]}
+        <Card $black $fullWidth $padding>
+          <Column $gap>
+            <Label>NOME</Label>
+            <InputText
               placeholder="NOME"
-              placeholderTextColor={styles.colors.textColor.gray_1}
               defaultValue={name}
               onChangeText={text => setName(text)}
             />
-          </View>
+          </Column>
 
           {userLevel === 1 && (
-            <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-              <Text
-                style={[
-                  styles.colors.textColor.white_1,
-                  styles.font.size.size_18,
-                  styles.font.weight.regular,
-                ]}>
-                NOME ENCURTADO
-              </Text>
-              <TextInput
-                style={[
-                  styles.colors.textColor.white_1,
-                  styles.font.size.size_20,
-                  styles.font.weight.medium,
-                  styles.colors.backgroundColor.dark_3,
-                  styles.paddingStyle.px_2,
-                  styles.paddingStyle.py_1,
-                ]}
+            <Column $gap>
+              <Label>NOME ENCURTADO</Label>
+              <InputText
                 placeholder="NOME ENCURTADO"
-                placeholderTextColor={styles.colors.textColor.gray_1}
                 defaultValue={shortName}
                 onChangeText={text => setShortName(text)}
               />
-            </View>
+            </Column>
           )}
 
-          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-            <Text
-              style={[
-                styles.colors.textColor.white_1,
-                styles.font.size.size_18,
-                styles.font.weight.regular,
-              ]}>
-              E-MAIL
-            </Text>
-            <TextInput
-              style={[
-                styles.colors.textColor.white_1,
-                styles.font.size.size_20,
-                styles.font.weight.medium,
-                styles.colors.backgroundColor.dark_3,
-                styles.paddingStyle.px_2,
-                styles.paddingStyle.py_1,
-              ]}
+          <Column $gap>
+            <Label>E-MAIL</Label>
+            <InputText
               placeholder="EMAIL"
-              placeholderTextColor={styles.colors.textColor.gray_1}
               defaultValue={email}
               onChangeText={text => setEmail(text)}
             />
-          </View>
+          </Column>
 
           {userLevel === 1 && (
-            <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-              <Text
-                style={[
-                  styles.colors.textColor.white_1,
-                  styles.font.size.size_18,
-                  styles.font.weight.regular,
-                ]}>
-                CNPJ
-              </Text>
-              <TextInput
-                style={[
-                  styles.colors.textColor.white_1,
-                  styles.font.size.size_20,
-                  styles.font.weight.medium,
-                  styles.colors.backgroundColor.dark_3,
-                  styles.paddingStyle.px_2,
-                  styles.paddingStyle.py_1,
-                ]}
+            <Column $gap>
+              <Label>CNPJ</Label>
+              <InputText
                 placeholder="CNPJ"
-                placeholderTextColor={styles.colors.textColor.gray_1}
                 defaultValue={cnpj}
                 onChangeText={text => setCnpj(text)}
               />
-            </View>
+            </Column>
           )}
 
           {userLevel === 3 && (
-            <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-              <Text
-                style={[
-                  styles.colors.textColor.white_1,
-                  styles.font.size.size_18,
-                  styles.font.weight.regular,
-                ]}>
-                CPF
-              </Text>
-              <TextInput
-                style={[
-                  styles.colors.textColor.white_1,
-                  styles.font.size.size_20,
-                  styles.font.weight.medium,
-                  styles.colors.backgroundColor.dark_3,
-                  styles.paddingStyle.px_2,
-                  styles.paddingStyle.py_1,
-                ]}
+            <Column $gap>
+              <Label>CPF</Label>
+              <InputText
                 placeholder="CPF"
-                placeholderTextColor={styles.colors.textColor.gray_1}
                 defaultValue={cpf}
                 onChangeText={text => setCpf(text)}
               />
-            </View>
+            </Column>
           )}
 
-          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-            <Text
-              style={[
-                styles.colors.textColor.white_1,
-                styles.font.size.size_18,
-                styles.font.weight.regular,
-              ]}>
-              USUÁRIO
-            </Text>
-            <TextInput
-              style={[
-                styles.colors.textColor.white_1,
-                styles.font.size.size_20,
-                styles.font.weight.medium,
-                styles.colors.backgroundColor.dark_3,
-                styles.paddingStyle.px_2,
-                styles.paddingStyle.py_1,
-              ]}
+          <Column $gap>
+            <Label>USUÁRIO</Label>
+            <InputText
               placeholder="USUÁRIO"
-              placeholderTextColor={styles.colors.textColor.gray_1}
               defaultValue={username}
               onChangeText={text => setUsername(text)}
             />
-          </View>
+          </Column>
 
-          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-            <Text
-              style={[
-                styles.colors.textColor.white_1,
-                styles.font.size.size_18,
-                styles.font.weight.regular,
-              ]}>
-              SENHA
-            </Text>
-            <View
-              style={[
-                styles.colors.backgroundColor.dark_3,
-                styles.paddingStyle.px_2,
-                styles.paddingStyle.py_1,
-                styles.alignment.alignItems.center,
-                styles.main.row,
-              ]}>
-              <TextInput
-                style={[
-                  styles.colors.textColor.white_1,
-                  styles.font.size.size_20,
-                  styles.font.weight.medium,
-                  styles.colors.backgroundColor.dark_3,
-                  styles.paddingStyle.pa_0,
-                  {flex: 1},
-                ]}
+          <Column $gap>
+            <Label>SENHA</Label>
+            <Row $align={'center'} $justifyContent={'space-between'}>
+              <InputText
                 secureTextEntry={!showPassword}
                 placeholder="SENHA"
-                placeholderTextColor={styles.colors.textColor.gray_1}
                 defaultValue={password}
                 onChangeText={text => setPassword(text)}
               />
               <Pressable onPress={() => setShowPassword(!showPassword)}>
                 {showPassword ? (
-                  <Eye
-                    weight="bold"
-                    color={styles.colors.textColor.white_1.color}
-                    size={24}
-                  />
+                  <Eye weight="bold" color={'#fcf3f3'} size={24} />
                 ) : (
-                  <EyeSlash
-                    weight="bold"
-                    color={styles.colors.textColor.white_1.color}
-                    size={24}
-                  />
+                  <EyeSlash weight="bold" color={'#fcf3f3'} size={24} />
                 )}
               </Pressable>
-            </View>
-          </View>
+            </Row>
+          </Column>
 
-          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-            <Text
-              style={[
-                styles.colors.textColor.white_1,
-                styles.font.size.size_18,
-                styles.font.weight.regular,
-              ]}>
-              CONFIRMAR SENHA
-            </Text>
-            <View
-              style={[
-                styles.colors.backgroundColor.dark_3,
-                styles.paddingStyle.px_2,
-                styles.paddingStyle.py_1,
-                styles.alignment.alignItems.center,
-                styles.main.row,
-              ]}>
-              <TextInput
-                style={[
-                  styles.colors.textColor.white_1,
-                  styles.font.size.size_20,
-                  styles.font.weight.medium,
-                  styles.colors.backgroundColor.dark_3,
-                  styles.paddingStyle.pa_0,
-                  {flex: 1},
-                ]}
+          <Column $gap>
+            <Label>CONFIRMAR SENHA</Label>
+            <Row $align={'center'} $justifyContent={'space-between'}>
+              <InputText
                 secureTextEntry={!showPassword}
                 placeholder="CONFIRMAR SENHA"
-                placeholderTextColor={styles.colors.textColor.gray_1}
                 defaultValue={confirmPassword}
                 onChangeText={text => setConfirmPassword(text)}
               />
               <Pressable onPress={() => setShowPassword(!showPassword)}>
                 {showPassword ? (
-                  <Eye
-                    weight="bold"
-                    color={styles.colors.textColor.white_1.color}
-                    size={24}
-                  />
+                  <Eye weight="bold" color={'#fcf3f3'} size={24} />
                 ) : (
-                  <EyeSlash
-                    weight="bold"
-                    color={styles.colors.textColor.white_1.color}
-                    size={24}
-                  />
+                  <EyeSlash weight="bold" color={'#fcf3f3'} size={24} />
                 )}
               </Pressable>
-            </View>
-          </View>
+            </Row>
+          </Column>
 
-          <Pressable onPress={() => createAccount()}>
-            <Button
-              title={
-                isLoading ? (
-                  <ActivityIndicator
-                    size={'small'}
-                    color={styles.colors.textColor.white_1.color}
-                  />
-                ) : (
-                  'ACESSAR'
-                )
-              }
-              type={1}
-            />
-          </Pressable>
+          <ButtonDefault $green onPress={() => createAccount()}>
+            <Label>
+              {isLoading ? (
+                <ActivityIndicator size={'small'} color={'#fcf3f3'} />
+              ) : (
+                'ACESSAR'
+              )}
+            </Label>
+          </ButtonDefault>
 
-          <HorizontalRule color={styles.colors.textColor.orange_1.color} />
+          <HorizontalRule color={'#fcf3f3'} />
 
-          <View style={[styles.main.column, styles.gapStyle.gap_3]}>
-            <Pressable
-              onPress={() => navigation.navigate('Login')}
-              style={[
-                styles.main.row,
-                styles.alignment.justifyContent.space_between,
-              ]}>
-              <Text
-                style={[
-                  styles.colors.textColor.white_1,
-                  styles.font.size.size_18,
-                  styles.font.weight.regular,
-                ]}>
-                JÁ TENHO UMA CONTA
-              </Text>
-              <CaretRight
-                weight="bold"
-                size={24}
-                color={styles.colors.textColor.white_1.color}
-              />
-            </Pressable>
-          </View>
-        </ScrollView>
-      </View>
+          <ButtonDefault
+            onPress={() => navigation.navigate('Login')}
+            style={[
+              styles.main.row,
+              styles.alignment.justifyContent.space_between,
+            ]}>
+            <CustomText $weight={'Regular'} $color={'#fcf3f3'}>
+              JÁ TENHO UMA CONTA
+            </CustomText>
+            <CaretRight weight="bold" size={24} color={'#fcf3f3'} />
+          </ButtonDefault>
+        </Card>
+      </ContainerScroll>
     </ViewDefault>
   );
 }
