@@ -1,17 +1,17 @@
 import {useEffect, useState} from 'react';
-import {Pressable, Text, TextInput, View} from 'react-native';
 
-import Header from '../../components/Header';
+import Header from '../../components/Header/Header';
 import ViewDefault from '../ViewDefault';
-import styles from '../../styles';
-import Button from '../../components/Button';
-import ManageActivityList from '../instructor/components/manageActivityList';
+import ManageActivityList from './components/manageActivityList';
 import {useDispatch} from 'react-redux';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import {
   createActivityService,
   readActivityByIdService,
 } from '../../service/activity';
+import {ButtonDefault, Card, ContainerScroll} from '../style';
+import {Column, InputText, Label} from '../profile/components/style';
+import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 
 export default function ManageActivity({navigation, route}) {
   const {userId, idActivity} = route.params;
@@ -165,55 +165,32 @@ export default function ManageActivity({navigation, route}) {
   return (
     <ViewDefault>
       <Header navigation={navigation} title={'GERENCIAR TREINO'} />
-      <View
-        style={[
-          styles.gapStyle.gap_5,
-          styles.paddingStyle.px_3,
-          {
-            flex: 1,
-          },
-        ]}>
-        <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-          <Text
-            style={[
-              styles.colors.textColor.white_2,
-              styles.font.size.size_18,
-              styles.font.weight.regular,
-            ]}>
-            NOME DO TREINO
-          </Text>
-          <TextInput
-            style={[
-              styles.colors.backgroundColor.dark_3,
-              styles.paddingStyle.py_1,
-              styles.paddingStyle.px_2,
-              styles.font.size.size_20,
-              styles.font.weight.medium,
-              styles.colors.textColor.white_1,
-            ]}
-            placeholder="EXEMPLO: TREINO A"
-            placeholderTextColor={styles.colors.textColor.gray_1.color}
-            defaultValue={name}
-            onChangeText={text => setName(text)}
+      <HorizontalRule />
+      <ContainerScroll contentContainerStyle={{gap: 24}}>
+        <Card $black $padding>
+          <Column $gap>
+            <Label>NOME DO TREINO</Label>
+            <InputText
+              placeholder="EXEMPLO: TREINO A"
+              defaultValue={name}
+              onChangeText={text => setName(text)}
+            />
+          </Column>
+        </Card>
+
+        <Card $black $padding>
+          <ManageActivityList
+            title={'MINHAS ATIVIDADES'}
+            selectedActivities={selectedActivities}
+            availableActivities={availableActivities}
+            addItemToList={addItemToList}
+            deleteItemFromList={deleteItemFromList}
           />
-        </View>
-        <ManageActivityList
-          title={'MINHAS ATIVIDADES'}
-          selectedActivities={selectedActivities}
-          availableActivities={availableActivities}
-          addItemToList={addItemToList}
-          deleteItemFromList={deleteItemFromList}
-        />
-        {idActivity ? (
-          <Pressable onPress={() => createActivity()}>
-            <Button title={'ATUALIZAR'} type={1} />
-          </Pressable>
-        ) : (
-          <Pressable onPress={() => createActivity()}>
-            <Button title={'CRIAR'} type={1} />
-          </Pressable>
-        )}
-      </View>
+        </Card>
+        <ButtonDefault $green onPress={() => createActivity()}>
+          <Label>{idActivity ? 'ATUALIZAR' : 'CRIAR'}</Label>
+        </ButtonDefault>
+      </ContainerScroll>
     </ViewDefault>
   );
 }

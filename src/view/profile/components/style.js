@@ -10,6 +10,7 @@ export const Row = styled.View`
   gap: 8px;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   ${props => `justify-content: ${props.$justifyContent}`}
   ${props => `align-items: ${props.$align}`}
 `;

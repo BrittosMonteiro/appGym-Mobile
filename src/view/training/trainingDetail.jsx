@@ -71,7 +71,7 @@ export default function TrainingDetail({navigation, route}) {
         <Row $align={'center'} $justifyContent={'space-between'}>
           <ContainerTitle>{training.title}</ContainerTitle>
           <Pressable
-            onPress={() => navigation.navigate('ManageActivity', {idActivity})}>
+            onPress={() => navigation.navigate('ManageTraining', {idActivity})}>
             <Label $black>EDITAR</Label>
           </Pressable>
         </Row>

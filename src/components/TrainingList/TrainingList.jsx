@@ -2,9 +2,10 @@ import React, {useEffect, useState} from 'react';
 
 import HorizontalRule from '../HorizontalRule/HorizontalRule';
 import ItemList from './ItemList';
-import {Card, Container, ContainerTitle} from '../../view/style';
+import {ButtonDefault, Card, Container, ContainerTitle} from '../../view/style';
 
 import {readActivityListService} from '../../service/activity';
+import {Label, Row} from '../../view/profile/components/style';
 
 export default function TrainingList({userId, navigation}) {
   const [trainingList, setTrainingList] = useState([]);
@@ -32,7 +33,16 @@ export default function TrainingList({userId, navigation}) {
 
   return (
     <Container>
-      <ContainerTitle>MEUS TREINOS</ContainerTitle>
+      <Row $align={'center'} $justifyContent={'space-between'}>
+        <ContainerTitle>MEUS TREINOS</ContainerTitle>
+        <ButtonDefault
+          $turquoise
+          onPress={() =>
+            navigation.navigate('ManageTraining', {userId, idActivity: null})
+          }>
+          <Label>CRIAR TREINO</Label>
+        </ButtonDefault>
+      </Row>
       {trainingList.length > 0 ? (
         <Card $black={true} $padding={true} $fullWidth={true}>
           {trainingList.map((training, index) => (
