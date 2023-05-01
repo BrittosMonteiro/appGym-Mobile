@@ -70,7 +70,7 @@ export default function ProfileData({userData, updateProfile}) {
   }
 
   return (
-    <Card $black={true} $fullWidth={true} $padding={true}>
+    <Card $black $fullWidth $padding>
       <Row $align={'center'} $justifyContent={'space-between'}>
         <ContainerTitle $white>DADOS</ContainerTitle>
         {!edit ? (

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Pressable, ScrollView, Text, TextInput, View} from 'react-native';
+import {Pressable, Text, TextInput, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import ViewDefault from '../ViewDefault';
-import Header from '../../components/Header';
+import Header from '../../components/Header/Header';
 import Button from '../../components/Button';
 import styles from '../../styles';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
@@ -13,6 +13,8 @@ import {
   readInstructorByIdService,
   updateInstructorService,
 } from '../../service/instructor';
+import {ButtonDefault, Card, ContainerScroll} from '../style';
+import {Column, InputText, Label} from '../profile/components/style';
 
 export default function ManageInstructor({navigation, route}) {
   const dispatch = useDispatch();
@@ -145,129 +147,69 @@ export default function ManageInstructor({navigation, route}) {
   return (
     <ViewDefault>
       <Header navigation={navigation} title={'GERENCIAR INSTRUTOR'} />
-      <ScrollView
-        contentContainerStyle={[
-          styles.main.column,
-          styles.gapStyle.gap_5,
-          styles.paddingStyle.px_3,
-        ]}>
-        <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-          <Text
-            style={[
-              styles.colors.textColor.white_1,
-              styles.font.size.size_16,
-              styles.font.weight.regular,
-            ]}>
-            NOME
-          </Text>
-          <TextInput
-            style={[
-              styles.colors.backgroundColor.dark_3,
-              styles.colors.textColor.white_1,
-              styles.paddingStyle.pa_1,
-              styles.main.borderRadiusDefault,
-              styles.font.size.size_18,
-              styles.font.weight.medium,
-            ]}
-            placeholderTextColor={[styles.colors.textColor.white_2]}
-            placeholder="NOME DO INSTRUTOR"
-            defaultValue={name}
-            onChangeText={data => setName(data)}
-          />
-        </View>
-        <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-          <Text
-            style={[
-              styles.colors.textColor.white_1,
-              styles.font.size.size_16,
-              styles.font.weight.regular,
-            ]}>
-            DATA NASCIMENTO
-          </Text>
-          <TextInput
-            style={[
-              styles.colors.backgroundColor.dark_3,
-              styles.colors.textColor.white_1,
-              styles.paddingStyle.pa_1,
-              styles.main.borderRadiusDefault,
-              styles.font.size.size_18,
-              styles.font.weight.medium,
-            ]}
-            placeholderTextColor={[styles.colors.textColor.white_2]}
-            placeholder="DATA DE NASCIMENTO"
-            defaultValue={birthdate}
-            onChangeText={data => setBirthdate(data)}
-          />
-        </View>
-        <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-          <Text
-            style={[
-              styles.colors.textColor.white_1,
-              styles.font.size.size_16,
-              styles.font.weight.regular,
-            ]}>
-            E-MAIL
-          </Text>
-          <TextInput
-            style={[
-              styles.colors.backgroundColor.dark_3,
-              styles.colors.textColor.white_1,
-              styles.paddingStyle.pa_1,
-              styles.main.borderRadiusDefault,
-              styles.font.size.size_18,
-              styles.font.weight.medium,
-            ]}
-            placeholderTextColor={[styles.colors.textColor.white_2]}
-            placeholder="E-MAIL"
-            keyboardType="default"
-            defaultValue={email}
-            onChangeText={data => setEmail(data)}
-          />
-        </View>
-        <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-          <Text
-            style={[
-              styles.colors.textColor.white_1,
-              styles.font.size.size_16,
-              styles.font.weight.regular,
-            ]}>
-            CREF
-          </Text>
-          <TextInput
-            style={[
-              styles.colors.backgroundColor.dark_3,
-              styles.colors.textColor.white_1,
-              styles.paddingStyle.pa_1,
-              styles.main.borderRadiusDefault,
-              styles.font.size.size_18,
-              styles.font.weight.medium,
-            ]}
-            placeholderTextColor={[styles.colors.textColor.white_2]}
-            placeholder="CREF"
-            defaultValue={cref}
-            onChangeText={data => setCref(data)}
-          />
-        </View>
-        {idInstructor ? (
-          <>
-            <Pressable onPress={() => updateInstructor()}>
-              <Button title={'ATUALIZAR'} type={1} />
-            </Pressable>
-            <Pressable onPress={() => deleteInstructor()}>
-              <Button title={'EXCLUIR'} type={0} />
-            </Pressable>
-          </>
-        ) : (
-          <>
-            <Pressable onPress={() => createInstructor()}>
-              <Button title={'SALVAR'} type={1} />
-            </Pressable>
-            <Pressable onPress={() => navigation.goBack()}>
-              <Button title={'CANCELAR'} type={0} />
-            </Pressable>
-          </>
-        )}
-      </ScrollView>
+      <ContainerScroll
+        contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
+        <Card $black $fullWidth $padding>
+          <Column $gap>
+            <Label>NOME</Label>
+            <InputText
+              placeholder="NOME DO INSTRUTOR"
+              defaultValue={name}
+              onChangeText={data => setName(data)}
+            />
+          </Column>
+
+          <Column $gap>
+            <Label>DATA NASCIMENTO</Label>
+            <InputText
+              placeholder="DATA DE NASCIMENTO"
+              defaultValue={new Date(birthdate).toLocaleDateString()}
+              onChangeText={data => setBirthdate(data)}
+            />
+          </Column>
+
+          <Column $gap>
+            <Label>E-MAIL</Label>
+            <InputText
+              placeholder="E-MAIL"
+              keyboardType="default"
+              defaultValue={email}
+              onChangeText={data => setEmail(data)}
+            />
+          </Column>
+
+          <Column $gap>
+            <Label>CREF</Label>
+            <InputText
+              placeholder="CREF"
+              defaultValue={cref}
+              onChangeText={data => setCref(data)}
+            />
+          </Column>
+        </Card>
+
+        <Card $fullWidth>
+          {idInstructor ? (
+            <Column $gap>
+              <ButtonDefault $green onPress={() => updateInstructor()}>
+                <Label>ATUALIZAR</Label>
+              </ButtonDefault>
+              <ButtonDefault $red onPress={() => deleteInstructor()}>
+                <Label>EXCLUIR</Label>
+              </ButtonDefault>
+            </Column>
+          ) : (
+            <Column $gap>
+              <ButtonDefault $green onPress={() => createInstructor()}>
+                <Label>SALVAR</Label>
+              </ButtonDefault>
+              <ButtonDefault $red onPress={() => navigation.goBack()}>
+                <Label>CANCELAR</Label>
+              </ButtonDefault>
+            </Column>
+          )}
+        </Card>
+      </ContainerScroll>
     </ViewDefault>
   );
 }

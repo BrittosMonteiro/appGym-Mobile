@@ -1,14 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {Pressable, Text, View} from 'react-native';
 
-import Header from '../../components/Header';
+import Header from '../../components/Header/Header';
 import ViewDefault from '../ViewDefault';
-import style from '../../styles/index';
-import HorizontalRule from '../../components/HorizontalRule';
+import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import {CaretRight} from 'phosphor-react-native';
-import Button from '../../components/Button';
 import {useSelector} from 'react-redux';
 import {readInstructorListService} from '../../service/instructor';
+import {Label, Row} from '../profile/components/style';
+import {ButtonDefault, Card, ContainerScroll, CustomText} from '../style';
+import {
+  ContainerListItem,
+  ContainerListItemTitle,
+} from '../../components/TrainingList/style';
 
 export default function Instructors({navigation}) {
   const userSession = useSelector(state => {
@@ -42,70 +45,42 @@ export default function Instructors({navigation}) {
   return (
     <ViewDefault>
       <Header navigation={navigation} title={'INSTRUTORES'} />
-      <View
-        style={[
-          style.main.column,
-          style.paddingStyle.px_3,
-          style.gapStyle.gap_5,
-        ]}>
-        <Text
-          style={[
-            style.font.size.size_18,
-            style.font.weight.regular,
-            style.colors.textColor.white_2,
-          ]}>
-          Lista de instrutores aptos para criar treinos
-        </Text>
+      <HorizontalRule color={'#202020'} />
+      <ContainerScroll
+        contentContainerStyle={{alignItems: 'flex-start', gap: 16}}>
+        <CustomText>Lista de instrutores aptos para criar treinos</CustomText>
 
-        <View style={[style.main.row]}>
-          <View style={[style.main.row]}>
-            <Pressable
-              onPress={() =>
-                navigation.navigate('ManageInstructor', {id: null})
-              }>
-              <Button title={'ADICIONAR'} type={2} />
-            </Pressable>
-          </View>
-        </View>
+        <Row>
+          <ButtonDefault
+            $turquoise
+            onPress={() => navigation.navigate('ManageInstructor', {id: null})}>
+            <Label>ADICIONAR</Label>
+          </ButtonDefault>
+        </Row>
 
         {instructorsList.length > 0 ? (
-          <View style={[style.main.column, style.gapStyle.gap_3]}>
+          <Card $black $padding>
             {instructorsList.map((instructor, index) => (
               <React.Fragment key={index}>
-                <Pressable
+                <ContainerListItem
                   onPress={() =>
                     navigation.navigate('ManageInstructor', {
                       idInstructor: instructor._id.toString(),
                     })
-                  }
-                  style={[
-                    style.main.row,
-                    style.alignment.justifyContent.space_between,
-                  ]}>
-                  <Text
-                    style={[
-                      style.font.weight.medium,
-                      style.font.size.size_20,
-                      style.colors.textColor.white_2,
-                    ]}>
+                  }>
+                  <ContainerListItemTitle>
                     {instructor.name}
-                  </Text>
-                  <CaretRight
-                    color={style.colors.textColor.white_1.color}
-                    weight={'bold'}
-                    size={28}
-                  />
-                </Pressable>
+                  </ContainerListItemTitle>
+                  <CaretRight color={'#fcf3f3'} weight={'bold'} size={28} />
+                </ContainerListItem>
                 {index < instructorsList.length - 1 && (
-                  <HorizontalRule
-                    color={style.border.color.orange_1.borderColor}
-                  />
+                  <HorizontalRule color={'#fcf3f3'} />
                 )}
               </React.Fragment>
             ))}
-          </View>
+          </Card>
         ) : null}
-      </View>
+      </ContainerScroll>
     </ViewDefault>
   );
 }

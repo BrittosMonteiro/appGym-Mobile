@@ -29,15 +29,23 @@ export default function ManageActivityItem({
         <CustomText $color={'#fcf3f3'} $fontSize={18} $weight={'Medium'}>
           {activity.title}
         </CustomText>
-        <ButtonDefault
-          onPress={() => {
-            deleteItemFromList(index);
-          }}>
-          <Label>REMOVER</Label>
-        </ButtonDefault>
+        <Row $align={'center'} $justifyContent={'space-between'}>
+          <ButtonDefault
+            onPress={() => {
+              console.log('Implementar edição da atividade');
+            }}>
+            <Label>EDITAR</Label>
+          </ButtonDefault>
+          <ButtonDefault
+            onPress={() => {
+              deleteItemFromList(index);
+            }}>
+            <Label>REMOVER</Label>
+          </ButtonDefault>
+        </Row>
       </Row>
 
-      <Container $gap>
+      {/* <Container $gap>
         <Row $align={'center'} $justifyContent={'space-between'}>
           <Column $gap style={{flex: 1}}>
             <Label>CARGA</Label>
@@ -93,7 +101,7 @@ export default function ManageActivityItem({
             />
           </Column>
         </Row>
-      </Container>
+      </Container> */}
     </Card>
   );
 }
