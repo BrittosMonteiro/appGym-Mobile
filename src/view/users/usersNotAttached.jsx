@@ -5,7 +5,8 @@ import {useSelector} from 'react-redux';
 import {readUsersNotAttachedToGymService} from '../../service/user';
 import styles from '../../styles';
 import Search from '../../components/Search';
-import UsersList from '../instructor/components/UsersList';
+import UsersList from './components/UsersList';
+import {CustomText} from '../style';
 
 export default function UsersNotAttached({navigation}) {
   const userSession = useSelector(state => {
@@ -55,14 +56,9 @@ export default function UsersNotAttached({navigation}) {
 
   return (
     <React.Fragment>
-      <Text
-        style={[
-          styles.font.size.size_18,
-          styles.font.weight.regular,
-          styles.colors.textColor.white_2,
-        ]}>
+      <CustomText>
         Lista de alunos cadastrados no nosso sistema não atrelados à academia
-      </Text>
+      </CustomText>
 
       <Search search={filterList} />
 

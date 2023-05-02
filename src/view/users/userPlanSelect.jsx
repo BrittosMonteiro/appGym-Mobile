@@ -1,16 +1,20 @@
 import React, {useEffect, useState} from 'react';
-import {LogBox, Pressable, ScrollView, Text, View} from 'react-native';
+import {LogBox} from 'react-native';
 
-import Header from '../../components/Header';
+import Header from '../../components/Header/Header';
 import ViewDefault from '../ViewDefault';
-import styles from '../../styles';
 import {useDispatch, useSelector} from 'react-redux';
 import {readPlanListService} from '../../service/plan';
 import {Check, Circle, X} from 'phosphor-react-native';
-import HorizontalRule from '../../components/HorizontalRule';
-import Button from '../../components/Button';
+import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import {createGymUser, setPlanToUserService} from '../../service/user';
+import {ButtonDefault, Card, ContainerScroll, CustomText} from '../style';
+import {
+  ContainerListItem,
+  ContainerListItemTitle,
+} from '../../components/TrainingList/style';
+import {Column, Label, Row} from '../profile/components/style';
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
@@ -111,209 +115,116 @@ export default function UserPlanSelect({navigation, route}) {
   return (
     <ViewDefault>
       <Header navigation={navigation} title={'SELECIONAR UM PLANO'} />
-      <View
-        style={[
-          styles.main.column,
-          styles.gapStyle.gap_5,
-          styles.paddingStyle.px_3,
-          {flex: 1},
-        ]}>
-        <Text
-          style={[
-            styles.font.size.size_18,
-            styles.font.weight.regular,
-            styles.colors.textColor.white_2,
-          ]}>
+      <HorizontalRule color={'#202020'} />
+      <ContainerScroll
+        contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
+        <CustomText>
           Selecionar um plano para{' '}
-          <Text style={[styles.font.weight.medium]}>
-            {user.name.split(' ')[0]}
-          </Text>
-          :
-        </Text>
+          <CustomText $weight={'Medium'}>{user.name.split(' ')[0]}</CustomText>:
+        </CustomText>
 
         {planList.length > 0 ? (
-          <ScrollView
-            contentContainerStyle={[styles.main.column, styles.gapStyle.gap_1]}>
+          <Card $black $fullWidth $padding>
             {planList.map((plan, index) => (
               <React.Fragment key={index}>
-                <Pressable
+                <ContainerListItem
                   onPress={() => {
                     setIdPlan(plan.idPlan);
                     setSelectedPlan(plan);
-                  }}
-                  style={[
-                    styles.main.row,
-                    styles.alignment.justifyContent.space_between,
-                  ]}>
-                  <Text
-                    style={[
-                      styles.font.weight.medium,
-                      styles.font.size.size_20,
-                      styles.colors.textColor.white_2,
-                    ]}>
-                    {plan.title}
-                  </Text>
+                  }}>
+                  <ContainerListItemTitle>{plan.title}</ContainerListItemTitle>
                   <Circle
                     weight={idPlan === plan.idPlan ? 'fill' : 'bold'}
                     size={24}
-                    color={styles.colors.textColor.white_1.color}
+                    color={'#fcf3f3'}
                   />
-                </Pressable>
+                </ContainerListItem>
                 {(index < planList.length - 1 || selectedPlan) && (
-                  <HorizontalRule
-                    color={styles.border.color.orange_1.borderColor}
-                  />
+                  <HorizontalRule color={'#fcf3f3'} />
                 )}
                 <></>
               </React.Fragment>
             ))}
             {selectedPlan && (
-              <View
-                style={[
-                  styles.main.column,
-                  styles.gapStyle.gap_3,
-                  styles.colors.backgroundColor.dark_3,
-                  styles.main.borderRadiusDefault,
-                  styles.paddingStyle.pa_1,
-                ]}>
-                <Text
-                  style={[
-                    styles.font.size.size_20,
-                    styles.font.weight.medium,
-                    styles.colors.textColor.white_2,
-                  ]}>
+              <Card>
+                <CustomText $color={'#fcf3f3'}>
                   PLANO SELECIONADO: {selectedPlan.title}
-                </Text>
-                <View style={[styles.main.column, styles.gapStyle.gap_3]}>
+                </CustomText>
+                <Card>
                   {selectedPlan.description && (
-                    <Text
-                      style={[
-                        styles.font.size.size_18,
-                        styles.font.weight.regular,
-                        styles.colors.textColor.white_2,
-                      ]}>
+                    <CustomText $color={'#fcf3f3'}>
                       {selectedPlan.description}
-                    </Text>
+                    </CustomText>
                   )}
 
-                  <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-                    <Text
-                      style={[
-                        styles.colors.textColor.white_1,
-                        styles.font.size.size_16,
-                        styles.font.weight.regular,
-                      ]}>
-                      ITENS INCLUSOS
-                    </Text>
+                  <Card>
+                    <CustomText $color={'#fcf3f3'}>ITENS INCLUSOS</CustomText>
 
-                    <View style={[styles.main.column, styles.gapStyle.gap_1]}>
+                    <Column>
                       {selectedPlan.isIncluded.length > 0 ? (
                         <>
                           {selectedPlan.isIncluded.map((item, index) => (
-                            <View
-                              key={index}
-                              style={[
-                                styles.main.row,
-                                styles.alignment.alignItems.center,
-                                styles.gapStyle.gap_1,
-                              ]}>
+                            <Row $align={'center'}>
                               <Check
-                                color={styles.colors.textColor.green_1.color}
+                                color={'#219653'}
                                 weight="fill"
                                 size={24}
                               />
-                              <Text
-                                key={index}
-                                style={[
-                                  styles.colors.textColor.white_1,
-                                  styles.font.size.size_18,
-                                  styles.font.weight.medium,
-                                ]}>
+                              <ContainerListItemTitle>
                                 {item.title}
-                              </Text>
-                            </View>
+                              </ContainerListItemTitle>
+                            </Row>
                           ))}
                         </>
                       ) : (
-                        <Text
-                          style={[
-                            styles.colors.textColor.white_1,
-                            styles.font.size.size_18,
-                            styles.font.weight.medium,
-                          ]}>
-                          NENHUM ITEM
-                        </Text>
+                        <CustomText $color={'fcf3f3'}>NENHUM ITEM</CustomText>
                       )}
-                    </View>
-                  </View>
+                    </Column>
+                  </Card>
 
-                  <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-                    <Text
-                      style={[
-                        styles.colors.textColor.white_1,
-                        styles.font.size.size_16,
-                        styles.font.weight.regular,
-                      ]}>
-                      ITENS NÃO INCLUSOS
-                    </Text>
+                  <Card>
+                    <CustomText $color={'#fcf3f3'}>ITENS INCLUSOS</CustomText>
 
-                    <View style={[styles.main.column, styles.gapStyle.gap_1]}>
+                    <Column>
                       {selectedPlan.notIncluded.length > 0 ? (
                         <>
                           {selectedPlan.notIncluded.map((item, index) => (
-                            <View
-                              key={index}
-                              style={[
-                                styles.main.row,
-                                styles.alignment.alignItems.center,
-                                styles.gapStyle.gap_1,
-                              ]}>
-                              <X
-                                color={styles.colors.textColor.red_1.color}
+                            <Row $align={'center'}>
+                              <Check
+                                color={'#EB5757'}
                                 weight="fill"
                                 size={24}
                               />
-                              <Text
-                                key={index}
-                                style={[
-                                  styles.colors.textColor.white_1,
-                                  styles.font.size.size_18,
-                                  styles.font.weight.medium,
-                                ]}>
+                              <ContainerListItemTitle>
                                 {item.title}
-                              </Text>
-                            </View>
+                              </ContainerListItemTitle>
+                            </Row>
                           ))}
                         </>
                       ) : (
-                        <Text
-                          style={[
-                            styles.colors.textColor.white_1,
-                            styles.font.size.size_18,
-                            styles.font.weight.medium,
-                          ]}>
-                          NENHUM ITEM
-                        </Text>
+                        <CustomText $color={'fcf3f3'}>NENHUM ITEM</CustomText>
                       )}
-                    </View>
-                  </View>
-                </View>
-              </View>
+                    </Column>
+                  </Card>
+                </Card>
+              </Card>
             )}
-          </ScrollView>
+          </Card>
         ) : (
           ''
         )}
-        {user?.id ? (
-          <Pressable onPress={() => setPlanToUser()}>
-            <Button title={'CONCLUIR'} type={1} />
-          </Pressable>
-        ) : (
-          <Pressable onPress={() => createUser()}>
-            <Button title={'CONCLUIR'} type={1} />
-          </Pressable>
-        )}
-      </View>
+        <Card $fullWidth>
+          {user?.id ? (
+            <ButtonDefault $green onPress={() => setPlanToUser()}>
+              <Label>CONCLUIR</Label>
+            </ButtonDefault>
+          ) : (
+            <ButtonDefault $green onPress={() => createUser()}>
+              <Label>CONCLUIR</Label>
+            </ButtonDefault>
+          )}
+        </Card>
+      </ContainerScroll>
     </ViewDefault>
   );
 }

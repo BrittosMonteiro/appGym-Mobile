@@ -6,7 +6,9 @@ import Button from '../../components/Button';
 import {readGymUsersListService} from '../../service/user';
 import {useSelector} from 'react-redux';
 import Search from '../../components/Search';
-import UsersList from '../instructor/components/UsersList';
+import UsersList from './components/UsersList';
+import {ButtonDefault, CustomText} from '../style';
+import {Label, Row} from '../profile/components/style';
 
 export default function UsersAttached({isAttached, navigation}) {
   const userSession = useSelector(state => {
@@ -51,23 +53,17 @@ export default function UsersAttached({isAttached, navigation}) {
 
   return (
     <React.Fragment>
-      <Text
-        style={[
-          styles.font.size.size_18,
-          styles.font.weight.regular,
-          styles.colors.textColor.white_2,
-        ]}>
-        Lista de alunos atrelados à academia
-      </Text>
+      <CustomText>Lista de alunos atrelados à academia</CustomText>
 
       <Search search={filterList} />
 
-      <View style={[styles.main.row]}>
-        <Pressable
+      <Row>
+        <ButtonDefault
+          $turquoise
           onPress={() => navigation.navigate('ManageUser', {id: null})}>
-          <Button title={'ADICIONAR'} type={2} />
-        </Pressable>
-      </View>
+          <Label>ADICIONAR</Label>
+        </ButtonDefault>
+      </Row>
 
       {usersList.length > 0 ? (
         <UsersList list={usersList} navigation={navigation} isAttached={true} />

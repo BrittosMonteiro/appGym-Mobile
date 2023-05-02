@@ -5,9 +5,8 @@ import {CaretDown, CaretUp} from 'phosphor-react-native';
 
 import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
 import PlanItems from './planItems';
-import Button from '../../../components/Button';
 import {Label, Row} from './style';
-import {Card, ContainerTitle} from '../../style';
+import {Card, CustomText} from '../../style';
 
 export default function Plan({
   plan,
@@ -54,7 +53,9 @@ export default function Plan({
     <React.Fragment>
       <Card $black={true} $padding={true} $fullWidth={true}>
         <Row $align={'center'} $justifyContent={'space-between'}>
-          <ContainerTitle $white>PLANO</ContainerTitle>
+          <CustomText $fontSize={18} $color={'#fcf3f3'}>
+            PLANO
+          </CustomText>
           <Pressable onPress={() => setExpand(!expand)}>
             {expand ? (
               <CaretDown color={'#FCF3F3'} weight="bold" size={24} />
@@ -71,7 +72,6 @@ export default function Plan({
                   <Label>ALTERAR PLANO</Label>
                 </Pressable>
                 <Pressable onPress={() => removePlanFromUser()}>
-                  <Button title={'REMOVER PLANO'} type={0} />
                   <Label>REMOVER PLANO</Label>
                 </Pressable>
               </Row>

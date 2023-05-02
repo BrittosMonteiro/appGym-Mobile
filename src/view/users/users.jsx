@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import {ScrollView} from 'react-native';
 
-import Header from '../../components/Header';
+import Header from '../../components/Header/Header';
 import ViewDefault from '../ViewDefault';
-import styles from '../../styles';
 import Tab from '../../components/Tab';
 import UsersAttached from './usersAttached';
 import UsersNotAttached from './usersNotAttached';
+import {ContainerScroll} from '../style';
+import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 
 export default function Users({navigation}) {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -29,19 +29,16 @@ export default function Users({navigation}) {
   return (
     <ViewDefault>
       <Header navigation={navigation} title={'ALUNOS'} />
-      <ScrollView
-        contentContainerStyle={[
-          styles.main.column,
-          styles.paddingStyle.px_3,
-          styles.gapStyle.gap_5,
-        ]}>
+      <HorizontalRule color={'#202020'} />
+      <ContainerScroll
+        contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
         <Tab
           tabList={tabList}
           changeTab={changeTab}
           selectedTab={selectedTab}
         />
         {tabList[selectedTab].component}
-      </ScrollView>
+      </ContainerScroll>
     </ViewDefault>
   );
 }

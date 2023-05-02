@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import {ScrollView, View} from 'react-native';
 
 import ViewDefault from '../ViewDefault';
-import Header from '../../components/Header';
+import Header from '../../components/Header/Header';
 import Tab from '../../components/Tab';
-import styles from '../../styles';
-import ManageUserData from '../instructor/components/manageUserData';
+import ManageUserData from './components/manageUserData';
 import TrainingList from '../../components/trainingList';
+import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
+import {ContainerScroll} from '../style';
 
 export default function ManageUser({navigation, route}) {
   const {id, isAttached} = route.params;
@@ -31,24 +31,19 @@ export default function ManageUser({navigation, route}) {
   return (
     <ViewDefault>
       <Header navigation={navigation} title={'GERENCIAR USUÁRIO'} />
+      <HorizontalRule />
 
       {isAttached && (
-        <View style={[styles.paddingStyle.px_3]}>
-          <Tab
-            tabList={tablist}
-            changeTab={changeTab}
-            selectedTab={selectedTab}
-          />
-        </View>
+        <Tab
+          tabList={tablist}
+          changeTab={changeTab}
+          selectedTab={selectedTab}
+        />
       )}
-      <ScrollView
-        contentContainerStyle={[
-          styles.main.column,
-          styles.gapStyle.gap_5,
-          styles.paddingStyle.px_3,
-        ]}>
+      <ContainerScroll
+        contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
         {tablist[selectedTab].component}
-      </ScrollView>
+      </ContainerScroll>
     </ViewDefault>
   );
 }
