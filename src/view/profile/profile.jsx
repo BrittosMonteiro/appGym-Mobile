@@ -1,5 +1,4 @@
 import {useEffect, useState} from 'react';
-import {Pressable} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -10,7 +9,6 @@ import HeaderStart from '../../components/Header/HeaderStart';
 import Plan from './components/profilePlan';
 import ProfilePassword from './components/profilePassword';
 import ProfileData from './components/profileData';
-import Button from '../../components/Button';
 
 import {ButtonDefault, ContainerScroll} from '../style';
 

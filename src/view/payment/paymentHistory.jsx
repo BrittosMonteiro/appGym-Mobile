@@ -1,10 +1,11 @@
 import React from 'react';
-import {Text, View} from 'react-native';
 
-import Header from '../../components/Header';
+import Header from '../../components/Header/Header';
 import ViewDefault from '../ViewDefault';
-import HorizontalRule from '../../components/HorizontalRule';
-import styles from '../../styles';
+import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
+import {Card, ContainerScroll, CustomText} from '../style';
+import {Column, Row} from '../profile/components/style';
+import {ContainerListItemTitle} from '../../components/TrainingList/style';
 
 export default function PaymentHistory({navigation}) {
   const paymentList = [
@@ -36,68 +37,42 @@ export default function PaymentHistory({navigation}) {
   return (
     <ViewDefault>
       <Header navigation={navigation} title={'PAGAMENTO'} />
-      <View
-        style={[
-          styles.main.column,
-          styles.paddingStyle.px_3,
-          styles.gapStyle.gap_5,
-        ]}>
-        <Text
-          style={[
-            styles.font.size.size_18,
-            styles.font.weight.regular,
-            styles.colors.textColor.white_2,
-          ]}>
-          Histórico de pagamentos do seu plano
-        </Text>
-        {paymentList.map((payment, index) => (
-          <React.Fragment key={index}>
-            <View style={{display: 'flex', flexDirection: 'column', gap: 8}}>
-              <View
-                style={[
-                  styles.main.row,
-                  styles.alignment.justifyContent.space_between,
-                ]}>
-                <Text
-                  style={[
-                    styles.font.size.size_16,
-                    styles.font.weight.medium,
-                    styles.colors.textColor.white_2,
-                  ]}>
-                  {payment.month}
-                </Text>
-                <Text
-                  style={[
-                    styles.font.size.size_16,
-                    styles.font.weight.medium,
-                    styles.colors.textColor.white_2,
-                    payment.status && [
-                      styles.colors.backgroundColor.green_1,
-                      styles.font.weight.medium,
-                      styles.main.borderRadiusDefault,
-                      styles.paddingStyle.px_1,
-                    ],
-                  ]}>
-                  {payment.status ? 'PAGO' : 'ABERTO'}
-                </Text>
-              </View>
-              <Text
-                style={[
-                  styles.font.size.size_18,
-                  styles.font.weight.medium,
-                  styles.colors.textColor.white_2,
-                ]}>
-                {`R$ ${payment.total}`}
-              </Text>
-            </View>
-            {index < paymentList.length - 1 && (
-              <HorizontalRule
-                color={styles.border.color.orange_1.borderColor}
-              />
-            )}
-          </React.Fragment>
-        ))}
-      </View>
+      <HorizontalRule />
+      <ContainerScroll
+        contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
+        <CustomText>Histórico de pagamentos do seu plano</CustomText>
+        <Card $black $fullWidth $padding>
+          {paymentList.map((payment, index) => (
+            <React.Fragment key={index}>
+              <Column $gap>
+                <Row $align={'center'} $justifyContent={'space-between'}>
+                  <ContainerListItemTitle>
+                    {payment.month}
+                  </ContainerListItemTitle>
+                  <CustomText
+                    $color={'#fcf3f3'}
+                    style={
+                      payment.status && [
+                        {
+                          backgroundColor: '#219653',
+                          borderRadius: 4,
+                          paddingHorizontal: 8,
+                        },
+                      ]
+                    }>
+                    {payment.status ? 'PAGO' : 'ABERTO'}
+                  </CustomText>
+                </Row>
+                <CustomText
+                  $color={'#fcf3f3'}>{`R$ ${payment.total}`}</CustomText>
+              </Column>
+              {index < paymentList.length - 1 && (
+                <HorizontalRule color={'#fcf3f3'} />
+              )}
+            </React.Fragment>
+          ))}
+        </Card>
+      </ContainerScroll>
     </ViewDefault>
   );
 }

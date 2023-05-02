@@ -3,8 +3,6 @@ import {Pressable} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {CaretDown, CaretUp, Eye, EyeSlash} from 'phosphor-react-native';
 
-import styles from '../../../styles';
-import Button from '../../../components/Button';
 import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
 
 import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
@@ -64,17 +62,9 @@ export default function ProfilePassword() {
           <Pressable
             onPress={() => setToggleUpdatePassword(!toggleUpdatePassword)}>
             {toggleUpdatePassword ? (
-              <CaretDown
-                size={24}
-                weight="bold"
-                color={styles.colors.textColor.white_1.color}
-              />
+              <CaretDown size={24} weight="regular" color={'#fcf3f3'} />
             ) : (
-              <CaretUp
-                size={24}
-                weight="bold"
-                color={styles.colors.textColor.white_1.color}
-              />
+              <CaretUp size={24} weight="regular" color={'#fcf3f3'} />
             )}
           </Pressable>
         </Row>
@@ -86,23 +76,14 @@ export default function ProfilePassword() {
                 <InputText
                   placeholder={'SUA NOVA SENHA'}
                   secureTextEntry={!showPassword}
-                  placeholderTextColor={styles.colors.textColor.gray_1}
                   defaultValue={password}
                   onChangeText={text => setPassword(text)}
                 />
                 <Pressable onPress={() => setShowPassword(!showPassword)}>
                   {showPassword ? (
-                    <Eye
-                      weight="bold"
-                      color={styles.colors.textColor.white_1.color}
-                      size={24}
-                    />
+                    <Eye weight="regular" color={'#fcf3f3'} size={24} />
                   ) : (
-                    <EyeSlash
-                      weight="bold"
-                      color={styles.colors.textColor.white_1.color}
-                      size={24}
-                    />
+                    <EyeSlash weight="regular" color={'#fcf3f3'} size={24} />
                   )}
                 </Pressable>
               </Row>
@@ -114,23 +95,14 @@ export default function ProfilePassword() {
                 <InputText
                   placeholder={'CONFIRME SUA NOVA SENHA'}
                   secureTextEntry={!showPassword}
-                  placeholderTextColor={styles.colors.textColor.gray_1}
                   defaultValue={confirmPassword}
                   onChangeText={text => setConfirmPassword(text)}
                 />
                 <Pressable onPress={() => setShowPassword(!showPassword)}>
                   {showPassword ? (
-                    <Eye
-                      weight="bold"
-                      color={styles.colors.textColor.white_1.color}
-                      size={24}
-                    />
+                    <Eye weight="regular" color={'#fcf3f3'} size={24} />
                   ) : (
-                    <EyeSlash
-                      weight="bold"
-                      color={styles.colors.textColor.white_1.color}
-                      size={24}
-                    />
+                    <EyeSlash weight="regular" color={'#fcf3f3'} size={24} />
                   )}
                 </Pressable>
               </Row>

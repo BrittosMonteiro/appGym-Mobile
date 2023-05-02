@@ -1,10 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {Pressable, ScrollView, Text, View} from 'react-native';
 
 import Header from '../../components/Header/Header';
 import ViewDefault from '../ViewDefault';
-import styles from '../../styles';
-import Button from '../../components/Button';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import {CaretRight} from 'phosphor-react-native';
 import {readPlanListService} from '../../service/plan';

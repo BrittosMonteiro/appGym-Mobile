@@ -1,17 +1,10 @@
 import {useEffect, useState} from 'react';
-import {Pressable, Text, TextInput, View} from 'react-native';
 import CurrencyInput from 'react-native-currency-input';
 
 import Header from '../../components/Header/Header';
 import ViewDefault from '../ViewDefault';
 import styles from '../../styles';
-import {
-  ToggleLeft,
-  ToggleRight,
-  Trash,
-  TrashSimple,
-} from 'phosphor-react-native';
-import Button from '../../components/Button';
+import {ToggleLeft, ToggleRight, Trash} from 'phosphor-react-native';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import {
   createPlanService,

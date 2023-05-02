@@ -23,7 +23,7 @@ export const ContainerListItemTitle = styled.Text`
   font-weight: 500;
   font-size: 18px;
   line-height: 18px;
-  color: ${props => props.theme.colors.white_02};
+  color: ${props => props.$color || props.theme.colors.white_02};
   font-family: IBMPlexSansCondensed-Medium;
 `;
 

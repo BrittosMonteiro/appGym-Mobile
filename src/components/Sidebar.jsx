@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {Modal, Pressable, Text, View} from 'react-native';
+import {Modal} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {CaretRight, XCircle} from 'phosphor-react-native';
 
 import {setClose} from '../store/actions/sidebarAction';
 import * as RootNavigation from '../utils/RootNavigation';
-import styles from '../styles';
-import HorizontalRule from './HorizontalRule';
+import HorizontalRule from './HorizontalRule/HorizontalRule';
+import {ButtonDefault, Card, ContainerScroll, CustomText} from '../view/style';
+import {ContainerListItem} from './TrainingList/style';
+import {Row} from '../view/profile/components/style';
 
 export default function Sidebar({open}) {
   const dispatch = useDispatch();
@@ -71,57 +73,33 @@ export default function Sidebar({open}) {
 
   return (
     <Modal animationType="fade" visible={open} transparent={true}>
-      <View
-        style={[
-          styles.colors.backgroundColor.dark_2,
-          styles.gapStyle.gap_1,
-          styles.paddingStyle.pa_3,
-          {
-            flex: 1,
-            width: '100%',
-          },
-        ]}>
-        <Pressable
-          style={[styles.alignment.alignItems.flex_end, {marginBottom: 24}]}
-          onPress={() => dispatch(setClose())}>
-          <XCircle
-            weight="bold"
-            size={28}
-            color={styles.colors.textColor.white_1.color}
-          />
-        </Pressable>
-        {menu.map((item, index) => (
-          <React.Fragment key={index}>
-            <Pressable
-              onPress={() => {
-                dispatch(setClose());
-                RootNavigation.navigate(item.goTo);
-              }}
-              style={[
-                styles.main.row,
-                styles.alignment.alignItems.center,
-                styles.alignment.justifyContent.space_between,
-              ]}>
-              <Text
-                style={[
-                  styles.colors.textColor.white_1,
-                  styles.font.size.size_24,
-                  styles.font.weight.regular,
-                ]}>
-                {item.title}
-              </Text>
-              <CaretRight
-                weight="bold"
-                size={28}
-                color={styles.colors.textColor.white_1.color}
-              />
-            </Pressable>
-            {index < menu.length - 1 && (
-              <HorizontalRule color={styles.colors.textColor.orange_1.color} />
-            )}
-          </React.Fragment>
-        ))}
-      </View>
+      <ContainerScroll $bgColor={'#fcf3f3'}>
+        <Card $padding $fullWidth>
+          <Row $justifyContent={'flex-end'}>
+            <ButtonDefault onPress={() => dispatch(setClose())}>
+              <XCircle weight="regular" size={28} color={'#202020'} />
+            </ButtonDefault>
+          </Row>
+          {menu.map((item, index) => (
+            <React.Fragment key={index}>
+              <ContainerListItem
+                onPress={() => {
+                  dispatch(setClose());
+                  RootNavigation.navigate(item.goTo);
+                }}>
+                <CustomText
+                  $weight={'Medium'}
+                  $color={'#202020'}
+                  $fontSize={24}>
+                  {item.title}
+                </CustomText>
+                <CaretRight weight="bold" size={28} color={'#202020'} />
+              </ContainerListItem>
+              {index < menu.length - 1 && <HorizontalRule color={'#202020'} />}
+            </React.Fragment>
+          ))}
+        </Card>
+      </ContainerScroll>
     </Modal>
   );
 }

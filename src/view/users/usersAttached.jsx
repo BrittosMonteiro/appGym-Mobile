@@ -1,8 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Pressable, Text, View} from 'react-native';
 
-import styles from '../../styles';
-import Button from '../../components/Button';
 import {readGymUsersListService} from '../../service/user';
 import {useSelector} from 'react-redux';
 import Search from '../../components/Search';

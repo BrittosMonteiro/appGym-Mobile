@@ -13,6 +13,7 @@ export const Container = styled.View`
   ${props => props.$alignItems && `align-items: ${props.$alignItems}`}
   ${props =>
     props.$justifyContent && `justify-content: ${props.$justifyContent}`}
+    ${props => props.$bgColor && `backgroundColor: ${props.$bgColor}`}
 `;
 
 export const ContainerScroll = styled.ScrollView.attrs(() => ({
@@ -22,6 +23,7 @@ export const ContainerScroll = styled.ScrollView.attrs(() => ({
   flex-direction: column;
   flex: 1;
   width: 100%;
+  ${props => props.$bgColor && `backgroundColor: ${props.$bgColor}`}
 `;
 
 export const ContainerTitle = styled.Text`

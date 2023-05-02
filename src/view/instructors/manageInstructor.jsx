@@ -1,11 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Pressable, Text, TextInput, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import ViewDefault from '../ViewDefault';
 import Header from '../../components/Header/Header';
-import Button from '../../components/Button';
-import styles from '../../styles';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import {
   createInstructorService,

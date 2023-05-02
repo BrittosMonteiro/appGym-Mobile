@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
 import ManageActivityItem from './manageActivityItem';
-import ModalAddItemToActivityList from '../../instructor/components/ModalAddItemToActivityList';
+import ModalAddItemToActivityList from './ModalAddItemToActivityList';
 import {Label, Row} from '../../profile/components/style';
 import {ButtonDefault, CustomText} from '../../style';
 
