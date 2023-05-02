@@ -49,6 +49,7 @@ export const Card = styled.View`
   ${props => props.$fullWidth && `width: 100%;`};
   ${props => props.$padding && `padding: 16px;`};
   ${props => props.$black && `background:${props.theme.colors.black_01}`};
+  ${props => props.$bgColor && `background: ${props.$bgColor}`}
 `;
 
 export const ButtonDefault = styled.Pressable`

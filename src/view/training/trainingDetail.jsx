@@ -10,14 +10,17 @@ import {ButtonDefault, Card, ContainerScroll, ContainerTitle} from '../style';
 import {Label, Row} from '../profile/components/style';
 import {readActivityHistoryByIdService} from '../../service/activityHistory';
 import {readActivityByIdService} from '../../service/activity';
+import ModalDeleteTraining from './components/ModalDeleteTraining';
 
 export default function TrainingDetail({navigation, route}) {
   const {idActivity} = route.params;
   const dispatch = useDispatch();
   const [training, setTraining] = useState([]);
   const [trainingHistory, setTrainingHistory] = useState('');
+  const [openModal, setOpenModal] = useState(false);
 
   async function loadActivity() {
+    dispatch(setLoading());
     await readActivityByIdService(idActivity)
       .then(responseFind => {
         if (responseFind) {
@@ -27,7 +30,10 @@ export default function TrainingDetail({navigation, route}) {
       .then(response => {
         setTraining(response.data);
       })
-      .catch(err => {});
+      .catch(err => {})
+      .finally(() => {
+        dispatch(unsetLoading());
+      });
   }
 
   async function loadActivityHistory() {
@@ -47,15 +53,6 @@ export default function TrainingDetail({navigation, route}) {
     loadActivity();
     loadActivityHistory();
   }, []);
-
-  function deleteActivity() {
-    dispatch(setLoading());
-
-    setTimeout(() => {
-      dispatch(unsetLoading());
-      navigation.goBack();
-    }, 1000);
-  }
 
   useEffect(() => {
     navigation.addListener('focus', () => {
@@ -141,10 +138,16 @@ export default function TrainingDetail({navigation, route}) {
           )}
         </Card>
 
-        <ButtonDefault $red onPress={() => deleteActivity()}>
+        <ButtonDefault $red onPress={() => setOpenModal(true)}>
           <Label>EXCLUIR TREINO</Label>
         </ButtonDefault>
       </ContainerScroll>
+      <ModalDeleteTraining
+        idTraining={idActivity}
+        navigation={navigation}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      />
     </ViewDefault>
   );
 }
