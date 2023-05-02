@@ -1,13 +1,18 @@
 import {useEffect, useState} from 'react';
-import {Pressable, ScrollView, Text, TextInput, View} from 'react-native';
+import {Pressable, Text, TextInput, View} from 'react-native';
 import CurrencyInput from 'react-native-currency-input';
 
-import Header from '../../components/Header';
+import Header from '../../components/Header/Header';
 import ViewDefault from '../ViewDefault';
 import styles from '../../styles';
-import {ToggleLeft, ToggleRight, TrashSimple} from 'phosphor-react-native';
+import {
+  ToggleLeft,
+  ToggleRight,
+  Trash,
+  TrashSimple,
+} from 'phosphor-react-native';
 import Button from '../../components/Button';
-import HorizontalRule from '../../components/HorizontalRule';
+import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import {
   createPlanService,
   deletePlanService,
@@ -16,6 +21,8 @@ import {
 } from '../../service/plan';
 import {useDispatch, useSelector} from 'react-redux';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
+import {ButtonDefault, Card, ContainerScroll, CustomText} from '../style';
+import {Column, InputText, Label, Row} from '../profile/components/style';
 
 export default function PlanManagement({navigation, route}) {
   const dispatch = useDispatch();
@@ -166,85 +173,37 @@ export default function PlanManagement({navigation, route}) {
   return (
     <ViewDefault>
       <Header navigation={navigation} title={'GERENCIAR PLANO'} />
-      <View
-        style={[styles.paddingStyle.px_3, styles.gapStyle.gap_5, {flex: 1}]}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={[styles.main.column, styles.gapStyle.gap_5]}>
-          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-            <Text
-              style={[
-                styles.colors.textColor.white_1,
-                styles.font.size.size_16,
-                styles.font.weight.regular,
-              ]}>
-              STATUS DO PLANO
-            </Text>
-            <View
-              style={[
-                styles.main.row,
-                styles.alignment.alignItems.center,
-                styles.alignment.justifyContent.space_between,
-              ]}>
-              <Text
-                style={[
-                  styles.colors.textColor.white_1,
-                  styles.font.size.size_18,
-                  styles.font.weight.medium,
-                ]}>
+      <HorizontalRule color={'#202020'} />
+      <ContainerScroll
+        contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
+        <Card $black $fullWidth $padding>
+          <Column $gap>
+            <Label>STATUS DO PLANO</Label>
+            <Row $align={'center'} $justifyContent={'space-between'}>
+              <CustomText $fontSize={18} $weight={'Medium'} $color={'#fcf3f3'}>
                 {status ? 'DISPONÍVEL' : 'INDISPONÍVEL'}
-              </Text>
-              <Pressable onPress={() => setStatus(!status)}>
+              </CustomText>
+              <ButtonDefault onPress={() => setStatus(!status)}>
                 {status ? (
-                  <ToggleRight
-                    color={styles.colors.textColor.green_1.color}
-                    weight="fill"
-                    size={28}
-                  />
+                  <ToggleRight color={'#219653'} weight="fill" size={28} />
                 ) : (
-                  <ToggleLeft
-                    color={styles.colors.textColor.red_1.color}
-                    weight="fill"
-                    size={28}
-                  />
+                  <ToggleLeft color={'#EB5757'} weight="fill" size={28} />
                 )}
-              </Pressable>
-            </View>
-          </View>
+              </ButtonDefault>
+            </Row>
+          </Column>
 
-          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-            <Text
-              style={[
-                styles.colors.textColor.white_1,
-                styles.font.size.size_16,
-                styles.font.weight.regular,
-              ]}>
-              TÍTULO
-            </Text>
-            <TextInput
-              style={[
-                styles.colors.backgroundColor.dark_3,
-                styles.colors.textColor.white_1,
-                styles.paddingStyle.pa_1,
-                styles.font.size.size_18,
-                styles.font.weight.medium,
-              ]}
-              placeholderTextColor={[styles.colors.textColor.white_2]}
+          <Column $gap>
+            <Label>TÍTULO</Label>
+            <InputText
               placeholder="TÍTULO"
               defaultValue={title}
               onChangeText={data => setTitle(data)}
             />
-          </View>
+          </Column>
 
-          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-            <Text
-              style={[
-                styles.colors.textColor.white_1,
-                styles.font.size.size_16,
-                styles.font.weight.regular,
-              ]}>
-              PREÇO
-            </Text>
+          <Column $gap>
+            <Label>PREÇO</Label>
             <CurrencyInput
               style={[
                 styles.colors.backgroundColor.dark_3,
@@ -258,252 +217,157 @@ export default function PlanManagement({navigation, route}) {
               value={price}
               onChangeValue={data => setPrice(data)}
             />
-          </View>
+          </Column>
 
-          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-            <Text
-              style={[
-                styles.colors.textColor.white_1,
-                styles.font.size.size_16,
-                styles.font.weight.regular,
-              ]}>
-              DESCRIÇÃO
-            </Text>
-            <TextInput
-              style={[
-                styles.colors.backgroundColor.dark_3,
-                styles.colors.textColor.white_1,
-                styles.paddingStyle.pa_1,
-                styles.font.size.size_18,
-                styles.font.weight.medium,
-              ]}
-              placeholderTextColor={[styles.colors.textColor.white_2]}
+          <Column $gap>
+            <Label>DESCRIÇÃO</Label>
+            <InputText
               placeholder="DESCRIÇÃO"
               defaultValue={description}
               onChangeText={data => setDescription(data)}
             />
-          </View>
+          </Column>
 
-          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-            <Text
-              style={[
-                styles.colors.textColor.white_1,
-                styles.font.size.size_16,
-                styles.font.weight.regular,
-              ]}>
-              DURAÇÃO (MESES)
-            </Text>
-            <TextInput
-              style={[
-                styles.colors.backgroundColor.dark_3,
-                styles.colors.textColor.white_1,
-                styles.paddingStyle.pa_1,
-                styles.font.size.size_18,
-                styles.font.weight.medium,
-              ]}
-              placeholderTextColor={[styles.colors.textColor.white_2]}
+          <Column>
+            <Label>DURAÇÃO (MESES)</Label>
+            <InputText
               placeholder="DURAÇÃO (MESES)"
               defaultValue={validMonths}
               onChangeText={data => setValidMonths(data)}
             />
-          </View>
+          </Column>
 
-          <View style={[styles.main.column, styles.gapStyle.gap_1]}>
-            <Text
-              style={[
-                styles.colors.textColor.white_1,
-                styles.font.size.size_16,
-                styles.font.weight.regular,
-              ]}>
-              ITENS DO PLANO
-            </Text>
-            <View
-              style={[
-                styles.main.column,
-                styles.alignment.justifyContent.space_between,
-                styles.gapStyle.gap_3,
-              ]}>
-              <TextInput
-                style={[
-                  styles.colors.backgroundColor.dark_3,
-                  styles.colors.textColor.white_1,
-                  styles.paddingStyle.pa_1,
-                  styles.font.size.size_18,
-                  styles.font.weight.medium,
-                ]}
-                placeholderTextColor={[styles.colors.textColor.white_2]}
-                placeholder="ITENS DO PLANO"
+          <Column $gap>
+            <Label>ITENS DO PLANO</Label>
+            <Column $gap>
+              <InputText
+                placeholder="ADICIONAR ITEM QUE PERTENCE OU NÃO AO PLANO"
                 defaultValue={itemPlanTitle}
                 onChangeText={data => setItemPlanTitle(data)}
               />
-              <View
-                style={[
-                  styles.main.row,
-                  styles.alignment.alignItems.center,
-                  styles.alignment.justifyContent.space_between,
-                ]}>
-                <Text
-                  style={[
-                    styles.font.size.size_18,
-                    styles.font.weight.medium,
-                    styles.colors.textColor.white_1,
-                  ]}>
+              <Row $align={'center'} $justifyContent={'space-between'}>
+                <CustomText
+                  $fontSize={18}
+                  $color={'#fcf3f3'}
+                  $weight={'Regular'}>
                   {itemPlanStatus ? 'Incluso no plano' : 'Não incluso no plano'}
-                </Text>
-                <Pressable onPress={() => setItemPlanStatus(!itemPlanStatus)}>
+                </CustomText>
+                <ButtonDefault
+                  onPress={() => setItemPlanStatus(!itemPlanStatus)}>
                   {itemPlanStatus ? (
-                    <ToggleRight
-                      color={styles.colors.textColor.green_1.color}
-                      size={28}
-                      weight="fill"
-                    />
+                    <ToggleRight color={'#219653'} size={28} weight="fill" />
                   ) : (
-                    <ToggleLeft
-                      color={styles.colors.textColor.red_1.color}
-                      size={28}
-                      weight="fill"
-                    />
+                    <ToggleLeft color={'#EB5757'} size={28} weight="fill" />
                   )}
-                </Pressable>
-              </View>
-              <Pressable onPress={() => addItemToPlan()}>
-                <Button title={'CONFIRMAR'} type={2} />
-              </Pressable>
-            </View>
-          </View>
+                </ButtonDefault>
+              </Row>
+              <ButtonDefault $turquoise onPress={() => addItemToPlan()}>
+                <Label>CONFIRMAR</Label>
+              </ButtonDefault>
+            </Column>
+          </Column>
 
-          <HorizontalRule />
-          <View style={[styles.main.column, styles.gapStyle.gap_3]}>
-            <Text
-              style={[
-                styles.colors.textColor.white_1,
-                styles.font.size.size_16,
-                styles.font.weight.regular,
-              ]}>
-              ITENS INCLUSOS
-            </Text>
+          <HorizontalRule color={'#fcf3f3'} />
 
-            <View style={[styles.main.column, styles.gapStyle.gap_1]}>
+          <Column $gap>
+            <Label>ITENS INCLUSOS</Label>
+
+            <Column $gap>
               {isIncluded.length > 0 ? (
                 <>
                   {isIncluded.map((item, index) => (
-                    <View
+                    <Row
                       key={index}
-                      style={[
-                        styles.main.row,
-                        styles.alignment.alignItems.center,
-                        styles.alignment.justifyContent.space_between,
-                      ]}>
-                      <Text
-                        style={[
-                          styles.colors.textColor.white_1,
-                          styles.font.size.size_18,
-                          styles.font.weight.medium,
-                        ]}>
+                      $align={'center'}
+                      $justifyContent={'space-between'}>
+                      <CustomText
+                        $color={'#fcf3f3'}
+                        $weight={'Medium'}
+                        $fontSize={18}>
                         {item.title}
-                      </Text>
-                      <Pressable onPress={() => removeFromIsIncluded(index)}>
-                        <TrashSimple
-                          color={styles.colors.textColor.red_1.color}
-                          weight="fill"
-                          size={24}
-                        />
-                      </Pressable>
-                    </View>
+                      </CustomText>
+                      <ButtonDefault
+                        onPress={() => removeFromIsIncluded(index)}>
+                        <Trash color={'#EB5757'} weight="fill" size={24} />
+                      </ButtonDefault>
+                    </Row>
                   ))}
                 </>
               ) : (
-                <Text
-                  style={[
-                    styles.colors.textColor.white_1,
-                    styles.font.size.size_18,
-                    styles.font.weight.medium,
-                  ]}>
+                <CustomText
+                  $fontSize={18}
+                  $weight={'Medium'}
+                  $color={'#fcf3f3'}>
                   NENHUM ITEM
-                </Text>
+                </CustomText>
               )}
-            </View>
-          </View>
+            </Column>
+          </Column>
 
-          <HorizontalRule />
-          <View style={[styles.main.column, styles.gapStyle.gap_3]}>
-            <Text
-              style={[
-                styles.colors.textColor.white_1,
-                styles.font.size.size_16,
-                styles.font.weight.regular,
-              ]}>
-              ITENS NÃO INCLUSOS
-            </Text>
+          <HorizontalRule color={'#fcf3f3'} />
 
-            <View style={[styles.main.column, styles.gapStyle.gap_1]}>
+          <Column $gap>
+            <Label>ITENS NÃO INCLUSOS</Label>
+
+            <Column $gap>
               {notIncluded.length > 0 ? (
                 <>
                   {notIncluded.map((item, index) => (
-                    <View
+                    <Row
                       key={index}
-                      style={[
-                        styles.main.row,
-                        styles.alignment.alignItems.center,
-                        styles.alignment.justifyContent.space_between,
-                      ]}>
-                      <Text
-                        style={[
-                          styles.colors.textColor.white_1,
-                          styles.font.size.size_18,
-                          styles.font.weight.medium,
-                        ]}>
+                      $align={'center'}
+                      $justifyContent={'space-between'}>
+                      <CustomText
+                        $color={'#fcf3f3'}
+                        $weight={'Medium'}
+                        $fontSize={18}>
                         {item.title}
-                      </Text>
-                      <Pressable onPress={() => removeFromNotIncluded(index)}>
-                        <TrashSimple
-                          color={styles.colors.textColor.red_1.color}
-                          weight="fill"
-                          size={24}
-                        />
-                      </Pressable>
-                    </View>
+                      </CustomText>
+                      <ButtonDefault
+                        onPress={() => removeFromNotIncluded(index)}>
+                        <Trash color={'#EB5757'} weight="fill" size={24} />
+                      </ButtonDefault>
+                    </Row>
                   ))}
                 </>
               ) : (
-                <Text
-                  style={[
-                    styles.colors.textColor.white_1,
-                    styles.font.size.size_18,
-                    styles.font.weight.medium,
-                  ]}>
+                <CustomText
+                  $fontSize={18}
+                  $weight={'Medium'}
+                  $color={'#fcf3f3'}>
                   NENHUM ITEM
-                </Text>
+                </CustomText>
               )}
-            </View>
-          </View>
+            </Column>
+          </Column>
 
-          <HorizontalRule />
+          {/* <ButtonDefault $turquoise>
+            <Label>VISUALIZAR PLANO</Label>
+          </ButtonDefault> */}
+        </Card>
 
-          <Pressable>
-            <Button title={'VISUALIZAR'} type={2} />
-          </Pressable>
+        <Card $fullWidth>
           {!id ? (
-            <>
-              <Pressable onPress={() => createPlan()}>
-                <Button title={'CRIAR'} type={1} />
-              </Pressable>
-              <Pressable onPress={() => navigation.goBack()}>
-                <Button title={'CANCELAR'} type={0} />
-              </Pressable>
-            </>
+            <Column $gap>
+              <ButtonDefault $green onPress={() => createPlan()}>
+                <Label>CRIAR</Label>
+              </ButtonDefault>
+              <ButtonDefault $red onPress={() => navigation.goBack()}>
+                <Label>CANCELAR</Label>
+              </ButtonDefault>
+            </Column>
           ) : (
-            <>
-              <Pressable onPress={() => updatePlan()}>
-                <Button title={'ATUALIZAR'} type={1} />
-              </Pressable>
-              <Pressable onPress={() => deletePlan()}>
-                <Button title={'EXCLUIR'} type={0} />
-              </Pressable>
-            </>
+            <Column $gap>
+              <ButtonDefault $green onPress={() => updatePlan()}>
+                <Label>ATUALIZAR</Label>
+              </ButtonDefault>
+              <ButtonDefault $red onPress={() => deletePlan()}>
+                <Label>EXCLUIR</Label>
+              </ButtonDefault>
+            </Column>
           )}
-        </ScrollView>
-      </View>
+        </Card>
+      </ContainerScroll>
     </ViewDefault>
   );
 }

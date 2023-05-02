@@ -1,14 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import {Pressable, ScrollView, Text, View} from 'react-native';
 
-import Header from '../../components/Header';
+import Header from '../../components/Header/Header';
 import ViewDefault from '../ViewDefault';
 import styles from '../../styles';
 import Button from '../../components/Button';
-import HorizontalRule from '../../components/HorizontalRule';
+import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import {CaretRight} from 'phosphor-react-native';
 import {readPlanListService} from '../../service/plan';
 import {useSelector} from 'react-redux';
+import {ButtonDefault, Card, ContainerScroll, CustomText} from '../style';
+import {Label, Row} from '../profile/components/style';
+import {
+  ContainerListItem,
+  ContainerListItemTitle,
+} from '../../components/TrainingList/style';
 
 export default function PlanList({navigation}) {
   const userSession = useSelector(state => {
@@ -42,64 +48,39 @@ export default function PlanList({navigation}) {
   return (
     <ViewDefault>
       <Header navigation={navigation} title={'PLANOS'} />
-      <ScrollView
-        contentContainerStyle={[
-          styles.main.column,
-          styles.paddingStyle.px_3,
-          styles.gapStyle.gap_5,
-        ]}>
-        <Text
-          style={[
-            styles.font.size.size_18,
-            styles.font.weight.regular,
-            styles.colors.textColor.white_2,
-          ]}>
-          Lista de planos cadastrados
-        </Text>
-        <View style={[styles.main.row]}>
-          <Pressable
+      <HorizontalRule color={'#202020'} />
+      <ContainerScroll
+        contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
+        <CustomText>Lista de planos cadastrados</CustomText>
+
+        <Row>
+          <ButtonDefault
+            $turquoise
             onPress={() => navigation.navigate('PlanManagement', {id: null})}>
-            <Button title={'ADICIONAR'} type={2} />
-          </Pressable>
-        </View>
+            <Label>ADICIONAR</Label>
+          </ButtonDefault>
+        </Row>
         {planList.length > 0 ? (
-          <View style={[styles.main.column, styles.gapStyle.gap_3]}>
+          <Card $black $fullWidth $padding>
             {planList.map((plan, index) => (
               <React.Fragment key={index}>
-                <Pressable
+                <ContainerListItem
                   onPress={() =>
                     navigation.navigate('PlanManagement', {id: plan.idPlan})
-                  }
-                  style={[
-                    styles.main.row,
-                    styles.alignment.justifyContent.space_between,
-                  ]}>
-                  <Text
-                    style={[
-                      styles.font.weight.medium,
-                      styles.font.size.size_20,
-                      styles.colors.textColor.white_2,
-                    ]}>
-                    {plan.title}
-                  </Text>
-                  <CaretRight
-                    color={styles.colors.textColor.white_1.color}
-                    weight={'bold'}
-                    size={28}
-                  />
-                </Pressable>
+                  }>
+                  <ContainerListItemTitle>{plan.title}</ContainerListItemTitle>
+                  <CaretRight color={'#fcf3f3'} weight={'bold'} size={28} />
+                </ContainerListItem>
                 {index < planList.length - 1 && (
-                  <HorizontalRule
-                    color={styles.border.color.orange_1.borderColor}
-                  />
+                  <HorizontalRule color={'#fcf3f3'} />
                 )}
               </React.Fragment>
             ))}
-          </View>
+          </Card>
         ) : (
           ''
         )}
-      </ScrollView>
+      </ContainerScroll>
     </ViewDefault>
   );
 }
