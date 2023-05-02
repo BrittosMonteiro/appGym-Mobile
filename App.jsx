@@ -16,21 +16,20 @@ import Home from './src/view/home/home';
 import Profile from './src/view/profile/profile';
 import TrainingDetail from './src/view/training/trainingDetail';
 import TrainingOnGoing from './src/view/training/trainingOnGoing';
+import ManageTraining from './src/view/training/manageTraining';
+import Instructors from './src/view/instructors/instructors';
+import ManageInstructor from './src/view/instructors/manageInstructor';
+import PlanList from './src/view/plan/planList';
+import PlanManagement from './src/view/plan/planManagement';
 
 // Views - Pending
 import PaymentHistory from './src/view/payment/paymentHistory';
-
-import Instructors from './src/view/instructors/instructors';
-import ManageInstructor from './src/view/instructors/manageInstructor';
 
 import Users from './src/view/users/users';
 import ManageUser from './src/view/users/manageUser';
 import UserPlanSelect from './src/view/users/userPlanSelect';
 
-import ManageTraining from './src/view/training/manageTraining';
 
-import PlanList from './src/view/plan/planList';
-import PlanManagement from './src/view/plan/planManagement';
 
 export default function App() {
   const sidebarState = useSelector(state => {

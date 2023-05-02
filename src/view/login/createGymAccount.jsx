@@ -108,7 +108,9 @@ export default function CreateGymAccount({navigation, route}) {
 
   function goTo(userLevel) {
     switch (userLevel) {
-      case 1 || 2:
+      case 1:
+        return 'Profile';
+      case 2:
         return 'Profile';
       case 3:
         return 'Home';
