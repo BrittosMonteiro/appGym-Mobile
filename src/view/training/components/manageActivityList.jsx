@@ -4,7 +4,7 @@ import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
 import ManageActivityItem from './manageActivityItem';
 import ModalAddItemToActivityList from './ModalAddItemToActivityList';
 import {Label, Row} from '../../profile/components/style';
-import {ButtonDefault, CustomText} from '../../style';
+import {ButtonDefault, Card, CustomText} from '../../style';
 
 export default function ManageActivityList({
   selectedActivities,
@@ -12,6 +12,7 @@ export default function ManageActivityList({
   title,
   addItemToList,
   deleteItemFromList,
+  updateTraining,
 }) {
   const [openModal, setOpenModal] = useState(false);
 
@@ -20,7 +21,7 @@ export default function ManageActivityList({
   }
 
   return (
-    <>
+    <Card $black $padding $fullWidth>
       <Row $align={'center'} $justifyContent={'space-between'}>
         <CustomText $color={'#fcf3f3'} $fontSize={18} $weight={'Medium'}>
           {title}
@@ -37,6 +38,7 @@ export default function ManageActivityList({
                 activity={activity}
                 index={index}
                 deleteItemFromList={deleteItemFromList}
+                updateTraining={updateTraining}
               />
               {index < selectedActivities.length - 1 && (
                 <HorizontalRule color={'#fcf3f3'} />
@@ -55,6 +57,6 @@ export default function ManageActivityList({
         onClose={closeModal}
         addItemToList={addItemToList}
       />
-    </>
+    </Card>
   );
 }

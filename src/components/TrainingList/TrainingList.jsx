@@ -6,11 +6,15 @@ import {ButtonDefault, Card, Container, ContainerTitle} from '../../view/style';
 
 import {readActivityListService} from '../../service/activity';
 import {Label, Row} from '../../view/profile/components/style';
+import {useDispatch} from 'react-redux';
+import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 
 export default function TrainingList({userId, navigation}) {
+  const dispatch = useDispatch();
   const [trainingList, setTrainingList] = useState([]);
 
   async function loadActivities() {
+    dispatch(setLoading());
     await readActivityListService(userId)
       .then(responseFind => {
         return responseFind.json();
@@ -18,7 +22,10 @@ export default function TrainingList({userId, navigation}) {
       .then(response => {
         setTrainingList(response.data);
       })
-      .catch(err => {});
+      .catch(err => {})
+      .finally(() => {
+        dispatch(unsetLoading());
+      });
   }
 
   useEffect(() => {
@@ -44,7 +51,7 @@ export default function TrainingList({userId, navigation}) {
         </ButtonDefault>
       </Row>
       {trainingList.length > 0 ? (
-        <Card $black={true} $padding={true} $fullWidth={true}>
+        <Card $black $padding $fullWidth>
           {trainingList.map((training, index) => (
             <React.Fragment key={index}>
               <ItemList item={training} navigation={navigation} />

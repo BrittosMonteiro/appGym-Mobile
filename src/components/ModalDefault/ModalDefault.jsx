@@ -1,6 +1,6 @@
 import {Modal} from 'react-native';
 import {OpacityBg} from './style';
-import {Card} from '../../view/style';
+import {Card, ContainerTitle} from '../../view/style';
 
 export default function ModalDefault(props) {
   return (
@@ -11,6 +11,7 @@ export default function ModalDefault(props) {
           $fullWidth
           $padding
           style={{width: '90%', maxWidth: 500}}>
+          <ContainerTitle>{props.title}</ContainerTitle>
           {props.children}
         </Card>
       </OpacityBg>

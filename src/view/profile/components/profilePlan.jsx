@@ -51,7 +51,7 @@ export default function Plan({
 
   return (
     <React.Fragment>
-      <Card $black={true} $padding={true} $fullWidth={true}>
+      <Card $black $padding $fullWidth>
         <Row $align={'center'} $justifyContent={'space-between'}>
           <CustomText $fontSize={18} $color={'#fcf3f3'}>
             PLANO

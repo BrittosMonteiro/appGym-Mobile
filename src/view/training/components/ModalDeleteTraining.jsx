@@ -28,8 +28,7 @@ export default function ModalDeleteTraining({
       });
   }
   return (
-    <ModalDefault openModal={openModal}>
-      <ContainerTitle>DESEJA EXCLUIR ESTE TREINO?</ContainerTitle>
+    <ModalDefault openModal={openModal} title={'DESEJA EXCLUIR ESTE TREINO?'}>
       <Row $align={'center'} $justifyContent={'space-between'}>
         <ButtonDefault $red onPress={() => setOpenModal(false)}>
           <Label>CANCELAR</Label>

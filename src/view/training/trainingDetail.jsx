@@ -7,7 +7,7 @@ import ViewDefault from '../ViewDefault';
 import Header from '../../components/Header/Header';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import {ButtonDefault, Card, ContainerScroll, ContainerTitle} from '../style';
-import {Label, Row} from '../profile/components/style';
+import {Column, Label, Row} from '../profile/components/style';
 import {readActivityHistoryByIdService} from '../../service/activityHistory';
 import {readActivityByIdService} from '../../service/activity';
 import ModalDeleteTraining from './components/ModalDeleteTraining';
@@ -56,6 +56,7 @@ export default function TrainingDetail({navigation, route}) {
 
   useEffect(() => {
     navigation.addListener('focus', () => {
+      loadActivity();
       loadActivityHistory();
     });
   }, [navigation]);
@@ -103,9 +104,11 @@ export default function TrainingDetail({navigation, route}) {
             <React.Fragment>
               {training.items.map((activity, index) => (
                 <React.Fragment key={index}>
-                  <Card>
+                  <Column $gap>
                     <Row $align={'center'} $justifyContent={'space-between'}>
                       <ContainerTitle $white>{activity.title}</ContainerTitle>
+                    </Row>
+                    <Row $align={'center'} $justifyContent={'flex-start'}>
                       {activity.machine && (
                         <Label>{`Máquina: ${activity.machine}`}</Label>
                       )}
@@ -124,7 +127,7 @@ export default function TrainingDetail({navigation, route}) {
                         <Label>{`TEMPO: ${activity.time} minutos`}</Label>
                       )}
                     </Row>
-                  </Card>
+                  </Column>
                   {index < training.items.length - 1 && (
                     <HorizontalRule color={'#fcf3f3'} />
                   )}

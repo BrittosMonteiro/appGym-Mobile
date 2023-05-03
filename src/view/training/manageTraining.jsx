@@ -8,6 +8,7 @@ import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import {
   createActivityService,
   readActivityByIdService,
+  updateTrainingByIdService,
 } from '../../service/activity';
 import {ButtonDefault, Card, ContainerScroll} from '../style';
 import {Column, InputText, Label} from '../profile/components/style';
@@ -101,6 +102,7 @@ export default function ManageActivity({navigation, route}) {
   ];
 
   async function loadActivity() {
+    dispatch(setLoading());
     await readActivityByIdService(idActivity)
       .then(responseFind => {
         if (responseFind) {
@@ -111,7 +113,10 @@ export default function ManageActivity({navigation, route}) {
         setSelectedActivities(response.data.items);
         setName(response.data.title);
       })
-      .catch(err => {});
+      .catch(err => {})
+      .finally(() => {
+        dispatch(unsetLoading());
+      });
   }
 
   useEffect(() => {
@@ -154,12 +159,55 @@ export default function ManageActivity({navigation, route}) {
     };
     selectedActivities.push(newActivity);
     setSelectedActivities(selectedActivities);
+    const update = {
+      idTraining: idActivity,
+      newData: {
+        items: selectedActivities,
+      },
+    };
+    manageUpdate(update);
   }
 
   function deleteItemFromList(index) {
-    setSelectedActivities(selected =>
-      selected.filter((items, key) => key !== index),
-    );
+    const newList = selectedActivities.filter((items, key) => key !== index);
+
+    const update = {
+      idTraining: idActivity,
+      newData: {
+        items: newList,
+      },
+    };
+    manageUpdate(update);
+  }
+
+  function updateTraining(data) {
+    const updatedList = selectedActivities;
+    updatedList[data.index] = data.newInformation;
+
+    const update = {
+      idTraining: idActivity,
+      newData: {
+        items: updatedList,
+        title: name,
+      },
+    };
+    manageUpdate(update);
+  }
+
+  async function manageUpdate(data) {
+    dispatch(setLoading());
+    await updateTrainingByIdService(data)
+      .then(responseUpdate => {
+        if (responseUpdate.status === 200) {
+          loadActivity();
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      .finally(() => {
+        dispatch(unsetLoading());
+      });
   }
 
   return (
@@ -177,19 +225,27 @@ export default function ManageActivity({navigation, route}) {
             />
           </Column>
         </Card>
-
-        <Card $black $padding>
-          <ManageActivityList
-            title={'MINHAS ATIVIDADES'}
-            selectedActivities={selectedActivities}
-            availableActivities={availableActivities}
-            addItemToList={addItemToList}
-            deleteItemFromList={deleteItemFromList}
-          />
-        </Card>
-        <ButtonDefault $green onPress={() => createActivity()}>
-          <Label>{idActivity ? 'ATUALIZAR' : 'CRIAR'}</Label>
-        </ButtonDefault>
+        <ManageActivityList
+          title={'MINHAS ATIVIDADES'}
+          selectedActivities={selectedActivities}
+          availableActivities={availableActivities}
+          addItemToList={addItemToList}
+          deleteItemFromList={deleteItemFromList}
+          updateTraining={updateTraining}
+        />
+        {idActivity ? (
+          <ButtonDefault
+            $green
+            onPress={() =>
+              manageUpdate({idTraining: idActivity, newData: {title: name}})
+            }>
+            <Label>ATUALIZAR</Label>
+          </ButtonDefault>
+        ) : (
+          <ButtonDefault $green onPress={() => createActivity()}>
+            <Label>CRIAR</Label>
+          </ButtonDefault>
+        )}
       </ContainerScroll>
     </ViewDefault>
   );

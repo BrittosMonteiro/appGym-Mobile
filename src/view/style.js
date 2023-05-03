@@ -59,7 +59,7 @@ export const ButtonDefault = styled.Pressable`
   flex-direction: row;
   gap: 8px;
   justify-content: center;
-  padding: 8px;
+  ${props => (props.$noPadding ? '' : `padding: 8px`)};
   ${props => props.$green && `background: ${props.theme.colors.green_01}`};
   ${props => props.$red && `background: ${props.theme.colors.red_01}`};
   ${props =>

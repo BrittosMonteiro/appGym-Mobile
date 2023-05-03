@@ -15,7 +15,7 @@ export const Row = styled.View`
   ${props => `align-items: ${props.$align}`}
 `;
 export const Label = styled.Text`
-  fontSize: 14px;
+  font-size: 14px;
   line-height: 18px;
   font-family: IBMPlexSansCondensed-Regular;
   color: ${props =>
@@ -25,8 +25,8 @@ export const Label = styled.Text`
 export const InputText = styled.TextInput.attrs(props => ({
   placeholderTextColor: props.theme.colors.gray_01,
 }))`
-  fontSize: 18px;
+  font-size: 18px;
   font-family: IBMPlexSansCondensed-Medium;
   padding: 0;
-  color: ${props => props.theme.colors.white_02};
+  color: ${props => (props.$black ? '#202020' : props.theme.colors.white_02)};
 `;

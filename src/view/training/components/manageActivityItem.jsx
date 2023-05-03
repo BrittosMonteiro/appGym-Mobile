@@ -1,107 +1,50 @@
-import React, {useEffect, useState} from 'react';
-import {Column, InputText, Label, Row} from '../../profile/components/style';
-import {ButtonDefault, Card, Container, CustomText} from '../../style';
+import React, {useState} from 'react';
+import {Column, Label, Row} from '../../profile/components/style';
+import {ButtonDefault, ContainerTitle} from '../../style';
+import {PencilSimple, Trash} from 'phosphor-react-native';
+import ModalSetActivityDefinitions from './ModalSetActivityDefinitions';
 
 export default function ManageActivityItem({
   activity,
   deleteItemFromList,
   index,
+  updateTraining,
 }) {
-  const [load, setLoad] = useState('');
-  const [machine, setMachine] = useState('');
-  const [repetitions, setRepetitions] = useState('');
-  const [series, setSeries] = useState('');
-  const [time, setTime] = useState('');
-
-  useEffect(() => {
-    if (activity) {
-      setLoad(activity.load);
-      setMachine(activity.machine);
-      setRepetitions(activity.repetitions);
-      setSeries(activity.series);
-      setTime(activity.time);
-    }
-  }, []);
+  const [openModal, setOpenModal] = useState(false);
 
   return (
-    <Card>
-      <Row $align={'center'} $justifyContent={'space-between'}>
-        <CustomText $color={'#fcf3f3'} $fontSize={18} $weight={'Medium'}>
-          {activity.title}
-        </CustomText>
+    <React.Fragment>
+      <Column $gap>
         <Row $align={'center'} $justifyContent={'space-between'}>
-          <ButtonDefault
-            onPress={() => {
-              console.log('Implementar edição da atividade');
-            }}>
-            <Label>EDITAR</Label>
-          </ButtonDefault>
-          <ButtonDefault
-            onPress={() => {
-              deleteItemFromList(index);
-            }}>
-            <Label>REMOVER</Label>
-          </ButtonDefault>
+          <ContainerTitle $white>{activity.title}</ContainerTitle>
+          <Row $align={'center'} $justifyContent={'space-between'}>
+            <ButtonDefault $noPadding onPress={() => setOpenModal(true)}>
+              <PencilSimple color="#fcf3f3" weight="regular" size={24} />
+            </ButtonDefault>
+            <ButtonDefault $noPadding onPress={() => deleteItemFromList(index)}>
+              <Trash color="#EB5757" weight="regular" size={24} />
+            </ButtonDefault>
+          </Row>
         </Row>
-      </Row>
-
-      {/* <Container $gap>
         <Row $align={'center'} $justifyContent={'space-between'}>
-          <Column $gap style={{flex: 1}}>
-            <Label>CARGA</Label>
-            <InputText
-              placeholder="CARGA EM KG"
-              keyboardType="numeric"
-              defaultValue={load}
-              onChangeText={text => setLoad(text)}
-            />
-          </Column>
-
-          <Column $gap style={{flex: 1}}>
-            <Label>MÁQUINA</Label>
-            <InputText
-              placeholder="MÁQUINA"
-              keyboardType="numeric"
-              defaultValue={machine}
-              onChangeText={text => setMachine(text)}
-            />
-          </Column>
+          {activity.machine && <Label>{`Máquina: ${activity.machine}`}</Label>}
         </Row>
-
-        <Row $align={'center'} $justifyContent={'space-between'}>
-          <Column $gap style={{flex: 1}}>
-            <Label>REPETIÇÕES</Label>
-            <InputText
-              placeholder="REPETIÇÕES"
-              keyboardType="numeric"
-              defaultValue={repetitions}
-              onChangeText={text => setRepetitions(text)}
-            />
-          </Column>
-
-          <Column $gap style={{flex: 1}}>
-            <Label>SÉRIES</Label>
-            <InputText
-              placeholder="SÉRIES"
-              keyboardType="numeric"
-              defaultValue={series}
-              onChangeText={text => setSeries(text)}
-            />
-          </Column>
+        <Row $align={'center'} $justifyContent={'flex-start'}>
+          {activity.series && <Label>{`SÉRIES: ${activity.series}`}</Label>}
+          {activity.repetitions && (
+            <Label>{`REPETIÇÕES: ${activity.repetitions}`}</Label>
+          )}
+          {activity.load && <Label>{`CARGA: ${activity.load}kg`}</Label>}
+          {activity.time && <Label>{`TEMPO: ${activity.time} minutos`}</Label>}
         </Row>
-
-        <Row $align={'center'} $justifyContent={'space-between'}>
-          <Column $gap style={{flex: 1}}>
-            <Label>TEMPO</Label>
-            <InputText
-              placeholder="TEMPO EM MINUTOS"
-              keyboardType="numeric"
-              defaultValue={time}
-              onChangeText={text => setTime(text)}
-            />
-          </Column>
-        </Row>
-      </Container> */}
-    </Card>
+      </Column>
+      <ModalSetActivityDefinitions
+        activity={activity}
+        index={index}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        updateTraining={updateTraining}
+      />
+    </React.Fragment>
   );
 }

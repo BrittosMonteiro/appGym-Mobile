@@ -16,6 +16,14 @@ export async function readActivityByIdService(idActivity) {
   return await fetch(`${API_URL}/activity/byId/${idActivity}`);
 }
 
+export async function updateTrainingByIdService(data) {
+  return await fetch(`${API_URL}/activity/`, {
+    method: 'PUT',
+    headers: {'Content-type': 'application/json'},
+    body: JSON.stringify(data),
+  });
+}
+
 export async function deleteTrainingByIdService(idTraining) {
   return await fetch(`${API_URL}/activity`, {
     method: 'DELETE',

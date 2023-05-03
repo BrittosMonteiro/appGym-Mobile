@@ -56,7 +56,7 @@ export default function ProfilePassword() {
 
   return (
     <>
-      <Card $black={true} $padding={true} $fullWidth={true}>
+      <Card $black $padding $fullWidth>
         <Row $align={'center'} $justifyContent={'space-between'}>
           <ContainerTitle $white>ALTERAR SENHA</ContainerTitle>
           <Pressable
