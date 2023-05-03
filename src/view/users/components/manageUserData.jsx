@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import DatePicker from 'react-native-date-picker';
+import {Pressable} from 'react-native';
 
 import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
 import Plan from '../../profile/components/profilePlan';
@@ -125,7 +126,7 @@ export default function ManageUserData({navigation, route}) {
           </Column>
         )}
 
-        <ButtonDefault onPress={() => (id ? null : setOpenDatePicker(true))}>
+        <Pressable onPress={() => (id ? null : setOpenDatePicker(true))}>
           <Column $gap>
             <Label>DATA NASCIMENTO</Label>
             <InputText
@@ -153,7 +154,7 @@ export default function ManageUserData({navigation, route}) {
               cancelText="CANCELAR"
             />
           </Column>
-        </ButtonDefault>
+        </Pressable>
 
         <Column $gap>
           <Label>CPF</Label>

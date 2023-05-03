@@ -6,11 +6,14 @@ import {ButtonDefault, Card, Container, ContainerTitle} from '../../view/style';
 
 import {readActivityListService} from '../../service/activity';
 import {Label, Row} from '../../view/profile/components/style';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 
 export default function TrainingList({userId, navigation}) {
   const dispatch = useDispatch();
+  const USERSESSION = useSelector(state => {
+    return state.userSessionReducer;
+  });
   const [trainingList, setTrainingList] = useState([]);
 
   async function loadActivities() {
@@ -18,6 +21,7 @@ export default function TrainingList({userId, navigation}) {
     await readActivityListService(userId)
       .then(responseFind => {
         return responseFind.json();
+        dispatch(unsetLoading());
       })
       .then(response => {
         setTrainingList(response.data);
@@ -40,16 +44,18 @@ export default function TrainingList({userId, navigation}) {
 
   return (
     <Container>
-      <Row $align={'center'} $justifyContent={'space-between'}>
-        <ContainerTitle>MEUS TREINOS</ContainerTitle>
-        <ButtonDefault
-          $turquoise
-          onPress={() =>
-            navigation.navigate('ManageTraining', {userId, idActivity: null})
-          }>
-          <Label>CRIAR TREINO</Label>
-        </ButtonDefault>
-      </Row>
+      {USERSESSION.id === userId && (
+        <Row $align={'center'} $justifyContent={'space-between'}>
+          <ContainerTitle>MEUS TREINOS</ContainerTitle>
+          <ButtonDefault
+            $turquoise
+            onPress={() =>
+              navigation.navigate('ManageTraining', {userId, idActivity: null})
+            }>
+            <Label>CRIAR TREINO</Label>
+          </ButtonDefault>
+        </Row>
+      )}
       {trainingList.length > 0 ? (
         <Card $black $padding $fullWidth>
           {trainingList.map((training, index) => (

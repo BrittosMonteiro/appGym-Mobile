@@ -37,8 +37,8 @@ export default function ModalSetActivityDefinitions({
         repetitions,
         series,
         time,
+        title: activity.title,
       },
-      title: activity.title,
     };
     updateTraining(data);
     setOpenModal(false);

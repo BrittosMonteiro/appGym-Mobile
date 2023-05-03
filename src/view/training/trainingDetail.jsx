@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Pressable} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 
 import ViewDefault from '../ViewDefault';
@@ -14,6 +14,9 @@ import ModalDeleteTraining from './components/ModalDeleteTraining';
 
 export default function TrainingDetail({navigation, route}) {
   const {idActivity} = route.params;
+  const USERSESSION = useSelector(state => {
+    return state.userSessionReducer;
+  });
   const dispatch = useDispatch();
   const [training, setTraining] = useState([]);
   const [trainingHistory, setTrainingHistory] = useState('');
@@ -88,15 +91,17 @@ export default function TrainingDetail({navigation, route}) {
 
         <Row $align={'center'} $justifyContent={'space-between'}>
           <ContainerTitle>ATIVIDADES</ContainerTitle>
-          {training?.items && training.items.length > 0 && (
-            <ButtonDefault
-              $turquoise
-              onPress={() =>
-                navigation.navigate('TrainingOnGoing', {training, idActivity})
-              }>
-              <Label>INICIAR</Label>
-            </ButtonDefault>
-          )}
+          {training?.items &&
+            training.items.length > 0 &&
+            training.owner === USERSESSION.id && (
+              <ButtonDefault
+                $turquoise
+                onPress={() =>
+                  navigation.navigate('TrainingOnGoing', {training, idActivity})
+                }>
+                <Label>INICIAR</Label>
+              </ButtonDefault>
+            )}
         </Row>
 
         <Card $black $padding $fullWidth>

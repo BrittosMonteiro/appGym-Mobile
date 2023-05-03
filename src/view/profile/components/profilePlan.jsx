@@ -7,6 +7,7 @@ import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
 import PlanItems from './planItems';
 import {Label, Row} from './style';
 import {Card, CustomText} from '../../style';
+import ModalRemovePlanFromUser from './ModalRemovePlanFromUser';
 
 export default function Plan({
   plan,
@@ -19,6 +20,7 @@ export default function Plan({
   });
   const [planStatusTitle, setPlanStatusTitle] = useState('');
   const [expand, setExpand] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const planStatus = [
     {
@@ -71,7 +73,7 @@ export default function Plan({
                 <Pressable onPress={() => proceedToPlan(plan._id.toString())}>
                   <Label>ALTERAR PLANO</Label>
                 </Pressable>
-                <Pressable onPress={() => removePlanFromUser()}>
+                <Pressable onPress={() => setOpenModal(true)}>
                   <Label>REMOVER PLANO</Label>
                 </Pressable>
               </Row>
@@ -102,6 +104,11 @@ export default function Plan({
         )}
       </Card>
       <HorizontalRule color={'#202020'} />
+      <ModalRemovePlanFromUser
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        remove={removePlanFromUser()}
+      />
     </React.Fragment>
   );
 }
