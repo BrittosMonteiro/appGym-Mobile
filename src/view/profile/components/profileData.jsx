@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux';
 import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
 import {Column, InputText, Label, Row} from './style';
 import {Card, ContainerTitle} from '../../style';
+import DatePicker from 'react-native-date-picker';
 
 export default function ProfileData({userData, updateProfile}) {
   const userSession = useSelector(state => {
@@ -21,6 +22,7 @@ export default function ProfileData({userData, updateProfile}) {
   const [shortName, setShortName] = useState('');
   const [username, setUsername] = useState('');
   const [edit, setEdit] = useState(false);
+  const [openDatePicker, setOpenDatePicker] = useState(false);
 
   useEffect(() => {
     setOriginalData();
@@ -134,14 +136,35 @@ export default function ProfileData({userData, updateProfile}) {
       </Column>
 
       {birthdate && (
-        <Column $gap>
-          <Label>DATA DE NASCIMENTO</Label>
-          <InputText
-            placeholder={'DATA DE NASCIMENTO'}
-            editable={edit}
-            defaultValue={new Date(birthdate).toLocaleDateString()}
-          />
-        </Column>
+        <Pressable onPress={() => (!edit ? null : setOpenDatePicker(true))}>
+          <Column $gap>
+            <Label>DATA NASCIMENTO</Label>
+            <InputText
+              placeholder="DATA DE NASCIMENTO"
+              defaultValue={
+                birthdate ? new Date(birthdate).toLocaleDateString() : null
+              }
+              editable={false}
+            />
+            <DatePicker
+              modal
+              open={openDatePicker}
+              date={new Date()}
+              androidVariant="nativeAndroid"
+              mode="date"
+              onConfirm={date => {
+                setOpenDatePicker(false);
+                setBirthdate(date);
+              }}
+              onCancel={() => {
+                setOpenDatePicker(false);
+              }}
+              title={null}
+              confirmText="CONFIRMAR"
+              cancelText="CANCELAR"
+            />
+          </Column>
+        </Pressable>
       )}
 
       {cpf && (
