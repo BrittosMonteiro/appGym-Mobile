@@ -8,7 +8,7 @@ import {Card, ContainerTitle} from '../../style';
 import DatePicker from 'react-native-date-picker';
 
 export default function ProfileData({userData, updateProfile}) {
-  const userSession = useSelector(state => {
+  const USERSESSION = useSelector(state => {
     return state.userSessionReducer;
   });
 
@@ -48,13 +48,13 @@ export default function ProfileData({userData, updateProfile}) {
     };
 
     let updateData = manageData(data);
-    updateData = {updateData, idUser: userSession.id};
+    updateData = {updateData, idUser: USERSESSION.id};
     updateProfile(updateData);
     setEdit(false);
   }
 
   function manageData(data) {
-    switch (userSession.userLevel) {
+    switch (USERSESSION.userLevel) {
       case 1:
         return (data = {...data, cnpj, shortName});
       case 2:

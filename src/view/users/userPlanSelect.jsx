@@ -21,8 +21,8 @@ LogBox.ignoreLogs([
 ]);
 
 export default function UserPlanSelect({navigation, route}) {
-  const dispatch = useDispatch();
-  const userSession = useSelector(state => {
+  const DISPATCH = useDispatch();
+  const USERSESSION = useSelector(state => {
     return state.userSessionReducer;
   });
   const {user, hasPlan} = route.params;
@@ -31,7 +31,8 @@ export default function UserPlanSelect({navigation, route}) {
   const [selectedPlan, setSelectedPlan] = useState('');
 
   async function loadPlans() {
-    await readPlanListService(userSession.idGym)
+    DISPATCH(setLoading());
+    await readPlanListService(USERSESSION.idGym)
       .then(responseFind => {
         if (responseFind.status === 200) {
           return responseFind.json();
@@ -40,14 +41,17 @@ export default function UserPlanSelect({navigation, route}) {
       .then(response => {
         setPlanList(response.data);
       })
-      .catch(err => {});
+      .catch(err => {})
+      .finally(() => {
+        DISPATCH(setLoading());
+      });
   }
 
   async function createUser() {
-    dispatch(setLoading());
+    DISPATCH(setLoading());
     if (!idPlan) {
       console.log('Escolha um plano');
-      dispatch(unsetLoading());
+      DISPATCH(unsetLoading());
       return;
     }
 
@@ -63,15 +67,15 @@ export default function UserPlanSelect({navigation, route}) {
       })
       .catch(err => {})
       .finally(() => {
-        dispatch(unsetLoading());
+        DISPATCH(unsetLoading());
       });
   }
 
   async function setPlanToUser() {
-    dispatch(setLoading());
+    DISPATCH(setLoading());
     if (!idPlan) {
       console.log('Escolha um plano');
-      dispatch(unsetLoading());
+      DISPATCH(unsetLoading());
       return;
     }
 
@@ -80,7 +84,7 @@ export default function UserPlanSelect({navigation, route}) {
     const data = {
       idUser: user.id,
       idPlan,
-      idGym: userSession.idGym,
+      idGym: USERSESSION.idGym,
       planValidDate: validDate,
     };
 
@@ -92,7 +96,7 @@ export default function UserPlanSelect({navigation, route}) {
       })
       .catch(err => {})
       .finally(() => {
-        dispatch(unsetLoading());
+        DISPATCH(unsetLoading());
       });
   }
 

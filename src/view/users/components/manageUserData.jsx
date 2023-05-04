@@ -14,8 +14,8 @@ import {ButtonDefault, Card} from '../../style';
 import {Column, InputText, Label} from '../../profile/components/style';
 
 export default function ManageUserData({navigation, route}) {
-  const dispatch = useDispatch();
-  const userSession = useSelector(state => {
+  const DISPATCH = useDispatch();
+  const USERSESSION = useSelector(state => {
     return state.userSessionReducer;
   });
   const {id} = route.params;
@@ -39,7 +39,7 @@ export default function ManageUserData({navigation, route}) {
       email,
       birthdate,
       cpf,
-      idGym: userSession.idGym,
+      idGym: USERSESSION.idGym,
     };
 
     if (id) {
@@ -49,7 +49,7 @@ export default function ManageUserData({navigation, route}) {
   }
 
   async function loadUserInformation() {
-    dispatch(setLoading());
+    DISPATCH(setLoading());
     await readUserByIdService(id)
       .then(responseFind => {
         if (responseFind.status === 200) {
@@ -67,12 +67,12 @@ export default function ManageUserData({navigation, route}) {
       })
       .catch(err => {})
       .finally(() => {
-        dispatch(unsetLoading());
+        DISPATCH(unsetLoading());
       });
   }
 
   async function removePlanFromUser() {
-    dispatch(setLoading());
+    DISPATCH(setLoading());
     await removePlanFromUserService({idUser: id})
       .then(responseUpdate => {
         if (responseUpdate.status === 200) {
@@ -81,7 +81,7 @@ export default function ManageUserData({navigation, route}) {
       })
       .catch(err => {})
       .finally(() => {
-        dispatch(unsetLoading());
+        DISPATCH(unsetLoading());
       });
   }
 

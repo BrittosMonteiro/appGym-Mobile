@@ -1,22 +1,23 @@
 import React, {useEffect, useState} from 'react';
-import {Text} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {readUsersNotAttachedToGymService} from '../../service/user';
-import styles from '../../styles';
 import Search from '../../components/Search';
 import UsersList from './components/UsersList';
 import {CustomText} from '../style';
+import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 
 export default function UsersNotAttached({navigation}) {
-  const userSession = useSelector(state => {
+  const DISPATCH = useDispatch();
+  const USERSESSION = useSelector(state => {
     return state.userSessionReducer;
   });
   const [originalList, setOriginalList] = useState([]);
   const [usersList, setUserList] = useState([]);
 
   async function loadUsers() {
-    await readUsersNotAttachedToGymService(userSession.idGym)
+    DISPATCH(setLoading());
+    await readUsersNotAttachedToGymService(USERSESSION.idGym)
       .then(responseFind => {
         if (responseFind.status === 200) {
           return responseFind.json();
@@ -27,6 +28,9 @@ export default function UsersNotAttached({navigation}) {
       })
       .catch(err => {
         console.log(err);
+      })
+      .finally(() => {
+        DISPATCH(unsetLoading());
       });
   }
 

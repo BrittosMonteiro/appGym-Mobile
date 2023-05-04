@@ -12,8 +12,8 @@ import {ButtonDefault, Card, ContainerTitle} from '../../style';
 import {updatePasswordService} from '../../../service/user';
 
 export default function ProfilePassword() {
-  const dispatch = useDispatch();
-  const userSession = useSelector(state => {
+  const DISPATCH = useDispatch();
+  const USERSESSION = useSelector(state => {
     return state.userSessionReducer;
   });
   const [password, setPassword] = useState('');
@@ -22,21 +22,21 @@ export default function ProfilePassword() {
   const [showPassword, setShowPassword] = useState(false);
 
   async function updatePassword() {
-    dispatch(setLoading());
+    DISPATCH(setLoading());
     if (!password || !confirmPassword) {
       console.log('Preencher campos');
-      dispatch(unsetLoading());
+      DISPATCH(unsetLoading());
       return;
     }
 
     if (password !== confirmPassword) {
       console.log('Senhas não são iguais');
-      dispatch(unsetLoading());
+      DISPATCH(unsetLoading());
       return;
     }
 
     const data = {
-      idUser: userSession.id,
+      idUser: USERSESSION.id,
       password,
     };
 
@@ -50,7 +50,7 @@ export default function ProfilePassword() {
       })
       .catch(err => {})
       .finally(() => {
-        dispatch(unsetLoading());
+        DISPATCH(unsetLoading());
       });
   }
 
@@ -108,7 +108,7 @@ export default function ProfilePassword() {
               </Row>
             </Column>
 
-            <ButtonDefault $green>
+            <ButtonDefault $green onPress={() => updatePassword()}>
               <Label>ALTERAR</Label>
             </ButtonDefault>
           </>

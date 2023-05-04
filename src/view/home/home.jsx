@@ -8,7 +8,7 @@ import TrainingList from '../../components/TrainingList/TrainingList';
 import {ContainerScroll} from '../style';
 
 export default function Home({navigation}) {
-  const userSession = useSelector(state => {
+  const USERSESSION = useSelector(state => {
     return state.userSessionReducer;
   });
 
@@ -17,10 +17,9 @@ export default function Home({navigation}) {
       <HeaderStart navigation={navigation} />
       <HorizontalRule color={'#202020'} />
       <ContainerScroll
-        contentContainerStyle={{alignItems: 'flex-start', gap: 16}}>
+        contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
         <WeekPerformance />
-        <HorizontalRule color={'#202020'} />
-        <TrainingList navigation={navigation} userId={userSession.id} />
+        <TrainingList navigation={navigation} userId={USERSESSION.id} />
       </ContainerScroll>
     </ViewDefault>
   );

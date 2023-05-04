@@ -1,21 +1,24 @@
 import React, {useEffect, useState} from 'react';
 
 import {readGymUsersListService} from '../../service/user';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Search from '../../components/Search';
 import UsersList from './components/UsersList';
 import {ButtonDefault, CustomText} from '../style';
 import {Label, Row} from '../profile/components/style';
+import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 
 export default function UsersAttached({isAttached, navigation}) {
-  const userSession = useSelector(state => {
+  const DISPATCH = useDispatch();
+  const USERSESSION = useSelector(state => {
     return state.userSessionReducer;
   });
   const [originalList, setOriginalList] = useState([]);
   const [usersList, setUserList] = useState([]);
 
   async function loadGymUsers() {
-    await readGymUsersListService(userSession.idGym)
+    DISPATCH(setLoading());
+    await readGymUsersListService(USERSESSION.idGym)
       .then(responseFind => {
         if (responseFind.status === 200) {
           return responseFind.json();
@@ -25,7 +28,10 @@ export default function UsersAttached({isAttached, navigation}) {
         setOriginalList(response.data);
         setUserList(response.data);
       })
-      .catch(err => {});
+      .catch(err => {})
+      .finally(() => {
+        DISPATCH(unsetLoading());
+      });
   }
 
   useEffect(() => {
@@ -36,7 +42,7 @@ export default function UsersAttached({isAttached, navigation}) {
     navigation.addListener('focus', () => {
       loadGymUsers();
     });
-  }, []);
+  }, [navigation]);
 
   function filterList(text) {
     setUserList(

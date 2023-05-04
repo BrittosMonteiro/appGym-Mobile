@@ -14,8 +14,8 @@ import {ButtonDefault, Card, ContainerScroll} from '../style';
 import {Column, InputText, Label} from '../profile/components/style';
 
 export default function ManageInstructor({navigation, route}) {
-  const dispatch = useDispatch();
-  const userSession = useSelector(state => {
+  const DISPATCH = useDispatch();
+  const USERSESSION = useSelector(state => {
     return state.userSessionReducer;
   });
   const {idInstructor} = route.params;
@@ -25,14 +25,14 @@ export default function ManageInstructor({navigation, route}) {
   const [cref, setCref] = useState('');
 
   async function createInstructor() {
-    dispatch(setLoading());
+    DISPATCH(setLoading());
     if (!name || !email) {
-      dispatch(unsetLoading());
+      DISPATCH(unsetLoading());
       return;
     }
 
     const data = {
-      idGym: userSession.id,
+      idGym: USERSESSION.id,
       name,
       birthdate,
       username: `${name
@@ -41,7 +41,7 @@ export default function ManageInstructor({navigation, route}) {
         .toLocaleLowerCase()}${name
         .split(' ')[1]
         .replace(' ', '')
-        .toLocaleLowerCase()}_${userSession.displayName
+        .toLocaleLowerCase()}_${USERSESSION.displayName
         .replace(' ', '')
         .toLowerCase()}`,
       email,
@@ -57,12 +57,12 @@ export default function ManageInstructor({navigation, route}) {
       })
       .catch(err => {})
       .finally(() => {
-        dispatch(unsetLoading());
+        DISPATCH(unsetLoading());
       });
   }
 
   async function readInstructor() {
-    dispatch(setLoading());
+    DISPATCH(setLoading());
 
     await readInstructorByIdService(idInstructor)
       .then(responseFind => {
@@ -78,15 +78,15 @@ export default function ManageInstructor({navigation, route}) {
       })
       .catch(err => {})
       .finally(() => {
-        dispatch(unsetLoading());
+        DISPATCH(unsetLoading());
       });
   }
 
   async function updateInstructor() {
-    dispatch(setLoading());
+    DISPATCH(setLoading());
 
     if (!name || !email) {
-      dispatch(unsetLoading());
+      DISPATCH(unsetLoading());
       return;
     }
 
@@ -101,7 +101,7 @@ export default function ManageInstructor({navigation, route}) {
           .toLocaleLowerCase()}${name
           .split(' ')[1]
           .replace(' ', '')
-          .toLocaleLowerCase()}_${userSession.displayName
+          .toLocaleLowerCase()}_${USERSESSION.displayName
           .replace(' ', '')
           .toLowerCase()}`,
         email,
@@ -117,12 +117,12 @@ export default function ManageInstructor({navigation, route}) {
       })
       .catch(err => {})
       .finally(() => {
-        dispatch(unsetLoading());
+        DISPATCH(unsetLoading());
       });
   }
 
   async function deleteInstructor() {
-    dispatch(setLoading());
+    DISPATCH(setLoading());
     await deleteInstructorService({idInstructor})
       .then(responseDelete => {
         if (responseDelete) {
@@ -131,7 +131,7 @@ export default function ManageInstructor({navigation, route}) {
       })
       .catch(err => {})
       .finally(() => {
-        dispatch(unsetLoading());
+        DISPATCH(unsetLoading());
       });
   }
 

@@ -14,7 +14,7 @@ import {loginService} from '../../service/login';
 import {setUser} from '../../store/actions/userSessionAction';
 
 export default function Login({navigation}) {
-  const dispatch = useDispatch();
+  const DISPATCH = useDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('teste123');
   const [showPassword, setShowPassword] = useState(false);
@@ -22,7 +22,7 @@ export default function Login({navigation}) {
 
   const setUserSession = async data => {
     try {
-      await AsyncStorage.setItem('userSession', JSON.stringify(data));
+      await AsyncStorage.setItem('USERSESSION', JSON.stringify(data));
       getUserSession();
     } catch (e) {
       console.log(e);
@@ -32,10 +32,10 @@ export default function Login({navigation}) {
   const getUserSession = async () => {
     setIsLoading(true);
     try {
-      const jsonUserSession = await AsyncStorage.getItem('userSession');
+      const jsonUserSession = await AsyncStorage.getItem('USERSESSION');
       const jsonUserData = JSON.parse(jsonUserSession);
       if (jsonUserData !== null) {
-        dispatch(setUser(jsonUserData));
+        DISPATCH(setUser(jsonUserData));
         navigation.reset({
           index: 0,
           routes: [{name: goTo(jsonUserData.userLevel)}],

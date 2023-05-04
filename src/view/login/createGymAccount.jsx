@@ -5,7 +5,6 @@ import {useDispatch} from 'react-redux';
 import {CaretRight, Eye, EyeSlash} from 'phosphor-react-native';
 
 import ViewDefault from '../ViewDefault';
-import styles from '../../styles';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import {createAccountService} from '../../service/login';
 import {setUser} from '../../store/actions/userSessionAction';
@@ -13,7 +12,7 @@ import {ButtonDefault, Card, ContainerScroll, CustomText} from '../style';
 import {Column, InputText, Label, Row} from '../profile/components/style';
 
 export default function CreateGymAccount({navigation, route}) {
-  const dispatch = useDispatch();
+  const DISPATCH = useDispatch();
   const {userLevel} = route.params;
   const [cpf, setCpf] = useState('');
   const [cnpj, setCnpj] = useState('');
@@ -28,7 +27,7 @@ export default function CreateGymAccount({navigation, route}) {
 
   const setUserSession = async data => {
     try {
-      await AsyncStorage.setItem('userSession', JSON.stringify(data));
+      await AsyncStorage.setItem('USERSESSION', JSON.stringify(data));
       getUserSession();
     } catch (e) {
       console.log(e);
@@ -38,10 +37,10 @@ export default function CreateGymAccount({navigation, route}) {
   const getUserSession = async () => {
     setIsLoading(true);
     try {
-      const jsonUserSession = await AsyncStorage.getItem('userSession');
+      const jsonUserSession = await AsyncStorage.getItem('USERSESSION');
       const jsonUserData = JSON.parse(jsonUserSession);
       if (jsonUserData !== null) {
-        dispatch(setUser(jsonUserData));
+        DISPATCH(setUser(jsonUserData));
         navigation.reset({
           index: 0,
           routes: [{name: goTo(jsonUserData.userLevel)}],
@@ -56,6 +55,7 @@ export default function CreateGymAccount({navigation, route}) {
   };
 
   async function sendData(data) {
+    setIsLoading(true);
     await createAccountService(data)
       .then(responseCreate => {
         if (responseCreate.status === 201) {
@@ -246,17 +246,14 @@ export default function CreateGymAccount({navigation, route}) {
 
           <HorizontalRule color={'#fcf3f3'} />
 
-          <ButtonDefault
-            onPress={() => navigation.navigate('Login')}
-            style={[
-              styles.main.row,
-              styles.alignment.justifyContent.space_between,
-            ]}>
-            <CustomText $weight={'Regular'} $color={'#fcf3f3'}>
-              JÁ TENHO UMA CONTA
-            </CustomText>
+          <Row $align={'center'} $justifyContent={'space-between'}>
+            <ButtonDefault onPress={() => navigation.navigate('Login')}>
+              <CustomText $weight={'Regular'} $color={'#fcf3f3'}>
+                JÁ TENHO UMA CONTA
+              </CustomText>
+            </ButtonDefault>
             <CaretRight weight="bold" size={24} color={'#fcf3f3'} />
-          </ButtonDefault>
+          </Row>
         </Card>
       </ContainerScroll>
     </ViewDefault>

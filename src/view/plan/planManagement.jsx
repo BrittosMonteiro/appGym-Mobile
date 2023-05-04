@@ -18,8 +18,8 @@ import {ButtonDefault, Card, ContainerScroll, CustomText} from '../style';
 import {Column, InputText, Label, Row} from '../profile/components/style';
 
 export default function PlanManagement({navigation, route}) {
-  const dispatch = useDispatch();
-  const userSession = useSelector(state => {
+  const DISPATCH = useDispatch();
+  const USERSESSION = useSelector(state => {
     return state.userSessionReducer;
   });
   const {id} = route.params;
@@ -71,9 +71,9 @@ export default function PlanManagement({navigation, route}) {
   }
 
   async function createPlan() {
-    dispatch(setLoading());
+    DISPATCH(setLoading());
     const newPlan = {
-      idGym: userSession.id,
+      idGym: USERSESSION.id,
       status,
       title,
       price,
@@ -90,12 +90,12 @@ export default function PlanManagement({navigation, route}) {
       })
       .catch(err => {})
       .finally(() => {
-        dispatch(unsetLoading());
+        DISPATCH(unsetLoading());
       });
   }
 
   async function readPlan() {
-    dispatch(setLoading());
+    DISPATCH(setLoading());
     await readPlanByIdService(id)
       .then(responseFind => {
         if (responseFind.status === 200) {
@@ -113,12 +113,12 @@ export default function PlanManagement({navigation, route}) {
       })
       .catch(err => {})
       .finally(() => {
-        dispatch(unsetLoading());
+        DISPATCH(unsetLoading());
       });
   }
 
   async function updatePlan() {
-    dispatch(setLoading());
+    DISPATCH(setLoading());
     const updatePlan = {
       idPlan: id,
       data: {
@@ -139,12 +139,12 @@ export default function PlanManagement({navigation, route}) {
       })
       .catch(err => {})
       .finally(() => {
-        dispatch(unsetLoading());
+        DISPATCH(unsetLoading());
       });
   }
 
   async function deletePlan() {
-    dispatch(setLoading());
+    DISPATCH(setLoading());
     await deletePlanService({idPlan: id})
       .then(responseDelete => {
         if (responseDelete.status === 200) {
@@ -153,7 +153,7 @@ export default function PlanManagement({navigation, route}) {
       })
       .catch(err => {})
       .finally(() => {
-        dispatch(unsetLoading());
+        DISPATCH(unsetLoading());
       });
   }
 

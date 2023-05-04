@@ -17,16 +17,16 @@ import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import {Label} from './components/style';
 
 export default function Profile({navigation}) {
-  const dispatch = useDispatch();
-  const userSession = useSelector(state => {
+  const DISPATCH = useDispatch();
+  const USERSESSION = useSelector(state => {
     return state.userSessionReducer;
   });
   const [plan, setPlan] = useState('');
   const [userData, setUserData] = useState('');
 
   async function loadProfile() {
-    dispatch(setLoading());
-    await readUserByIdService(userSession.id)
+    DISPATCH(setLoading());
+    await readUserByIdService(USERSESSION.id)
       .then(responseFind => {
         if (responseFind.status === 200) {
           return responseFind.json();
@@ -40,12 +40,12 @@ export default function Profile({navigation}) {
         console.log(err);
       })
       .finally(() => {
-        dispatch(unsetLoading());
+        DISPATCH(unsetLoading());
       });
   }
 
   async function updateUser(updateData) {
-    dispatch(setLoading());
+    DISPATCH(setLoading());
     await updateUserService(updateData)
       .then(responseUpdate => {
         if (responseUpdate.status === 200) {
@@ -54,13 +54,13 @@ export default function Profile({navigation}) {
       })
       .catch(err => {})
       .finally(() => {
-        dispatch(unsetLoading());
+        DISPATCH(unsetLoading());
       });
   }
 
   async function logout() {
     try {
-      const storedData = await AsyncStorage.removeItem('userSession');
+      const storedData = await AsyncStorage.removeItem('USERSESSION');
       if (!storedData) {
         navigation.reset({
           index: 0,
@@ -79,7 +79,7 @@ export default function Profile({navigation}) {
 
   return (
     <ViewDefault>
-      {userSession.userLevel === 3 ? (
+      {USERSESSION.userLevel === 3 ? (
         <Header navigation={navigation} title={'PERFIL'} />
       ) : (
         <HeaderStart />
@@ -87,7 +87,6 @@ export default function Profile({navigation}) {
       <HorizontalRule color={'#202020'} />
       <ContainerScroll contentContainerStyle={{gap: 16}}>
         <ProfileData userData={userData} updateProfile={updateUser} />
-        <HorizontalRule color={'#202020'} />
         {plan && <Plan plan={plan} />}
         <ProfilePassword />
         <ButtonDefault $red onPress={() => logout()}>

@@ -17,13 +17,13 @@ export default function TrainingDetail({navigation, route}) {
   const USERSESSION = useSelector(state => {
     return state.userSessionReducer;
   });
-  const dispatch = useDispatch();
+  const DISPATCH = useDispatch();
   const [training, setTraining] = useState([]);
   const [trainingHistory, setTrainingHistory] = useState('');
   const [openModal, setOpenModal] = useState(false);
 
   async function loadActivity() {
-    dispatch(setLoading());
+    DISPATCH(setLoading());
     await readActivityByIdService(idActivity)
       .then(responseFind => {
         if (responseFind) {
@@ -35,11 +35,12 @@ export default function TrainingDetail({navigation, route}) {
       })
       .catch(err => {})
       .finally(() => {
-        dispatch(unsetLoading());
+        DISPATCH(unsetLoading());
       });
   }
 
   async function loadActivityHistory() {
+    DISPATCH(setLoading());
     await readActivityHistoryByIdService({idActivity})
       .then(responseFind => {
         if (responseFind) {
@@ -49,7 +50,10 @@ export default function TrainingDetail({navigation, route}) {
       .then(response => {
         setTrainingHistory(response.data);
       })
-      .catch(err => {});
+      .catch(err => {})
+      .finally(() => {
+        DISPATCH(unsetLoading());
+      });
   }
 
   useEffect(() => {
@@ -87,8 +91,6 @@ export default function TrainingDetail({navigation, route}) {
           </Card>
         )}
 
-        <HorizontalRule color={'#202020'} />
-
         <Row $align={'center'} $justifyContent={'space-between'}>
           <ContainerTitle>ATIVIDADES</ContainerTitle>
           {training?.items &&
@@ -113,25 +115,30 @@ export default function TrainingDetail({navigation, route}) {
                     <Row $align={'center'} $justifyContent={'space-between'}>
                       <ContainerTitle $white>{activity.title}</ContainerTitle>
                     </Row>
-                    <Row $align={'center'} $justifyContent={'flex-start'}>
-                      {activity.machine && (
+                    {activity.machine && (
+                      <Row $align={'center'} $justifyContent={'flex-start'}>
                         <Label>{`Máquina: ${activity.machine}`}</Label>
-                      )}
-                    </Row>
-                    <Row $align={'center'} $justifyContent={'flex-start'}>
-                      {activity.series && (
-                        <Label>{`SÉRIES: ${activity.series}`}</Label>
-                      )}
-                      {activity.repetitions && (
-                        <Label>{`REPETIÇÕES: ${activity.repetitions}`}</Label>
-                      )}
-                      {activity.load && (
-                        <Label>{`CARGA: ${activity.load}kg`}</Label>
-                      )}
-                      {activity.time && (
-                        <Label>{`TEMPO: ${activity.time} minutos`}</Label>
-                      )}
-                    </Row>
+                      </Row>
+                    )}
+                    {(activity.series ||
+                      activity.repetitions ||
+                      activity.load ||
+                      activity.time) && (
+                      <Row $align={'center'} $justifyContent={'flex-start'}>
+                        {activity.series && (
+                          <Label>{`SÉRIES: ${activity.series}`}</Label>
+                        )}
+                        {activity.repetitions && (
+                          <Label>{`REPETIÇÕES: ${activity.repetitions}`}</Label>
+                        )}
+                        {activity.load && (
+                          <Label>{`CARGA: ${activity.load}kg`}</Label>
+                        )}
+                        {activity.time && (
+                          <Label>{`TEMPO: ${activity.time} minutos`}</Label>
+                        )}
+                      </Row>
+                    )}
                   </Column>
                   {index < training.items.length - 1 && (
                     <HorizontalRule color={'#fcf3f3'} />

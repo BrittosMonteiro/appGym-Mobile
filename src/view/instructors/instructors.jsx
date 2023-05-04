@@ -4,7 +4,7 @@ import Header from '../../components/Header/Header';
 import ViewDefault from '../ViewDefault';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import {CaretRight} from 'phosphor-react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {readInstructorListService} from '../../service/instructor';
 import {Label, Row} from '../profile/components/style';
 import {ButtonDefault, Card, ContainerScroll, CustomText} from '../style';
@@ -12,15 +12,18 @@ import {
   ContainerListItem,
   ContainerListItemTitle,
 } from '../../components/TrainingList/style';
+import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 
 export default function Instructors({navigation}) {
-  const userSession = useSelector(state => {
+  const DISPATCH = useDispatch();
+  const USERSESSION = useSelector(state => {
     return state.userSessionReducer;
   });
   const [instructorsList, setInstructorList] = useState([]);
 
   async function loadInstructors() {
-    await readInstructorListService(userSession.id)
+    DISPATCH(setLoading());
+    await readInstructorListService(USERSESSION.id)
       .then(responseFind => {
         if (responseFind.status === 200) {
           return responseFind.json();
@@ -29,7 +32,10 @@ export default function Instructors({navigation}) {
       .then(response => {
         setInstructorList(response.data);
       })
-      .catch(err => {});
+      .catch(err => {})
+      .finally(() => {
+        DISPATCH(unsetLoading());
+      });
   }
 
   useEffect(() => {

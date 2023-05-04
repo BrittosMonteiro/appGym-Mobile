@@ -8,7 +8,6 @@ import {ButtonDefault, Card, CustomText} from '../../style';
 
 export default function ManageActivityList({
   selectedActivities,
-  availableActivities,
   title,
   addItemToList,
   deleteItemFromList,
@@ -52,7 +51,6 @@ export default function ManageActivityList({
         </Row>
       )}
       <ModalAddItemToActivityList
-        availableActivities={availableActivities}
         open={openModal}
         onClose={closeModal}
         addItemToList={addItemToList}

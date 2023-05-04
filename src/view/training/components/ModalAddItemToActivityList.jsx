@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Modal, View} from 'react-native';
 
 import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
@@ -12,11 +12,95 @@ import {
 } from '../../../components/TrainingList/style';
 
 export default function ModalAddItemToActivityList({
-  availableActivities,
   open,
   onClose,
   addItemToList,
 }) {
+  const [availableActivities, setAvailableActivities] = useState([]);
+
+  const ACTIVITIES_LIST = [
+    {
+      id: 1,
+      title: 'ESTEIRA',
+    },
+    {
+      id: 2,
+      title: 'SUPINO',
+    },
+    {
+      id: 3,
+      title: 'CRUCIFIXO',
+    },
+    {
+      id: 4,
+      title: 'TRICEPS',
+    },
+    {
+      id: 5,
+      title: 'ELEVAÇÃO LATERAL',
+    },
+    {
+      id: 6,
+      title: 'REMADA',
+    },
+    {
+      id: 7,
+      title: 'ROTAÇÃO DE TRONCO',
+    },
+    {
+      id: 8,
+      title: 'ROSCA',
+    },
+    {
+      id: 9,
+      title: 'EXTENSÃO DE TRONCO',
+    },
+    {
+      id: 10,
+      title: 'LEG PRESS',
+    },
+    {
+      id: 10,
+      title: 'EXTENSÃO DE JOELHOS',
+    },
+    {
+      id: 11,
+      title: 'FLEXÃO DE JOELHOS',
+    },
+    {
+      id: 12,
+      title: 'ABDUÇÃO DE QUADRIL',
+    },
+    {
+      id: 13,
+      title: 'ADUÇÃO DE QUADRIL',
+    },
+    {
+      id: 14,
+      title: 'EXTENSÃO DE QUADRIL',
+    },
+    {
+      id: 15,
+      title: 'ABDOMINAL',
+    },
+    {
+      id: 16,
+      title: 'ALONGAMENTO',
+    },
+    {
+      id: 17,
+      title: 'PULL UP',
+    },
+    {
+      id: 18,
+      title: 'DIP',
+    },
+  ];
+
+  useEffect(() => {
+    setAvailableActivities(ACTIVITIES_LIST);
+  }, []);
+
   return (
     <Modal animationType="fade" visible={open} transparent={true}>
       <View

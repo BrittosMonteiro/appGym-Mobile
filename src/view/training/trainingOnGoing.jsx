@@ -12,27 +12,27 @@ import {Label, Row} from '../profile/components/style';
 import Timer from '../../components/Timer/Timer';
 
 export default function TrainingOnGoing({route, navigation}) {
-  const dispatch = useDispatch();
+  const DISPATCH = useDispatch();
   const {training, idActivity} = route.params;
   const [items, setItems] = useState(training.items);
 
   async function activityFinish() {
-    dispatch(setLoading());
+    DISPATCH(setLoading());
     await createActivityHistoryService({idActivity})
       .then(() => {
         navigation.goBack();
       })
       .catch(err => {})
       .finally(() => {
-        dispatch(unsetLoading());
+        DISPATCH(unsetLoading());
       });
   }
 
   function cancel() {
-    dispatch(setLoading());
+    DISPATCH(setLoading());
 
     setTimeout(() => {
-      dispatch(unsetLoading());
+      DISPATCH(unsetLoading());
       navigation.goBack();
     }, 1000);
   }

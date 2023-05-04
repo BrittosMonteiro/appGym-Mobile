@@ -15,7 +15,7 @@ export default function Plan({
   proceedToPlan,
   removePlanFromUser,
 }) {
-  const userSession = useSelector(state => {
+  const USERSESSION = useSelector(state => {
     return state.userSessionReducer;
   });
   const [planStatusTitle, setPlanStatusTitle] = useState('');
@@ -32,10 +32,10 @@ export default function Plan({
   ];
 
   function compareDates() {
-    if (userSession.planValidDate || planValidDate) {
+    if (USERSESSION.planValidDate || planValidDate) {
       const today = new Date().getTime();
       const formatedDate = new Date(
-        userSession.planValidDate || planValidDate,
+        USERSESSION.planValidDate || planValidDate,
       ).getTime();
       if (today <= formatedDate) {
         setPlanStatusTitle(planStatus[0].title);
@@ -68,7 +68,7 @@ export default function Plan({
         </Row>
         {expand && (
           <React.Fragment>
-            {userSession.userLevel === 2 && (
+            {USERSESSION.userLevel === 2 && (
               <Row $align={'center'} $justifyContent={'space-between'}>
                 <Pressable onPress={() => proceedToPlan(plan._id.toString())}>
                   <Label>ALTERAR PLANO</Label>
@@ -91,7 +91,7 @@ export default function Plan({
               <Label>
                 VÁLIDO ATÉ:{' '}
                 {new Date(
-                  userSession.planValidDate || planValidDate,
+                  USERSESSION.planValidDate || planValidDate,
                 ).toLocaleDateString()}
               </Label>
             </Row>
@@ -107,7 +107,7 @@ export default function Plan({
       <ModalRemovePlanFromUser
         openModal={openModal}
         setOpenModal={setOpenModal}
-        remove={removePlanFromUser()}
+        remove={removePlanFromUser}
       />
     </React.Fragment>
   );

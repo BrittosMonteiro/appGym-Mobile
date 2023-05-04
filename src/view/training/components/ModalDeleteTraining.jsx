@@ -3,7 +3,7 @@ import ModalDefault from '../../../components/ModalDefault/ModalDefault';
 import {deleteTrainingByIdService} from '../../../service/activity';
 import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
 import {Label, Row} from '../../profile/components/style';
-import {ButtonDefault, ContainerTitle} from '../../style';
+import {ButtonDefault} from '../../style';
 
 export default function ModalDeleteTraining({
   idTraining,
@@ -11,10 +11,10 @@ export default function ModalDeleteTraining({
   openModal,
   setOpenModal,
 }) {
-  const dispatch = useDispatch();
+  const DISPATCH = useDispatch();
 
   async function deleteActivity() {
-    dispatch(setLoading());
+    DISPATCH(setLoading());
 
     await deleteTrainingByIdService({idTraining})
       .then(responseDelete => {
@@ -24,7 +24,7 @@ export default function ModalDeleteTraining({
       })
       .catch(err => {})
       .finally(() => {
-        dispatch(unsetLoading());
+        DISPATCH(unsetLoading());
       });
   }
   return (

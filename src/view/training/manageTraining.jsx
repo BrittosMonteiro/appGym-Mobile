@@ -16,93 +16,20 @@ import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 
 export default function ManageActivity({navigation, route}) {
   const {userId, idActivity} = route.params;
-  const dispatch = useDispatch();
+  const DISPATCH = useDispatch();
 
   const [name, setName] = useState('');
+  const [idTraining, setIdTraining] = useState(idActivity);
   const [selectedActivities, setSelectedActivities] = useState([]);
-  const [availableActivities, setAvailableActivities] = useState([]);
-
-  const activitiesList = [
-    {
-      id: 1,
-      title: 'ESTEIRA',
-    },
-    {
-      id: 2,
-      title: 'SUPINO',
-    },
-    {
-      id: 3,
-      title: 'CRUCIFIXO',
-    },
-    {
-      id: 4,
-      title: 'TRICEPS',
-    },
-    {
-      id: 5,
-      title: 'ELEVAÇÃO LATERAL',
-    },
-    {
-      id: 6,
-      title: 'REMADA',
-    },
-    {
-      id: 7,
-      title: 'ROTAÇÃO DE TRONCO',
-    },
-    {
-      id: 8,
-      title: 'ROSCA',
-    },
-    {
-      id: 9,
-      title: 'EXTENSÃO DE TRONCO',
-    },
-    {
-      id: 10,
-      title: 'LEG PRESS',
-    },
-    {
-      id: 10,
-      title: 'EXTENSÃO DE JOELHOS',
-    },
-    {
-      id: 11,
-      title: 'FLEXÃO DE JOELHOS',
-    },
-    {
-      id: 12,
-      title: 'ABDUÇÃO DE QUADRIL',
-    },
-    {
-      id: 13,
-      title: 'ADUÇÃO DE QUADRIL',
-    },
-    {
-      id: 14,
-      title: 'EXTENSÃO DE QUADRIL',
-    },
-    {
-      id: 15,
-      title: 'ABDOMINAL',
-    },
-    {
-      id: 16,
-      title: 'ALONGAMENTO',
-    },
-    {
-      id: 17,
-      title: 'PULL UP',
-    },
-    {
-      id: 18,
-      title: 'DIP',
-    },
-  ];
 
   async function loadActivity() {
-    dispatch(setLoading());
+    DISPATCH(setLoading());
+
+    if (!idTraining) {
+      DISPATCH(unsetLoading());
+      return;
+    }
+
     await readActivityByIdService(idActivity)
       .then(responseFind => {
         if (responseFind) {
@@ -115,19 +42,18 @@ export default function ManageActivity({navigation, route}) {
       })
       .catch(err => {})
       .finally(() => {
-        dispatch(unsetLoading());
+        DISPATCH(unsetLoading());
       });
   }
 
   useEffect(() => {
-    setAvailableActivities(activitiesList);
     loadActivity();
   }, []);
 
   async function createActivity() {
-    dispatch(setLoading());
+    DISPATCH(setLoading());
     if (!name) {
-      dispatch(unsetLoading());
+      DISPATCH(unsetLoading());
       return;
     }
     const data = {
@@ -137,13 +63,17 @@ export default function ManageActivity({navigation, route}) {
     };
 
     await createActivityService(data)
-      .then(() => {
-        dispatch(setLoading());
-        navigation.goBack();
+      .then(responseCreate => {
+        if (responseCreate.status === 201) {
+          return responseCreate.json();
+        }
+      })
+      .then(response => {
+        setIdTraining(response.idTraining);
       })
       .catch(err => {})
       .finally(() => {
-        dispatch(unsetLoading());
+        DISPATCH(unsetLoading());
       });
   }
 
@@ -160,7 +90,7 @@ export default function ManageActivity({navigation, route}) {
     selectedActivities.push(newActivity);
     setSelectedActivities(selectedActivities);
     const update = {
-      idTraining: idActivity,
+      idTraining,
       newData: {
         items: selectedActivities,
       },
@@ -172,7 +102,7 @@ export default function ManageActivity({navigation, route}) {
     const newList = selectedActivities.filter((items, key) => key !== index);
 
     const update = {
-      idTraining: idActivity,
+      idTraining,
       newData: {
         items: newList,
       },
@@ -185,7 +115,7 @@ export default function ManageActivity({navigation, route}) {
     updatedList[data.index] = data.newInformation;
 
     const update = {
-      idTraining: idActivity,
+      idTraining,
       newData: {
         items: updatedList,
         title: name,
@@ -195,7 +125,7 @@ export default function ManageActivity({navigation, route}) {
   }
 
   async function manageUpdate(data) {
-    dispatch(setLoading());
+    DISPATCH(setLoading());
     await updateTrainingByIdService(data)
       .then(responseUpdate => {
         if (responseUpdate.status === 200) {
@@ -206,7 +136,7 @@ export default function ManageActivity({navigation, route}) {
         console.log(err);
       })
       .finally(() => {
-        dispatch(unsetLoading());
+        DISPATCH(unsetLoading());
       });
   }
 
@@ -219,26 +149,27 @@ export default function ManageActivity({navigation, route}) {
           <Column $gap>
             <Label>NOME DO TREINO</Label>
             <InputText
-              placeholder="EXEMPLO: TREINO A"
+              placeholder={`EXEMPLO: TREINO A`}
               defaultValue={name}
               onChangeText={text => setName(text)}
             />
           </Column>
         </Card>
-        <ManageActivityList
-          title={'MINHAS ATIVIDADES'}
-          selectedActivities={selectedActivities}
-          availableActivities={availableActivities}
-          addItemToList={addItemToList}
-          deleteItemFromList={deleteItemFromList}
-          updateTraining={updateTraining}
-        />
-        {idActivity ? (
+
+        {idTraining && (
+          <ManageActivityList
+            title={'MINHAS ATIVIDADES'}
+            selectedActivities={selectedActivities}
+            addItemToList={addItemToList}
+            deleteItemFromList={deleteItemFromList}
+            updateTraining={updateTraining}
+          />
+        )}
+
+        {idTraining ? (
           <ButtonDefault
             $green
-            onPress={() =>
-              manageUpdate({idTraining: idActivity, newData: {title: name}})
-            }>
+            onPress={() => manageUpdate({idTraining, newData: {title: name}})}>
             <Label>ATUALIZAR</Label>
           </ButtonDefault>
         ) : (
