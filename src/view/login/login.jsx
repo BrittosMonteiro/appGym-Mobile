@@ -114,7 +114,7 @@ export default function Login({navigation}) {
               autoCapitalize={'none'}
               autoCorrect={false}
               keyboardType={'default'}
-              inputMode={'default'}
+              inputMode={'text'}
               editable={!isLoading}
               placeholder="USUÁRIO"
               defaultValue={username}
@@ -127,8 +127,9 @@ export default function Login({navigation}) {
             <Row $align={'center'} $justifyContent={'space-between'}>
               <InputText
                 keyboardType={'default'}
-                inputMode={'default'}
+                inputMode={'text'}
                 editable={!isLoading}
+                secureTextEntry={!showPassword}
                 placeholder="SENHA"
                 defaultValue={password}
                 onChangeText={text => setPassword(text)}

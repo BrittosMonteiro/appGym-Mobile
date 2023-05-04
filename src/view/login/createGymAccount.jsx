@@ -140,7 +140,7 @@ export default function CreateGymAccount({navigation, route}) {
             <Label>NOME</Label>
             <InputText
               keyboardType={'default'}
-              inputMode={'default'}
+              inputMode={'text'}
               placeholder="NOME"
               defaultValue={name}
               onChangeText={text => setName(text)}
@@ -152,7 +152,7 @@ export default function CreateGymAccount({navigation, route}) {
               <Label>NOME ENCURTADO</Label>
               <InputText
                 keyboardType={'default'}
-                inputMode={'default'}
+                inputMode={'text'}
                 placeholder="NOME ENCURTADO"
                 defaultValue={shortName}
                 onChangeText={text => setShortName(text)}
@@ -201,7 +201,7 @@ export default function CreateGymAccount({navigation, route}) {
             <Label>USUÁRIO</Label>
             <InputText
               keyboardType={'default'}
-              inputMode={'default'}
+              inputMode={'text'}
               placeholder="USUÁRIO"
               defaultValue={username}
               onChangeText={text => setUsername(text)}
@@ -213,7 +213,7 @@ export default function CreateGymAccount({navigation, route}) {
             <Row $align={'center'} $justifyContent={'space-between'}>
               <InputText
                 keyboardType={'default'}
-                inputMode={'default'}
+                inputMode={'text'}
                 secureTextEntry={!showPassword}
                 placeholder="SENHA"
                 defaultValue={password}
@@ -234,7 +234,7 @@ export default function CreateGymAccount({navigation, route}) {
             <Row $align={'center'} $justifyContent={'space-between'}>
               <InputText
                 keyboardType={'default'}
-                inputMode={'default'}
+                inputMode={'text'}
                 secureTextEntry={!showPassword}
                 placeholder="CONFIRMAR SENHA"
                 defaultValue={confirmPassword}

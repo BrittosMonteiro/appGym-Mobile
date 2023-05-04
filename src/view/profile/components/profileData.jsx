@@ -97,7 +97,7 @@ export default function ProfileData({userData, updateProfile}) {
         <Label>NOME</Label>
         <InputText
           keyboardType={'default'}
-          inputMode={'default'}
+          inputMode={'text'}
           placeholder={'NOME'}
           editable={edit}
           defaultValue={name}
@@ -110,7 +110,7 @@ export default function ProfileData({userData, updateProfile}) {
           <Label>NOME DE EXIBIÇÃO</Label>
           <InputText
             keyboardType={'default'}
-            inputMode={'default'}
+            inputMode={'text'}
             placeholder={'NOME DE EXIBIÇÃO'}
             editable={edit}
             defaultValue={shortName}
@@ -135,7 +135,7 @@ export default function ProfileData({userData, updateProfile}) {
         <Label>USUÁRIO</Label>
         <InputText
           keyboardType={'default'}
-          inputMode={'default'}
+          inputMode={'text'}
           placeholder={'USUÁRIO'}
           editable={edit}
           defaultValue={username}
