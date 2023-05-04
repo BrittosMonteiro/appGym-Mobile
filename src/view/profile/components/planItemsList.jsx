@@ -1,20 +1,20 @@
-import {Label, Row} from './style';
-import {Card, ContainerTitle, CustomText} from '../../style';
+import {Column, Label, Row} from './style';
+import {CustomText} from '../../style';
 
 export default function PlanItemsList({icon, list, title}) {
   return (
-    <Card>
+    <Column $gap>
       <CustomText $fontSize={18} $color={'#fcf3f3'}>
         {title}
       </CustomText>
-      <Card>
+      <Column $gap>
         {list.map((item, index) => (
           <Row key={index} $align={'center'} $justifyContent={'flex-start'}>
             {icon}
             <Label>{item.title}</Label>
           </Row>
         ))}
-      </Card>
-    </Card>
+      </Column>
+    </Column>
   );
 }
