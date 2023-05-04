@@ -4,7 +4,7 @@ import HorizontalRule from '../HorizontalRule/HorizontalRule';
 import ItemList from './ItemList';
 import {ButtonDefault, Card, Container, ContainerTitle} from '../../view/style';
 
-import {readActivityListService} from '../../service/activity';
+import {readActivityListService} from '../../service/training';
 import {Label, Row} from '../../view/profile/components/style';
 import {useDispatch, useSelector} from 'react-redux';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';

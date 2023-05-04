@@ -6,10 +6,10 @@ import ManageActivityList from './components/manageActivityList';
 import {useDispatch} from 'react-redux';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import {
-  createActivityService,
-  readActivityByIdService,
+  createTrainingService,
+  readTrainingByIdService,
   updateTrainingByIdService,
-} from '../../service/activity';
+} from '../../service/training';
 import {ButtonDefault, Card, ContainerScroll} from '../style';
 import {Column, InputText, Label} from '../profile/components/style';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
@@ -30,7 +30,7 @@ export default function ManageActivity({navigation, route}) {
       return;
     }
 
-    await readActivityByIdService(idActivity)
+    await readTrainingByIdService(idActivity)
       .then(responseFind => {
         if (responseFind) {
           return responseFind.json();
@@ -62,7 +62,7 @@ export default function ManageActivity({navigation, route}) {
       title: name,
     };
 
-    await createActivityService(data)
+    await createTrainingService(data)
       .then(responseCreate => {
         if (responseCreate.status === 201) {
           return responseCreate.json();

@@ -6,7 +6,7 @@ import Header from '../../components/Header/Header';
 import ActivityItem from '../../components/Activity/ActivityItem';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
-import {createActivityHistoryService} from '../../service/activityHistory';
+import {createTrainingHistoryService} from '../../service/trainingHistory';
 import {ButtonDefault, Card, ContainerScroll} from '../style';
 import {Label, Row} from '../profile/components/style';
 import Timer from '../../components/Timer/Timer';
@@ -18,7 +18,7 @@ export default function TrainingOnGoing({route, navigation}) {
 
   async function activityFinish() {
     DISPATCH(setLoading());
-    await createActivityHistoryService({idActivity})
+    await createTrainingHistoryService({idActivity})
       .then(() => {
         navigation.goBack();
       })

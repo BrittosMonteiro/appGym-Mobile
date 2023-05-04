@@ -1,6 +1,6 @@
 import {useDispatch} from 'react-redux';
 import ModalDefault from '../../../components/ModalDefault/ModalDefault';
-import {deleteTrainingByIdService} from '../../../service/activity';
+import {deleteTrainingByIdService} from '../../../service/training';
 import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
 import {Label, Row} from '../../profile/components/style';
 import {ButtonDefault} from '../../style';

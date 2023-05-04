@@ -8,8 +8,8 @@ import Header from '../../components/Header/Header';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import {ButtonDefault, Card, ContainerScroll, ContainerTitle} from '../style';
 import {Column, Label, Row} from '../profile/components/style';
-import {readActivityHistoryByIdService} from '../../service/activityHistory';
-import {readActivityByIdService} from '../../service/activity';
+import {readTrainingHistoryByIdService} from '../../service/trainingHistory';
+import {readTrainingByIdService} from '../../service/training';
 import ModalDeleteTraining from './components/ModalDeleteTraining';
 
 export default function TrainingDetail({navigation, route}) {
@@ -24,7 +24,7 @@ export default function TrainingDetail({navigation, route}) {
 
   async function loadActivity() {
     DISPATCH(setLoading());
-    await readActivityByIdService(idActivity)
+    await readTrainingByIdService(idActivity)
       .then(responseFind => {
         if (responseFind) {
           return responseFind.json();
@@ -41,7 +41,7 @@ export default function TrainingDetail({navigation, route}) {
 
   async function loadActivityHistory() {
     DISPATCH(setLoading());
-    await readActivityHistoryByIdService({idActivity})
+    await readTrainingHistoryByIdService({idActivity})
       .then(responseFind => {
         if (responseFind) {
           return responseFind.json();
