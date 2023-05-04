@@ -111,6 +111,10 @@ export default function Login({navigation}) {
           <Column $gap>
             <Label>USUÁRIO</Label>
             <InputText
+              autoCapitalize={'none'}
+              autoCorrect={false}
+              keyboardType={'default'}
+              inputMode={'default'}
               editable={!isLoading}
               placeholder="USUÁRIO"
               defaultValue={username}
@@ -122,6 +126,8 @@ export default function Login({navigation}) {
             <Label>SENHA</Label>
             <Row $align={'center'} $justifyContent={'space-between'}>
               <InputText
+                keyboardType={'default'}
+                inputMode={'default'}
                 editable={!isLoading}
                 placeholder="SENHA"
                 defaultValue={password}

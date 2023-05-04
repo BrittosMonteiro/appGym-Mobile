@@ -96,6 +96,8 @@ export default function ProfileData({userData, updateProfile}) {
       <Column $gap>
         <Label>NOME</Label>
         <InputText
+          keyboardType={'default'}
+          inputMode={'default'}
           placeholder={'NOME'}
           editable={edit}
           defaultValue={name}
@@ -107,6 +109,8 @@ export default function ProfileData({userData, updateProfile}) {
         <Column $gap>
           <Label>NOME DE EXIBIÇÃO</Label>
           <InputText
+            keyboardType={'default'}
+            inputMode={'default'}
             placeholder={'NOME DE EXIBIÇÃO'}
             editable={edit}
             defaultValue={shortName}
@@ -118,6 +122,8 @@ export default function ProfileData({userData, updateProfile}) {
       <Column $gap>
         <Label>E-MAIL</Label>
         <InputText
+          keyboardType={'email-address'}
+          inputMode={'email'}
           placeholder={'E-MAIL'}
           editable={edit}
           defaultValue={email}
@@ -128,6 +134,8 @@ export default function ProfileData({userData, updateProfile}) {
       <Column $gap>
         <Label>USUÁRIO</Label>
         <InputText
+          keyboardType={'default'}
+          inputMode={'default'}
           placeholder={'USUÁRIO'}
           editable={edit}
           defaultValue={username}
@@ -171,6 +179,8 @@ export default function ProfileData({userData, updateProfile}) {
         <Column $gap>
           <Label>CPF</Label>
           <InputText
+            keyboardType={'numeric'}
+            inputMode={'numeric'}
             placeholder={'CPF'}
             editable={edit}
             defaultValue={cpf}
@@ -183,6 +193,8 @@ export default function ProfileData({userData, updateProfile}) {
         <Column $gap>
           <Label>CNPJ</Label>
           <InputText
+            keyboardType={'numeric'}
+            inputMode={'numeric'}
             placeholder={'CNPJ'}
             editable={edit}
             defaultValue={cnpj}
@@ -195,6 +207,8 @@ export default function ProfileData({userData, updateProfile}) {
         <Column $gap>
           <Label>CREF</Label>
           <InputText
+            keyboardType={'numeric'}
+            inputMode={'numeric'}
             placeholder={'CREF'}
             editable={edit}
             defaultValue={cref}

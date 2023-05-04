@@ -139,6 +139,8 @@ export default function CreateGymAccount({navigation, route}) {
           <Column $gap>
             <Label>NOME</Label>
             <InputText
+              keyboardType={'default'}
+              inputMode={'default'}
               placeholder="NOME"
               defaultValue={name}
               onChangeText={text => setName(text)}
@@ -149,6 +151,8 @@ export default function CreateGymAccount({navigation, route}) {
             <Column $gap>
               <Label>NOME ENCURTADO</Label>
               <InputText
+                keyboardType={'default'}
+                inputMode={'default'}
                 placeholder="NOME ENCURTADO"
                 defaultValue={shortName}
                 onChangeText={text => setShortName(text)}
@@ -159,6 +163,8 @@ export default function CreateGymAccount({navigation, route}) {
           <Column $gap>
             <Label>E-MAIL</Label>
             <InputText
+              keyboardType={'email-address'}
+              inputMode={'email'}
               placeholder="EMAIL"
               defaultValue={email}
               onChangeText={text => setEmail(text)}
@@ -169,6 +175,8 @@ export default function CreateGymAccount({navigation, route}) {
             <Column $gap>
               <Label>CNPJ</Label>
               <InputText
+                keyboardType={'numeric'}
+                inputMode={'numeric'}
                 placeholder="CNPJ"
                 defaultValue={cnpj}
                 onChangeText={text => setCnpj(text)}
@@ -180,6 +188,8 @@ export default function CreateGymAccount({navigation, route}) {
             <Column $gap>
               <Label>CPF</Label>
               <InputText
+                keyboardType={'numeric'}
+                inputMode={'numeric'}
                 placeholder="CPF"
                 defaultValue={cpf}
                 onChangeText={text => setCpf(text)}
@@ -190,6 +200,8 @@ export default function CreateGymAccount({navigation, route}) {
           <Column $gap>
             <Label>USUÁRIO</Label>
             <InputText
+              keyboardType={'default'}
+              inputMode={'default'}
               placeholder="USUÁRIO"
               defaultValue={username}
               onChangeText={text => setUsername(text)}
@@ -200,6 +212,8 @@ export default function CreateGymAccount({navigation, route}) {
             <Label>SENHA</Label>
             <Row $align={'center'} $justifyContent={'space-between'}>
               <InputText
+                keyboardType={'default'}
+                inputMode={'default'}
                 secureTextEntry={!showPassword}
                 placeholder="SENHA"
                 defaultValue={password}
@@ -219,6 +233,8 @@ export default function CreateGymAccount({navigation, route}) {
             <Label>CONFIRMAR SENHA</Label>
             <Row $align={'center'} $justifyContent={'space-between'}>
               <InputText
+                keyboardType={'default'}
+                inputMode={'default'}
                 secureTextEntry={!showPassword}
                 placeholder="CONFIRMAR SENHA"
                 defaultValue={confirmPassword}
