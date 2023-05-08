@@ -6,7 +6,13 @@ import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import ViewDefault from '../ViewDefault';
 import Header from '../../components/Header/Header';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
-import {ButtonDefault, Card, ContainerScroll, ContainerTitle} from '../style';
+import {
+  ButtonDefault,
+  Card,
+  ContainerScroll,
+  ContainerTitle,
+  CustomText,
+} from '../style';
 import {Column, Label, Row} from '../profile/components/style';
 import {readTrainingHistoryByIdService} from '../../service/trainingHistory';
 import {readTrainingByIdService} from '../../service/training';
@@ -113,7 +119,9 @@ export default function TrainingDetail({navigation, route}) {
                 <React.Fragment key={index}>
                   <Column $gap>
                     <Row $align={'center'} $justifyContent={'space-between'}>
-                      <ContainerTitle $white>{activity.title}</ContainerTitle>
+                      <CustomText $color={'#fcf3f3'} $fontSize={18}>
+                        {activity.title}
+                      </CustomText>
                     </Row>
                     {activity.machine && (
                       <Row $align={'center'} $justifyContent={'flex-start'}>

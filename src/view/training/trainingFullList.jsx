@@ -1,27 +1,27 @@
 import {useSelector} from 'react-redux';
-
 import ViewDefault from '../ViewDefault';
-import HeaderStart from '../../components/Header/HeaderStart';
-import WeekPerformance from '../../components/WeekPerformance/WeekPerformance';
+import Header from '../../components/Header/Header';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
-import TrainingList from '../../components/TrainingList/TrainingList';
 import {ContainerScroll} from '../style';
+import TrainingList from '../../components/TrainingList/TrainingList';
 
-export default function Home({navigation}) {
+export default function TrainingFullList({navigation, route}) {
   const USERSESSION = useSelector(state => {
     return state.userSessionReducer;
   });
 
   return (
     <ViewDefault>
-      <HeaderStart navigation={navigation} />
+      <Header navigation={navigation} title={'TREINOS'} />
       <HorizontalRule color={'#202020'} />
       <ContainerScroll
-        contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
-        <WeekPerformance />
+        contentContainerStyle={{
+          alignItems: 'flex-start',
+          gap: 24,
+        }}>
         <TrainingList
-          limit={5}
           navigation={navigation}
+          routeName={route.name}
           userId={USERSESSION.id}
         />
       </ContainerScroll>
