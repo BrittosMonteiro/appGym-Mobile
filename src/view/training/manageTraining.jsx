@@ -135,9 +135,7 @@ export default function ManageActivity({navigation, route}) {
           loadActivity();
         }
       })
-      .catch(err => {
-        console.log(err);
-      })
+      .catch(err => {})
       .finally(() => {
         DISPATCH(unsetLoading());
       });

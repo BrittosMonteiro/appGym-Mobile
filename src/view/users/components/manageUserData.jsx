@@ -73,6 +73,7 @@ export default function ManageUserData({navigation, route}) {
 
   async function removePlanFromUser() {
     DISPATCH(setLoading());
+    
     await removePlanFromUserService({idUser: id})
       .then(responseUpdate => {
         if (responseUpdate.status === 200) {
@@ -178,11 +179,12 @@ export default function ManageUserData({navigation, route}) {
           </>
         )}
       </Card>
+
       <Card $fullWidth>
         {id ? (
           <>
             {!plan && (
-              <ButtonDefault onPress={() => proceedToPlan()}>
+              <ButtonDefault $green onPress={() => proceedToPlan()}>
                 <Label>ADICIONAR PLANO</Label>
               </ButtonDefault>
             )}

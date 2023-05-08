@@ -36,9 +36,7 @@ export default function Profile({navigation}) {
         setPlan(response.data.plan);
         setUserData(response.data);
       })
-      .catch(err => {
-        console.log(err);
-      })
+      .catch(err => {})
       .finally(() => {
         DISPATCH(unsetLoading());
       });

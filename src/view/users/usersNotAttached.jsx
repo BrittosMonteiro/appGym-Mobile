@@ -26,9 +26,7 @@ export default function UsersNotAttached({navigation}) {
       .then(response => {
         setOriginalList(response.data);
       })
-      .catch(err => {
-        console.log(err);
-      })
+      .catch(err => {})
       .finally(() => {
         DISPATCH(unsetLoading());
       });
@@ -42,7 +40,7 @@ export default function UsersNotAttached({navigation}) {
     navigation.addListener('focus', () => {
       loadUsers();
     });
-  }, []);
+  }, [navigation]);
 
   function filterList(text) {
     if (text.length >= 3) {

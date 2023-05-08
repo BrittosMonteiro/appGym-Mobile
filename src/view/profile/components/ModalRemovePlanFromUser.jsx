@@ -15,7 +15,7 @@ export default function ModalRemovePlanFromUser({
         <ButtonDefault $red onPress={() => setOpenModal(false)}>
           <Label>CANCELAR</Label>
         </ButtonDefault>
-        <ButtonDefault $green onPress={() => remove}>
+        <ButtonDefault $green onPress={() => remove()}>
           <Label>CONFIRMAR</Label>
         </ButtonDefault>
       </Row>

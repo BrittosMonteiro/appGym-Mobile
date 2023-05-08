@@ -32,6 +32,7 @@ export default function UserPlanSelect({navigation, route}) {
 
   async function loadPlans() {
     DISPATCH(setLoading());
+
     await readPlanListService(USERSESSION.idGym)
       .then(responseFind => {
         if (responseFind.status === 200) {
@@ -43,7 +44,7 @@ export default function UserPlanSelect({navigation, route}) {
       })
       .catch(err => {})
       .finally(() => {
-        DISPATCH(setLoading());
+        DISPATCH(unsetLoading());
       });
   }
 
@@ -146,7 +147,6 @@ export default function UserPlanSelect({navigation, route}) {
                 {(index < planList.length - 1 || selectedPlan) && (
                   <HorizontalRule color={'#fcf3f3'} />
                 )}
-                <></>
               </React.Fragment>
             ))}
             {selectedPlan && (
@@ -168,7 +168,7 @@ export default function UserPlanSelect({navigation, route}) {
                       {selectedPlan.isIncluded.length > 0 ? (
                         <>
                           {selectedPlan.isIncluded.map((item, index) => (
-                            <Row $align={'center'}>
+                            <Row $align={'center'} key={index}>
                               <Check
                                 color={'#219653'}
                                 weight="fill"
