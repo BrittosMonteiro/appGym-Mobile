@@ -18,7 +18,7 @@ export default function Home({navigation}) {
       <HorizontalRule color={'#202020'} />
       <ContainerScroll
         contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
-        <WeekPerformance />
+        {/* <WeekPerformance /> */}
         <TrainingList
           limit={5}
           navigation={navigation}
