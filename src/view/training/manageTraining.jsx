@@ -10,9 +10,10 @@ import {
   readTrainingByIdService,
   updateTrainingByIdService,
 } from '../../service/training';
-import {ButtonDefault, Card, ContainerScroll} from '../style';
+import {ButtonDefault, Card, ContainerScroll, CustomText} from '../style';
 import {Column, InputText, Label} from '../profile/components/style';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
+import WorkoutDays from '../../components/WorkoutDays/WorkoutDays';
 
 export default function ManageActivity({navigation, route}) {
   const {userId, idActivity} = route.params;
@@ -21,6 +22,7 @@ export default function ManageActivity({navigation, route}) {
   const [name, setName] = useState('');
   const [idTraining, setIdTraining] = useState(idActivity);
   const [selectedActivities, setSelectedActivities] = useState([]);
+  const [workoutDays, setWorkoutDays] = useState([]);
 
   async function loadActivity() {
     DISPATCH(setLoading());
@@ -39,6 +41,7 @@ export default function ManageActivity({navigation, route}) {
       .then(response => {
         setSelectedActivities(response.data.items);
         setName(response.data.title);
+        setWorkoutDays(response.data.workoutDays);
       })
       .catch(err => {})
       .finally(() => {
@@ -140,6 +143,18 @@ export default function ManageActivity({navigation, route}) {
       });
   }
 
+  function manageWorkoutDays(index) {
+    if (index === 7) {
+      setWorkoutDays([0, 1, 2, 3, 4, 5, 6]);
+    } else {
+      if (!workoutDays.includes(index)) {
+        setWorkoutDays(prevMovies => [...prevMovies, index]);
+      } else {
+        setWorkoutDays(prevMovies => prevMovies.filter(item => item !== index));
+      }
+    }
+  }
+
   return (
     <ViewDefault>
       <Header navigation={navigation} title={'GERENCIAR TREINO'} />
@@ -166,10 +181,19 @@ export default function ManageActivity({navigation, route}) {
           />
         )}
 
+        {idTraining && (
+          <WorkoutDays
+            workoutDays={workoutDays}
+            manageWorkoutDays={manageWorkoutDays}
+          />
+        )}
+
         {idTraining ? (
           <ButtonDefault
             $green
-            onPress={() => manageUpdate({idTraining, newData: {title: name}})}>
+            onPress={() =>
+              manageUpdate({idTraining, newData: {title: name, workoutDays}})
+            }>
             <Label>ATUALIZAR</Label>
           </ButtonDefault>
         ) : (

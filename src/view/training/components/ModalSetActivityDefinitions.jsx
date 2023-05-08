@@ -15,6 +15,7 @@ export default function ModalSetActivityDefinitions({
   const [repetitions, setRepetitions] = useState('');
   const [series, setSeries] = useState('');
   const [time, setTime] = useState('');
+  const [note, setNote] = useState('');
 
   useEffect(() => {
     if (activity) {
@@ -23,6 +24,7 @@ export default function ModalSetActivityDefinitions({
       setRepetitions(activity.repetitions);
       setSeries(activity.series);
       setTime(activity.time);
+      setNote(activity.note);
     }
   }, []);
 
@@ -33,7 +35,7 @@ export default function ModalSetActivityDefinitions({
         id: activity.id,
         load,
         machine,
-        note: activity.note,
+        note: note,
         repetitions,
         series,
         time,
@@ -99,6 +101,20 @@ export default function ModalSetActivityDefinitions({
           placeholder={'TEMPO MÁXIMO DE EXECUÇÃO'}
           defaultValue={time && time.toString()}
           onChangeText={text => setTime(text)}
+        />
+      </Column>
+      <Column $gap>
+        <Label $black>Observações</Label>
+        <InputText
+          $black
+          keyboardType={'default'}
+          inputMode={'text'}
+          placeholder={'OBSERVAÇÃO SOBRE A EXECUÇÃO'}
+          multiline={true}
+          numberOfLines={2}
+          textAlignVertical={'top'}
+          defaultValue={note && note}
+          onChangeText={text => setNote(text)}
         />
       </Column>
       <Row $align={'center'} $justifyContent={'space-between'}>

@@ -10,95 +10,37 @@ import {
   ContainerListItem,
   ContainerListItemTitle,
 } from '../../../components/TrainingList/style';
+import {readActivityListService} from '../../../service/activity';
+import {useDispatch} from 'react-redux';
+import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
 
 export default function ModalAddItemToActivityList({
   open,
   onClose,
   addItemToList,
 }) {
+  const DISPATCH = useDispatch();
   const [availableActivities, setAvailableActivities] = useState([]);
 
-  const ACTIVITIES_LIST = [
-    {
-      id: 1,
-      title: 'ESTEIRA',
-    },
-    {
-      id: 2,
-      title: 'SUPINO',
-    },
-    {
-      id: 3,
-      title: 'CRUCIFIXO',
-    },
-    {
-      id: 4,
-      title: 'TRICEPS',
-    },
-    {
-      id: 5,
-      title: 'ELEVAÇÃO LATERAL',
-    },
-    {
-      id: 6,
-      title: 'REMADA',
-    },
-    {
-      id: 7,
-      title: 'ROTAÇÃO DE TRONCO',
-    },
-    {
-      id: 8,
-      title: 'ROSCA',
-    },
-    {
-      id: 9,
-      title: 'EXTENSÃO DE TRONCO',
-    },
-    {
-      id: 10,
-      title: 'LEG PRESS',
-    },
-    {
-      id: 10,
-      title: 'EXTENSÃO DE JOELHOS',
-    },
-    {
-      id: 11,
-      title: 'FLEXÃO DE JOELHOS',
-    },
-    {
-      id: 12,
-      title: 'ABDUÇÃO DE QUADRIL',
-    },
-    {
-      id: 13,
-      title: 'ADUÇÃO DE QUADRIL',
-    },
-    {
-      id: 14,
-      title: 'EXTENSÃO DE QUADRIL',
-    },
-    {
-      id: 15,
-      title: 'ABDOMINAL',
-    },
-    {
-      id: 16,
-      title: 'ALONGAMENTO',
-    },
-    {
-      id: 17,
-      title: 'PULL UP',
-    },
-    {
-      id: 18,
-      title: 'DIP',
-    },
-  ];
+  async function loadActivities() {
+    DISPATCH(setLoading());
+    await readActivityListService()
+      .then(responseRead => {
+        if (responseRead.status === 200) {
+          return responseRead.json();
+        }
+      })
+      .then(response => {
+        setAvailableActivities(response.data);
+      })
+      .catch(err => {})
+      .finally(() => {
+        DISPATCH(unsetLoading());
+      });
+  }
 
   useEffect(() => {
-    setAvailableActivities(ACTIVITIES_LIST);
+    loadActivities();
   }, []);
 
   return (
@@ -145,7 +87,7 @@ export default function ModalAddItemToActivityList({
                     onClose();
                   }}>
                   <ContainerListItemTitle $color={'#202020'}>
-                    {activity.title}
+                    {activity.title.toUpperCase()}
                   </ContainerListItemTitle>
                   <Plus weight="regular" size={24} color={'#202020'} />
                 </ContainerListItem>
