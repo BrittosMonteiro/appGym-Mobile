@@ -52,6 +52,7 @@ export default function ModalSetActivityDefinitions({
         <Label $black>MÁQUINA UTILIZADA</Label>
         <InputText
           $black
+          $borderRadius
           keyboardType={'numeric'}
           inputMode={'numeric'}
           placeholder={'NÚMERO DA MÁQUINA'}
@@ -63,6 +64,7 @@ export default function ModalSetActivityDefinitions({
         <Label $black>NÚMERO DE SÉRIES</Label>
         <InputText
           $black
+          $borderRadius
           keyboardType={'numeric'}
           inputMode={'numeric'}
           placeholder={'SÉRIERS'}
@@ -74,6 +76,7 @@ export default function ModalSetActivityDefinitions({
         <Label $black>NÚMERO DE REPETIÇÕES</Label>
         <InputText
           $black
+          $borderRadius
           keyboardType={'numeric'}
           inputMode={'numeric'}
           placeholder={'REPETIÇÕES'}
@@ -85,6 +88,7 @@ export default function ModalSetActivityDefinitions({
         <Label $black>CARGA UTILIZADA</Label>
         <InputText
           $black
+          $borderRadius
           keyboardType={'numeric'}
           inputMode={'numeric'}
           placeholder={'PESO MÁXIMO QUE VOCÊ SUPORTA'}
@@ -93,12 +97,13 @@ export default function ModalSetActivityDefinitions({
         />
       </Column>
       <Column $gap>
-        <Label $black>TEMPO DE DURAÇÃO DESTE EXERCÍCIO</Label>
+        <Label $black>TEMPO</Label>
         <InputText
           $black
+          $borderRadius
           keyboardType={'numeric'}
           inputMode={'numeric'}
-          placeholder={'TEMPO MÁXIMO DE EXECUÇÃO'}
+          placeholder={'MINUTOS'}
           defaultValue={time && time.toString()}
           onChangeText={text => setTime(text)}
         />
@@ -107,6 +112,7 @@ export default function ModalSetActivityDefinitions({
         <Label $black>Observações</Label>
         <InputText
           $black
+          $borderRadius
           keyboardType={'default'}
           inputMode={'text'}
           placeholder={'OBSERVAÇÃO SOBRE A EXECUÇÃO'}

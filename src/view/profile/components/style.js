@@ -29,4 +29,8 @@ export const InputText = styled.TextInput.attrs(props => ({
   font-family: IBMPlexSansCondensed-Medium;
   padding: 0;
   color: ${props => (props.$black ? '#202020' : props.theme.colors.white_02)};
+  ${props => props.$borderRadius && 'border-radius: 2px'};
+  ${props =>
+    props.$borderRadius && `border: 1px solid ${props.theme.colors.gray_01}`};
+  ${props => props.$borderRadius && 'padding: 8px'};
 `;

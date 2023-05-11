@@ -16,7 +16,7 @@ import {setUser} from '../../store/actions/userSessionAction';
 export default function Login({navigation}) {
   const DISPATCH = useDispatch();
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('teste123');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -47,6 +47,24 @@ export default function Login({navigation}) {
     } catch (e) {
       setIsLoading(false);
     }
+
+    // await AsyncStorage.getItem('USERSESSION')
+    //   .then(jsonUserData => {
+    //     const data = JSON.parse(jsonUserData);
+    //     if (data !== null) {
+    //       DISPATCH(setUser(jsonUserData));
+    //       navigation.reset({
+    //         index: 0,
+    //         routes: [{name: goTo(jsonUserData.userLevel)}],
+    //       });
+    //     }
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   })
+    //   .finally(() => {
+    //     setIsLoading(false);
+    //   });
   };
 
   async function access() {
@@ -168,7 +186,7 @@ export default function Login({navigation}) {
               <CaretRight weight="regular" size={24} color={'#fcf3f3'} />
             </ContainerListItem>
 
-            <ContainerListItem
+            {/* <ContainerListItem
               $paddingVertical={false}
               onPress={() =>
                 navigation.navigate('CreateGymAccount', {userLevel: 1})
@@ -177,7 +195,7 @@ export default function Login({navigation}) {
                 CRIAR CONTA COMO ACADEMIA
               </CustomText>
               <CaretRight weight="regular" size={24} color={'#fcf3f3'} />
-            </ContainerListItem>
+            </ContainerListItem> */}
           </Card>
         </Card>
       </Container>

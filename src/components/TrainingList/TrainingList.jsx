@@ -2,7 +2,13 @@ import React, {useEffect, useState} from 'react';
 
 import HorizontalRule from '../HorizontalRule/HorizontalRule';
 import ItemList from './ItemList';
-import {ButtonDefault, Card, Container, ContainerTitle} from '../../view/style';
+import {
+  ButtonDefault,
+  Card,
+  Container,
+  ContainerTitle,
+  CustomText,
+} from '../../view/style';
 
 import {readActivityListService} from '../../service/training';
 import {Label, Row} from '../../view/profile/components/style';
@@ -52,43 +58,43 @@ export default function TrainingList({userId, navigation, limit, routeName}) {
 
   return (
     <Container>
-      {trainingList.length > 0 ? (
-        <React.Fragment>
-          {todayTrainings.length > 0 && (
-            <Card>
-              <Row $align={'center'} $justifyContent={'space-between'}>
-                <ContainerTitle>TREINO DO DIA</ContainerTitle>
-              </Row>
-              <Card $black $padding $fullWidth>
-                {todayTrainings.map((training, index) => (
-                  <React.Fragment key={index}>
-                    <ItemList item={training} navigation={navigation} />
-                    {index < todayTrainings.length - 1 && (
-                      <HorizontalRule color={'#fcf3f3'} />
-                    )}
-                  </React.Fragment>
-                ))}
-              </Card>
-            </Card>
-          )}
+      {todayTrainings.length > 0 && (
+        <Card>
+          <Row $align={'center'} $justifyContent={'space-between'}>
+            <ContainerTitle>TREINO DO DIA</ContainerTitle>
+          </Row>
+          <Card $black $padding $fullWidth>
+            {todayTrainings.map((training, index) => (
+              <React.Fragment key={index}>
+                <ItemList item={training} navigation={navigation} />
+                {index < todayTrainings.length - 1 && (
+                  <HorizontalRule color={'#fcf3f3'} />
+                )}
+              </React.Fragment>
+            ))}
+          </Card>
+        </Card>
+      )}
 
-          <Card>
-            {USERSESSION.id === userId && (
-              <Row $align={'center'} $justifyContent={'space-between'}>
-                <ContainerTitle>MEUS TREINOS</ContainerTitle>
-                <ButtonDefault
-                  $turquoise
-                  onPress={() =>
-                    navigation.navigate('ManageTraining', {
-                      userId,
-                      idActivity: null,
-                    })
-                  }>
-                  <Label>CRIAR TREINO</Label>
-                </ButtonDefault>
-              </Row>
-            )}
-            <Card $black $padding $fullWidth>
+      <Card>
+        {USERSESSION.id === userId && (
+          <Row $align={'center'} $justifyContent={'space-between'}>
+            <ContainerTitle>MEUS TREINOS</ContainerTitle>
+            <ButtonDefault
+              $turquoise
+              onPress={() =>
+                navigation.navigate('ManageTraining', {
+                  userId,
+                  idActivity: null,
+                })
+              }>
+              <Label>CRIAR TREINO</Label>
+            </ButtonDefault>
+          </Row>
+        )}
+        <Card $black $padding $fullWidth>
+          {trainingList.length > 0 ? (
+            <React.Fragment>
               {trainingList.map((training, index) => (
                 <React.Fragment key={index}>
                   <ItemList item={training} navigation={navigation} />
@@ -97,18 +103,23 @@ export default function TrainingList({userId, navigation, limit, routeName}) {
                   )}
                 </React.Fragment>
               ))}
-            </Card>
-            {routeName !== 'TrainingFullList' && (
-              <Row $align={'center'} $justifyContent={'flex-start'}>
-                <ButtonDefault
-                  onPress={() => navigation.navigate('TrainingFullList')}>
-                  <Label $black>VER TODOS OS TREINOS</Label>
-                </ButtonDefault>
-              </Row>
-            )}
-          </Card>
-        </React.Fragment>
-      ) : null}
+            </React.Fragment>
+          ) : (
+            <Row $align={'center'} $justifyContent={'center'}>
+              <CustomText $color="#fcf3f3">VOCÊ NÃO CRIOU TREINOS</CustomText>
+            </Row>
+          )}
+        </Card>
+
+        {trainingList.length > 0 && routeName !== 'TrainingFullList' && (
+          <Row $align={'center'} $justifyContent={'flex-start'}>
+            <ButtonDefault
+              onPress={() => navigation.navigate('TrainingFullList')}>
+              <Label $black>VER TODOS OS TREINOS</Label>
+            </ButtonDefault>
+          </Row>
+        )}
+      </Card>
     </Container>
   );
 }
