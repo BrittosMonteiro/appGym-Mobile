@@ -132,20 +132,27 @@ export default function TrainingDetail({navigation, route}) {
                       activity.repetitions ||
                       activity.load ||
                       activity.time) && (
-                      <Row $align={'center'} $justifyContent={'flex-start'}>
-                        {activity.series && (
-                          <Label>{`SÉRIES: ${activity.series}`}</Label>
-                        )}
-                        {activity.repetitions && (
-                          <Label>{`REPETIÇÕES: ${activity.repetitions}`}</Label>
-                        )}
-                        {activity.load && (
-                          <Label>{`CARGA: ${activity.load}kg`}</Label>
-                        )}
-                        {activity.time && (
-                          <Label>{`TEMPO: ${activity.time} minutos`}</Label>
-                        )}
-                      </Row>
+                      <>
+                        <Row $align={'center'} $justifyContent={'flex-start'}>
+                          {activity.series && (
+                            <Label>{`SÉRIES: ${activity.series}`}</Label>
+                          )}
+                          {activity.repetitions && (
+                            <Label>{`REPETIÇÕES: ${activity.repetitions}`}</Label>
+                          )}
+                          {activity.load && (
+                            <Label>{`CARGA: ${activity.load}kg`}</Label>
+                          )}
+                          {activity.time && (
+                            <Label>{`TEMPO: ${activity.time} minutos`}</Label>
+                          )}
+                        </Row>
+                        <Row $align={'center'} $justifyContent={'flex-start'}>
+                          {activity.note && (
+                            <Label>{`${activity.note}`}</Label>
+                          )}
+                        </Row>
+                      </>
                     )}
                   </Column>
                   {index < training.items.length - 1 && (

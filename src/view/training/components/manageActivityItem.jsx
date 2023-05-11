@@ -37,6 +37,9 @@ export default function ManageActivityItem({
           {activity.load && <Label>{`CARGA: ${activity.load}kg`}</Label>}
           {activity.time && <Label>{`TEMPO: ${activity.time} minutos`}</Label>}
         </Row>
+        <Row $align={'center'} $justifyContent={'flex-start'}>
+          {activity.note && <Label>{`${activity.note}`}</Label>}
+        </Row>
       </Column>
       <ModalSetActivityDefinitions
         activity={activity}
