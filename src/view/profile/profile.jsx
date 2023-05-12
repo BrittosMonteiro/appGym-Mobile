@@ -12,9 +12,15 @@ import ProfileData from './components/profileData';
 
 import {ButtonDefault, ContainerScroll} from '../style';
 
-import {readUserByIdService, updateUserService} from '../../service/user';
+import {
+  deleteUserAccountService,
+  readUserByIdService,
+  updateUserService,
+} from '../../service/user';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import {Label} from './components/style';
+import ModalDeleteUserAccount from './components/ModalDeleteUserAccount';
+import {unsetUser} from '../../store/actions/userSessionAction';
 
 export default function Profile({navigation}) {
   const DISPATCH = useDispatch();
@@ -23,6 +29,7 @@ export default function Profile({navigation}) {
   });
   const [plan, setPlan] = useState('');
   const [userData, setUserData] = useState('');
+  const [openModal, setOpenModal] = useState(false);
 
   async function loadProfile() {
     DISPATCH(setLoading());
@@ -59,6 +66,7 @@ export default function Profile({navigation}) {
   async function logout() {
     try {
       const storedData = await AsyncStorage.removeItem('USERSESSION');
+      DISPATCH(unsetUser());
       if (!storedData) {
         navigation.reset({
           index: 0,
@@ -69,6 +77,20 @@ export default function Profile({navigation}) {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  async function deleteAccount() {
+    DISPATCH(setLoading());
+    await deleteUserAccountService({idUser: USERSESSION.id})
+      .then(responseDelete => {
+        if (responseDelete.status === 200) {
+          logout();
+        }
+      })
+      .catch(err => {})
+      .finally(() => {
+        DISPATCH(unsetLoading());
+      });
   }
 
   useEffect(() => {
@@ -82,15 +104,30 @@ export default function Profile({navigation}) {
       ) : (
         <HeaderStart />
       )}
-      <HorizontalRule color={'#202020'} />
+
       <ContainerScroll contentContainerStyle={{gap: 16}}>
         <ProfileData userData={userData} updateProfile={updateUser} />
+
         {plan && <Plan plan={plan} />}
+
         <ProfilePassword />
+
         <ButtonDefault $red onPress={() => logout()}>
           <Label>SAIR</Label>
         </ButtonDefault>
+
+        <HorizontalRule />
+
+        <ButtonDefault $red onPress={() => setOpenModal(true)}>
+          <Label>EXCLUIR MINHA CONTA</Label>
+        </ButtonDefault>
       </ContainerScroll>
+      <ModalDeleteUserAccount
+        deleteAccount={deleteAccount}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        title={'EXCLUIR MINHA CONTA'}
+      />
     </ViewDefault>
   );
 }

@@ -3,8 +3,6 @@ import {Pressable} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {CaretDown, CaretUp, Eye, EyeSlash} from 'phosphor-react-native';
 
-import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
-
 import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
 import {Column, Row, Label, InputText} from './style';
 import {ButtonDefault, Card, ContainerTitle} from '../../style';
@@ -114,8 +112,6 @@ export default function ProfilePassword() {
           </>
         )}
       </Card>
-
-      {toggleUpdatePassword && <HorizontalRule color={'#202020'} />}
     </>
   );
 }

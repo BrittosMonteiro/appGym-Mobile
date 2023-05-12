@@ -139,6 +139,8 @@ export default function CreateGymAccount({navigation, route}) {
           <Column $gap>
             <Label>NOME</Label>
             <InputText
+              autoCapitalize={'words'}
+              autoCorrect={true}
               keyboardType={'default'}
               inputMode={'text'}
               placeholder="NOME"
@@ -151,6 +153,8 @@ export default function CreateGymAccount({navigation, route}) {
             <Column $gap>
               <Label>NOME ENCURTADO</Label>
               <InputText
+                autoCapitalize={'words'}
+                autoCorrect={true}
                 keyboardType={'default'}
                 inputMode={'text'}
                 placeholder="NOME ENCURTADO"
@@ -163,6 +167,8 @@ export default function CreateGymAccount({navigation, route}) {
           <Column $gap>
             <Label>E-MAIL</Label>
             <InputText
+              autoCapitalize={'none'}
+              autoCorrect={false}
               keyboardType={'email-address'}
               inputMode={'email'}
               placeholder="EMAIL"
@@ -200,6 +206,8 @@ export default function CreateGymAccount({navigation, route}) {
           <Column $gap>
             <Label>USUÁRIO</Label>
             <InputText
+              autoCapitalize={'none'}
+              autoCorrect={false}
               keyboardType={'default'}
               inputMode={'text'}
               placeholder="USUÁRIO"
@@ -212,6 +220,8 @@ export default function CreateGymAccount({navigation, route}) {
             <Label>SENHA</Label>
             <Row $align={'center'} $justifyContent={'space-between'}>
               <InputText
+                autoCapitalize={'none'}
+                autoCorrect={false}
                 keyboardType={'default'}
                 inputMode={'text'}
                 secureTextEntry={!showPassword}
@@ -233,6 +243,8 @@ export default function CreateGymAccount({navigation, route}) {
             <Label>CONFIRMAR SENHA</Label>
             <Row $align={'center'} $justifyContent={'space-between'}>
               <InputText
+                autoCapitalize={'none'}
+                autoCorrect={false}
                 keyboardType={'default'}
                 inputMode={'text'}
                 secureTextEntry={!showPassword}

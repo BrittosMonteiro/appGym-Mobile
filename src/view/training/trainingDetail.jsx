@@ -120,12 +120,12 @@ export default function TrainingDetail({navigation, route}) {
                   <Column $gap>
                     <Row $align={'center'} $justifyContent={'space-between'}>
                       <CustomText $color={'#fcf3f3'} $fontSize={18}>
-                        {activity.title}
+                        {activity.title.toUpperCase()}
                       </CustomText>
                     </Row>
                     {activity.machine && (
                       <Row $align={'center'} $justifyContent={'flex-start'}>
-                        <Label>{`Máquina: ${activity.machine}`}</Label>
+                        <Label>{`MÁQUINA: ${activity.machine}`}</Label>
                       </Row>
                     )}
                     {(activity.series ||
@@ -148,9 +148,7 @@ export default function TrainingDetail({navigation, route}) {
                           )}
                         </Row>
                         <Row $align={'center'} $justifyContent={'flex-start'}>
-                          {activity.note && (
-                            <Label>{`${activity.note}`}</Label>
-                          )}
+                          {activity.note && <Label>{`${activity.note}`}</Label>}
                         </Row>
                       </>
                     )}

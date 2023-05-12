@@ -55,11 +55,11 @@ export default function Sidebar({open}) {
       goTo: 'Profile',
       canSee: 3,
     },
-    {
-      title: 'HISTÓRICO DE PAGAMENTO',
-      goTo: 'PaymentHistory',
-      canSee: 3,
-    },
+    // {
+    //   title: 'HISTÓRICO DE PAGAMENTO',
+    //   goTo: 'PaymentHistory',
+    //   canSee: 3,
+    // },
   ];
 
   useEffect(() => {

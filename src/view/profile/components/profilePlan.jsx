@@ -103,7 +103,6 @@ export default function Plan({
           </React.Fragment>
         )}
       </Card>
-      <HorizontalRule color={'#202020'} />
       <ModalRemovePlanFromUser
         openModal={openModal}
         setOpenModal={setOpenModal}

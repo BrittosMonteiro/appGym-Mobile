@@ -16,7 +16,7 @@ export default function ManageActivityItem({
     <React.Fragment>
       <Column $gap>
         <Row $align={'center'} $justifyContent={'space-between'}>
-          <ContainerTitle $white>{activity.title}</ContainerTitle>
+          <ContainerTitle $white>{activity.title.toUpperCase()}</ContainerTitle>
           <Row $align={'center'} $justifyContent={'space-between'}>
             <ButtonDefault $noPadding onPress={() => setOpenModal(true)}>
               <PencilSimple color="#fcf3f3" weight="regular" size={24} />
@@ -27,7 +27,7 @@ export default function ManageActivityItem({
           </Row>
         </Row>
         <Row $align={'center'} $justifyContent={'space-between'}>
-          {activity.machine && <Label>{`Máquina: ${activity.machine}`}</Label>}
+          {activity.machine && <Label>{`MÁQUINA: ${activity.machine}`}</Label>}
         </Row>
         <Row $align={'center'} $justifyContent={'flex-start'}>
           {activity.series && <Label>{`SÉRIES: ${activity.series}`}</Label>}

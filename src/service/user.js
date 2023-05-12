@@ -51,3 +51,11 @@ export async function updateUserService(data) {
     body: JSON.stringify(data),
   });
 }
+
+export async function deleteUserAccountService(idUser) {
+  return await fetch(`${API_URL}/user`, {
+    method: 'DELETE',
+    headers: {'Content-type': 'application/json'},
+    body: JSON.stringify(idUser),
+  });
+}

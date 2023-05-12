@@ -18,10 +18,10 @@ export default function ActivityItem({activity, isStopped}) {
       </Pressable>
       <Column $gap>
         <Row $align={'flex-start'} $justifyContent={'flex-start'}>
-          <ContainerTitle $white>{activity.title}</ContainerTitle>
+          <ContainerTitle $white>{activity.title.toUpperCase()}</ContainerTitle>
         </Row>
         <Row $align={'center'} $justifyContent={'flex-start'}>
-          {activity.machine && <Label>{`Máquina: ${activity.machine}`}</Label>}
+          {activity.machine && <Label>{`MÁQUINA: ${activity.machine}`}</Label>}
         </Row>
         {(activity.series ||
           activity.repetitions ||
