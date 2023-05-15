@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useTranslation} from 'react-i18next';
 
 import ViewDefault from '../ViewDefault';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
@@ -21,6 +22,7 @@ import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import {Label} from './components/style';
 import ModalDeleteUserAccount from './components/ModalDeleteUserAccount';
 import {unsetUser} from '../../store/actions/userSessionAction';
+import LanguageSelection from '../../components/LanguageSelection/LanguageSelection';
 
 export default function Profile({navigation}) {
   const DISPATCH = useDispatch();
@@ -30,6 +32,7 @@ export default function Profile({navigation}) {
   const [plan, setPlan] = useState('');
   const [userData, setUserData] = useState('');
   const [openModal, setOpenModal] = useState(false);
+  const {t} = useTranslation();
 
   async function loadProfile() {
     DISPATCH(setLoading());
@@ -100,7 +103,7 @@ export default function Profile({navigation}) {
   return (
     <ViewDefault>
       {USERSESSION.userLevel === 3 ? (
-        <Header navigation={navigation} title={'PERFIL'} />
+        <Header navigation={navigation} title={t('title_profile')} />
       ) : (
         <HeaderStart />
       )}
@@ -108,25 +111,27 @@ export default function Profile({navigation}) {
       <ContainerScroll contentContainerStyle={{gap: 16}}>
         <ProfileData userData={userData} updateProfile={updateUser} />
 
+        <LanguageSelection />
+
         {plan && <Plan plan={plan} />}
 
         <ProfilePassword />
 
         <ButtonDefault $red onPress={() => logout()}>
-          <Label>SAIR</Label>
+          <Label>{t('lbl_logout')}</Label>
         </ButtonDefault>
 
         <HorizontalRule />
 
         <ButtonDefault $red onPress={() => setOpenModal(true)}>
-          <Label>EXCLUIR MINHA CONTA</Label>
+          <Label>{t('lbl_delete_account')}</Label>
         </ButtonDefault>
       </ContainerScroll>
       <ModalDeleteUserAccount
         deleteAccount={deleteAccount}
         openModal={openModal}
         setOpenModal={setOpenModal}
-        title={'EXCLUIR MINHA CONTA'}
+        title={t('lbl_delete_account')}
       />
     </ViewDefault>
   );

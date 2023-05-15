@@ -64,5 +64,38 @@
   "lbl_name": "NOME",
   "lbl_email": "E-MAIL",
   "lbl_cpf": "CPF",
-  "lbl_password_confirm": "CONFIRMAR SENHA"
+  "lbl_password_confirm": "CONFIRMAR SENHA",
+
+  "title_profile": "PERFIL",
+  "lbl_data": "DADOS",
+  "lbl_shortName": "NOME DE EXIBIÇÃO",
+  "lbl_cnpj": "CNPJ",
+  "lbl_cref": "CREF",
+  "lbl_birthdate": "DATA DE NASCIMENTO",
+  "lbl_gym": "ACADEMIA",
+
+  "lbl_logout": "SAIR",
+
+  "lbl_delete_account": "EXCLUIR MINHA CONTA",
+  "message_delete_account_1": "Você está prestes a excluir sua conta por completa, e esta é uma ação irreversível",
+  "message_delete_account_2": "Você tem certeza disso?",
+
+  "title_choose_language": "IDIOMA",
+  "lbl_choose_language": "ESCOLHER IDIOMA",
+
+  "title_plan": "PLANO",
+  "lbl_change_plan": "ALTERAR PLANO",
+  "lbl_remove_plan": "REMOVER PLANO",
+  "lbl_plan_active": "ATIVO",
+  "lbl_plan_expired": "EXPIRADO",
+  "lbl_valid_thru": "VÁLIDO ATÉ",
+  "lbl_included_items": "ITENS INCLUSOS",
+  "lbl_not_included_items": "ITEMS NÃO INCLUSOS",
+  "message_remove_plan": "ARE YOU SURE YOU WANT TO REMOVE THIS USER'S PLAN?",
+
+  "title_change_password": "ALTERAR SENHA",
+  "lbl_new_password": "NOVA SENHA",
+  "lbl_your_new_password": "SUA NOVA SENHA",
+  "lbl_confirm_new_password": "CONFIRMAR NOVA SENHA",
+  "lbl_confirm_your_new_password": "CONFIRMAR SUA NOVA SENHA"
 }

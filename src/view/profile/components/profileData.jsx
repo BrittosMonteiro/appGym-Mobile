@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
+import {useTranslation} from 'react-i18next';
 
 import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
 import {Column, InputText, Label, Row} from './style';
@@ -23,6 +24,7 @@ export default function ProfileData({userData, updateProfile}) {
   const [username, setUsername] = useState('');
   const [edit, setEdit] = useState(false);
   const [openDatePicker, setOpenDatePicker] = useState(false);
+  const {t} = useTranslation();
 
   useEffect(() => {
     setOriginalData();
@@ -74,18 +76,18 @@ export default function ProfileData({userData, updateProfile}) {
   return (
     <Card $black $fullWidth $padding>
       <Row $align={'center'} $justifyContent={'space-between'}>
-        <ContainerTitle $white>DADOS</ContainerTitle>
+        <ContainerTitle $white>{t('lbl_data')}</ContainerTitle>
         {!edit ? (
           <Pressable onPress={() => setEdit(!edit)}>
-            <Label>EDITAR</Label>
+            <Label>{t('edit')}</Label>
           </Pressable>
         ) : (
           <Row $align={'center'} $justifyContent={'space-between'}>
             <Pressable onPress={() => update()}>
-              <Label>ATUALIZAR</Label>
+              <Label>{t('lbl_update')}</Label>
             </Pressable>
             <Pressable onPress={() => cancel()}>
-              <Label>CANCELAR</Label>
+              <Label>{t('lbl_cancel')}</Label>
             </Pressable>
           </Row>
         )}
@@ -94,11 +96,11 @@ export default function ProfileData({userData, updateProfile}) {
       <HorizontalRule color={'#fcf3f3'} />
 
       <Column $gap>
-        <Label>NOME</Label>
+        <Label>{t('lbl_name')}</Label>
         <InputText
           keyboardType={'default'}
           inputMode={'text'}
-          placeholder={'NOME'}
+          placeholder={t('lbl_name')}
           editable={edit}
           defaultValue={name}
           onChangeText={text => setName(text)}
@@ -107,11 +109,11 @@ export default function ProfileData({userData, updateProfile}) {
 
       {shortName && (
         <Column $gap>
-          <Label>NOME DE EXIBIÇÃO</Label>
+          <Label>{t('lbl_shortName')}</Label>
           <InputText
             keyboardType={'default'}
             inputMode={'text'}
-            placeholder={'NOME DE EXIBIÇÃO'}
+            placeholder={t('lbl_shortName')}
             editable={edit}
             defaultValue={shortName}
             onChangeText={text => setShortName(text)}
@@ -120,11 +122,11 @@ export default function ProfileData({userData, updateProfile}) {
       )}
 
       <Column $gap>
-        <Label>E-MAIL</Label>
+        <Label>{t('lbl_email')}</Label>
         <InputText
           keyboardType={'email-address'}
           inputMode={'email'}
-          placeholder={'E-MAIL'}
+          placeholder={t('lbl_email')}
           editable={edit}
           defaultValue={email}
           onChangeText={text => setEmail(text)}
@@ -132,11 +134,11 @@ export default function ProfileData({userData, updateProfile}) {
       </Column>
 
       <Column $gap>
-        <Label>USUÁRIO</Label>
+        <Label>{t('lbl_user')}</Label>
         <InputText
           keyboardType={'default'}
           inputMode={'text'}
-          placeholder={'USUÁRIO'}
+          placeholder={t('lbl_user')}
           editable={edit}
           defaultValue={username}
           onChangeText={text => setUsername(text)}
@@ -146,9 +148,9 @@ export default function ProfileData({userData, updateProfile}) {
       {birthdate && (
         <Pressable onPress={() => (!edit ? null : setOpenDatePicker(true))}>
           <Column $gap>
-            <Label>DATA NASCIMENTO</Label>
+            <Label>{t('lbl_birthdate')}</Label>
             <InputText
-              placeholder="DATA DE NASCIMENTO"
+              placeholder={t('lbl_birthdate')}
               defaultValue={
                 birthdate ? new Date(birthdate).toLocaleDateString() : null
               }
@@ -168,8 +170,8 @@ export default function ProfileData({userData, updateProfile}) {
                 setOpenDatePicker(false);
               }}
               title={null}
-              confirmText="CONFIRMAR"
-              cancelText="CANCELAR"
+              confirmText={t('lbl_confirm')}
+              cancelText={t('lbl_cancel')}
             />
           </Column>
         </Pressable>
@@ -177,11 +179,11 @@ export default function ProfileData({userData, updateProfile}) {
 
       {cpf && (
         <Column $gap>
-          <Label>CPF</Label>
+          <Label>{t('lbl_cpf')}</Label>
           <InputText
             keyboardType={'numeric'}
             inputMode={'numeric'}
-            placeholder={'CPF'}
+            placeholder={t('lbl_cpf')}
             editable={edit}
             defaultValue={cpf}
             onChangeText={text => setCpf(text)}
@@ -191,11 +193,11 @@ export default function ProfileData({userData, updateProfile}) {
 
       {cnpj && (
         <Column $gap>
-          <Label>CNPJ</Label>
+          <Label>{t('lbl_cnpj')}</Label>
           <InputText
             keyboardType={'numeric'}
             inputMode={'numeric'}
-            placeholder={'CNPJ'}
+            placeholder={t('lbl_cnpj')}
             editable={edit}
             defaultValue={cnpj}
             onChangeText={text => setCnpj(text)}
@@ -205,11 +207,11 @@ export default function ProfileData({userData, updateProfile}) {
 
       {cref && (
         <Column $gap>
-          <Label>CREF</Label>
+          <Label>{t('lbl_cref')}</Label>
           <InputText
             keyboardType={'numeric'}
             inputMode={'numeric'}
-            placeholder={'CREF'}
+            placeholder={t('lbl_cref')}
             editable={edit}
             defaultValue={cref}
             onChangeText={text => setCref(text)}
@@ -219,9 +221,9 @@ export default function ProfileData({userData, updateProfile}) {
 
       {gymName && (
         <Column $gap>
-          <Label>ACADEMIA</Label>
+          <Label>{t('lbl_gym')}</Label>
           <InputText
-            placeholder={'ACADEMIA'}
+            placeholder={t('lbl_gym')}
             editable={false}
             defaultValue={gymName}
           />
