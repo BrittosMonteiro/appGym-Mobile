@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {useTranslation} from 'react-i18next';
 
 import ViewDefault from '../ViewDefault';
 import Header from '../../components/Header/Header';
@@ -23,6 +24,7 @@ export default function ManageInstructor({navigation, route}) {
   const [birthdate, setBirthdate] = useState('');
   const [email, setEmail] = useState('');
   const [cref, setCref] = useState('');
+  const {t} = useTranslation();
 
   async function createInstructor() {
     DISPATCH(setLoading());
@@ -143,32 +145,32 @@ export default function ManageInstructor({navigation, route}) {
 
   return (
     <ViewDefault>
-      <Header navigation={navigation} title={'GERENCIAR INSTRUTOR'} />
+      <Header navigation={navigation} title={t('title_manage_instructors')} />
       <ContainerScroll
         contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
         <Card $black $fullWidth $padding>
           <Column $gap>
-            <Label>NOME</Label>
+            <Label>{t('lbl_name')}</Label>
             <InputText
-              placeholder="NOME DO INSTRUTOR"
+              placeholder={t('lbl_name')}
               defaultValue={name}
               onChangeText={data => setName(data)}
             />
           </Column>
 
           <Column $gap>
-            <Label>DATA NASCIMENTO</Label>
+            <Label>{t('lbl_birthdate')}</Label>
             <InputText
-              placeholder="DATA DE NASCIMENTO"
+              placeholder={t('lbl_birthdate')}
               defaultValue={new Date(birthdate).toLocaleDateString()}
               onChangeText={data => setBirthdate(data)}
             />
           </Column>
 
           <Column $gap>
-            <Label>E-MAIL</Label>
+            <Label>{t('lbl_email')}</Label>
             <InputText
-              placeholder="E-MAIL"
+              placeholder={t('lbl_email')}
               keyboardType="default"
               defaultValue={email}
               onChangeText={data => setEmail(data)}
@@ -176,9 +178,9 @@ export default function ManageInstructor({navigation, route}) {
           </Column>
 
           <Column $gap>
-            <Label>CREF</Label>
+            <Label>{t('lbl_cref')}</Label>
             <InputText
-              placeholder="CREF"
+              placeholder={t('lbl_cref')}
               defaultValue={cref}
               onChangeText={data => setCref(data)}
             />
@@ -189,19 +191,19 @@ export default function ManageInstructor({navigation, route}) {
           {idInstructor ? (
             <Column $gap>
               <ButtonDefault $green onPress={() => updateInstructor()}>
-                <Label>ATUALIZAR</Label>
+                <Label>{t('lbl_update')}</Label>
               </ButtonDefault>
               <ButtonDefault $red onPress={() => deleteInstructor()}>
-                <Label>EXCLUIR</Label>
+                <Label>{t('lbl_delete_instructor')}</Label>
               </ButtonDefault>
             </Column>
           ) : (
             <Column $gap>
               <ButtonDefault $green onPress={() => createInstructor()}>
-                <Label>SALVAR</Label>
+                <Label>{t('lbl_save')}</Label>
               </ButtonDefault>
               <ButtonDefault $red onPress={() => navigation.goBack()}>
-                <Label>CANCELAR</Label>
+                <Label>{t('lbl_cancel')}</Label>
               </ButtonDefault>
             </Column>
           )}

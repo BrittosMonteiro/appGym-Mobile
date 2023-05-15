@@ -112,5 +112,10 @@
   "lbl_users_not_attached": "OTHER USERS",
   "message_users": "List of users attached to your gym",
   "message_users_not_attached": "List of users not attached to your gym",
-  "lbl_search": "SEARCH"
+  "lbl_search": "SEARCH",
+
+  "title_instructors": "INSTRUCTORS",
+  "title_manage_instructors": "MANAGE INSTRUCTORS",
+  "message_instructors": "List of instructors attached to your gym",
+  "lbl_delete_instructor": "DELETE"
 }

@@ -112,5 +112,10 @@
   "lbl_users_not_attached": "DEMAIS ALUNOS",
   "message_users": "Lista de alunos atrelados à academia",
   "message_users_not_attached": "Lista de alunos cadastrados no nosso sistema não atrelados à academia",
-  "lbl_search": "PESQUISAR"
+  "lbl_search": "PESQUISAR",
+
+  "title_instructors": "INSTRUTORES",
+  "title_manage_instructors": "GERENCIAR INSTRUTORES",
+  "message_instructors": "Lista de instrutores atrelados à academia",
+  "lbl_delete_instructor": "EXCLUIR INSTRUTOR"
 }
