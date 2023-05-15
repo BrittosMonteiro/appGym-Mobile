@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import CurrencyInput from 'react-native-currency-input';
+import {useTranslation} from 'react-i18next';
 
 import Header from '../../components/Header/Header';
 import ViewDefault from '../ViewDefault';
@@ -32,6 +33,7 @@ export default function PlanManagement({navigation, route}) {
   const [notIncluded, setNotIncluded] = useState([]);
   const [itemPlanTitle, setItemPlanTitle] = useState('');
   const [itemPlanStatus, setItemPlanStatus] = useState(false);
+  const {t} = useTranslation();
 
   function addItemToPlan() {
     if (!itemPlanTitle) {
@@ -165,16 +167,16 @@ export default function PlanManagement({navigation, route}) {
 
   return (
     <ViewDefault>
-      <Header navigation={navigation} title={'GERENCIAR PLANO'} />
+      <Header navigation={navigation} title={t('title_manage_plan')} />
       <HorizontalRule color={'#202020'} />
       <ContainerScroll
         contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
         <Card $black $fullWidth $padding>
           <Column $gap>
-            <Label>STATUS DO PLANO</Label>
+            <Label>{t('lbl_plan_status')}</Label>
             <Row $align={'center'} $justifyContent={'space-between'}>
               <CustomText $fontSize={18} $weight={'Medium'} $color={'#fcf3f3'}>
-                {status ? 'DISPONÍVEL' : 'INDISPONÍVEL'}
+                {status ? `${t('lbl_available')}` : `${t('lbl_unavailable')}`}
               </CustomText>
               <ButtonDefault onPress={() => setStatus(!status)}>
                 {status ? (
@@ -187,16 +189,16 @@ export default function PlanManagement({navigation, route}) {
           </Column>
 
           <Column $gap>
-            <Label>TÍTULO</Label>
+            <Label>{t('lbl_title')}</Label>
             <InputText
-              placeholder="TÍTULO"
+              placeholder={t('lbl_title')}
               defaultValue={title}
               onChangeText={data => setTitle(data)}
             />
           </Column>
 
           <Column $gap>
-            <Label>PREÇO</Label>
+            <Label>{t('lbl_price')}</Label>
             <CurrencyInput
               style={[
                 styles.colors.backgroundColor.dark_3,
@@ -206,35 +208,35 @@ export default function PlanManagement({navigation, route}) {
                 styles.font.weight.medium,
               ]}
               placeholderTextColor={[styles.colors.textColor.white_2]}
-              placeholder="PREÇO"
+              placeholder={t('lbl_price')}
               value={price}
               onChangeValue={data => setPrice(data)}
             />
           </Column>
 
           <Column $gap>
-            <Label>DESCRIÇÃO</Label>
+            <Label>{t('lbl_description')}</Label>
             <InputText
-              placeholder="DESCRIÇÃO"
+              placeholder={t('lbl_description')}
               defaultValue={description}
               onChangeText={data => setDescription(data)}
             />
           </Column>
 
           <Column>
-            <Label>DURAÇÃO (MESES)</Label>
+            <Label>{t('lbl_duration')}</Label>
             <InputText
-              placeholder="DURAÇÃO (MESES)"
+              placeholder={t('lbl_months')}
               defaultValue={validMonths}
               onChangeText={data => setValidMonths(data)}
             />
           </Column>
 
           <Column $gap>
-            <Label>ITENS DO PLANO</Label>
+            <Label>{t('lbl_items_plan')}</Label>
             <Column $gap>
               <InputText
-                placeholder="ADICIONAR ITEM QUE PERTENCE OU NÃO AO PLANO"
+                placeholder={t('message_items_plan')}
                 defaultValue={itemPlanTitle}
                 onChangeText={data => setItemPlanTitle(data)}
               />
@@ -243,7 +245,9 @@ export default function PlanManagement({navigation, route}) {
                   $fontSize={18}
                   $color={'#fcf3f3'}
                   $weight={'Regular'}>
-                  {itemPlanStatus ? 'Incluso no plano' : 'Não incluso no plano'}
+                  {itemPlanStatus
+                    ? `${t('lbl_included')}`
+                    : `${t('lbl_not_included')}`}
                 </CustomText>
                 <ButtonDefault
                   onPress={() => setItemPlanStatus(!itemPlanStatus)}>
@@ -255,7 +259,7 @@ export default function PlanManagement({navigation, route}) {
                 </ButtonDefault>
               </Row>
               <ButtonDefault $turquoise onPress={() => addItemToPlan()}>
-                <Label>CONFIRMAR</Label>
+                <Label>{t('lbl_confirm')}</Label>
               </ButtonDefault>
             </Column>
           </Column>
@@ -263,7 +267,7 @@ export default function PlanManagement({navigation, route}) {
           <HorizontalRule color={'#fcf3f3'} />
 
           <Column $gap>
-            <Label>ITENS INCLUSOS</Label>
+            <Label>{t('lbl_included_items')}</Label>
 
             <Column $gap>
               {isIncluded.length > 0 ? (
@@ -291,7 +295,7 @@ export default function PlanManagement({navigation, route}) {
                   $fontSize={18}
                   $weight={'Medium'}
                   $color={'#fcf3f3'}>
-                  NENHUM ITEM
+                  {t('lbl_no_items')}
                 </CustomText>
               )}
             </Column>
@@ -300,7 +304,7 @@ export default function PlanManagement({navigation, route}) {
           <HorizontalRule color={'#fcf3f3'} />
 
           <Column $gap>
-            <Label>ITENS NÃO INCLUSOS</Label>
+            <Label>{t('lbl_not_included')}</Label>
 
             <Column $gap>
               {notIncluded.length > 0 ? (
@@ -328,34 +332,30 @@ export default function PlanManagement({navigation, route}) {
                   $fontSize={18}
                   $weight={'Medium'}
                   $color={'#fcf3f3'}>
-                  NENHUM ITEM
+                  {t('lbl_no_items')}
                 </CustomText>
               )}
             </Column>
           </Column>
-
-          {/* <ButtonDefault $turquoise>
-            <Label>VISUALIZAR PLANO</Label>
-          </ButtonDefault> */}
         </Card>
 
         <Card $fullWidth>
           {!id ? (
             <Column $gap>
               <ButtonDefault $green onPress={() => createPlan()}>
-                <Label>CRIAR</Label>
+                <Label>{t('lbl_create')}</Label>
               </ButtonDefault>
               <ButtonDefault $red onPress={() => navigation.goBack()}>
-                <Label>CANCELAR</Label>
+                <Label>{t('lbl_cancel')}</Label>
               </ButtonDefault>
             </Column>
           ) : (
             <Column $gap>
               <ButtonDefault $green onPress={() => updatePlan()}>
-                <Label>ATUALIZAR</Label>
+                <Label>{t('lbl_update')}</Label>
               </ButtonDefault>
               <ButtonDefault $red onPress={() => deletePlan()}>
-                <Label>EXCLUIR</Label>
+                <Label>{t('lbl_delete_plan')}</Label>
               </ButtonDefault>
             </Column>
           )}

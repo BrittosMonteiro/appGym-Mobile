@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 
 import Header from '../../components/Header/Header';
 import ViewDefault from '../ViewDefault';
@@ -20,6 +21,7 @@ export default function PlanList({navigation}) {
     return state.userSessionReducer;
   });
   const [planList, setPlanList] = useState([]);
+  const {t} = useTranslation();
 
   async function loadPlans() {
     DISPATCH(setLoading());
@@ -50,17 +52,17 @@ export default function PlanList({navigation}) {
 
   return (
     <ViewDefault>
-      <Header navigation={navigation} title={'PLANOS'} />
+      <Header navigation={navigation} title={t('title_plan')} />
       <HorizontalRule color={'#202020'} />
       <ContainerScroll
         contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
-        <CustomText>Lista de planos cadastrados</CustomText>
+        <CustomText>{t('lbl_plans_list')}</CustomText>
 
         <Row>
           <ButtonDefault
             $turquoise
             onPress={() => navigation.navigate('PlanManagement', {id: null})}>
-            <Label>ADICIONAR</Label>
+            <Label>{t('lbl_add')}</Label>
           </ButtonDefault>
         </Row>
         {planList.length > 0 ? (
