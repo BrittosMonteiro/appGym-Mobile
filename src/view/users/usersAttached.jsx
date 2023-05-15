@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 
 import {readGymUsersListService} from '../../service/user';
 import {useDispatch, useSelector} from 'react-redux';
@@ -15,6 +16,7 @@ export default function UsersAttached({isAttached, navigation}) {
   });
   const [originalList, setOriginalList] = useState([]);
   const [usersList, setUserList] = useState([]);
+  const {t} = useTranslation();
 
   async function loadGymUsers() {
     DISPATCH(setLoading());
@@ -56,7 +58,7 @@ export default function UsersAttached({isAttached, navigation}) {
 
   return (
     <React.Fragment>
-      <CustomText>Lista de alunos atrelados à academia</CustomText>
+      <CustomText>{t('message_users')}</CustomText>
 
       <Search search={filterList} />
 
@@ -64,7 +66,7 @@ export default function UsersAttached({isAttached, navigation}) {
         <ButtonDefault
           $turquoise
           onPress={() => navigation.navigate('ManageUser', {id: null})}>
-          <Label>ADICIONAR</Label>
+          <Label>{t('lbl_add')}</Label>
         </ButtonDefault>
       </Row>
 

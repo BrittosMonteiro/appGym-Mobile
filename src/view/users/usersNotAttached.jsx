@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {useTranslation} from 'react-i18next';
 
 import {readUsersNotAttachedToGymService} from '../../service/user';
 import Search from '../../components/Search';
@@ -14,6 +15,7 @@ export default function UsersNotAttached({navigation}) {
   });
   const [originalList, setOriginalList] = useState([]);
   const [usersList, setUserList] = useState([]);
+  const {t} = useTranslation();
 
   async function loadUsers() {
     DISPATCH(setLoading());
@@ -59,7 +61,7 @@ export default function UsersNotAttached({navigation}) {
   return (
     <React.Fragment>
       <CustomText>
-        Lista de alunos cadastrados no nosso sistema não atrelados à academia
+        {t('message_users_not_attached')}
       </CustomText>
 
       <Search search={filterList} />

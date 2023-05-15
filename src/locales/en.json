@@ -67,6 +67,7 @@
   "lbl_password_confirm": "CONFIRM PASSWORD",
 
   "title_profile": "PROFILE",
+  "title_user_management": "USER MANAGEMENT",
   "lbl_data": "DATA",
   "lbl_shortName": "DISPLAY NAME",
   "lbl_cnpj": "CNPJ",
@@ -84,6 +85,7 @@
   "lbl_choose_language": "CHOOSE LANGUAGE",
 
   "title_plan": "PLAN",
+  "title_select_plan": "SELECT PLAN",
   "lbl_change_plan": "CHANGE PLAN",
   "lbl_remove_plan": "REMOVE PLANO",
   "lbl_plan_active": "ACTIVE",
@@ -92,10 +94,23 @@
   "lbl_included_items": "INCLUDED ITEMS",
   "lbl_not_included_items": "NOT INCLUDED ITEMS",
   "message_remove_plan": "ARE YOU SURE YOU WANT TO REMOVE THIS USER'S PLAN?",
+  "lbl_add_plan": "ADD PLAN",
+  "lbl_advance": "ADVANCE",
+  "message_select_plan": "Select a plan to user",
+  "lbl_selected_plan": "SELECTED PLAN",
+  "lbl_no_items": "NO ITEMS",
+  "lbl_finish": "FINISH",
 
   "title_change_password": "CHANGE PASSWORD",
   "lbl_new_password": "NEW PASSWORD",
   "lbl_your_new_password": "YOUR NEW PASSWORD",
   "lbl_confirm_new_password": "CONFIRM NEW PASSWORD",
-  "lbl_confirm_your_new_password": "CONFIRM YOUR NEW PASSWORD"
+  "lbl_confirm_your_new_password": "CONFIRM YOUR NEW PASSWORD",
+
+  "title_users": "USERS",
+  "lbl_users_attached": "USERS ATTACHED",
+  "lbl_users_not_attached": "OTHER USERS",
+  "message_users": "List of users attached to your gym",
+  "message_users_not_attached": "List of users not attached to your gym",
+  "lbl_search": "SEARCH"
 }

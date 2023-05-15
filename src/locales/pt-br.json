@@ -67,6 +67,7 @@
   "lbl_password_confirm": "CONFIRMAR SENHA",
 
   "title_profile": "PERFIL",
+  "title_user_management": "GERENCIAR USUÁRIO",
   "lbl_data": "DADOS",
   "lbl_shortName": "NOME DE EXIBIÇÃO",
   "lbl_cnpj": "CNPJ",
@@ -84,6 +85,7 @@
   "lbl_choose_language": "ESCOLHER IDIOMA",
 
   "title_plan": "PLANO",
+  "title_select_plan": "SELECIONAR PLANO",
   "lbl_change_plan": "ALTERAR PLANO",
   "lbl_remove_plan": "REMOVER PLANO",
   "lbl_plan_active": "ATIVO",
@@ -92,10 +94,23 @@
   "lbl_included_items": "ITENS INCLUSOS",
   "lbl_not_included_items": "ITEMS NÃO INCLUSOS",
   "message_remove_plan": "ARE YOU SURE YOU WANT TO REMOVE THIS USER'S PLAN?",
+  "lbl_add_plan": "ADICIONAR PLANO",
+  "lbl_advance": "AVANÇAR",
+  "message_select_plan": "Selecionar um plano para",
+  "lbl_selected_plan": "SELECTED PLAN",
+  "lbl_no_items": "NENHUM ITEM",
+  "lbl_finish": "CONCLUIR",
 
   "title_change_password": "ALTERAR SENHA",
   "lbl_new_password": "NOVA SENHA",
   "lbl_your_new_password": "SUA NOVA SENHA",
   "lbl_confirm_new_password": "CONFIRMAR NOVA SENHA",
-  "lbl_confirm_your_new_password": "CONFIRMAR SUA NOVA SENHA"
+  "lbl_confirm_your_new_password": "CONFIRMAR SUA NOVA SENHA",
+
+  "title_users": "ALUNOS",
+  "lbl_users_attached": "ALUNOS ATRELADOS",
+  "lbl_users_not_attached": "DEMAIS ALUNOS",
+  "message_users": "Lista de alunos atrelados à academia",
+  "message_users_not_attached": "Lista de alunos cadastrados no nosso sistema não atrelados à academia",
+  "lbl_search": "PESQUISAR"
 }

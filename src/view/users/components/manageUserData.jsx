@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import DatePicker from 'react-native-date-picker';
 import {Pressable} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
 import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
 import Plan from '../../profile/components/profilePlan';
@@ -27,6 +28,7 @@ export default function ManageUserData({navigation, route}) {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [plan, setPlan] = useState('');
   const [planValidDate, setPlanValidDate] = useState('');
+  const {t} = useTranslation();
 
   function proceedToPlan(hasPlan) {
     if (!name || !birthdate || !email || !cpf) {
@@ -73,7 +75,7 @@ export default function ManageUserData({navigation, route}) {
 
   async function removePlanFromUser() {
     DISPATCH(setLoading());
-    
+
     await removePlanFromUserService({idUser: id})
       .then(responseUpdate => {
         if (responseUpdate.status === 200) {
@@ -96,9 +98,9 @@ export default function ManageUserData({navigation, route}) {
     <React.Fragment>
       <Card $black $fullWidth $padding>
         <Column $gap>
-          <Label>NOME</Label>
+          <Label>{t('lbl_name')}</Label>
           <InputText
-            placeholder="NOME"
+            placeholder={t('lbl_name')}
             defaultValue={name}
             editable={!id}
             onChangeText={data => setName(data)}
@@ -106,9 +108,9 @@ export default function ManageUserData({navigation, route}) {
         </Column>
 
         <Column $gap>
-          <Label>E-MAIL</Label>
+          <Label>{t('lbl_email')}</Label>
           <InputText
-            placeholder="E-MAIL"
+            placeholder={t('lbl_email')}
             defaultValue={email}
             editable={!id}
             onChangeText={data => setEmail(data)}
@@ -117,9 +119,9 @@ export default function ManageUserData({navigation, route}) {
 
         {username && (
           <Column $gap>
-            <Label>USUÁRIO</Label>
+            <Label>{t('lbl_user')}</Label>
             <InputText
-              placeholder="USUÁRIO"
+              placeholder={t('lbl_user')}
               defaultValue={username}
               editable={false}
               onChangeText={data => setEmail(data)}
@@ -129,9 +131,9 @@ export default function ManageUserData({navigation, route}) {
 
         <Pressable onPress={() => (id ? null : setOpenDatePicker(true))}>
           <Column $gap>
-            <Label>DATA NASCIMENTO</Label>
+            <Label>{t('lbl_birthdate')}</Label>
             <InputText
-              placeholder="DATA DE NASCIMENTO"
+              placeholder={t('lbl_birthdate')}
               defaultValue={
                 birthdate ? new Date(birthdate).toLocaleDateString() : null
               }
@@ -151,16 +153,16 @@ export default function ManageUserData({navigation, route}) {
                 setOpenDatePicker(false);
               }}
               title={null}
-              confirmText="CONFIRMAR"
-              cancelText="CANCELAR"
+              confirmText={t('lbl_confirm')}
+              cancelText={t('lbl_cancel')}
             />
           </Column>
         </Pressable>
 
         <Column $gap>
-          <Label>CPF</Label>
+          <Label>{t('lbl_cpf')}</Label>
           <InputText
-            placeholder="CPF"
+            placeholder={t('lbl_cpf')}
             defaultValue={cpf}
             editable={!id}
             onChangeText={data => setCpf(data)}
@@ -185,17 +187,17 @@ export default function ManageUserData({navigation, route}) {
           <>
             {!plan && (
               <ButtonDefault $green onPress={() => proceedToPlan()}>
-                <Label>ADICIONAR PLANO</Label>
+                <Label>{t('lbl_add_plan')}</Label>
               </ButtonDefault>
             )}
           </>
         ) : (
           <Column $gap>
             <ButtonDefault $green onPress={() => proceedToPlan()}>
-              <Label>AVANÇAR</Label>
+              <Label>{t('lbl_advance')}</Label>
             </ButtonDefault>
             <ButtonDefault $red onPress={() => cancel()}>
-              <Label>CANCELAR</Label>
+              <Label>{t('lbl_cancel')}</Label>
             </ButtonDefault>
           </Column>
         )}
