@@ -41,6 +41,12 @@ export default function App() {
         const hasLanguage = JSON.parse(systemLanguage);
         if (hasLanguage !== null) {
           i18next.changeLanguage(hasLanguage.code);
+        } else {
+          AsyncStorage.setItem(
+            'SYSTEM_LANGUAGE',
+            JSON.stringify({code: 'en', language: 'English', index: 0}),
+          );
+          i18next.changeLanguage('en');
         }
       })
       .catch(err => {});

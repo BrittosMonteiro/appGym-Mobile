@@ -58,8 +58,8 @@ export default function LanguageSelection() {
           rowTextForSelection={(item, index) => {
             return item.language;
           }}
-          defaultButtonText={t('title_choose_Language')}
-          searchPlaceHolder={t('lbl_choose_Language')}
+          defaultButtonText={t('title_choose_language')}
+          searchPlaceHolder={t('lbl_choose_language')}
           search
           buttonStyle={{
             padding: 0,
