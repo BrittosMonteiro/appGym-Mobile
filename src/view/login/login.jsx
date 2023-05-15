@@ -3,6 +3,7 @@ import {ActivityIndicator, Pressable} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
 import {CaretRight, Eye, EyeSlash} from 'phosphor-react-native';
+import {useTranslation} from 'react-i18next';
 
 import ViewDefault from '../ViewDefault';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
@@ -19,6 +20,7 @@ export default function Login({navigation}) {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const {t} = useTranslation();
 
   const setUserSession = async data => {
     try {
@@ -119,36 +121,36 @@ export default function Login({navigation}) {
       <Container $justifyContent={'center'}>
         <Column>
           <CustomText $fontSize={28} $weight={'Medium'}>
-            ACESSAR
+            {t('access_account_1')}
           </CustomText>
           <CustomText $fontSize={38} $weight={'Medium'}>
-            MINHA CONTA
+            {t('access_account_3')}
           </CustomText>
         </Column>
         <Card $black $padding>
           <Column $gap>
-            <Label>USUÁRIO</Label>
+            <Label>{t('lbl_user')}</Label>
             <InputText
               autoCapitalize={'none'}
               autoCorrect={false}
               keyboardType={'default'}
               inputMode={'text'}
               editable={!isLoading}
-              placeholder="USUÁRIO"
+              placeholder={t('lbl_user')}
               defaultValue={username}
               onChangeText={text => setUsername(text)}
             />
           </Column>
 
           <Column $gap>
-            <Label>SENHA</Label>
+            <Label>{t('lbl_password')}</Label>
             <Row $align={'center'} $justifyContent={'space-between'}>
               <InputText
                 keyboardType={'default'}
                 inputMode={'text'}
                 editable={!isLoading}
                 secureTextEntry={!showPassword}
-                placeholder="SENHA"
+                placeholder={t('lbl_password')}
                 defaultValue={password}
                 onChangeText={text => setPassword(text)}
               />
@@ -167,7 +169,7 @@ export default function Login({navigation}) {
               {isLoading ? (
                 <ActivityIndicator size={'small'} color={'#fcf3f3'} />
               ) : (
-                'ACESSAR'
+                `${t('access_account_1')}`
               )}
             </Label>
           </ButtonDefault>
@@ -181,7 +183,7 @@ export default function Login({navigation}) {
                 navigation.navigate('CreateGymAccount', {userLevel: 3})
               }>
               <CustomText $fontSize={16} $color={'#fcf3f3'}>
-                CRIAR CONTA COMO USUÁRIO
+                {t('go_to_create_account_as_user')}
               </CustomText>
               <CaretRight weight="regular" size={24} color={'#fcf3f3'} />
             </ContainerListItem>

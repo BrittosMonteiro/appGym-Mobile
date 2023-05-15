@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Modal, View} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
 import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
 import styles from '../../../styles';
@@ -21,6 +22,7 @@ export default function ModalAddItemToActivityList({
 }) {
   const DISPATCH = useDispatch();
   const [availableActivities, setAvailableActivities] = useState([]);
+  const {t} = useTranslation();
 
   async function loadActivities() {
     DISPATCH(setLoading());
@@ -71,7 +73,7 @@ export default function ModalAddItemToActivityList({
           ]}>
           <Row $align={'center'} $justifyContent={'space-between'}>
             <CustomText $weight={'Medium'} $fontSize={18}>
-              ATIVIDADES DISPONÍVEIS
+              {t('title_available_exercises')}
             </CustomText>
             <ButtonDefault onPress={() => onClose()}>
               <XCircle color={'#EB5757'} weight="regular" size={28} />

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {useTranslation} from 'react-i18next';
 
 import Header from '../../components/Header/Header';
 import ViewDefault from '../ViewDefault';
@@ -10,14 +11,15 @@ import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 
 export default function Users({navigation}) {
   const [selectedTab, setSelectedTab] = useState(0);
+  const {t} = useTranslation();
 
   const tabList = [
     {
-      title: 'USUÁRIOS ATRELADOS',
+      title: `${t('lbl_users_attached')}`,
       component: <UsersAttached navigation={navigation} />,
     },
     {
-      title: 'DEMAIS USUÁRIOS',
+      title: `${t('lbl_users_not_attached')}`,
       component: <UsersNotAttached navigation={navigation} />,
     },
   ];
@@ -28,7 +30,7 @@ export default function Users({navigation}) {
 
   return (
     <ViewDefault>
-      <Header navigation={navigation} title={'ALUNOS'} />
+      <Header navigation={navigation} title={t('title_users')} />
       <HorizontalRule color={'#202020'} />
       <ContainerScroll
         contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>

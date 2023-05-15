@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 
 import Header from '../../components/Header/Header';
 import ViewDefault from '../ViewDefault';
@@ -20,6 +21,7 @@ export default function Instructors({navigation}) {
     return state.userSessionReducer;
   });
   const [instructorsList, setInstructorList] = useState([]);
+  const {t} = useTranslation();
 
   async function loadInstructors() {
     DISPATCH(setLoading());
@@ -50,17 +52,17 @@ export default function Instructors({navigation}) {
 
   return (
     <ViewDefault>
-      <Header navigation={navigation} title={'INSTRUTORES'} />
+      <Header navigation={navigation} title={t('title_instructors')} />
       <HorizontalRule color={'#202020'} />
       <ContainerScroll
         contentContainerStyle={{alignItems: 'flex-start', gap: 16}}>
-        <CustomText>Lista de instrutores aptos para criar treinos</CustomText>
+        <CustomText>{t('message_instructors')}</CustomText>
 
         <Row>
           <ButtonDefault
             $turquoise
             onPress={() => navigation.navigate('ManageInstructor', {id: null})}>
-            <Label>ADICIONAR</Label>
+            <Label>{t('lbl_add')}</Label>
           </ButtonDefault>
         </Row>
 

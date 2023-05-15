@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Modal} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {CaretRight, XCircle} from 'phosphor-react-native';
+import {useTranslation} from 'react-i18next';
 
 import {setClose} from '../store/actions/sidebarAction';
 import * as RootNavigation from '../utils/RootNavigation';
@@ -16,47 +17,48 @@ export default function Sidebar({open}) {
     return state.userSessionReducer;
   });
   const [menu, setMenu] = useState([]);
+  const {t} = useTranslation();
 
   const options = [
     {
-      title: 'PERFIL ACADEMIA',
+      title: `${t('go_to_profile_2')}`,
       goTo: 'Profile',
       canSee: 1,
     },
     {
-      title: 'INSTRUTORES',
+      title: `${t('go_to_instructors')}`,
       goTo: 'Instructors',
       canSee: 1,
     },
     {
-      title: 'PLANOS',
+      title: `${t('go_to_plans')}`,
       goTo: 'PlanList',
       canSee: 1,
     },
 
     {
-      title: 'PERFIL DO INSTRUTOR',
+      title: `${t('go_to_profile_2')}`,
       goTo: 'Profile',
       canSee: 2,
     },
     {
-      title: 'ALUNOS',
+      title: `${t('go_to_users')}`,
       goTo: 'Users',
       canSee: 2,
     },
 
     {
-      title: 'INÍCIO',
+      title: `${t('go_to_home')}`,
       goTo: 'Home',
       canSee: 3,
     },
     {
-      title: 'PERFIL',
+      title: `${t('go_to_profile_2')}`,
       goTo: 'Profile',
       canSee: 3,
     },
     // {
-    //   title: 'HISTÓRICO DE PAGAMENTO',
+    //   title: `${t('go_to_payments')}`,
     //   goTo: 'PaymentHistory',
     //   canSee: 3,
     // },

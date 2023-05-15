@@ -1,4 +1,6 @@
 import {useEffect, useState} from 'react';
+import {useTranslation} from 'react-i18next';
+
 import ModalDefault from '../../../components/ModalDefault/ModalDefault';
 import {Column, InputText, Label, Row} from '../../profile/components/style';
 import {ButtonDefault} from '../../style';
@@ -16,6 +18,7 @@ export default function ModalSetActivityDefinitions({
   const [series, setSeries] = useState('');
   const [time, setTime] = useState('');
   const [note, setNote] = useState('');
+  const {t} = useTranslation();
 
   useEffect(() => {
     if (activity) {
@@ -47,75 +50,75 @@ export default function ModalSetActivityDefinitions({
   }
 
   return (
-    <ModalDefault openModal={openModal} title={'DEFINA AQUI SEU TREINO'}>
+    <ModalDefault openModal={openModal} title={t('title_set_workout')}>
       <Column $gap>
-        <Label $black>MÁQUINA UTILIZADA</Label>
+        <Label $black>{t('lbl_machine')}</Label>
         <InputText
           $black
           $borderRadius
           keyboardType={'numeric'}
           inputMode={'numeric'}
-          placeholder={'NÚMERO DA MÁQUINA'}
+          placeholder={t('lbl_machine')}
           defaultValue={machine && machine.toString()}
           onChangeText={text => setMachine(text)}
         />
       </Column>
       <Column $gap>
-        <Label $black>NÚMERO DE SÉRIES</Label>
+        <Label $black>{t('lbl_series')}</Label>
         <InputText
           $black
           $borderRadius
           keyboardType={'numeric'}
           inputMode={'numeric'}
-          placeholder={'SÉRIERS'}
+          placeholder={t('lbl_series')}
           defaultValue={series && series.toString()}
           onChangeText={text => setSeries(text)}
         />
       </Column>
       <Column $gap>
-        <Label $black>NÚMERO DE REPETIÇÕES</Label>
+        <Label $black>{t('lbl_repetitions')}</Label>
         <InputText
           $black
           $borderRadius
           keyboardType={'numeric'}
           inputMode={'numeric'}
-          placeholder={'REPETIÇÕES'}
+          placeholder={t('lbl_repetitions')}
           defaultValue={repetitions && repetitions.toString()}
           onChangeText={text => setRepetitions(text)}
         />
       </Column>
       <Column $gap>
-        <Label $black>CARGA UTILIZADA</Label>
+        <Label $black>{t('lbl_load')}</Label>
         <InputText
           $black
           $borderRadius
           keyboardType={'numeric'}
           inputMode={'numeric'}
-          placeholder={'PESO MÁXIMO QUE VOCÊ SUPORTA'}
+          placeholder={t('lbl_load')}
           defaultValue={load && load.toString()}
           onChangeText={text => setLoad(text)}
         />
       </Column>
       <Column $gap>
-        <Label $black>TEMPO</Label>
+        <Label $black>{t('lbl_time')}</Label>
         <InputText
           $black
           $borderRadius
           keyboardType={'numeric'}
           inputMode={'numeric'}
-          placeholder={'MINUTOS'}
+          placeholder={t('lbl_minutes')}
           defaultValue={time && time.toString()}
           onChangeText={text => setTime(text)}
         />
       </Column>
       <Column $gap>
-        <Label $black>Observações</Label>
+        <Label $black>{t('lbl_note')}</Label>
         <InputText
           $black
           $borderRadius
           keyboardType={'default'}
           inputMode={'text'}
-          placeholder={'OBSERVAÇÃO SOBRE A EXECUÇÃO'}
+          placeholder={t('lbl_note')}
           multiline={true}
           numberOfLines={2}
           textAlignVertical={'top'}
@@ -125,10 +128,10 @@ export default function ModalSetActivityDefinitions({
       </Column>
       <Row $align={'center'} $justifyContent={'space-between'}>
         <ButtonDefault $red onPress={() => setOpenModal(false)}>
-          <Label>CANCELAR</Label>
+          <Label>{t('lbl_cancel')}</Label>
         </ButtonDefault>
         <ButtonDefault $green onPress={() => sendUpdatedData()}>
-          <Label>SALVAR</Label>
+          <Label>{t('lbl_save')}</Label>
         </ButtonDefault>
       </Row>
     </ModalDefault>

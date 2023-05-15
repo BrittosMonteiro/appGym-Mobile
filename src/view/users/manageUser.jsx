@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {useTranslation} from 'react-i18next';
 
 import ViewDefault from '../ViewDefault';
 import Header from '../../components/Header/Header';
@@ -10,16 +11,16 @@ import {ContainerScroll} from '../style';
 
 export default function ManageUser({navigation, route}) {
   const {id, isAttached} = route.params;
-
   const [selectedTab, setSelectedTab] = useState(0);
+  const {t} = useTranslation();
 
   const tablist = [
     {
-      title: 'PERFIL',
+      title: `${t('title_profile')}`,
       component: <ManageUserData navigation={navigation} route={route} />,
     },
     {
-      title: 'TREINOS',
+      title: `${t('title_workouts')}`,
       component: <TrainingList navigation={navigation} userId={id} />,
     },
   ];
@@ -30,7 +31,7 @@ export default function ManageUser({navigation, route}) {
 
   return (
     <ViewDefault>
-      <Header navigation={navigation} title={'GERENCIAR USUÁRIO'} />
+      <Header navigation={navigation} title={t('title_user_management')} />
       <HorizontalRule />
 
       {isAttached && (

@@ -1,6 +1,9 @@
+import {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import i18next from 'i18next';
 
 const Stack = createNativeStackNavigator();
 import {navigationRef} from './src/utils/RootNavigation';
@@ -31,6 +34,27 @@ export default function App() {
   const sidebarState = useSelector(state => {
     return state.sidebarReducer;
   });
+
+  const verifySystemLanguage = () => {
+    AsyncStorage.getItem('SYSTEM_LANGUAGE')
+      .then(systemLanguage => {
+        const hasLanguage = JSON.parse(systemLanguage);
+        if (hasLanguage !== null) {
+          i18next.changeLanguage(hasLanguage.code);
+        } else {
+          AsyncStorage.setItem(
+            'SYSTEM_LANGUAGE',
+            JSON.stringify({code: 'en', language: 'English', index: 0}),
+          );
+          i18next.changeLanguage('en');
+        }
+      })
+      .catch(err => {});
+  };
+
+  useEffect(() => {
+    verifySystemLanguage();
+  }, []);
 
   return (
     <>

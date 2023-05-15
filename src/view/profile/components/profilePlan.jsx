@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
 import {CaretDown, CaretUp} from 'phosphor-react-native';
+import {useTranslation} from 'react-i18next';
 
 import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
 import PlanItems from './planItems';
@@ -21,13 +22,14 @@ export default function Plan({
   const [planStatusTitle, setPlanStatusTitle] = useState('');
   const [expand, setExpand] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const {t} = useTranslation();
 
   const planStatus = [
     {
-      title: 'ATIVO',
+      title: `${t('lbl_plan_active')}`,
     },
     {
-      title: 'EXPIRADO',
+      title: `${t('lbl_plan_expired')}`,
     },
   ];
 
@@ -56,7 +58,7 @@ export default function Plan({
       <Card $black $padding $fullWidth>
         <Row $align={'center'} $justifyContent={'space-between'}>
           <CustomText $fontSize={18} $color={'#fcf3f3'}>
-            PLANO
+            {t('title_plan')}
           </CustomText>
           <Pressable onPress={() => setExpand(!expand)}>
             {expand ? (
@@ -71,10 +73,10 @@ export default function Plan({
             {USERSESSION.userLevel === 2 && (
               <Row $align={'center'} $justifyContent={'space-between'}>
                 <Pressable onPress={() => proceedToPlan(plan._id.toString())}>
-                  <Label>ALTERAR PLANO</Label>
+                  <Label>{t('lbl_change_plan')}</Label>
                 </Pressable>
                 <Pressable onPress={() => setOpenModal(true)}>
-                  <Label>REMOVER PLANO</Label>
+                  <Label>{t('lbl_remove_plan')}</Label>
                 </Pressable>
               </Row>
             )}
@@ -89,7 +91,7 @@ export default function Plan({
             <Row $align={'center'} $justifyContent={'space-between'}>
               <Label>{planStatusTitle}</Label>
               <Label>
-                VÁLIDO ATÉ:{' '}
+                {t('lbl_valid_thru')}:{' '}
                 {new Date(
                   USERSESSION.planValidDate || planValidDate,
                 ).toLocaleDateString()}

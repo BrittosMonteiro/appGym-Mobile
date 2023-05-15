@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {LogBox} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
 import Header from '../../components/Header/Header';
 import ViewDefault from '../ViewDefault';
 import {useDispatch, useSelector} from 'react-redux';
 import {readPlanListService} from '../../service/plan';
-import {Check, Circle, X} from 'phosphor-react-native';
+import {Check, Circle} from 'phosphor-react-native';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import {createGymUser, setPlanToUserService} from '../../service/user';
@@ -29,6 +30,7 @@ export default function UserPlanSelect({navigation, route}) {
   const [planList, setPlanList] = useState([]);
   const [idPlan, setIdPlan] = useState('');
   const [selectedPlan, setSelectedPlan] = useState('');
+  const {t} = useTranslation();
 
   async function loadPlans() {
     DISPATCH(setLoading());
@@ -119,12 +121,12 @@ export default function UserPlanSelect({navigation, route}) {
 
   return (
     <ViewDefault>
-      <Header navigation={navigation} title={'SELECIONAR UM PLANO'} />
+      <Header navigation={navigation} title={t('title_select_plan')} />
       <HorizontalRule color={'#202020'} />
       <ContainerScroll
         contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
         <CustomText>
-          Selecionar um plano para{' '}
+          {t('message_select_plan')}{' '}
           <CustomText $weight={'Medium'}>{user.name.split(' ')[0]}</CustomText>:
         </CustomText>
 
@@ -152,7 +154,7 @@ export default function UserPlanSelect({navigation, route}) {
             {selectedPlan && (
               <Card>
                 <CustomText $color={'#fcf3f3'}>
-                  PLANO SELECIONADO: {selectedPlan.title}
+                  {t('lbl_selected_plan')}: {selectedPlan.title}
                 </CustomText>
                 <Card>
                   {selectedPlan.description && (
@@ -162,7 +164,9 @@ export default function UserPlanSelect({navigation, route}) {
                   )}
 
                   <Card>
-                    <CustomText $color={'#fcf3f3'}>ITENS INCLUSOS</CustomText>
+                    <CustomText $color={'#fcf3f3'}>
+                      {t('lbl_included_items')}
+                    </CustomText>
 
                     <Column>
                       {selectedPlan.isIncluded.length > 0 ? (
@@ -181,19 +185,23 @@ export default function UserPlanSelect({navigation, route}) {
                           ))}
                         </>
                       ) : (
-                        <CustomText $color={'fcf3f3'}>NENHUM ITEM</CustomText>
+                        <CustomText $color={'fcf3f3'}>
+                          {t('lbl_no_items')}
+                        </CustomText>
                       )}
                     </Column>
                   </Card>
 
                   <Card>
-                    <CustomText $color={'#fcf3f3'}>ITENS INCLUSOS</CustomText>
+                    <CustomText $color={'#fcf3f3'}>
+                      {t('lbl_not_included_items')}
+                    </CustomText>
 
                     <Column>
                       {selectedPlan.notIncluded.length > 0 ? (
                         <>
                           {selectedPlan.notIncluded.map((item, index) => (
-                            <Row $align={'center'}>
+                            <Row $align={'center'} key={index}>
                               <Check
                                 color={'#EB5757'}
                                 weight="fill"
@@ -206,7 +214,9 @@ export default function UserPlanSelect({navigation, route}) {
                           ))}
                         </>
                       ) : (
-                        <CustomText $color={'fcf3f3'}>NENHUM ITEM</CustomText>
+                        <CustomText $color={'fcf3f3'}>
+                          {t('lbl_no_items')}
+                        </CustomText>
                       )}
                     </Column>
                   </Card>
@@ -220,11 +230,11 @@ export default function UserPlanSelect({navigation, route}) {
         <Card $fullWidth>
           {user?.id ? (
             <ButtonDefault $green onPress={() => setPlanToUser()}>
-              <Label>CONCLUIR</Label>
+              <Label>{t('lbl_finish')}</Label>
             </ButtonDefault>
           ) : (
             <ButtonDefault $green onPress={() => createUser()}>
-              <Label>CONCLUIR</Label>
+              <Label>{t('lbl_finish')}</Label>
             </ButtonDefault>
           )}
         </Card>

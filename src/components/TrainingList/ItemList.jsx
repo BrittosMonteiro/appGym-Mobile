@@ -1,4 +1,5 @@
 import {View} from 'react-native';
+import {useTranslation} from 'react-i18next';
 import {
   Barbell,
   Bicycle,
@@ -18,6 +19,9 @@ export default function ItemList({item, navigation}) {
     <PersonSimpleWalk color={'#EB5757'} size={32} />,
     <PersonSimpleRun color={'#EB5757'} size={32} />,
   ];
+
+  const {t} = useTranslation();
+
   return (
     <ContainerListItem
       onPress={() => {
@@ -36,7 +40,7 @@ export default function ItemList({item, navigation}) {
         </ContainerListItemTitle>
       </View>
       <ContainerListItemSubtitle>
-        {item.qty} EXERCÍCIOS
+        {item.qty} {t('exercises')}
       </ContainerListItemSubtitle>
     </ContainerListItem>
   );

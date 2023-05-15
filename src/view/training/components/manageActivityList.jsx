@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {useTranslation} from 'react-i18next';
 
 import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
 import ManageActivityItem from './manageActivityItem';
@@ -14,6 +15,7 @@ export default function ManageActivityList({
   updateTraining,
 }) {
   const [openModal, setOpenModal] = useState(false);
+  const {t} = useTranslation();
 
   function closeModal() {
     setOpenModal(false);
@@ -26,7 +28,7 @@ export default function ManageActivityList({
           {title}
         </CustomText>
         <ButtonDefault $turquoise onPress={() => setOpenModal(!openModal)}>
-          <Label>ADICIONAR</Label>
+          <Label>{t('lbl_add')}</Label>
         </ButtonDefault>
       </Row>
       {selectedActivities.length > 0 ? (
@@ -47,7 +49,7 @@ export default function ManageActivityList({
         </React.Fragment>
       ) : (
         <Row $justifyContent={'center'}>
-          <Label>NENHUMA ATIVIDADE SELECIONADA</Label>
+          <Label>{t('empty_exercises_list')}</Label>
         </Row>
       )}
       <ModalAddItemToActivityList

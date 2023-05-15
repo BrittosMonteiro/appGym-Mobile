@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
+import {useTranslation} from 'react-i18next';
 
 import ViewDefault from '../ViewDefault';
 import Header from '../../components/Header/Header';
@@ -15,6 +16,7 @@ export default function TrainingOnGoing({route, navigation}) {
   const DISPATCH = useDispatch();
   const {training, idActivity} = route.params;
   const [items, setItems] = useState(training.items);
+  const {t} = useTranslation();
 
   async function activityFinish() {
     DISPATCH(setLoading());
@@ -45,11 +47,11 @@ export default function TrainingOnGoing({route, navigation}) {
         {training ? (
           <React.Fragment>
             {/* <Timer /> */}
-            <Row $justifyContent={'flex-end'}>
-              <ButtonDefault $turquoise onPress={() => activityFinish()}>
-                <Label>FINALIZAR TREINO</Label>
-              </ButtonDefault>
-            </Row>
+            {/* <Row $justifyContent={'flex-end'}> */}
+            <ButtonDefault $turquoise onPress={() => activityFinish()}>
+              <Label>{t('lbl_finish_workout')}</Label>
+            </ButtonDefault>
+            {/* </Row> */}
             <Card $black $padding $fullWidth>
               {items.map((activity, index) => (
                 <React.Fragment key={index}>
@@ -61,7 +63,7 @@ export default function TrainingOnGoing({route, navigation}) {
               ))}
             </Card>
             <ButtonDefault $red onPress={() => cancel()}>
-              <Label>CANCELAR</Label>
+              <Label>{t('lbl_cancel')}</Label>
             </ButtonDefault>
           </React.Fragment>
         ) : null}

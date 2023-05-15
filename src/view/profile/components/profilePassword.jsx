@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {Pressable} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {CaretDown, CaretUp, Eye, EyeSlash} from 'phosphor-react-native';
+import {useTranslation} from 'react-i18next';
 
 import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
 import {Column, Row, Label, InputText} from './style';
@@ -18,6 +19,7 @@ export default function ProfilePassword() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [toggleUpdatePassword, setToggleUpdatePassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const {t} = useTranslation();
 
   async function updatePassword() {
     DISPATCH(setLoading());
@@ -56,7 +58,7 @@ export default function ProfilePassword() {
     <>
       <Card $black $padding $fullWidth>
         <Row $align={'center'} $justifyContent={'space-between'}>
-          <ContainerTitle $white>ALTERAR SENHA</ContainerTitle>
+          <ContainerTitle $white>{t('title_change_password')}</ContainerTitle>
           <Pressable
             onPress={() => setToggleUpdatePassword(!toggleUpdatePassword)}>
             {toggleUpdatePassword ? (
@@ -69,10 +71,10 @@ export default function ProfilePassword() {
         {toggleUpdatePassword && (
           <>
             <Column $gap>
-              <Label>NOVA SENHA</Label>
+              <Label>{t('lbl_new_password')}</Label>
               <Row $align={'center'} $justifyContent={'space-between'}>
                 <InputText
-                  placeholder={'SUA NOVA SENHA'}
+                  placeholder={t('lbl_your_new_password')}
                   secureTextEntry={!showPassword}
                   defaultValue={password}
                   onChangeText={text => setPassword(text)}
@@ -88,10 +90,10 @@ export default function ProfilePassword() {
             </Column>
 
             <Column $gap>
-              <Label>CONFIRMAR NOVA SENHA</Label>
+              <Label>{t('lbl_confirm_new_password')}</Label>
               <Row $align={'center'} $justifyContent={'space-between'}>
                 <InputText
-                  placeholder={'CONFIRME SUA NOVA SENHA'}
+                  placeholder={t('lbl_confirm_your_new_password')}
                   secureTextEntry={!showPassword}
                   defaultValue={confirmPassword}
                   onChangeText={text => setConfirmPassword(text)}
@@ -107,7 +109,7 @@ export default function ProfilePassword() {
             </Column>
 
             <ButtonDefault $green onPress={() => updatePassword()}>
-              <Label>ALTERAR</Label>
+              <Label>{t('lbl_update')}</Label>
             </ButtonDefault>
           </>
         )}

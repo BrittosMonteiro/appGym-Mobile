@@ -1,3 +1,5 @@
+import {useTranslation} from 'react-i18next';
+
 import ModalDefault from '../../../components/ModalDefault/ModalDefault';
 import {ButtonDefault, CustomText} from '../../style';
 import {Label, Row} from './style';
@@ -8,18 +10,18 @@ export default function ModalDeleteUserAccount({
   setOpenModal,
   title,
 }) {
+  const {t} = useTranslation();
   return (
     <ModalDefault openModal={openModal} title={title}>
       <CustomText>
-        Você está prestes a excluir sua conta por completa, e esta é uma ação
-        irreversível.{'\n\n'} Você tem certeza disso?
+        {t('message_delete_account_1')}{'\n\n'} {t('message_delete_account_2')}
       </CustomText>
       <Row $align={'center'} $justifyContent={'space-between'}>
         <ButtonDefault $red onPress={() => setOpenModal(false)}>
-          <Label>CANCELAR</Label>
+          <Label>{t('lbl_cancel')}</Label>
         </ButtonDefault>
         <ButtonDefault $green onPress={() => deleteAccount()}>
-          <Label>CONFIRMAR</Label>
+          <Label>{t('lbl_confirm')}</Label>
         </ButtonDefault>
       </Row>
     </ModalDefault>
