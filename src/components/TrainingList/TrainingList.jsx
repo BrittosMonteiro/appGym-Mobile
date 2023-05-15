@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 
 import HorizontalRule from '../HorizontalRule/HorizontalRule';
 import ItemList from './ItemList';
@@ -23,6 +24,7 @@ export default function TrainingList({userId, navigation, limit, routeName}) {
   const [trainingList, setTrainingList] = useState([]);
   const [todayTrainings, setTodayTrainings] = useState([]);
   const currentWeekday = new Date().getDay();
+  const {t} = useTranslation();
 
   async function loadActivities() {
     dispatch(setLoading());
@@ -61,7 +63,7 @@ export default function TrainingList({userId, navigation, limit, routeName}) {
       {todayTrainings.length > 0 && (
         <Card>
           <Row $align={'center'} $justifyContent={'space-between'}>
-            <ContainerTitle>TREINO DO DIA</ContainerTitle>
+            <ContainerTitle>{t('workout_of_the_day')}</ContainerTitle>
           </Row>
           <Card $black $padding $fullWidth>
             {todayTrainings.map((training, index) => (
@@ -79,7 +81,7 @@ export default function TrainingList({userId, navigation, limit, routeName}) {
       <Card>
         {USERSESSION.id === userId && (
           <Row $align={'center'} $justifyContent={'space-between'}>
-            <ContainerTitle>MEUS TREINOS</ContainerTitle>
+            <ContainerTitle>{t('my_workouts')}</ContainerTitle>
             <ButtonDefault
               $turquoise
               onPress={() =>
@@ -88,7 +90,7 @@ export default function TrainingList({userId, navigation, limit, routeName}) {
                   idActivity: null,
                 })
               }>
-              <Label>CRIAR TREINO</Label>
+              <Label>{t('lbl_create_workout')}</Label>
             </ButtonDefault>
           </Row>
         )}
@@ -106,7 +108,9 @@ export default function TrainingList({userId, navigation, limit, routeName}) {
             </React.Fragment>
           ) : (
             <Row $align={'center'} $justifyContent={'center'}>
-              <CustomText $color="#fcf3f3">VOCÊ NÃO CRIOU TREINOS</CustomText>
+              <CustomText $color="#fcf3f3">
+                {t('empty_workout_list')}
+              </CustomText>
             </Row>
           )}
         </Card>
@@ -115,7 +119,7 @@ export default function TrainingList({userId, navigation, limit, routeName}) {
           <Row $align={'center'} $justifyContent={'flex-start'}>
             <ButtonDefault
               onPress={() => navigation.navigate('TrainingFullList')}>
-              <Label $black>VER TODOS OS TREINOS</Label>
+              <Label $black>{t('go_to_workouts')}</Label>
             </ButtonDefault>
           </Row>
         )}

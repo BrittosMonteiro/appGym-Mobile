@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
+import {useTranslation} from 'react-i18next';
+
 import {Column, Label, Row} from '../../profile/components/style';
-import {ButtonDefault, ContainerTitle} from '../../style';
+import {ButtonDefault, ContainerTitle, CustomText} from '../../style';
 import {PencilSimple, Trash} from 'phosphor-react-native';
 import ModalSetActivityDefinitions from './ModalSetActivityDefinitions';
 
@@ -11,12 +13,15 @@ export default function ManageActivityItem({
   updateTraining,
 }) {
   const [openModal, setOpenModal] = useState(false);
+  const {t} = useTranslation();
 
   return (
     <React.Fragment>
       <Column $gap>
         <Row $align={'center'} $justifyContent={'space-between'}>
-          <ContainerTitle $white>{activity.title.toUpperCase()}</ContainerTitle>
+          <CustomText $color="#fcf3f3" $fontSize={18} $weight="Medium">
+            {activity.title.toUpperCase()}
+          </CustomText>
           <Row $align={'center'} $justifyContent={'space-between'}>
             <ButtonDefault $noPadding onPress={() => setOpenModal(true)}>
               <PencilSimple color="#fcf3f3" weight="regular" size={24} />
@@ -27,15 +32,25 @@ export default function ManageActivityItem({
           </Row>
         </Row>
         <Row $align={'center'} $justifyContent={'space-between'}>
-          {activity.machine && <Label>{`MÁQUINA: ${activity.machine}`}</Label>}
+          {activity.machine && (
+            <Label>{`${t('lbl_machine')}: ${activity.machine}`}</Label>
+          )}
         </Row>
         <Row $align={'center'} $justifyContent={'flex-start'}>
-          {activity.series && <Label>{`SÉRIES: ${activity.series}`}</Label>}
-          {activity.repetitions && (
-            <Label>{`REPETIÇÕES: ${activity.repetitions}`}</Label>
+          {activity.series && (
+            <Label>{`${t('lbl_series')}: ${activity.series}`}</Label>
           )}
-          {activity.load && <Label>{`CARGA: ${activity.load}kg`}</Label>}
-          {activity.time && <Label>{`TEMPO: ${activity.time} minutos`}</Label>}
+          {activity.repetitions && (
+            <Label>{`${t('lbl_repetitions')}: ${activity.repetitions}`}</Label>
+          )}
+          {activity.load && (
+            <Label>{`${t('lbl_load')}: ${activity.load}kg`}</Label>
+          )}
+          {activity.time && (
+            <Label>{`${t('lbl_time')}: ${activity.time} ${t(
+              'lbl_minutes',
+            )}`}</Label>
+          )}
         </Row>
         <Row $align={'center'} $justifyContent={'flex-start'}>
           {activity.note && <Label>{`${activity.note}`}</Label>}

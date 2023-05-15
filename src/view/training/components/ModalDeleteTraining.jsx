@@ -1,4 +1,6 @@
 import {useDispatch} from 'react-redux';
+import {useTranslation} from 'react-i18next';
+
 import ModalDefault from '../../../components/ModalDefault/ModalDefault';
 import {deleteTrainingByIdService} from '../../../service/training';
 import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
@@ -12,6 +14,7 @@ export default function ModalDeleteTraining({
   setOpenModal,
 }) {
   const DISPATCH = useDispatch();
+  const {t} = useTranslation();
 
   async function deleteActivity() {
     DISPATCH(setLoading());
@@ -27,14 +30,15 @@ export default function ModalDeleteTraining({
         DISPATCH(unsetLoading());
       });
   }
+
   return (
-    <ModalDefault openModal={openModal} title={'DESEJA EXCLUIR ESTE TREINO?'}>
+    <ModalDefault openModal={openModal} title={t('title_delete_workout')}>
       <Row $align={'center'} $justifyContent={'space-between'}>
         <ButtonDefault $red onPress={() => setOpenModal(false)}>
-          <Label>CANCELAR</Label>
+          <Label>{t('lbl_cancel')}</Label>
         </ButtonDefault>
         <ButtonDefault $green onPress={() => deleteActivity()}>
-          <Label>EXCLUIR</Label>
+          <Label>{t('lbl_confirm')}</Label>
         </ButtonDefault>
       </Row>
     </ModalDefault>

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Pressable} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
+import {useTranslation} from 'react-i18next';
 
 import ViewDefault from '../ViewDefault';
 import Header from '../../components/Header/Header';
@@ -17,6 +17,7 @@ import {Column, Label, Row} from '../profile/components/style';
 import {readTrainingHistoryByIdService} from '../../service/trainingHistory';
 import {readTrainingByIdService} from '../../service/training';
 import ModalDeleteTraining from './components/ModalDeleteTraining';
+import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 
 export default function TrainingDetail({navigation, route}) {
   const {idActivity} = route.params;
@@ -27,6 +28,7 @@ export default function TrainingDetail({navigation, route}) {
   const [training, setTraining] = useState([]);
   const [trainingHistory, setTrainingHistory] = useState('');
   const [openModal, setOpenModal] = useState(false);
+  const {t} = useTranslation();
 
   async function loadActivity() {
     DISPATCH(setLoading());
@@ -76,29 +78,31 @@ export default function TrainingDetail({navigation, route}) {
 
   return (
     <ViewDefault>
-      <Header navigation={navigation} title={'DETALHES'} />
+      <Header navigation={navigation} title={t('details')} />
       <HorizontalRule color={'#202020'} />
       <ContainerScroll contentContainerStyle={{gap: 24}}>
         <Row $align={'center'} $justifyContent={'space-between'}>
           <ContainerTitle>{training.title}</ContainerTitle>
           <Pressable
             onPress={() => navigation.navigate('ManageTraining', {idActivity})}>
-            <Label $black>EDITAR</Label>
+            <Label $black>{t('edit')}</Label>
           </Pressable>
         </Row>
 
         {trainingHistory.qty > 0 && (
           <Card $padding $fullWidth $black>
-            <Label>TREINOS REALIZADOS - {trainingHistory.qty}</Label>
             <Label>
-              ÚLTIMO TREINO -{' '}
+              {t('workouts_done')} - {trainingHistory.qty}
+            </Label>
+            <Label>
+              {t('last_workout_date')} -{' '}
               {new Date(trainingHistory.last).toLocaleDateString()}
             </Label>
           </Card>
         )}
 
         <Row $align={'center'} $justifyContent={'space-between'}>
-          <ContainerTitle>ATIVIDADES</ContainerTitle>
+          <ContainerTitle>{t('exercises')}</ContainerTitle>
           {training?.items &&
             training.items.length > 0 &&
             training.owner === USERSESSION.id && (
@@ -107,7 +111,7 @@ export default function TrainingDetail({navigation, route}) {
                 onPress={() =>
                   navigation.navigate('TrainingOnGoing', {training, idActivity})
                 }>
-                <Label>INICIAR</Label>
+                <Label>{t('go_to_onGoing')}</Label>
               </ButtonDefault>
             )}
         </Row>
@@ -125,7 +129,9 @@ export default function TrainingDetail({navigation, route}) {
                     </Row>
                     {activity.machine && (
                       <Row $align={'center'} $justifyContent={'flex-start'}>
-                        <Label>{`MÁQUINA: ${activity.machine}`}</Label>
+                        <Label>{`${t('lbl_machine')}: ${
+                          activity.machine
+                        }`}</Label>
                       </Row>
                     )}
                     {(activity.series ||
@@ -135,16 +141,24 @@ export default function TrainingDetail({navigation, route}) {
                       <>
                         <Row $align={'center'} $justifyContent={'flex-start'}>
                           {activity.series && (
-                            <Label>{`SÉRIES: ${activity.series}`}</Label>
+                            <Label>{`${t('lbl_series')}: ${
+                              activity.series
+                            }`}</Label>
                           )}
                           {activity.repetitions && (
-                            <Label>{`REPETIÇÕES: ${activity.repetitions}`}</Label>
+                            <Label>{`${t('lbl_repetitions')}: ${
+                              activity.repetitions
+                            }`}</Label>
                           )}
                           {activity.load && (
-                            <Label>{`CARGA: ${activity.load}kg`}</Label>
+                            <Label>{`${t('lbl_load')}: ${
+                              activity.load
+                            }kg`}</Label>
                           )}
                           {activity.time && (
-                            <Label>{`TEMPO: ${activity.time} minutos`}</Label>
+                            <Label>{`${t('lbl_time')}: ${activity.time} ${t(
+                              'lbl_minutes',
+                            )}`}</Label>
                           )}
                         </Row>
                         <Row $align={'center'} $justifyContent={'flex-start'}>
@@ -161,13 +175,13 @@ export default function TrainingDetail({navigation, route}) {
             </React.Fragment>
           ) : (
             <Row $align={'center'} $justifyContent={'center'}>
-              <Label>NÃO HÁ ATIVIDADES</Label>
+              <Label>{t('empty_exercises_list')}</Label>
             </Row>
           )}
         </Card>
 
         <ButtonDefault $red onPress={() => setOpenModal(true)}>
-          <Label>EXCLUIR TREINO</Label>
+          <Label>{t('lbl_delete_workout')}</Label>
         </ButtonDefault>
       </ContainerScroll>
       <ModalDeleteTraining

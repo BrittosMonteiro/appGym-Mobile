@@ -3,6 +3,7 @@ import {ActivityIndicator, Pressable} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
 import {CaretRight, Eye, EyeSlash} from 'phosphor-react-native';
+import {useTranslation} from 'react-i18next';
 
 import ViewDefault from '../ViewDefault';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
@@ -24,6 +25,7 @@ export default function CreateGymAccount({navigation, route}) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const {t} = useTranslation();
 
   const setUserSession = async data => {
     try {
@@ -125,25 +127,25 @@ export default function CreateGymAccount({navigation, route}) {
         contentContainerStyle={{gap: 24, justifyContent: 'center'}}>
         <Column>
           <CustomText $fontSize={28} $weight={'Medium'}>
-            CRIAR
+            {t('access_account_2')}
           </CustomText>
           <CustomText $fontSize={38} $weight={'Medium'}>
-            MINHA CONTA
+            {t('access_account_3')}
           </CustomText>
           <CustomText $fontSize={28} $weight={'Regular'}>
-            {userLevel === 1 ? 'ACADEMIA' : 'USUÁRIO'}
+            {userLevel === 1 ? 'ACADEMIA' : `${t('lbl_user')}`}
           </CustomText>
         </Column>
 
         <Card $black $fullWidth $padding>
           <Column $gap>
-            <Label>NOME</Label>
+            <Label>{t('lbl_name')}</Label>
             <InputText
               autoCapitalize={'words'}
               autoCorrect={true}
               keyboardType={'default'}
               inputMode={'text'}
-              placeholder="NOME"
+              placeholder={t('lbl_name')}
               defaultValue={name}
               onChangeText={text => setName(text)}
             />
@@ -165,13 +167,13 @@ export default function CreateGymAccount({navigation, route}) {
           )}
 
           <Column $gap>
-            <Label>E-MAIL</Label>
+            <Label>{t('lbl_email')}</Label>
             <InputText
               autoCapitalize={'none'}
               autoCorrect={false}
               keyboardType={'email-address'}
               inputMode={'email'}
-              placeholder="EMAIL"
+              placeholder={t('lbl_email')}
               defaultValue={email}
               onChangeText={text => setEmail(text)}
             />
@@ -192,11 +194,11 @@ export default function CreateGymAccount({navigation, route}) {
 
           {userLevel === 3 && (
             <Column $gap>
-              <Label>CPF</Label>
+              <Label>{t('lbl_cpf')}</Label>
               <InputText
                 keyboardType={'numeric'}
                 inputMode={'numeric'}
-                placeholder="CPF"
+                placeholder={t('lbl_cpf')}
                 defaultValue={cpf}
                 onChangeText={text => setCpf(text)}
               />
@@ -204,20 +206,20 @@ export default function CreateGymAccount({navigation, route}) {
           )}
 
           <Column $gap>
-            <Label>USUÁRIO</Label>
+            <Label>{t('lbl_user')}</Label>
             <InputText
               autoCapitalize={'none'}
               autoCorrect={false}
               keyboardType={'default'}
               inputMode={'text'}
-              placeholder="USUÁRIO"
+              placeholder={t('lbl_user')}
               defaultValue={username}
               onChangeText={text => setUsername(text)}
             />
           </Column>
 
           <Column $gap>
-            <Label>SENHA</Label>
+            <Label>{t('lbl_password')}</Label>
             <Row $align={'center'} $justifyContent={'space-between'}>
               <InputText
                 autoCapitalize={'none'}
@@ -225,7 +227,7 @@ export default function CreateGymAccount({navigation, route}) {
                 keyboardType={'default'}
                 inputMode={'text'}
                 secureTextEntry={!showPassword}
-                placeholder="SENHA"
+                placeholder={t('lbl_password')}
                 defaultValue={password}
                 onChangeText={text => setPassword(text)}
               />
@@ -240,7 +242,7 @@ export default function CreateGymAccount({navigation, route}) {
           </Column>
 
           <Column $gap>
-            <Label>CONFIRMAR SENHA</Label>
+            <Label>{t('lbl_password_confirm')}</Label>
             <Row $align={'center'} $justifyContent={'space-between'}>
               <InputText
                 autoCapitalize={'none'}
@@ -248,7 +250,7 @@ export default function CreateGymAccount({navigation, route}) {
                 keyboardType={'default'}
                 inputMode={'text'}
                 secureTextEntry={!showPassword}
-                placeholder="CONFIRMAR SENHA"
+                placeholder={t('lbl_password_confirm')}
                 defaultValue={confirmPassword}
                 onChangeText={text => setConfirmPassword(text)}
               />
@@ -267,7 +269,7 @@ export default function CreateGymAccount({navigation, route}) {
               {isLoading ? (
                 <ActivityIndicator size={'small'} color={'#fcf3f3'} />
               ) : (
-                'ACESSAR'
+                `${t('access_account_2')}`
               )}
             </Label>
           </ButtonDefault>
@@ -277,7 +279,7 @@ export default function CreateGymAccount({navigation, route}) {
           <Row $align={'center'} $justifyContent={'space-between'}>
             <ButtonDefault onPress={() => navigation.navigate('Login')}>
               <CustomText $weight={'Regular'} $color={'#fcf3f3'}>
-                JÁ TENHO UMA CONTA
+                {t('go_to_login')}
               </CustomText>
             </ButtonDefault>
             <CaretRight weight="bold" size={24} color={'#fcf3f3'} />

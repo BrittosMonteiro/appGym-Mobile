@@ -1,5 +1,6 @@
 import {Pressable} from 'react-native';
 import {SquaresFour} from 'phosphor-react-native';
+import {useTranslation} from 'react-i18next';
 
 import {
   HeaderColumn,
@@ -16,18 +17,19 @@ export default function HeaderStart({navigation}) {
   const userSession = useSelector(state => {
     return state.userSessionReducer;
   });
+  const {t} = useTranslation();
 
   return (
     <Header>
       <HeaderColumn>
         <HeaderGreetings>
-          Olá,{' '}
+          {t('hello')},{' '}
           <HeaderGreetingsStrong>
             {userSession.displayName}!
           </HeaderGreetingsStrong>
         </HeaderGreetings>
         <Pressable onPress={() => navigation.navigate('Profile')}>
-          <HeaderSubtitle>VER PERFIL</HeaderSubtitle>
+          <HeaderSubtitle>{t('go_to_profile')}</HeaderSubtitle>
         </Pressable>
       </HeaderColumn>
       <Pressable onPress={() => dispatch(setOpen())}>

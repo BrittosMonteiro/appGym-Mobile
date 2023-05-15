@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 
 import Header from '../../components/Header/Header';
 import ViewDefault from '../ViewDefault';
@@ -23,6 +24,7 @@ export default function ManageActivity({navigation, route}) {
   const [idTraining, setIdTraining] = useState(idActivity);
   const [selectedActivities, setSelectedActivities] = useState([]);
   const [workoutDays, setWorkoutDays] = useState([]);
+  const {t} = useTranslation();
 
   async function loadActivity() {
     DISPATCH(setLoading());
@@ -155,14 +157,14 @@ export default function ManageActivity({navigation, route}) {
 
   return (
     <ViewDefault>
-      <Header navigation={navigation} title={'GERENCIAR TREINO'} />
+      <Header navigation={navigation} title={t('title_manage_workout')} />
       <HorizontalRule />
       <ContainerScroll contentContainerStyle={{gap: 24}}>
         <Card $black $padding>
           <Column $gap>
-            <Label>NOME DO TREINO</Label>
+            <Label>{t('lbl_workout_name')}</Label>
             <InputText
-              placeholder={`EXEMPLO: TREINO A`}
+              placeholder={`${t('lbl_example')}: TREINO A`}
               defaultValue={name}
               onChangeText={text => setName(text)}
             />
@@ -171,7 +173,7 @@ export default function ManageActivity({navigation, route}) {
 
         {idTraining && (
           <ManageActivityList
-            title={'MINHAS ATIVIDADES'}
+            title={t('title_my_exercises')}
             selectedActivities={selectedActivities}
             addItemToList={addItemToList}
             deleteItemFromList={deleteItemFromList}
@@ -192,11 +194,11 @@ export default function ManageActivity({navigation, route}) {
             onPress={() =>
               manageUpdate({idTraining, newData: {title: name, workoutDays}})
             }>
-            <Label>ATUALIZAR</Label>
+            <Label>{t('lbl_update')}</Label>
           </ButtonDefault>
         ) : (
           <ButtonDefault $green onPress={() => createActivity()}>
-            <Label>CRIAR</Label>
+            <Label>{t('lbl_create')}</Label>
           </ButtonDefault>
         )}
       </ContainerScroll>
