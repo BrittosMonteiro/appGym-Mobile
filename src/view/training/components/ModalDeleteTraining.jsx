@@ -6,6 +6,10 @@ import {deleteTrainingByIdService} from '../../../service/training';
 import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
 import {Label, Row} from '../../profile/components/style';
 import {ButtonDefault} from '../../style';
+import {
+  setMessageError,
+  setMessageOff,
+} from '../../../store/actions/systemAction';
 
 export default function ModalDeleteTraining({
   idTraining,
@@ -16,6 +20,13 @@ export default function ModalDeleteTraining({
   const DISPATCH = useDispatch();
   const {t} = useTranslation();
 
+  function setMessage(text) {
+    DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
+
   async function deleteActivity() {
     DISPATCH(setLoading());
 
@@ -25,7 +36,9 @@ export default function ModalDeleteTraining({
           navigation.goBack();
         }
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_workout_could_not_delete')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });

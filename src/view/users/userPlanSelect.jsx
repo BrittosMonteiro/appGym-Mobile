@@ -16,6 +16,7 @@ import {
   ContainerListItemTitle,
 } from '../../components/TrainingList/style';
 import {Column, Label, Row} from '../profile/components/style';
+import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
@@ -32,6 +33,13 @@ export default function UserPlanSelect({navigation, route}) {
   const [selectedPlan, setSelectedPlan] = useState('');
   const {t} = useTranslation();
 
+  function setMessage(text) {
+    DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
+
   async function loadPlans() {
     DISPATCH(setLoading());
 
@@ -44,7 +52,9 @@ export default function UserPlanSelect({navigation, route}) {
       .then(response => {
         setPlanList(response.data);
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_plans_could_not_load')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });
@@ -53,8 +63,8 @@ export default function UserPlanSelect({navigation, route}) {
   async function createUser() {
     DISPATCH(setLoading());
     if (!idPlan) {
-      console.log('Escolha um plano');
       DISPATCH(unsetLoading());
+      setMessage(`${t('system_message_plans_select')}`);
       return;
     }
 
@@ -68,7 +78,9 @@ export default function UserPlanSelect({navigation, route}) {
           navigation.navigate('Users');
         }
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_user_could_not_create')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });
@@ -77,8 +89,8 @@ export default function UserPlanSelect({navigation, route}) {
   async function setPlanToUser() {
     DISPATCH(setLoading());
     if (!idPlan) {
-      console.log('Escolha um plano');
       DISPATCH(unsetLoading());
+      setMessage(`${t('system_message_plans_select')}`);
       return;
     }
 
@@ -97,7 +109,9 @@ export default function UserPlanSelect({navigation, route}) {
           navigation.navigate('Users');
         }
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_plans_could_not_set_plan_to_user')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });

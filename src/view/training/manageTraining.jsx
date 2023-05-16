@@ -27,11 +27,19 @@ export default function ManageActivity({navigation, route}) {
   const [workoutDays, setWorkoutDays] = useState([]);
   const {t} = useTranslation();
 
+  function setMessage(text) {
+    DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
+
   async function loadActivity() {
     DISPATCH(setLoading());
 
     if (!idTraining) {
       DISPATCH(unsetLoading());
+      setMessage(`${t('system_message_default_error')}`);
       return;
     }
 
@@ -46,7 +54,9 @@ export default function ManageActivity({navigation, route}) {
         setName(response.data.title);
         setWorkoutDays(response.data.workoutDays);
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_workout_could_not_load')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });

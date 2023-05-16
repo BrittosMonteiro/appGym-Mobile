@@ -23,6 +23,7 @@ import {Label} from './components/style';
 import ModalDeleteUserAccount from './components/ModalDeleteUserAccount';
 import {unsetUser} from '../../store/actions/userSessionAction';
 import LanguageSelection from '../../components/LanguageSelection/LanguageSelection';
+import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
 
 export default function Profile({navigation}) {
   const DISPATCH = useDispatch();
@@ -33,6 +34,13 @@ export default function Profile({navigation}) {
   const [userData, setUserData] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const {t} = useTranslation();
+
+  function setMessage(text) {
+    DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
 
   async function loadProfile() {
     DISPATCH(setLoading());
@@ -46,7 +54,9 @@ export default function Profile({navigation}) {
         setPlan(response.data.plan);
         setUserData(response.data);
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_user_could_not_update_profile')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });
@@ -60,7 +70,9 @@ export default function Profile({navigation}) {
           loadProfile();
         }
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_user_could_not_load_profile')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });
@@ -90,7 +102,9 @@ export default function Profile({navigation}) {
           logout();
         }
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_user_could_not_delete_profile')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });

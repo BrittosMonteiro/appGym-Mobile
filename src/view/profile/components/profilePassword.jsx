@@ -9,6 +9,10 @@ import {Column, Row, Label, InputText} from './style';
 import {ButtonDefault, Card, ContainerTitle} from '../../style';
 
 import {updatePasswordService} from '../../../service/user';
+import {
+  setMessageError,
+  setMessageOff,
+} from '../../../store/actions/systemAction';
 
 export default function ProfilePassword() {
   const DISPATCH = useDispatch();
@@ -21,17 +25,24 @@ export default function ProfilePassword() {
   const [showPassword, setShowPassword] = useState(false);
   const {t} = useTranslation();
 
+  function setMessage(text) {
+    DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
+
   async function updatePassword() {
     DISPATCH(setLoading());
     if (!password || !confirmPassword) {
-      console.log('Preencher campos');
       DISPATCH(unsetLoading());
+      setMessage(`${t('system_message_user_login_missing_information')}`);
       return;
     }
 
     if (password !== confirmPassword) {
-      console.log('Senhas não são iguais');
       DISPATCH(unsetLoading());
+      setMessage(`${t('system_message_user_password_does_not_match')}`);
       return;
     }
 
@@ -48,7 +59,9 @@ export default function ProfilePassword() {
           setToggleUpdatePassword(false);
         }
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_default_error')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });

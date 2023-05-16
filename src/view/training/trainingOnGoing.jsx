@@ -11,6 +11,7 @@ import {createTrainingHistoryService} from '../../service/trainingHistory';
 import {ButtonDefault, Card, ContainerScroll} from '../style';
 import {Label, Row} from '../profile/components/style';
 import Timer from '../../components/Timer/Timer';
+import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
 
 export default function TrainingOnGoing({route, navigation}) {
   const DISPATCH = useDispatch();
@@ -18,13 +19,22 @@ export default function TrainingOnGoing({route, navigation}) {
   const [items, setItems] = useState(training.items);
   const {t} = useTranslation();
 
+  function setMessage(text) {
+    DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
+
   async function activityFinish() {
     DISPATCH(setLoading());
     await createTrainingHistoryService({idActivity})
       .then(() => {
         navigation.goBack();
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_default_error')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });

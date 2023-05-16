@@ -52,7 +52,7 @@ export default function CreateGymAccount({navigation, route}) {
         return;
       }
       setIsLoading(false);
-    } catch (e) {
+    } catch (err) {
       setIsLoading(false);
     }
   };
@@ -103,6 +103,7 @@ export default function CreateGymAccount({navigation, route}) {
         !userLevel
       ) {
         setIsLoading(false);
+        setMessage(`${t('system_message_user_login_missing_information')}`);
         return;
       }
       sendData({cnpj, name, shortName, email, username, password, userLevel});
@@ -110,6 +111,7 @@ export default function CreateGymAccount({navigation, route}) {
       if (userLevel === 3) {
         if (!cpf || !name || !email || !username || !password || !userLevel) {
           setIsLoading(false);
+          setMessage(`${t('system_message_user_login_missing_information')}`);
           return;
         }
         sendData({cpf, name, email, username, password, userLevel});

@@ -34,7 +34,7 @@ export default function Login({navigation}) {
     try {
       await AsyncStorage.setItem('USERSESSION', JSON.stringify(data));
       getUserSession();
-    } catch (e) {
+    } catch (err) {
       setMessage(`${t('system_message_user_could_not_set_session')}`);
     }
   };
@@ -54,7 +54,7 @@ export default function Login({navigation}) {
         return;
       }
       setIsLoading(false);
-    } catch (e) {
+    } catch (err) {
       setIsLoading(false);
     }
 

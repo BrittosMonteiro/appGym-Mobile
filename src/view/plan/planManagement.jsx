@@ -17,6 +17,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import {ButtonDefault, Card, ContainerScroll, CustomText} from '../style';
 import {Column, InputText, Label, Row} from '../profile/components/style';
+import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
+// import {setMessageErr} from '../../utils/setMessage';
 
 export default function PlanManagement({navigation, route}) {
   const DISPATCH = useDispatch();
@@ -34,6 +36,13 @@ export default function PlanManagement({navigation, route}) {
   const [itemPlanTitle, setItemPlanTitle] = useState('');
   const [itemPlanStatus, setItemPlanStatus] = useState(false);
   const {t} = useTranslation();
+
+  function setMessage(text) {
+    DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
 
   function addItemToPlan() {
     if (!itemPlanTitle) {
@@ -90,7 +99,9 @@ export default function PlanManagement({navigation, route}) {
           navigation.goBack();
         }
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_plans_could_not_create')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });
@@ -113,7 +124,9 @@ export default function PlanManagement({navigation, route}) {
         setNotIncluded(response.data.notIncluded);
         setValidMonths(response.data.validMonths);
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_plans_could_not_load_data')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });
@@ -139,7 +152,9 @@ export default function PlanManagement({navigation, route}) {
           navigation.goBack();
         }
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_plans_could_not_update')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });
@@ -153,7 +168,9 @@ export default function PlanManagement({navigation, route}) {
           navigation.goBack();
         }
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_plans_could_not_delete')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });

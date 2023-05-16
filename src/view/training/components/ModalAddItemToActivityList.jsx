@@ -14,6 +14,10 @@ import {
 import {readActivityListService} from '../../../service/activity';
 import {useDispatch} from 'react-redux';
 import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
+import {
+  setMessageError,
+  setMessageOff,
+} from '../../../store/actions/systemAction';
 
 export default function ModalAddItemToActivityList({
   open,
@@ -23,6 +27,13 @@ export default function ModalAddItemToActivityList({
   const DISPATCH = useDispatch();
   const [availableActivities, setAvailableActivities] = useState([]);
   const {t} = useTranslation();
+
+  function setMessage(text) {
+    DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
 
   async function loadActivities() {
     DISPATCH(setLoading());
@@ -35,7 +46,9 @@ export default function ModalAddItemToActivityList({
       .then(response => {
         setAvailableActivities(response.data);
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_workout_could_not_load_list')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });

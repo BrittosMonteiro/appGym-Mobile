@@ -7,6 +7,7 @@ import Search from '../../components/Search';
 import UsersList from './components/UsersList';
 import {CustomText} from '../style';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
+import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
 
 export default function UsersNotAttached({navigation}) {
   const DISPATCH = useDispatch();
@@ -16,6 +17,13 @@ export default function UsersNotAttached({navigation}) {
   const [originalList, setOriginalList] = useState([]);
   const [usersList, setUserList] = useState([]);
   const {t} = useTranslation();
+
+  function setMessage(text) {
+    DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
 
   async function loadUsers() {
     DISPATCH(setLoading());
@@ -28,7 +36,9 @@ export default function UsersNotAttached({navigation}) {
       .then(response => {
         setOriginalList(response.data);
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_user_could_not_load_users')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });
@@ -60,9 +70,7 @@ export default function UsersNotAttached({navigation}) {
 
   return (
     <React.Fragment>
-      <CustomText>
-        {t('message_users_not_attached')}
-      </CustomText>
+      <CustomText>{t('message_users_not_attached')}</CustomText>
 
       <Search search={filterList} />
 

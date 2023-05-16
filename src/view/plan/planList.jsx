@@ -14,6 +14,7 @@ import {
   ContainerListItemTitle,
 } from '../../components/TrainingList/style';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
+import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
 
 export default function PlanList({navigation}) {
   const DISPATCH = useDispatch();
@@ -22,6 +23,13 @@ export default function PlanList({navigation}) {
   });
   const [planList, setPlanList] = useState([]);
   const {t} = useTranslation();
+
+  function setMessage(text) {
+    DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
 
   async function loadPlans() {
     DISPATCH(setLoading());
@@ -34,7 +42,9 @@ export default function PlanList({navigation}) {
       .then(response => {
         setPlanList(response.data);
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_plans_could_not_load')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });

@@ -8,6 +8,7 @@ import UsersList from './components/UsersList';
 import {ButtonDefault, CustomText} from '../style';
 import {Label, Row} from '../profile/components/style';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
+import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
 
 export default function UsersAttached({isAttached, navigation}) {
   const DISPATCH = useDispatch();
@@ -17,6 +18,13 @@ export default function UsersAttached({isAttached, navigation}) {
   const [originalList, setOriginalList] = useState([]);
   const [usersList, setUserList] = useState([]);
   const {t} = useTranslation();
+
+  function setMessage(text) {
+    DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
 
   async function loadGymUsers() {
     DISPATCH(setLoading());
@@ -30,7 +38,9 @@ export default function UsersAttached({isAttached, navigation}) {
         setOriginalList(response.data);
         setUserList(response.data);
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_user_could_not_load_users')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });

@@ -13,6 +13,10 @@ import {
 } from '../../../service/user';
 import {ButtonDefault, Card} from '../../style';
 import {Column, InputText, Label} from '../../profile/components/style';
+import {
+  setMessageError,
+  setMessageOff,
+} from '../../../store/actions/systemAction';
 
 export default function ManageUserData({navigation, route}) {
   const DISPATCH = useDispatch();
@@ -30,9 +34,16 @@ export default function ManageUserData({navigation, route}) {
   const [planValidDate, setPlanValidDate] = useState('');
   const {t} = useTranslation();
 
+  function setMessage(text) {
+    DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
+
   function proceedToPlan(hasPlan) {
     if (!name || !birthdate || !email || !cpf) {
-      console.log('Preencher corretamente');
+      setMessage(`${t('system_message_user_login_missing_information')}`);
       return;
     }
 
@@ -67,7 +78,9 @@ export default function ManageUserData({navigation, route}) {
         setPlan(response.data.plan);
         setPlanValidDate(response.data.planValidDate);
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_user_could_not_load_profile')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });
@@ -82,7 +95,9 @@ export default function ManageUserData({navigation, route}) {
           navigation.goBack();
         }
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_plans_remove_plan_from_user')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });

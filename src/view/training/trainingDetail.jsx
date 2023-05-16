@@ -18,6 +18,7 @@ import {readTrainingHistoryByIdService} from '../../service/trainingHistory';
 import {readTrainingByIdService} from '../../service/training';
 import ModalDeleteTraining from './components/ModalDeleteTraining';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
+import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
 
 export default function TrainingDetail({navigation, route}) {
   const {idActivity} = route.params;
@@ -30,6 +31,13 @@ export default function TrainingDetail({navigation, route}) {
   const [openModal, setOpenModal] = useState(false);
   const {t} = useTranslation();
 
+  function setMessage(text) {
+    DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
+
   async function loadActivity() {
     DISPATCH(setLoading());
     await readTrainingByIdService(idActivity)
@@ -41,7 +49,9 @@ export default function TrainingDetail({navigation, route}) {
       .then(response => {
         setTraining(response.data);
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_workout_could_not_load')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });
@@ -58,7 +68,9 @@ export default function TrainingDetail({navigation, route}) {
       .then(response => {
         setTrainingHistory(response.data);
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_workout_could_not_load_history')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });

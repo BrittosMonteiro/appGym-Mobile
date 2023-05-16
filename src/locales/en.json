@@ -1,8 +1,13 @@
 {
+  "system_message_default_error": "Ops... THERE HAS BEEN AN ERROR. PLEASE, TRY AGAIN LATER",
+
   "system_message_workout_default_error": "ERROR CREATING WORKOUT. TRY AGAIN LATER",
   "system_message_workout_missing_name": "MISSING WORKOUT NAME",
   "system_message_workout_error_updating": "ERROR UPDATING YOUR WORKOUT. TRY AGAIN LATER",
   "system_message_workout_could_not_load_list": "COULD NOT LOAD WORKOUT LIST. TRY AGAIN LATER",
+  "system_message_workout_could_not_load": "COULD NOT LOAD WORKOUT. TRY AGAIN LATER",
+  "system_message_workout_could_not_load_history": "COULD NOT LOAD WORKOUT HISTORY. TRY AGAIN LATER",
+  "system_message_workout_could_not_delete": "COULD NOT DELETE WORKOUT. TRY AGAIN LATER",
 
   "system_message_instructors_could_not_load_list": "COULD NOT LOAD INSTRUCTORS LIST. TRY AGAIN LATER",
   "system_message_instructors_missing_information": "THERE IS MISSING INFORMATION. CHECK IT AGAIN",
@@ -16,6 +21,19 @@
   "system_message_user_password_does_not_match": "PASSWORDS DO NOT MATCH",
   "system_message_user_could_not_set_session": "ERROR LOGGING IN",
   "system_message_user_login_missing_information": "MISSING INFORMATION",
+  "system_message_user_could_not_update_profile": "COULD NOT UPDATE. TRY AGAIN LATER",
+  "system_message_user_could_not_load_profile": "COULD NOT LOAD PROFILE. TRY AGAIN LATER",
+  "system_message_user_could_not_delete_profile": "COULD NOT DELETE PROFILE. TRY AGAIN LATER",
+  "system_message_user_could_not_load_users": "COULD NOT LOAD USERS. TRY AGAIN LATER",
+
+  "system_message_plans_could_not_load": "COULD NOT LOAD PLANS. TRY AGAIN LATER",
+  "system_message_plans_could_not_create": "COULD NOT CREATE PLAN. TRY AGAIN LATER",
+  "system_message_plans_could_not_update": "COULD NOT UPDATE PLAN. TRY AGAIN LATER",
+  "system_message_plans_could_not_delete": "COULD NOT DELETE PLAN. TRY AGAIN LATER",
+  "system_message_plans_could_not_load_data": "COULD NOT LOAD PLAN. TRY AGAIN LATER",
+  "system_message_plans_select": "SELECT A PLAN",
+  "system_message_plans_could_not_set_plan_to_user": "COULD NOT SET PLAN TO USER. TRY AGAIN LATER",
+  "system_message_plans_remove_plan_from_user": "COULD NOT REMOVE PLAN FROM USER.TRY AGAIN LATER",
 
   "hello": "Hello",
   "go_to_profile": "PROFILE",
