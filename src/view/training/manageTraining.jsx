@@ -11,10 +11,11 @@ import {
   readTrainingByIdService,
   updateTrainingByIdService,
 } from '../../service/training';
-import {ButtonDefault, Card, ContainerScroll, CustomText} from '../style';
+import {ButtonDefault, Card, ContainerScroll} from '../style';
 import {Column, InputText, Label} from '../profile/components/style';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import WorkoutDays from '../../components/WorkoutDays/WorkoutDays';
+import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
 
 export default function ManageActivity({navigation, route}) {
   const {userId, idActivity} = route.params;
@@ -59,6 +60,7 @@ export default function ManageActivity({navigation, route}) {
     DISPATCH(setLoading());
     if (!name) {
       DISPATCH(unsetLoading());
+      setMessage(`${t('system_message_workout_missing_name')}`);
       return;
     }
     const data = {
@@ -76,7 +78,9 @@ export default function ManageActivity({navigation, route}) {
       .then(response => {
         setIdTraining(response.idTraining);
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_workout_default_error')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });
@@ -137,7 +141,9 @@ export default function ManageActivity({navigation, route}) {
           loadActivity();
         }
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_workout_error_updating')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });
@@ -153,6 +159,13 @@ export default function ManageActivity({navigation, route}) {
         setWorkoutDays(prevMovies => prevMovies.filter(item => item !== index));
       }
     }
+  }
+
+  function setMessage(text) {
+    DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 2500);
   }
 
   return (

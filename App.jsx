@@ -29,6 +29,7 @@ import Users from './src/view/users/users';
 import ManageUser from './src/view/users/manageUser';
 import UserPlanSelect from './src/view/users/userPlanSelect';
 import PaymentHistory from './src/view/payment/paymentHistory';
+import SystemMessage from './src/components/SystemMessage/SystemMessage';
 
 export default function App() {
   const sidebarState = useSelector(state => {
@@ -49,7 +50,13 @@ export default function App() {
           i18next.changeLanguage('en');
         }
       })
-      .catch(err => {});
+      .catch(() => {
+        AsyncStorage.setItem(
+          'SYSTEM_LANGUAGE',
+          JSON.stringify({code: 'en', language: 'English', index: 0}),
+        );
+        i18next.changeLanguage('en');
+      });
   };
 
   useEffect(() => {
@@ -82,6 +89,7 @@ export default function App() {
         </Stack.Navigator>
         <Sidebar open={sidebarState} />
         <ModalLoading />
+        <SystemMessage />
       </NavigationContainer>
     </>
   );

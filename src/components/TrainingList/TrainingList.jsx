@@ -15,6 +15,7 @@ import {readActivityListService} from '../../service/training';
 import {Label, Row} from '../../view/profile/components/style';
 import {useDispatch, useSelector} from 'react-redux';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
+import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
 
 export default function TrainingList({userId, navigation, limit, routeName}) {
   const dispatch = useDispatch();
@@ -26,6 +27,13 @@ export default function TrainingList({userId, navigation, limit, routeName}) {
   const currentWeekday = new Date().getDay();
   const {t} = useTranslation();
 
+  function setMessage(text) {
+    dispatch(setMessageError(text));
+    setTimeout(() => {
+      dispatch(setMessageOff());
+    }, 5000);
+  }
+
   async function loadActivities() {
     dispatch(setLoading());
     await readActivityListService(userId)
@@ -36,7 +44,9 @@ export default function TrainingList({userId, navigation, limit, routeName}) {
         setTrainingList(response.data.slice(0, limit));
         filterTrainings(response.data);
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_workout_could_not_load_list')}`);
+      })
       .finally(() => {
         dispatch(unsetLoading());
       });

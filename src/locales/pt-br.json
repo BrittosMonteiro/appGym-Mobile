@@ -1,4 +1,22 @@
 {
+  "system_message_workout_default_error": "ERRO AO CRIAR O TREINO. TENTE NOVAMENTE MAIS TARDE",
+  "system_message_workout_missing_name": "PREENCHA O NOME DO TREINO",
+  "system_message_workout_error_updating": "ERRO AO ATUALIZAR. TENTE NOVAMENTE MAIS TARDE",
+  "system_message_workout_could_not_load_list": "NÃO FOI POSSÍVEL CARREGAR OS TREINOS. TENTE MAIS TARDE",
+
+  "system_message_instructors_could_not_load_list": "NÃO FOI POSSÍVEL CARREGAR OS INSTRUTORES. TENTE MAIS TARDE",
+  "system_message_instructors_missing_information": "ESTÁ FALTANDO INFORMAÇÃO. VERIFIQUE NOVAMENTE",
+  "system_message_instructors_could_not_create": "NÃO FOI POSSÍVEL CRIAR INSTRUTOR. TENTE NOVAMENTE",
+  "system_message_instructors_could_not_update": "NÃO FOI POSSÍVEL ATUALIZAR INSTRUTOR. TENTE NOVAMENTE",
+  "system_message_instructors_could_not_load_instructor_data": "NÃO FOI POSSÍVEL CARREGAR OS DADOS DO INSTRUTOR. TENTE MAIS TARDE",
+  "system_message_instructors_could_not_delete": "COULD NOT DELETE INSTRUCTOR. TRY AGAIN LATER",
+
+  "system_message_user_could_not_create": "NÃO FOI POSSÍVEL CRIAR CONTA. TENTE NOVAMENTE MAIS TARDE",
+  "system_message_user_could_not_load_session": "NÃO FOI POSSÍVEL CARREGAR DADOS DA SESSÃO",
+  "system_message_user_password_does_not_match": "SENHAS INCOMPATÍVEIS",
+  "system_message_user_could_not_set_session": "ERRO AO LOGAR",
+  "system_message_user_login_missing_information": "VERIFICAR CAMPOS",
+
   "hello": "Olá",
   "go_to_profile": "VER PERFIL",
 

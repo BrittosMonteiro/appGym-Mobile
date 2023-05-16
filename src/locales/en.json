@@ -1,4 +1,22 @@
 {
+  "system_message_workout_default_error": "ERROR CREATING WORKOUT. TRY AGAIN LATER",
+  "system_message_workout_missing_name": "MISSING WORKOUT NAME",
+  "system_message_workout_error_updating": "ERROR UPDATING YOUR WORKOUT. TRY AGAIN LATER",
+  "system_message_workout_could_not_load_list": "COULD NOT LOAD WORKOUT LIST. TRY AGAIN LATER",
+
+  "system_message_instructors_could_not_load_list": "COULD NOT LOAD INSTRUCTORS LIST. TRY AGAIN LATER",
+  "system_message_instructors_missing_information": "THERE IS MISSING INFORMATION. CHECK IT AGAIN",
+  "system_message_instructors_could_not_create": "COULT NOT CREATE INSTRUCTOR. TRY AGAIN LATER",
+  "system_message_instructors_could_not_update": "COULT NOT UPDATE INSTRUCTOR. TRY AGAIN LATER",
+  "system_message_instructors_could_not_load_instructor_data": "COULD NOT LOAD INSTRUCTOR DATA. TRY AGAIN LATER",
+  "system_message_instructors_could_not_delete": "COULD NOT DELETE INSTRUCTOR. TRY AGAIN LATER",
+
+  "system_message_user_could_not_create": "COULD NOT CREATE USER. TRY AGAIN LATER",
+  "system_message_user_could_not_load_session": "COULD NOT LOAD USER SESSION",
+  "system_message_user_password_does_not_match": "PASSWORDS DO NOT MATCH",
+  "system_message_user_could_not_set_session": "ERROR LOGGING IN",
+  "system_message_user_login_missing_information": "MISSING INFORMATION",
+
   "hello": "Hello",
   "go_to_profile": "PROFILE",
 

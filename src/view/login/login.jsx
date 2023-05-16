@@ -13,6 +13,7 @@ import {Column, InputText, Label, Row} from '../profile/components/style';
 import {ContainerListItem} from '../../components/TrainingList/style';
 import {loginService} from '../../service/login';
 import {setUser} from '../../store/actions/userSessionAction';
+import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
 
 export default function Login({navigation}) {
   const DISPATCH = useDispatch();
@@ -22,12 +23,19 @@ export default function Login({navigation}) {
   const [isLoading, setIsLoading] = useState(false);
   const {t} = useTranslation();
 
+  function setMessage(text) {
+    DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
+
   const setUserSession = async data => {
     try {
       await AsyncStorage.setItem('USERSESSION', JSON.stringify(data));
       getUserSession();
     } catch (e) {
-      console.log(e);
+      setMessage(`${t('system_message_user_could_not_set_session')}`);
     }
   };
 
@@ -74,6 +82,7 @@ export default function Login({navigation}) {
 
     if (!username || !password) {
       setIsLoading(false);
+      setMessage(`${t('system_message_user_login_missing_information')}`);
       return;
     }
 
@@ -91,8 +100,8 @@ export default function Login({navigation}) {
       .then(response => {
         setUserSession(response);
       })
-      .catch(err => {
-        console.log(err);
+      .catch(() => {
+        setMessage(`${t('system_message_user_could_not_set_session')}`);
       })
       .finally(() => {
         setIsLoading(false);

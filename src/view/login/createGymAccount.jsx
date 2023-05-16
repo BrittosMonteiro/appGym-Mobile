@@ -11,6 +11,7 @@ import {createAccountService} from '../../service/login';
 import {setUser} from '../../store/actions/userSessionAction';
 import {ButtonDefault, Card, ContainerScroll, CustomText} from '../style';
 import {Column, InputText, Label, Row} from '../profile/components/style';
+import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
 
 export default function CreateGymAccount({navigation, route}) {
   const DISPATCH = useDispatch();
@@ -31,8 +32,8 @@ export default function CreateGymAccount({navigation, route}) {
     try {
       await AsyncStorage.setItem('USERSESSION', JSON.stringify(data));
       getUserSession();
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      setMessage(`${t('system_message_user_could_not_load_session')}`);
     }
   };
 
@@ -56,6 +57,13 @@ export default function CreateGymAccount({navigation, route}) {
     }
   };
 
+  function setMessage(text) {
+    DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
+
   async function sendData(data) {
     setIsLoading(true);
     await createAccountService(data)
@@ -67,8 +75,8 @@ export default function CreateGymAccount({navigation, route}) {
       .then(response => {
         setUserSession(response.data);
       })
-      .catch(err => {
-        console.log(err);
+      .catch(() => {
+        setMessage(`${'system_message_user_could_not_create'}`);
       })
       .finally(() => {
         setIsLoading(false);
@@ -80,6 +88,7 @@ export default function CreateGymAccount({navigation, route}) {
 
     if (password !== confirmPassword) {
       setIsLoading(false);
+      setMessage(`${t('system_message_user_password_does_not_match')}`);
       return;
     }
 

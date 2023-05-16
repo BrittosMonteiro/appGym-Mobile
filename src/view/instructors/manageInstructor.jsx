@@ -13,6 +13,7 @@ import {
 } from '../../service/instructor';
 import {ButtonDefault, Card, ContainerScroll} from '../style';
 import {Column, InputText, Label} from '../profile/components/style';
+import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
 
 export default function ManageInstructor({navigation, route}) {
   const DISPATCH = useDispatch();
@@ -26,10 +27,18 @@ export default function ManageInstructor({navigation, route}) {
   const [cref, setCref] = useState('');
   const {t} = useTranslation();
 
+  function setMessage(text) {
+    DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
+
   async function createInstructor() {
     DISPATCH(setLoading());
     if (!name || !email) {
       DISPATCH(unsetLoading());
+      setMessage(`${t('system_message_instructors_missing_information')}`);
       return;
     }
 
@@ -57,7 +66,9 @@ export default function ManageInstructor({navigation, route}) {
           navigation.goBack();
         }
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_instructors_could_not_create')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });
@@ -78,7 +89,11 @@ export default function ManageInstructor({navigation, route}) {
         setEmail(response.data.email);
         setCref(response.data.cref);
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(
+          `${t('system_message_instructors_could_not_load_instructor_data')}`,
+        );
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });
@@ -89,6 +104,7 @@ export default function ManageInstructor({navigation, route}) {
 
     if (!name || !email) {
       DISPATCH(unsetLoading());
+      setMessage(`${t('system_message_instructors_missing_information')}`);
       return;
     }
 
@@ -117,7 +133,9 @@ export default function ManageInstructor({navigation, route}) {
           navigation.goBack();
         }
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_instructors_could_not_update')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });
@@ -131,7 +149,9 @@ export default function ManageInstructor({navigation, route}) {
           navigation.goBack();
         }
       })
-      .catch(err => {})
+      .catch(() => {
+        setMessage(`${t('system_message_instructors_could_not_delete')}`);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });
