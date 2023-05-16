@@ -76,7 +76,7 @@ export default function CreateGymAccount({navigation, route}) {
         setUserSession(response.data);
       })
       .catch(() => {
-        setMessage(`${'system_message_user_could_not_create'}`);
+        setMessage(`${t('system_message_user_could_not_create')}`);
       })
       .finally(() => {
         setIsLoading(false);
