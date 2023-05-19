@@ -1,17 +1,23 @@
 import {useState} from 'react';
-import {ActivityIndicator, Pressable} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
 import {CaretRight, Eye, EyeSlash} from 'phosphor-react-native';
 import {useTranslation} from 'react-i18next';
 
 import ViewDefault from '../ViewDefault';
-import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import {createAccountService} from '../../service/login';
 import {setUser} from '../../store/actions/userSessionAction';
-import {ButtonDefault, Card, ContainerScroll, CustomText} from '../style';
-import {Column, InputText, Label, Row} from '../profile/components/style';
+import {
+  Button,
+  ContainerScroll,
+  CustomText,
+  InputDataDefault,
+  Link,
+} from '../style';
 import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
+import Container from '../../components/Container/Container';
+import {SignInSignUpTitle} from './style';
 
 export default function CreateGymAccount({navigation, route}) {
   const DISPATCH = useDispatch();
@@ -135,23 +141,14 @@ export default function CreateGymAccount({navigation, route}) {
   return (
     <ViewDefault>
       <ContainerScroll
-        contentContainerStyle={{gap: 24, justifyContent: 'center'}}>
-        <Column>
-          <CustomText $fontSize={28} $weight={'Medium'}>
-            {t('access_account_2')}
-          </CustomText>
-          <CustomText $fontSize={38} $weight={'Medium'}>
-            {t('access_account_3')}
-          </CustomText>
-          <CustomText $fontSize={28} $weight={'Regular'}>
-            {userLevel === 1 ? 'ACADEMIA' : `${t('lbl_user')}`}
-          </CustomText>
-        </Column>
-
-        <Card $black $fullWidth $padding>
-          <Column $gap>
-            <Label>{t('lbl_name')}</Label>
-            <InputText
+        contentContainerStyle={{gap: 24, justifyContent: 'center', flex: 1}}>
+        <Container flex={true} justifyContent={'center'}>
+          <SignInSignUpTitle>SIGN UP</SignInSignUpTitle>
+          <Container gap={16}>
+            <InputDataDefault
+              $padding={16}
+              $bgColor={'#202020'}
+              $color={props => props.theme.colors.white_02}
               autoCapitalize={'words'}
               autoCorrect={true}
               keyboardType={'default'}
@@ -160,12 +157,12 @@ export default function CreateGymAccount({navigation, route}) {
               defaultValue={name}
               onChangeText={text => setName(text)}
             />
-          </Column>
 
-          {userLevel === 1 && (
-            <Column $gap>
-              <Label>NOME ENCURTADO</Label>
-              <InputText
+            {userLevel === 1 && (
+              <InputDataDefault
+                $padding={16}
+                $bgColor={'#202020'}
+                $color={props => props.theme.colors.white_02}
                 autoCapitalize={'words'}
                 autoCorrect={true}
                 keyboardType={'default'}
@@ -174,12 +171,12 @@ export default function CreateGymAccount({navigation, route}) {
                 defaultValue={shortName}
                 onChangeText={text => setShortName(text)}
               />
-            </Column>
-          )}
+            )}
 
-          <Column $gap>
-            <Label>{t('lbl_email')}</Label>
-            <InputText
+            <InputDataDefault
+              $padding={16}
+              $bgColor={'#202020'}
+              $color={props => props.theme.colors.white_02}
               autoCapitalize={'none'}
               autoCorrect={false}
               keyboardType={'email-address'}
@@ -188,37 +185,37 @@ export default function CreateGymAccount({navigation, route}) {
               defaultValue={email}
               onChangeText={text => setEmail(text)}
             />
-          </Column>
 
-          {userLevel === 1 && (
-            <Column $gap>
-              <Label>CNPJ</Label>
-              <InputText
+            {userLevel === 1 && (
+              <InputDataDefault
+                $padding={16}
+                $bgColor={'#202020'}
+                $color={props => props.theme.colors.white_02}
                 keyboardType={'numeric'}
                 inputMode={'numeric'}
                 placeholder="CNPJ"
                 defaultValue={cnpj}
                 onChangeText={text => setCnpj(text)}
               />
-            </Column>
-          )}
+            )}
 
-          {userLevel === 3 && (
-            <Column $gap>
-              <Label>{t('lbl_cpf')}</Label>
-              <InputText
+            {userLevel === 3 && (
+              <InputDataDefault
+                $padding={16}
+                $bgColor={'#202020'}
+                $color={props => props.theme.colors.white_02}
                 keyboardType={'numeric'}
                 inputMode={'numeric'}
                 placeholder={t('lbl_cpf')}
                 defaultValue={cpf}
                 onChangeText={text => setCpf(text)}
               />
-            </Column>
-          )}
+            )}
 
-          <Column $gap>
-            <Label>{t('lbl_user')}</Label>
-            <InputText
+            <InputDataDefault
+              $padding={16}
+              $bgColor={'#202020'}
+              $color={props => props.theme.colors.white_02}
               autoCapitalize={'none'}
               autoCorrect={false}
               keyboardType={'default'}
@@ -227,75 +224,61 @@ export default function CreateGymAccount({navigation, route}) {
               defaultValue={username}
               onChangeText={text => setUsername(text)}
             />
-          </Column>
 
-          <Column $gap>
-            <Label>{t('lbl_password')}</Label>
-            <Row $align={'center'} $justifyContent={'space-between'}>
-              <InputText
-                autoCapitalize={'none'}
-                autoCorrect={false}
-                keyboardType={'default'}
-                inputMode={'text'}
-                secureTextEntry={!showPassword}
-                placeholder={t('lbl_password')}
-                defaultValue={password}
-                onChangeText={text => setPassword(text)}
-              />
-              <Pressable onPress={() => setShowPassword(!showPassword)}>
-                {showPassword ? (
-                  <Eye weight="bold" color={'#fcf3f3'} size={24} />
+            <InputDataDefault
+              $padding={16}
+              $bgColor={'#202020'}
+              $color={props => props.theme.colors.white_02}
+              autoCapitalize={'none'}
+              autoCorrect={false}
+              keyboardType={'default'}
+              inputMode={'text'}
+              secureTextEntry={!showPassword}
+              placeholder={t('lbl_password')}
+              defaultValue={password}
+              onChangeText={text => setPassword(text)}
+            />
+
+            <InputDataDefault
+              $padding={16}
+              $bgColor={'#202020'}
+              $color={props => props.theme.colors.white_02}
+              autoCapitalize={'none'}
+              autoCorrect={false}
+              keyboardType={'default'}
+              inputMode={'text'}
+              secureTextEntry={!showPassword}
+              placeholder={t('lbl_password_confirm')}
+              defaultValue={confirmPassword}
+              onChangeText={text => setConfirmPassword(text)}
+            />
+            <Button
+              $bgColor={props => props.theme.colors.turquoise_01}
+              onPress={() => createAccount()}
+              disabled={isLoading}>
+              <CustomText
+                $textAlign={'center'}
+                $fontSize={18}
+                $weight={'SemiBold'}
+                $color={props => props.theme.colors.white_02}>
+                {isLoading ? (
+                  <ActivityIndicator
+                    size={'small'}
+                    color={props => props.theme.colors.white_02}
+                  />
                 ) : (
-                  <EyeSlash weight="bold" color={'#fcf3f3'} size={24} />
+                  `${t('access_account_2')}`
                 )}
-              </Pressable>
-            </Row>
-          </Column>
-
-          <Column $gap>
-            <Label>{t('lbl_password_confirm')}</Label>
-            <Row $align={'center'} $justifyContent={'space-between'}>
-              <InputText
-                autoCapitalize={'none'}
-                autoCorrect={false}
-                keyboardType={'default'}
-                inputMode={'text'}
-                secureTextEntry={!showPassword}
-                placeholder={t('lbl_password_confirm')}
-                defaultValue={confirmPassword}
-                onChangeText={text => setConfirmPassword(text)}
-              />
-              <Pressable onPress={() => setShowPassword(!showPassword)}>
-                {showPassword ? (
-                  <Eye weight="bold" color={'#fcf3f3'} size={24} />
-                ) : (
-                  <EyeSlash weight="bold" color={'#fcf3f3'} size={24} />
-                )}
-              </Pressable>
-            </Row>
-          </Column>
-
-          <ButtonDefault $green onPress={() => createAccount()}>
-            <Label>
-              {isLoading ? (
-                <ActivityIndicator size={'small'} color={'#fcf3f3'} />
-              ) : (
-                `${t('access_account_2')}`
-              )}
-            </Label>
-          </ButtonDefault>
-
-          <HorizontalRule color={'#fcf3f3'} />
-
-          <Row $align={'center'} $justifyContent={'space-between'}>
-            <ButtonDefault onPress={() => navigation.navigate('Login')}>
-              <CustomText $weight={'Regular'} $color={'#fcf3f3'}>
-                {t('go_to_login')}
               </CustomText>
-            </ButtonDefault>
-            <CaretRight weight="bold" size={24} color={'#fcf3f3'} />
-          </Row>
-        </Card>
+            </Button>
+          </Container>
+          <Container gap={16}>
+            <Link onPress={() => navigation.navigate('Login')}>
+              <CustomText $fontSize={18}>{t('go_to_login')}</CustomText>
+              <CaretRight color={'#202020'} />
+            </Link>
+          </Container>
+        </Container>
       </ContainerScroll>
     </ViewDefault>
   );

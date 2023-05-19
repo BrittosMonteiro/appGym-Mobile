@@ -1,15 +1,16 @@
 const colors = {
   black_01: '#202020',
+  white_02: '#FCF3F3',
+  turquoise_01: '#00A1AB',
+  red_01: '#EB5757',
+  gray_05: '#828282',
   green_01: '#219653',
   gray_01: '#828282',
   orange_01: '#FFA471',
-  red_01: '#EB5757',
   sand_01: '#D2B899',
   sand_02: '#fcd65f',
   sand_03: '#fddd78',
-  turquoise_01: '#00A1AB',
   white_01: '#fff',
-  white_02: '#FCF3F3',
 };
 
 const fontSize = {

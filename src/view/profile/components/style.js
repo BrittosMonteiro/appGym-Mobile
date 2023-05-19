@@ -7,6 +7,7 @@ export const Column = styled.View`
 `;
 
 export const Row = styled.View`
+  width: 100%;
   gap: 8px;
   display: flex;
   flex-direction: row;
