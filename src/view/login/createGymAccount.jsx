@@ -273,7 +273,7 @@ export default function CreateGymAccount({navigation, route}) {
             </Button>
           </Container>
           <Container gap={16}>
-            <Link onPress={() => navigation.navigate('Login')}>
+            <Link $fullWidth onPress={() => navigation.navigate('Login')}>
               <CustomText $fontSize={18}>{t('go_to_login')}</CustomText>
               <CaretRight color={'#202020'} />
             </Link>

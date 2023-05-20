@@ -8,10 +8,10 @@ import ActivityItem from '../../components/Activity/ActivityItem';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import {createTrainingHistoryService} from '../../service/trainingHistory';
-import {ButtonDefault, Card, ContainerScroll} from '../style';
-import {Label, Row} from '../profile/components/style';
+import {Button, ContainerScroll, CustomText} from '../style';
 import Timer from '../../components/Timer/Timer';
 import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
+import Container2 from '../../components/Container/Container';
 
 export default function TrainingOnGoing({route, navigation}) {
   const DISPATCH = useDispatch();
@@ -52,29 +52,48 @@ export default function TrainingOnGoing({route, navigation}) {
   return (
     <ViewDefault>
       <Header title={training.title} navigation={navigation} />
-      <HorizontalRule color={'#202020'} />
-      <ContainerScroll contentContainerStyle={{gap: 16}}>
+      <ContainerScroll contentContainerStyle={{gap: 32}}>
         {training ? (
           <React.Fragment>
             {/* <Timer /> */}
             {/* <Row $justifyContent={'flex-end'}> */}
-            <ButtonDefault $turquoise onPress={() => activityFinish()}>
-              <Label>{t('lbl_finish_workout')}</Label>
-            </ButtonDefault>
+            <Button
+              onPress={() => activityFinish()}
+              $bgColor={props => props.theme.colors.turquoise_01}>
+              <CustomText
+                $textAlign={'center'}
+                $fontSize={18}
+                $weight={'SemiBold'}
+                $color={props => props.theme.colors.white_02}>
+                {t('lbl_finish_workout')}
+              </CustomText>
+            </Button>
             {/* </Row> */}
-            <Card $black $padding $fullWidth>
+            <Container2
+              bgColor={props => props.theme.colors.black_01}
+              padding={'16px'}
+              gap={16}>
               {items.map((activity, index) => (
                 <React.Fragment key={index}>
                   <ActivityItem activity={activity} />
+                  {/* <ExerciseDetail activity={activity} /> */}
                   {index < items.length - 1 && (
                     <HorizontalRule color={'#fcf3f3'} />
                   )}
                 </React.Fragment>
               ))}
-            </Card>
-            <ButtonDefault $red onPress={() => cancel()}>
-              <Label>{t('lbl_cancel')}</Label>
-            </ButtonDefault>
+            </Container2>
+            <Button
+              onPress={() => cancel()}
+              $bgColor={props => props.theme.colors.red_01}>
+              <CustomText
+                $textAlign={'center'}
+                $fontSize={18}
+                $weight={'SemiBold'}
+                $color={props => props.theme.colors.white_02}>
+                {t('lbl_cancel')}
+              </CustomText>
+            </Button>
           </React.Fragment>
         ) : null}
       </ContainerScroll>

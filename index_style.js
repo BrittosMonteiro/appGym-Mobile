@@ -4,6 +4,7 @@ const colors = {
   turquoise_01: '#00A1AB',
   red_01: '#EB5757',
   gray_05: '#828282',
+  salmon: '#FE7A71',
   green_01: '#219653',
   gray_01: '#828282',
   orange_01: '#FFA471',

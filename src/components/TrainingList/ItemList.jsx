@@ -6,15 +6,12 @@ import {
   PersonSimpleRun,
   PersonSimpleWalk,
 } from 'phosphor-react-native';
-import {
-  ContainerListItem,
-  ContainerListItemTitle,
-  ContainerListItemSubtitle,
-} from './style';
+import {ContainerListItem, ContainerListItemTitle} from './style';
+import {CustomText} from '../../view/style';
 
 export default function ItemList({item, navigation}) {
   const activityIcon = [
-    <Barbell color={'#EB5757'} size={32} />,
+    <Barbell color={'#fcf3f3'} size={24} />,
     <Bicycle color={'#EB5757'} size={32} />,
     <PersonSimpleWalk color={'#EB5757'} size={32} />,
     <PersonSimpleRun color={'#EB5757'} size={32} />,
@@ -39,9 +36,12 @@ export default function ItemList({item, navigation}) {
           {item.title.toUpperCase()}
         </ContainerListItemTitle>
       </View>
-      <ContainerListItemSubtitle>
+      <CustomText
+        $fontSize={14}
+        $weight={'Regular'}
+        $color={props => props.theme.colors.white_02}>
         {item.qty} {t('exercises')}
-      </ContainerListItemSubtitle>
+      </CustomText>
     </ContainerListItem>
   );
 }

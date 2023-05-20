@@ -171,13 +171,14 @@ export default function Login({navigation}) {
         </Container>
 
         <Container gap={16}>
-          <Link>
+          <Link $fullWidth>
             <CustomText $fontSize={18}>
               {t('go_to_recover_password')}
             </CustomText>
             <CaretRight color={'#202020'} />
           </Link>
           <Link
+            $fullWidth
             onPress={() =>
               navigation.navigate('CreateGymAccount', {userLevel: 3})
             }>

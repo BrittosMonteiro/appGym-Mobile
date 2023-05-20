@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
 import {Container, ContainerWeek} from './weekPerformance_style';
-import {ContainerTitle} from '../../view/style';
 import Weekday from './Weekday';
 
 export default function WeekPerformance({navigation}) {
@@ -26,7 +25,6 @@ export default function WeekPerformance({navigation}) {
 
   return (
     <Container>
-      <ContainerTitle>DESEMPENHO SEMANAL</ContainerTitle>
       <ContainerWeek>
         {week.map((day, index) => (
           <Weekday
