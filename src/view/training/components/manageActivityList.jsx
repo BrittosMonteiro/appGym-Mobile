@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 
 import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
-import ManageActivityItem from './manageActivityItem';
 import ModalAddItemToActivityList from './ModalAddItemToActivityList';
-import {Label, Row} from '../../profile/components/style';
-import {ButtonDefault, Card, CustomText} from '../../style';
+import {Row} from '../../profile/components/style';
+import {ContainerTitle, CustomText, Link} from '../../style';
+import Container2 from '../../../components/Container/Container';
+import ExerciseDetail from './ExerciseDetail';
 
 export default function ManageActivityList({
   selectedActivities,
@@ -22,21 +23,23 @@ export default function ManageActivityList({
   }
 
   return (
-    <Card $black $padding $fullWidth>
+    <Container2 gap={16}>
       <Row $align={'center'} $justifyContent={'space-between'}>
-        <CustomText $color={'#fcf3f3'} $fontSize={18} $weight={'Medium'}>
-          {title}
-        </CustomText>
-        <ButtonDefault $turquoise onPress={() => setOpenModal(!openModal)}>
-          <Label>{t('lbl_add')}</Label>
-        </ButtonDefault>
+        <ContainerTitle>{t('lbl_workout_description')}</ContainerTitle>
+        <Link onPress={() => setOpenModal(!openModal)}>
+          <CustomText>{t('lbl_add')}</CustomText>
+        </Link>
       </Row>
       {selectedActivities.length > 0 ? (
-        <React.Fragment>
+        <Container2
+          gap={16}
+          bgColor={props => props.theme.colors.black_01}
+          padding={'16px'}>
           {selectedActivities.map((activity, index) => (
             <React.Fragment key={index}>
-              <ManageActivityItem
+              <ExerciseDetail
                 activity={activity}
+                displayIcon={true}
                 index={index}
                 deleteItemFromList={deleteItemFromList}
                 updateTraining={updateTraining}
@@ -46,10 +49,10 @@ export default function ManageActivityList({
               )}
             </React.Fragment>
           ))}
-        </React.Fragment>
+        </Container2>
       ) : (
         <Row $justifyContent={'center'}>
-          <Label>{t('empty_exercises_list')}</Label>
+          <CustomText>{t('empty_exercises_list')}</CustomText>
         </Row>
       )}
       <ModalAddItemToActivityList
@@ -57,6 +60,6 @@ export default function ManageActivityList({
         onClose={closeModal}
         addItemToList={addItemToList}
       />
-    </Card>
+    </Container2>
   );
 }

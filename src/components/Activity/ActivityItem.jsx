@@ -21,7 +21,9 @@ export default function ActivityItem({activity, isStopped}) {
       </Pressable>
       <Column $gap>
         <Row $align={'flex-start'} $justifyContent={'flex-start'}>
-          <ContainerTitle $white>{activity.title.toUpperCase()}</ContainerTitle>
+          <ContainerTitle $color={props => props.theme.colors.white_02}>
+            {activity.title.toUpperCase()}
+          </ContainerTitle>
         </Row>
         <Row $align={'center'} $justifyContent={'flex-start'}>
           {activity.machine && <Label>{`MÁQUINA: ${activity.machine}`}</Label>}

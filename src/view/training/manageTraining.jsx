@@ -11,9 +11,8 @@ import {
   readTrainingByIdService,
   updateTrainingByIdService,
 } from '../../service/training';
-import {ButtonDefault, Card, ContainerScroll} from '../style';
-import {Column, InputText, Label} from '../profile/components/style';
-import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
+import {Button, ContainerScroll, CustomText, InputDataDefault} from '../style';
+import {Column} from '../profile/components/style';
 import WorkoutDays from '../../components/WorkoutDays/WorkoutDays';
 import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
 
@@ -37,12 +36,6 @@ export default function ManageActivity({navigation, route}) {
   async function loadActivity() {
     DISPATCH(setLoading());
 
-    if (!idTraining) {
-      DISPATCH(unsetLoading());
-      setMessage(`${t('system_message_default_error')}`);
-      return;
-    }
-
     await readTrainingByIdService(idActivity)
       .then(responseFind => {
         if (responseFind) {
@@ -63,7 +56,7 @@ export default function ManageActivity({navigation, route}) {
   }
 
   useEffect(() => {
-    loadActivity();
+    if (idActivity) loadActivity();
   }, []);
 
   async function createActivity() {
@@ -181,18 +174,17 @@ export default function ManageActivity({navigation, route}) {
   return (
     <ViewDefault>
       <Header navigation={navigation} title={t('title_manage_workout')} />
-      <HorizontalRule />
-      <ContainerScroll contentContainerStyle={{gap: 24}}>
-        <Card $black $padding>
-          <Column $gap>
-            <Label>{t('lbl_workout_name')}</Label>
-            <InputText
-              placeholder={`${t('lbl_example')}: TREINO A`}
-              defaultValue={name}
-              onChangeText={text => setName(text)}
-            />
-          </Column>
-        </Card>
+      <ContainerScroll contentContainerStyle={{gap: 32}}>
+        <Column $gap>
+          <CustomText $fontSize={14}>{t('lbl_workout_name')}</CustomText>
+          <InputDataDefault
+            $fontWeight={'SemiBold'}
+            autoCapitalize={'characters'}
+            placeholder={`${t('lbl_example')}: TREINO A`}
+            defaultValue={name}
+            onChangeText={text => setName(text)}
+          />
+        </Column>
 
         {idTraining && (
           <ManageActivityList
@@ -212,17 +204,31 @@ export default function ManageActivity({navigation, route}) {
         )}
 
         {idTraining ? (
-          <ButtonDefault
-            $green
+          <Button
+            $bgColor={props => props.theme.colors.turquoise_01}
             onPress={() =>
               manageUpdate({idTraining, newData: {title: name, workoutDays}})
             }>
-            <Label>{t('lbl_update')}</Label>
-          </ButtonDefault>
+            <CustomText
+              $textAlign={'center'}
+              $color={props => props.theme.colors.white_02}
+              $fontSize={18}
+              $weight={'SemiBold'}>
+              {t('lbl_update')}
+            </CustomText>
+          </Button>
         ) : (
-          <ButtonDefault $green onPress={() => createActivity()}>
-            <Label>{t('lbl_create')}</Label>
-          </ButtonDefault>
+          <Button
+            $bgColor={props => props.theme.colors.turquoise_01}
+            onPress={() => createActivity()}>
+            <CustomText
+              $textAlign={'center'}
+              $fontSize={18}
+              $weight={'SemiBold'}
+              $color={props => props.theme.colors.white_02}>
+              {t('lbl_create')}
+            </CustomText>
+          </Button>
         )}
       </ContainerScroll>
     </ViewDefault>

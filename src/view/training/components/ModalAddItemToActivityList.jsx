@@ -4,9 +4,14 @@ import {useTranslation} from 'react-i18next';
 
 import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
 import styles from '../../../styles';
-import {Plus, XCircle} from 'phosphor-react-native';
-import {Row} from '../../profile/components/style';
-import {ButtonDefault, ContainerScroll, CustomText} from '../../style';
+import {CaretLeft, Plus} from 'phosphor-react-native';
+import {Column, Row} from '../../profile/components/style';
+import {
+  ButtonDefault,
+  ContainerScroll,
+  CustomText,
+  InputDataDefault,
+} from '../../style';
 import {
   ContainerListItem,
   ContainerListItemTitle,
@@ -26,6 +31,7 @@ export default function ModalAddItemToActivityList({
 }) {
   const DISPATCH = useDispatch();
   const [availableActivities, setAvailableActivities] = useState([]);
+  const [searchExercice, setSearchExercise] = useState('');
   const {t} = useTranslation();
 
   function setMessage(text) {
@@ -79,21 +85,29 @@ export default function ModalAddItemToActivityList({
             styles.gapStyle.gap_5,
             {
               width: '100%',
-              maxWidth: 400,
               height: '100%',
-              maxHeight: 600,
             },
           ]}>
           <Row $align={'center'} $justifyContent={'space-between'}>
+            <ButtonDefault onPress={() => onClose()}>
+              <CaretLeft color={'#202020'} weight="regular" size={24} />
+            </ButtonDefault>
             <CustomText $weight={'Medium'} $fontSize={18}>
               {t('title_available_exercises')}
             </CustomText>
-            <ButtonDefault onPress={() => onClose()}>
-              <XCircle color={'#EB5757'} weight="regular" size={28} />
-            </ButtonDefault>
           </Row>
           <ContainerScroll
-            contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
+            contentContainerStyle={{alignItems: 'flex-start', gap: 16}}>
+            <InputDataDefault
+              $padding={16}
+              $bgColor={props => props.theme.colors.black_01}
+              $color={props => props.theme.colors.white_02}
+              placeholder={'SEARCH'}
+              keyboardType={'default'}
+              inputMode={'text'}
+              defaultValue={searchExercice}
+              onChangeText={text => setSearchExercise(text)}
+            />
             {availableActivities.map((activity, index) => (
               <React.Fragment key={index}>
                 <ContainerListItem
@@ -101,9 +115,14 @@ export default function ModalAddItemToActivityList({
                     addItemToList(activity);
                     onClose();
                   }}>
-                  <ContainerListItemTitle $color={'#202020'}>
-                    {activity.title.toUpperCase()}
-                  </ContainerListItemTitle>
+                  <Column $gap>
+                    <CustomText $fontSize={14}>
+                      {activity.group.toUpperCase()}
+                    </CustomText>
+                    <ContainerListItemTitle $color={'#202020'}>
+                      {activity.title.toUpperCase()}
+                    </ContainerListItemTitle>
+                  </Column>
                   <Plus weight="regular" size={24} color={'#202020'} />
                 </ContainerListItem>
                 {index < availableActivities.length - 1 && (

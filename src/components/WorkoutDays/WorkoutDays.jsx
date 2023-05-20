@@ -1,7 +1,8 @@
 import {useTranslation} from 'react-i18next';
 
-import {Label, Row} from '../../view/profile/components/style';
-import {ButtonDefault, Card, CustomText} from '../../view/style';
+import {Row} from '../../view/profile/components/style';
+import {ButtonDefault, ContainerTitle, CustomText} from '../../view/style';
+import Container2 from '../Container/Container';
 
 export default function WorkoutDays({workoutDays, manageWorkoutDays}) {
   const {t} = useTranslation();
@@ -46,20 +47,25 @@ export default function WorkoutDays({workoutDays, manageWorkoutDays}) {
   }
 
   return (
-    <Card $black $fullWidth $padding>
-      <CustomText $color={'#fcf3f3'} $fontSize={18} $weight={'Medium'}>
-        {t('title_days_to_workout')}
-      </CustomText>
-      <Row>
-        {WEEKDAYS.map((day, index) => (
-          <ButtonDefault
-            key={index}
-            onPress={() => manageWorkoutDays(index)}
-            $turquoise={isSelected(day.id)}>
-            <Label>{day.title}</Label>
-          </ButtonDefault>
-        ))}
-      </Row>
-    </Card>
+    <Container2 gap={16}>
+      <ContainerTitle>{t('title_days_to_workout')}</ContainerTitle>
+      <Container2
+        gap={16}
+        padding={'16px'}
+        bgColor={props => props.theme.colors.black_01}>
+        <Row>
+          {WEEKDAYS.map((day, index) => (
+            <ButtonDefault
+              key={index}
+              onPress={() => manageWorkoutDays(index)}
+              $turquoise={isSelected(day.id)}>
+              <CustomText $color={props => props.theme.colors.white_02}>
+                {day.title}
+              </CustomText>
+            </ButtonDefault>
+          ))}
+        </Row>
+      </Container2>
+    </Container2>
   );
 }

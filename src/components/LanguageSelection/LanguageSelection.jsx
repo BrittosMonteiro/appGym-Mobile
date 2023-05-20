@@ -2,10 +2,10 @@ import SelectDropdown from 'react-native-select-dropdown';
 import i18next from 'i18next';
 import {useTranslation} from 'react-i18next';
 
-import {Card, ContainerTitle} from '../../view/style';
+import {ContainerTitle} from '../../view/style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect, useState} from 'react';
-import {Row} from '../../view/profile/components/style';
+import Container2 from '../Container/Container';
 
 export default function LanguageSelection() {
   const [selectedLanguage, setSelectedLanguage] = useState('en');
@@ -44,53 +44,46 @@ export default function LanguageSelection() {
   }, []);
 
   return (
-    <Card $black $fullWidth $padding>
-      <Row $align={'center'} $justifyContent={'space-between'}>
-        <ContainerTitle $white>{t('title_choose_language')}</ContainerTitle>
-        <SelectDropdown
-          data={languages}
-          onSelect={(selectedItem, index) => {
-            changeLanguage({...selectedItem, index});
-          }}
-          buttonTextAfterSelection={(selectedItem, index) => {
-            return selectedItem.language;
-          }}
-          rowTextForSelection={(item, index) => {
-            return item.language;
-          }}
-          defaultButtonText={t('title_choose_language')}
-          searchPlaceHolder={t('lbl_choose_language')}
-          search
-          buttonStyle={{
-            padding: 0,
-            margin: 0,
-            backgroundColor: '#202020',
-          }}
-          buttonTextStyle={{
-            color: '#fcf3f3',
-            fontFamily: 'IBMPlexSansCondensed-Regular',
-            fontSize: 16,
-          }}
-          rowStyle={{backgroundColor: '#fcf3f3'}}
-          rowTextStyle={{
-            color: '#202020',
-            fontFamily: 'IBMPlexSansCondensed-Regular',
-            fontSize: 16,
-          }}
-          dropdownStyle={{
-            margin: 0,
-            padding: 0,
-            backgroundColor: '#fcf3f3',
-            borderRadius: 4,
-          }}
-          searchInputStyle={{backgroundColor: '#fcf3f3'}}
-          searchInputTxtStyle={{
-            fontFamily: 'IBMPlexSansCondensed-Regular',
-            fontSize: 16,
-          }}
-          defaultValueByIndex={selectedLanguage}
-        />
-      </Row>
-    </Card>
+    <Container2 gap={16}>
+      <ContainerTitle $white>{t('title_choose_language')}</ContainerTitle>
+      <SelectDropdown
+        data={languages}
+        onSelect={(selectedItem, index) => {
+          changeLanguage({...selectedItem, index});
+        }}
+        buttonTextAfterSelection={(selectedItem, index) => {
+          return selectedItem.language;
+        }}
+        rowTextForSelection={(item, index) => {
+          return item.language;
+        }}
+        defaultButtonText={t('title_choose_language')}
+        buttonStyle={{
+          width: '100%',
+          padding: 0,
+          margin: 0,
+          backgroundColor: '#202020',
+          borderRadius: 4,
+        }}
+        buttonTextStyle={{
+          color: '#fcf3f3',
+          fontFamily: 'IBMPlexSansCondensed-SemiBold',
+          fontSize: 18,
+        }}
+        rowStyle={{backgroundColor: '#fcf3f3'}}
+        rowTextStyle={{
+          color: '#202020',
+          fontFamily: 'IBMPlexSansCondensed-SemiBold',
+          fontSize: 18,
+        }}
+        dropdownStyle={{
+          margin: 0,
+          padding: 0,
+          backgroundColor: '#fcf3f3',
+          borderRadius: 4,
+        }}
+        defaultValueByIndex={selectedLanguage}
+      />
+    </Container2>
   );
 }

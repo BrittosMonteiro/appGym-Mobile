@@ -1,19 +1,16 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 import HorizontalRule from '../HorizontalRule/HorizontalRule';
 import {Day, WeekdayNameAndNumber} from './weekPerformance_style';
 
-export default function Weekday({day, monthDate, isToday, navigation}) {
-  const [isPressed, setIsPressed] = useState(false);
-
+export default function Weekday({day, monthDate, isToday}) {
   return (
-    <Day
-      onPressIn={() => setIsPressed(true)}
-      onPressOut={() => setIsPressed(false)}
-      isToday={isToday || isPressed}>
-      <WeekdayNameAndNumber isToday={isToday}>{day}</WeekdayNameAndNumber>
-      <HorizontalRule color={isToday || isPressed ? '#202020' : '#fff3f3'} />
-      <WeekdayNameAndNumber isToday={isToday}>{monthDate}</WeekdayNameAndNumber>
+    <Day $isToday={isToday}>
+      <WeekdayNameAndNumber $isToday={isToday}>{day}</WeekdayNameAndNumber>
+      <HorizontalRule color={isToday ? '#fcf3f3' : '#202020'} />
+      <WeekdayNameAndNumber $isToday={isToday}>
+        {monthDate}
+      </WeekdayNameAndNumber>
     </Day>
   );
 }

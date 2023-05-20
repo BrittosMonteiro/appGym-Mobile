@@ -6,19 +6,15 @@ import {useTranslation} from 'react-i18next';
 import ViewDefault from '../ViewDefault';
 import Header from '../../components/Header/Header';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
-import {
-  ButtonDefault,
-  Card,
-  ContainerScroll,
-  ContainerTitle,
-  CustomText,
-} from '../style';
-import {Column, Label, Row} from '../profile/components/style';
+import {Button, ContainerScroll, ContainerTitle, CustomText} from '../style';
+import {Label, Row} from '../profile/components/style';
 import {readTrainingHistoryByIdService} from '../../service/trainingHistory';
 import {readTrainingByIdService} from '../../service/training';
 import ModalDeleteTraining from './components/ModalDeleteTraining';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
+import Container from '../../components/Container/Container';
+import ExerciseDetail from './components/ExerciseDetail';
 
 export default function TrainingDetail({navigation, route}) {
   const {idActivity} = route.params;
@@ -91,8 +87,7 @@ export default function TrainingDetail({navigation, route}) {
   return (
     <ViewDefault>
       <Header navigation={navigation} title={t('details')} />
-      <HorizontalRule color={'#202020'} />
-      <ContainerScroll contentContainerStyle={{gap: 24}}>
+      <ContainerScroll contentContainerStyle={{gap: 32}}>
         <Row $align={'center'} $justifyContent={'space-between'}>
           <ContainerTitle>{training.title}</ContainerTitle>
           <Pressable
@@ -101,100 +96,60 @@ export default function TrainingDetail({navigation, route}) {
           </Pressable>
         </Row>
 
-        {trainingHistory.qty > 0 && (
-          <Card $padding $fullWidth $black>
-            <Label>
-              {t('workouts_done')} - {trainingHistory.qty}
-            </Label>
-            <Label>
-              {t('last_workout_date')} -{' '}
-              {new Date(trainingHistory.last).toLocaleDateString()}
-            </Label>
-          </Card>
-        )}
-
-        <Row $align={'center'} $justifyContent={'space-between'}>
-          <ContainerTitle>{t('exercises')}</ContainerTitle>
-          {training?.items &&
-            training.items.length > 0 &&
-            training.owner === USERSESSION.id && (
-              <ButtonDefault
-                $turquoise
-                onPress={() =>
-                  navigation.navigate('TrainingOnGoing', {training, idActivity})
-                }>
-                <Label>{t('go_to_onGoing')}</Label>
-              </ButtonDefault>
-            )}
-        </Row>
-
-        <Card $black $padding $fullWidth>
-          {training?.items && training.items.length ? (
-            <React.Fragment>
-              {training.items.map((activity, index) => (
-                <React.Fragment key={index}>
-                  <Column $gap>
-                    <Row $align={'center'} $justifyContent={'space-between'}>
-                      <CustomText $color={'#fcf3f3'} $fontSize={18}>
-                        {activity.title.toUpperCase()}
-                      </CustomText>
-                    </Row>
-                    {activity.machine && (
-                      <Row $align={'center'} $justifyContent={'flex-start'}>
-                        <Label>{`${t('lbl_machine')}: ${
-                          activity.machine
-                        }`}</Label>
-                      </Row>
-                    )}
-                    {(activity.series ||
-                      activity.repetitions ||
-                      activity.load ||
-                      activity.time) && (
-                      <>
-                        <Row $align={'center'} $justifyContent={'flex-start'}>
-                          {activity.series && (
-                            <Label>{`${t('lbl_series')}: ${
-                              activity.series
-                            }`}</Label>
-                          )}
-                          {activity.repetitions && (
-                            <Label>{`${t('lbl_repetitions')}: ${
-                              activity.repetitions
-                            }`}</Label>
-                          )}
-                          {activity.load && (
-                            <Label>{`${t('lbl_load')}: ${
-                              activity.load
-                            }kg`}</Label>
-                          )}
-                          {activity.time && (
-                            <Label>{`${t('lbl_time')}: ${activity.time} ${t(
-                              'lbl_minutes',
-                            )}`}</Label>
-                          )}
-                        </Row>
-                        <Row $align={'center'} $justifyContent={'flex-start'}>
-                          {activity.note && <Label>{`${activity.note}`}</Label>}
-                        </Row>
-                      </>
-                    )}
-                  </Column>
-                  {index < training.items.length - 1 && (
-                    <HorizontalRule color={'#fcf3f3'} />
-                  )}
-                </React.Fragment>
-              ))}
-            </React.Fragment>
-          ) : (
-            <Row $align={'center'} $justifyContent={'center'}>
-              <Label>{t('empty_exercises_list')}</Label>
-            </Row>
+        {training?.items &&
+          training.items.length > 0 &&
+          training.owner === USERSESSION.id && (
+            <Button
+              $bgColor={props => props.theme.colors.turquoise_01}
+              onPress={() =>
+                navigation.navigate('TrainingOnGoing', {training, idActivity})
+              }>
+              <CustomText
+                $fontSize={18}
+                $color={props => props.theme.colors.white_02}
+                $textAlign={'center'}
+                $weight={'SemiBold'}>
+                {t('go_to_onGoing')}
+              </CustomText>
+            </Button>
           )}
-        </Card>
 
-        <ButtonDefault $red onPress={() => setOpenModal(true)}>
-          <Label>{t('lbl_delete_workout')}</Label>
-        </ButtonDefault>
+        <Container gap={16}>
+          <ContainerTitle>{t('lbl_workout_description')}</ContainerTitle>
+          <Container gap={16}>
+            {training?.items && training.items.length ? (
+              <Container
+                gap={16}
+                bgColor={props => props.theme.colors.black_01}
+                padding={'16px'}>
+                {training.items.map((activity, index) => (
+                  <React.Fragment key={index}>
+                    <ExerciseDetail activity={activity} />
+                    {index < training.items.length - 1 && (
+                      <HorizontalRule color={'#fcf3f3'} />
+                    )}
+                  </React.Fragment>
+                ))}
+              </Container>
+            ) : (
+              <Row $align={'center'} $justifyContent={'center'}>
+                <CustomText>{t('empty_exercises_list')}</CustomText>
+              </Row>
+            )}
+          </Container>
+        </Container>
+
+        <Button
+          $bgColor={props => props.theme.colors.red_01}
+          onPress={() => setOpenModal(true)}>
+          <CustomText
+            $textAlign={'center'}
+            $fontSize={18}
+            $weight={'SemiBold'}
+            $color={props => props.theme.colors.white_02}>
+            {t('lbl_delete_workout')}
+          </CustomText>
+        </Button>
       </ContainerScroll>
       <ModalDeleteTraining
         idTraining={idActivity}

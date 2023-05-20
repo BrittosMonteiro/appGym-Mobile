@@ -1,18 +1,17 @@
 import {useState} from 'react';
-import {Pressable} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {CaretDown, CaretUp, Eye, EyeSlash} from 'phosphor-react-native';
 import {useTranslation} from 'react-i18next';
 
 import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
-import {Column, Row, Label, InputText} from './style';
-import {ButtonDefault, Card, ContainerTitle} from '../../style';
+import {Row} from './style';
+import {ContainerTitle, CustomText, InputDataDefault, Link} from '../../style';
 
 import {updatePasswordService} from '../../../service/user';
 import {
   setMessageError,
   setMessageOff,
 } from '../../../store/actions/systemAction';
+import Container2 from '../../../components/Container/Container';
 
 export default function ProfilePassword() {
   const DISPATCH = useDispatch();
@@ -68,65 +67,41 @@ export default function ProfilePassword() {
   }
 
   return (
-    <>
-      <Card $black $padding $fullWidth>
-        <Row $align={'center'} $justifyContent={'space-between'}>
-          <ContainerTitle $white>{t('title_change_password')}</ContainerTitle>
-          <Pressable
-            onPress={() => setToggleUpdatePassword(!toggleUpdatePassword)}>
-            {toggleUpdatePassword ? (
-              <CaretDown size={24} weight="regular" color={'#fcf3f3'} />
-            ) : (
-              <CaretUp size={24} weight="regular" color={'#fcf3f3'} />
-            )}
-          </Pressable>
-        </Row>
-        {toggleUpdatePassword && (
-          <>
-            <Column $gap>
-              <Label>{t('lbl_new_password')}</Label>
-              <Row $align={'center'} $justifyContent={'space-between'}>
-                <InputText
-                  placeholder={t('lbl_your_new_password')}
-                  secureTextEntry={!showPassword}
-                  defaultValue={password}
-                  onChangeText={text => setPassword(text)}
-                />
-                <Pressable onPress={() => setShowPassword(!showPassword)}>
-                  {showPassword ? (
-                    <Eye weight="regular" color={'#fcf3f3'} size={24} />
-                  ) : (
-                    <EyeSlash weight="regular" color={'#fcf3f3'} size={24} />
-                  )}
-                </Pressable>
-              </Row>
-            </Column>
+    <Container2 gap={16}>
+      <Row $align={'center'} $justifyContent={'space-between'}>
+        <ContainerTitle $white>{t('title_change_password')}</ContainerTitle>
+        <Link onPress={() => updatePassword()}>
+          <CustomText $fontSize={18}>{t('lbl_update')}</CustomText>
+        </Link>
+      </Row>
+      <Row>
+        <CustomText $fontSize={14}>{t('lbl_new_password')}</CustomText>
+        <InputDataDefault
+          $bgColor={props => props.theme.colors.black_01}
+          $color={props => props.theme.colors.white_02}
+          $padding={16}
+          $fontSize={18}
+          $fontWeight={'SemiBold'}
+          placeholder={t('lbl_your_new_password')}
+          secureTextEntry={!showPassword}
+          defaultValue={password}
+          onChangeText={text => setPassword(text)}
+        />
+      </Row>
 
-            <Column $gap>
-              <Label>{t('lbl_confirm_new_password')}</Label>
-              <Row $align={'center'} $justifyContent={'space-between'}>
-                <InputText
-                  placeholder={t('lbl_confirm_your_new_password')}
-                  secureTextEntry={!showPassword}
-                  defaultValue={confirmPassword}
-                  onChangeText={text => setConfirmPassword(text)}
-                />
-                <Pressable onPress={() => setShowPassword(!showPassword)}>
-                  {showPassword ? (
-                    <Eye weight="regular" color={'#fcf3f3'} size={24} />
-                  ) : (
-                    <EyeSlash weight="regular" color={'#fcf3f3'} size={24} />
-                  )}
-                </Pressable>
-              </Row>
-            </Column>
-
-            <ButtonDefault $green onPress={() => updatePassword()}>
-              <Label>{t('lbl_update')}</Label>
-            </ButtonDefault>
-          </>
-        )}
-      </Card>
-    </>
+      <Row>
+        <CustomText $fontSize={14}>{t('lbl_confirm_new_password')}</CustomText>
+        <InputDataDefault
+          $bgColor={props => props.theme.colors.black_01}
+          $color={props => props.theme.colors.white_02}
+          $padding={16}
+          $fontSize={18}
+          placeholder={t('lbl_confirm_your_new_password')}
+          secureTextEntry={!showPassword}
+          defaultValue={confirmPassword}
+          onChangeText={text => setConfirmPassword(text)}
+        />
+      </Row>
+    </Container2>
   );
 }

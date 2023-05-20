@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Pressable} from 'react-native';
+import {Pressable, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 
-import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
-import {Column, InputText, Label, Row} from './style';
-import {Card, ContainerTitle} from '../../style';
+import {Row} from './style';
+import {ContainerTitle, CustomText, InputDataDefault, Link} from '../../style';
 import DatePicker from 'react-native-date-picker';
+import Container2 from '../../../components/Container/Container';
 
 export default function ProfileData({userData, updateProfile}) {
   const USERSESSION = useSelector(state => {
@@ -22,8 +22,8 @@ export default function ProfileData({userData, updateProfile}) {
   const [name, setName] = useState('');
   const [shortName, setShortName] = useState('');
   const [username, setUsername] = useState('');
-  const [edit, setEdit] = useState(false);
   const [openDatePicker, setOpenDatePicker] = useState(false);
+  const [edit, setEdit] = useState(false);
   const {t} = useTranslation();
 
   useEffect(() => {
@@ -74,30 +74,34 @@ export default function ProfileData({userData, updateProfile}) {
   }
 
   return (
-    <Card $black $fullWidth $padding>
+    <Container2 gap={16}>
       <Row $align={'center'} $justifyContent={'space-between'}>
-        <ContainerTitle $white>{t('lbl_data')}</ContainerTitle>
+        <ContainerTitle>MY PROFILE</ContainerTitle>
         {!edit ? (
-          <Pressable onPress={() => setEdit(!edit)}>
-            <Label>{t('edit')}</Label>
-          </Pressable>
+          <Link onPress={() => setEdit(!edit)}>
+            <CustomText $fontSize={18}>{t('edit')}</CustomText>
+          </Link>
         ) : (
-          <Row $align={'center'} $justifyContent={'space-between'}>
-            <Pressable onPress={() => update()}>
-              <Label>{t('lbl_update')}</Label>
-            </Pressable>
-            <Pressable onPress={() => cancel()}>
-              <Label>{t('lbl_cancel')}</Label>
-            </Pressable>
-          </Row>
+          <View style={{display: 'flex', flexDirection: 'row', gap: 8}}>
+            <Link onPress={() => update()}>
+              <CustomText $fontSize={18}>{t('lbl_update')}</CustomText>
+            </Link>
+
+            <Link onPress={() => cancel()}>
+              <CustomText $fontSize={18}>{t('lbl_cancel')}</CustomText>
+            </Link>
+          </View>
         )}
       </Row>
 
-      <HorizontalRule color={'#fcf3f3'} />
-
-      <Column $gap>
-        <Label>{t('lbl_name')}</Label>
-        <InputText
+      <Row>
+        <CustomText $fontSize={14}>{t('lbl_name')}</CustomText>
+        <InputDataDefault
+          $fontSize={18}
+          $fontWeight={'SemiBold'}
+          $padding={16}
+          $color={props => props.theme.colors.white_02}
+          $bgColor={props => props.theme.colors.black_01}
           keyboardType={'default'}
           inputMode={'text'}
           placeholder={t('lbl_name')}
@@ -105,12 +109,17 @@ export default function ProfileData({userData, updateProfile}) {
           defaultValue={name}
           onChangeText={text => setName(text)}
         />
-      </Column>
+      </Row>
 
       {shortName && (
-        <Column $gap>
-          <Label>{t('lbl_shortName')}</Label>
-          <InputText
+        <Row>
+          <CustomText $fontSize={14}>{t('lbl_shortName')}</CustomText>
+          <InputDataDefault
+            $fontSize={18}
+            $fontWeight={'SemiBold'}
+            $padding={16}
+            $color={props => props.theme.colors.white_02}
+            $bgColor={props => props.theme.colors.black_01}
             keyboardType={'default'}
             inputMode={'text'}
             placeholder={t('lbl_shortName')}
@@ -118,12 +127,17 @@ export default function ProfileData({userData, updateProfile}) {
             defaultValue={shortName}
             onChangeText={text => setShortName(text)}
           />
-        </Column>
+        </Row>
       )}
 
-      <Column $gap>
-        <Label>{t('lbl_email')}</Label>
-        <InputText
+      <Row>
+        <CustomText $fontSize={14}>{t('lbl_email')}</CustomText>
+        <InputDataDefault
+          $fontSize={18}
+          $fontWeight={'SemiBold'}
+          $padding={16}
+          $color={props => props.theme.colors.white_02}
+          $bgColor={props => props.theme.colors.black_01}
           keyboardType={'email-address'}
           inputMode={'email'}
           placeholder={t('lbl_email')}
@@ -131,11 +145,16 @@ export default function ProfileData({userData, updateProfile}) {
           defaultValue={email}
           onChangeText={text => setEmail(text)}
         />
-      </Column>
+      </Row>
 
-      <Column $gap>
-        <Label>{t('lbl_user')}</Label>
-        <InputText
+      <Row>
+        <CustomText $fontSize={14}>{t('lbl_user')}</CustomText>
+        <InputDataDefault
+          $fontSize={18}
+          $fontWeight={'SemiBold'}
+          $padding={16}
+          $color={props => props.theme.colors.white_02}
+          $bgColor={props => props.theme.colors.black_01}
           keyboardType={'default'}
           inputMode={'text'}
           placeholder={t('lbl_user')}
@@ -143,13 +162,18 @@ export default function ProfileData({userData, updateProfile}) {
           defaultValue={username}
           onChangeText={text => setUsername(text)}
         />
-      </Column>
+      </Row>
 
       {birthdate && (
         <Pressable onPress={() => (!edit ? null : setOpenDatePicker(true))}>
-          <Column $gap>
-            <Label>{t('lbl_birthdate')}</Label>
-            <InputText
+          <Row>
+            <CustomText $fontSize={14}>{t('lbl_birthdate')}</CustomText>
+            <InputDataDefault
+              $fontSize={18}
+              $fontWeight={'SemiBold'}
+              $padding={16}
+              $color={props => props.theme.colors.white_02}
+              $bgColor={props => props.theme.colors.black_01}
               placeholder={t('lbl_birthdate')}
               defaultValue={
                 birthdate ? new Date(birthdate).toLocaleDateString() : null
@@ -173,14 +197,19 @@ export default function ProfileData({userData, updateProfile}) {
               confirmText={t('lbl_confirm')}
               cancelText={t('lbl_cancel')}
             />
-          </Column>
+          </Row>
         </Pressable>
       )}
 
       {cpf && (
-        <Column $gap>
-          <Label>{t('lbl_cpf')}</Label>
-          <InputText
+        <Row>
+          <CustomText $fontSize={14}>{t('lbl_cpf')}</CustomText>
+          <InputDataDefault
+            $fontSize={18}
+            $fontWeight={'SemiBold'}
+            $padding={16}
+            $color={props => props.theme.colors.white_02}
+            $bgColor={props => props.theme.colors.black_01}
             keyboardType={'numeric'}
             inputMode={'numeric'}
             placeholder={t('lbl_cpf')}
@@ -188,13 +217,18 @@ export default function ProfileData({userData, updateProfile}) {
             defaultValue={cpf}
             onChangeText={text => setCpf(text)}
           />
-        </Column>
+        </Row>
       )}
 
       {cnpj && (
-        <Column $gap>
-          <Label>{t('lbl_cnpj')}</Label>
-          <InputText
+        <Row>
+          <CustomText $fontSize={14}>{t('lbl_cnpj')}</CustomText>
+          <InputDataDefault
+            $fontSize={18}
+            $fontWeight={'SemiBold'}
+            $padding={16}
+            $color={props => props.theme.colors.white_02}
+            $bgColor={props => props.theme.colors.black_01}
             keyboardType={'numeric'}
             inputMode={'numeric'}
             placeholder={t('lbl_cnpj')}
@@ -202,13 +236,18 @@ export default function ProfileData({userData, updateProfile}) {
             defaultValue={cnpj}
             onChangeText={text => setCnpj(text)}
           />
-        </Column>
+        </Row>
       )}
 
       {cref && (
-        <Column $gap>
-          <Label>{t('lbl_cref')}</Label>
-          <InputText
+        <Row>
+          <CustomText $fontSize={14}>{t('lbl_cref')}</CustomText>
+          <InputDataDefault
+            $fontSize={18}
+            $fontWeight={'SemiBold'}
+            $padding={16}
+            $color={props => props.theme.colors.white_02}
+            $bgColor={props => props.theme.colors.black_01}
             keyboardType={'numeric'}
             inputMode={'numeric'}
             placeholder={t('lbl_cref')}
@@ -216,19 +255,24 @@ export default function ProfileData({userData, updateProfile}) {
             defaultValue={cref}
             onChangeText={text => setCref(text)}
           />
-        </Column>
+        </Row>
       )}
 
       {gymName && (
-        <Column $gap>
-          <Label>{t('lbl_gym')}</Label>
-          <InputText
+        <Row>
+          <CustomText $fontSize={14}>{t('lbl_gym')}</CustomText>
+          <InputDataDefault
+            $fontSize={18}
+            $fontWeight={'SemiBold'}
+            $padding={16}
+            $color={props => props.theme.colors.white_02}
+            $bgColor={props => props.theme.colors.black_01}
             placeholder={t('lbl_gym')}
             editable={false}
             defaultValue={gymName}
           />
-        </Column>
+        </Row>
       )}
-    </Card>
+    </Container2>
   );
 }

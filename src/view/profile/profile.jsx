@@ -11,7 +11,7 @@ import Plan from './components/profilePlan';
 import ProfilePassword from './components/profilePassword';
 import ProfileData from './components/profileData';
 
-import {ButtonDefault, ContainerScroll} from '../style';
+import {Button, ContainerScroll, CustomText} from '../style';
 
 import {
   deleteUserAccountService,
@@ -19,11 +19,11 @@ import {
   updateUserService,
 } from '../../service/user';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
-import {Label} from './components/style';
 import ModalDeleteUserAccount from './components/ModalDeleteUserAccount';
 import {unsetUser} from '../../store/actions/userSessionAction';
 import LanguageSelection from '../../components/LanguageSelection/LanguageSelection';
 import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
+import Container2 from '../../components/Container/Container';
 
 export default function Profile({navigation}) {
   const DISPATCH = useDispatch();
@@ -122,24 +122,42 @@ export default function Profile({navigation}) {
         <HeaderStart />
       )}
 
-      <ContainerScroll contentContainerStyle={{gap: 16}}>
+      <ContainerScroll contentContainerStyle={{gap: 32}}>
         <ProfileData userData={userData} updateProfile={updateUser} />
-
-        <LanguageSelection />
-
-        {plan && <Plan plan={plan} />}
-
+        <HorizontalRule />
         <ProfilePassword />
-
-        <ButtonDefault $red onPress={() => logout()}>
-          <Label>{t('lbl_logout')}</Label>
-        </ButtonDefault>
-
+        <HorizontalRule />
+        {/* {plan && <Plan plan={plan} />} */}
+        <LanguageSelection />
         <HorizontalRule />
 
-        <ButtonDefault $red onPress={() => setOpenModal(true)}>
-          <Label>{t('lbl_delete_account')}</Label>
-        </ButtonDefault>
+        <Container2 gap={16}>
+          <Button
+            $bgColor={props => props.theme.colors.red_01}
+            onPress={() => logout()}>
+            <CustomText
+              $fontSize={18}
+              $weight={'SemiBold'}
+              $color={props => props.theme.colors.white_02}
+              $textAlign={'center'}>
+              {t('lbl_logout')}
+            </CustomText>
+          </Button>
+
+          {/* <HorizontalRule /> */}
+
+          <Button
+            $bgColor={props => props.theme.colors.red_01}
+            onPress={() => setOpenModal(true)}>
+            <CustomText
+              $fontSize={18}
+              $weight={'SemiBold'}
+              $color={props => props.theme.colors.white_02}
+              $textAlign={'center'}>
+              {t('lbl_delete_account')}
+            </CustomText>
+          </Button>
+        </Container2>
       </ContainerScroll>
       <ModalDeleteUserAccount
         deleteAccount={deleteAccount}
