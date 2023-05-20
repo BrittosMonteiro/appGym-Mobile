@@ -115,7 +115,7 @@ export default function TrainingDetail({navigation, route}) {
           )}
 
         <Container gap={16}>
-          <ContainerTitle>WORKOUT DESCRIPTION</ContainerTitle>
+          <ContainerTitle>{t('lbl_workout_description')}</ContainerTitle>
           <Container gap={16}>
             {training?.items && training.items.length ? (
               <Container

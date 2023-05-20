@@ -25,9 +25,9 @@ export default function ManageActivityList({
   return (
     <Container2 gap={16}>
       <Row $align={'center'} $justifyContent={'space-between'}>
-        <ContainerTitle>WORKOUT DESCRIPTION</ContainerTitle>
+        <ContainerTitle>{t('lbl_workout_description')}</ContainerTitle>
         <Link onPress={() => setOpenModal(!openModal)}>
-          <CustomText>{t('lbl_add')} EXERCISE</CustomText>
+          <CustomText>{t('lbl_add')}</CustomText>
         </Link>
       </Row>
       {selectedActivities.length > 0 ? (

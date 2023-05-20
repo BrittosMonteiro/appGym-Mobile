@@ -176,7 +176,7 @@ export default function ManageActivity({navigation, route}) {
       <Header navigation={navigation} title={t('title_manage_workout')} />
       <ContainerScroll contentContainerStyle={{gap: 32}}>
         <Column $gap>
-          <CustomText $fontSize={14}>WORKOUT NAME</CustomText>
+          <CustomText $fontSize={14}>{t('lbl_workout_name')}</CustomText>
           <InputDataDefault
             $fontWeight={'SemiBold'}
             autoCapitalize={'characters'}

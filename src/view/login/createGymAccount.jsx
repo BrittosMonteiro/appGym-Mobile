@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {ActivityIndicator} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
-import {CaretRight, Eye, EyeSlash} from 'phosphor-react-native';
+import {CaretRight} from 'phosphor-react-native';
 import {useTranslation} from 'react-i18next';
 
 import ViewDefault from '../ViewDefault';
@@ -143,7 +143,7 @@ export default function CreateGymAccount({navigation, route}) {
       <ContainerScroll
         contentContainerStyle={{gap: 24, justifyContent: 'center', flex: 1}}>
         <Container flex={true} justifyContent={'center'}>
-          <SignInSignUpTitle>SIGN UP</SignInSignUpTitle>
+          <SignInSignUpTitle>{t('lbl_sign_up')}</SignInSignUpTitle>
           <Container gap={16}>
             <InputDataDefault
               $padding={16}

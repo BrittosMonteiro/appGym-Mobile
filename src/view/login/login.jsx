@@ -2,13 +2,7 @@ import {useEffect, useState} from 'react';
 import {ActivityIndicator, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
-import {
-  CaretRight,
-  CheckSquare,
-  Eye,
-  EyeSlash,
-  Square,
-} from 'phosphor-react-native';
+import {CaretRight, CheckSquare, Square} from 'phosphor-react-native';
 import {useTranslation} from 'react-i18next';
 
 import ViewDefault from '../ViewDefault';
@@ -28,6 +22,7 @@ export default function Login({navigation}) {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const {t} = useTranslation();
 
   function setMessage(text) {
@@ -120,7 +115,7 @@ export default function Login({navigation}) {
         <Row $align={'center'} $justifyContent={'center'}>
           <Image source={logo} alt="Logo" />
         </Row>
-        <SignInSignUpTitle>LOGIN</SignInSignUpTitle>
+        <SignInSignUpTitle>{t('lbl_sign_in')}</SignInSignUpTitle>
         <Container gap={16}>
           <InputDataDefault
             $padding={16}
@@ -147,11 +142,18 @@ export default function Login({navigation}) {
             defaultValue={password}
             onChangeText={text => setPassword(text)}
           />
-          <Row $align={'center'}>
-            <Square color={'#202020'} size={24} weight="regular" />
-            <CheckSquare color={'#202020'} size={24} weight="regular" />
-            <CustomText $fontSize={18}>KEEP ME ON</CustomText>
-          </Row>
+
+          {/* <Row $align={'center'}>
+            <Link onPress={() => setRememberMe(!rememberMe)}>
+              {rememberMe ? (
+                <CheckSquare color={'#202020'} size={24} weight="regular" />
+              ) : (
+                <Square color={'#202020'} size={24} weight="regular" />
+              )}
+            </Link>
+            <CustomText $fontSize={18}>{t('lbl_remember_me')}</CustomText>
+          </Row> */}
+
           <Button
             $bgColor={props => props.theme.colors.turquoise_01}
             onPress={() => access()}
@@ -171,12 +173,12 @@ export default function Login({navigation}) {
         </Container>
 
         <Container gap={16}>
-          <Link $fullWidth>
+          {/* <Link $fullWidth>
             <CustomText $fontSize={18}>
               {t('go_to_recover_password')}
             </CustomText>
             <CaretRight color={'#202020'} />
-          </Link>
+          </Link> */}
           <Link
             $fullWidth
             onPress={() =>
