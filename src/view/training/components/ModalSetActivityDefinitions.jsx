@@ -3,7 +3,7 @@ import {useTranslation} from 'react-i18next';
 
 import ModalDefault from '../../../components/ModalDefault/ModalDefault';
 import {Column, InputText, Label, Row} from '../../profile/components/style';
-import {ButtonDefault, CustomText, InputDataDefault} from '../../style';
+import {ButtonDefault, CustomText, InputDataDefault, Link} from '../../style';
 
 export default function ModalSetActivityDefinitions({
   activity,
@@ -143,10 +143,10 @@ export default function ModalSetActivityDefinitions({
         />
       </Column>
       <Row $align={'center'} $justifyContent={'space-between'}>
-        <ButtonDefault $red onPress={() => setOpenModal(false)}>
-          <Label>{t('lbl_cancel')}</Label>
-        </ButtonDefault>
-        <ButtonDefault $green onPress={() => sendUpdatedData()}>
+        <Link onPress={() => setOpenModal(false)}>
+          <CustomText $fontSize={18}>{t('lbl_cancel')}</CustomText>
+        </Link>
+        <ButtonDefault $turquoise onPress={() => sendUpdatedData()}>
           <Label>{t('lbl_save')}</Label>
         </ButtonDefault>
       </Row>
