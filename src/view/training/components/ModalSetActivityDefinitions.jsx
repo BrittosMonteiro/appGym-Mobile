@@ -3,7 +3,7 @@ import {useTranslation} from 'react-i18next';
 
 import ModalDefault from '../../../components/ModalDefault/ModalDefault';
 import {Column, InputText, Label, Row} from '../../profile/components/style';
-import {ButtonDefault} from '../../style';
+import {ButtonDefault, CustomText, InputDataDefault} from '../../style';
 
 export default function ModalSetActivityDefinitions({
   activity,
@@ -51,59 +51,73 @@ export default function ModalSetActivityDefinitions({
 
   return (
     <ModalDefault openModal={openModal} title={t('title_set_workout')}>
+      <Row $align={'center'} $justifyContent={'space-between'}>
+        <Column $gap $flex>
+          <CustomText $fontSize={14}>{t('lbl_series')}</CustomText>
+          <InputDataDefault
+            $bgColor={props => props.theme.colors.black_01}
+            $padding={16}
+            $color={props => props.theme.colors.white_02}
+            $fontWeight={'SemiBold'}
+            keyboardType={'numeric'}
+            inputMode={'numeric'}
+            placeholder={t('lbl_series')}
+            defaultValue={series && series.toString()}
+            onChangeText={text => setSeries(text)}
+          />
+        </Column>
+        <Column $gap $flex>
+          <CustomText $fontSize={14}>{t('lbl_repetitions')}</CustomText>
+          <InputDataDefault
+            $bgColor={props => props.theme.colors.black_01}
+            $padding={16}
+            $color={props => props.theme.colors.white_02}
+            $fontWeight={'SemiBold'}
+            keyboardType={'numeric'}
+            inputMode={'numeric'}
+            placeholder={t('lbl_repetitions')}
+            defaultValue={repetitions && repetitions.toString()}
+            onChangeText={text => setRepetitions(text)}
+          />
+        </Column>
+      </Row>
+      <Row>
+        <Column $gap $flex>
+          <CustomText $fontSize={14}>{t('lbl_machine')}</CustomText>
+          <InputDataDefault
+            $bgColor={props => props.theme.colors.black_01}
+            $padding={16}
+            $color={props => props.theme.colors.white_02}
+            $fontWeight={'SemiBold'}
+            keyboardType={'numeric'}
+            inputMode={'numeric'}
+            placeholder={t('lbl_machine')}
+            defaultValue={machine && machine.toString()}
+            onChangeText={text => setMachine(text)}
+          />
+        </Column>
+        <Column $gap $flex>
+          <CustomText $fontSize={14}>{t('lbl_load')}</CustomText>
+          <InputDataDefault
+            $bgColor={props => props.theme.colors.black_01}
+            $padding={16}
+            $color={props => props.theme.colors.white_02}
+            $fontWeight={'SemiBold'}
+            keyboardType={'numeric'}
+            inputMode={'numeric'}
+            placeholder={t('lbl_load')}
+            defaultValue={load && load.toString()}
+            onChangeText={text => setLoad(text)}
+          />
+        </Column>
+      </Row>
       <Column $gap>
-        <Label $black>{t('lbl_machine')}</Label>
-        <InputText
-          $black
-          $borderRadius
-          keyboardType={'numeric'}
-          inputMode={'numeric'}
-          placeholder={t('lbl_machine')}
-          defaultValue={machine && machine.toString()}
-          onChangeText={text => setMachine(text)}
-        />
-      </Column>
-      <Column $gap>
-        <Label $black>{t('lbl_series')}</Label>
-        <InputText
-          $black
-          $borderRadius
-          keyboardType={'numeric'}
-          inputMode={'numeric'}
-          placeholder={t('lbl_series')}
-          defaultValue={series && series.toString()}
-          onChangeText={text => setSeries(text)}
-        />
-      </Column>
-      <Column $gap>
-        <Label $black>{t('lbl_repetitions')}</Label>
-        <InputText
-          $black
-          $borderRadius
-          keyboardType={'numeric'}
-          inputMode={'numeric'}
-          placeholder={t('lbl_repetitions')}
-          defaultValue={repetitions && repetitions.toString()}
-          onChangeText={text => setRepetitions(text)}
-        />
-      </Column>
-      <Column $gap>
-        <Label $black>{t('lbl_load')}</Label>
-        <InputText
-          $black
-          $borderRadius
-          keyboardType={'numeric'}
-          inputMode={'numeric'}
-          placeholder={t('lbl_load')}
-          defaultValue={load && load.toString()}
-          onChangeText={text => setLoad(text)}
-        />
-      </Column>
-      <Column $gap>
-        <Label $black>{t('lbl_time')}</Label>
-        <InputText
-          $black
-          $borderRadius
+        <CustomText $fontSize={14}>{t('lbl_minutes')}</CustomText>
+        <InputDataDefault
+          $bgColor={props => props.theme.colors.black_01}
+          $padding={16}
+          $color={props => props.theme.colors.white_02}
+          $fontWeight={'SemiBold'}
           keyboardType={'numeric'}
           inputMode={'numeric'}
           placeholder={t('lbl_minutes')}
@@ -113,9 +127,11 @@ export default function ModalSetActivityDefinitions({
       </Column>
       <Column $gap>
         <Label $black>{t('lbl_note')}</Label>
-        <InputText
-          $black
-          $borderRadius
+        <InputDataDefault
+          $bgColor={props => props.theme.colors.black_01}
+          $padding={16}
+          $color={props => props.theme.colors.white_02}
+          $fontWeight={'SemiBold'}
           keyboardType={'default'}
           inputMode={'text'}
           placeholder={t('lbl_note')}
