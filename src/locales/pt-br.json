@@ -172,5 +172,28 @@
   "title_instructors": "INSTRUTORES",
   "title_manage_instructors": "GERENCIAR INSTRUTORES",
   "message_instructors": "Lista de instrutores atrelados à academia",
-  "lbl_delete_instructor": "EXCLUIR INSTRUTOR"
+  "lbl_delete_instructor": "EXCLUIR INSTRUTOR",
+
+  "lbl_delete": "REMOVER",
+  "lbl_gyms": "ACADEMIA",
+  "go_to_gyms": "VER TODAS AS ACADEMIAS",
+  "lbl_search_gyms": "PROCURAR ACADEMIAS",
+  "lbl_delete_gym": "REMOVER ACADEMIA",
+
+  "lbl_exercises": "EXERCÍCIOS",
+  "go_to_exercises": "VER TODOS OS EXERCÍCIOS",
+  "lbl_search_exercises": "PROCURAR EXERCÍCIOS",
+  "lbl_delete_exercise": "REMOVER EXERCÍCIO",
+  "lbl_manage_exercise": "GERENCIAR EXERCÍCIO",
+  "lbl_exercise": "EXERCÍCIO",
+  "lbl_exercise_name": "NOME DO EXERCÍCIO",
+
+  "lbl_categories": "CATEGORIAS",
+  "go_to_categories": "VER TODAS AS CATEGORIAS",
+  "lbl_search_categories": "PESQUISAR CATEGORIAS",
+  "lbl_delete_category": "REMOVER CATEGORIA",
+  "lbl_manage_category": "GERENCIAR CATEGORIA",
+  "lbl_category": "CATEGORIA",
+  "lbl_category_name": "NOME CATEGORIA",
+  "lbl_choose_category": "ESCOLHER CATEGORIA"
 }

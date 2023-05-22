@@ -172,5 +172,28 @@
   "title_instructors": "INSTRUCTORS",
   "title_manage_instructors": "MANAGE INSTRUCTORS",
   "message_instructors": "List of instructors attached to your gym",
-  "lbl_delete_instructor": "DELETE"
+  "lbl_delete_instructor": "DELETE",
+
+  "lbl_delete": "DELETE",
+  "lbl_gyms": "GYMS",
+  "go_to_gyms": "SEE ALL GYMS",
+  "lbl_search_gyms": "SEARCH GYMS",
+  "lbl_delete_gym": "DELETE GYM",
+
+  "lbl_exercises": "EXERCISES",
+  "go_to_exercises": "SEE ALL EXERCISES",
+  "lbl_search_exercises": "SEARCH EXERCISES",
+  "lbl_delete_exercise": "DELETE EXERCISE",
+  "lbl_manage_exercise": "MANAGE EXERCISE",
+  "lbl_exercise": "EXERCISE",
+  "lbl_exercise_name": "EXERCISE NAME",
+
+  "lbl_categories": "CATEGORIES",
+  "go_to_categories": "SEE ALL CATEGORIES",
+  "lbl_search_categories": "SEARCH CATEGORIES",
+  "lbl_delete_category": "DELETE CATEGORY",
+  "lbl_manage_category": "MANAGE CATEGORY",
+  "lbl_category": "CATEGORY",
+  "lbl_category_name": "CATEGORY NAME",
+  "lbl_choose_category": "CHOOSE CATEGORY"
 }

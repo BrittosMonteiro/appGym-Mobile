@@ -82,7 +82,7 @@ export const InputDataDefault = styled.TextInput.attrs(() => ({
 
 export const Button = styled.Pressable`
   width: 100%;
-  padding: 18px;
+  padding: 16px;
   background-color: ${props =>
     !props.$bgColor ? 'transparent' : props.$bgColor};
   border-radius: 4px;

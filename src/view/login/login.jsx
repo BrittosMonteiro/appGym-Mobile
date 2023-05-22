@@ -94,6 +94,8 @@ export default function Login({navigation}) {
 
   function goTo(userLevel) {
     switch (userLevel) {
+      case 0:
+        return 'AdminHome';
       case 1:
         return 'Profile';
       case 2:

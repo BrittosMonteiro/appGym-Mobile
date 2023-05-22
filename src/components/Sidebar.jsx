@@ -10,6 +10,8 @@ import HorizontalRule from './HorizontalRule/HorizontalRule';
 import {ButtonDefault, Card, ContainerScroll, CustomText} from '../view/style';
 import {ContainerListItem} from './TrainingList/style';
 import {Row} from '../view/profile/components/style';
+import LanguageSelection from './LanguageSelection/LanguageSelection';
+import Logout from './Logout';
 
 export default function Sidebar({open}) {
   const dispatch = useDispatch();
@@ -100,6 +102,8 @@ export default function Sidebar({open}) {
               {index < menu.length - 1 && <HorizontalRule color={'#202020'} />}
             </React.Fragment>
           ))}
+          <LanguageSelection />
+          <Logout />
         </Card>
       </ContainerScroll>
     </Modal>

@@ -59,3 +59,7 @@ export async function deleteUserAccountService(idUser) {
     body: JSON.stringify(idUser),
   });
 }
+
+export async function countGymsService() {
+  return await fetch(`${API_URL}/user/countGyms`);
+}

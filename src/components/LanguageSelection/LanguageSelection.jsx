@@ -13,11 +13,11 @@ export default function LanguageSelection() {
   const languages = [
     {
       code: 'en',
-      language: 'English',
+      language: 'ENGLISH',
     },
     {
       code: 'ptBr',
-      language: 'Português',
+      language: 'PORTUGUÊS',
     },
   ];
 

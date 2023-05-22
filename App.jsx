@@ -30,6 +30,9 @@ import ManageUser from './src/view/users/manageUser';
 import UserPlanSelect from './src/view/users/userPlanSelect';
 import PaymentHistory from './src/view/payment/paymentHistory';
 import SystemMessage from './src/components/SystemMessage/SystemMessage';
+import AdminHome from './src/view/admin/adminHome';
+import ExercisesList from './src/view/admin/exercise/exercisesList';
+import CategoriesList from './src/view/admin/category/categoriesList';
 
 export default function App() {
   const sidebarState = useSelector(state => {
@@ -76,6 +79,10 @@ export default function App() {
           <Stack.Screen name="TrainingDetail" component={TrainingDetail} />
           <Stack.Screen name="TrainingOnGoing" component={TrainingOnGoing} />
           <Stack.Screen name="Profile" component={Profile} />
+
+          <Stack.Screen name="AdminHome" component={AdminHome} />
+          <Stack.Screen name="ExercisesList" component={ExercisesList} />
+          <Stack.Screen name="CategoriesList" component={CategoriesList} />
 
           <Stack.Screen name="PaymentHistory" component={PaymentHistory} />
           <Stack.Screen name="Instructors" component={Instructors} />
