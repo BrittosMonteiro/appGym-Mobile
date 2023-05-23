@@ -92,8 +92,8 @@ export default function Sidebar({open}) {
                   RootNavigation.navigate(item.goTo);
                 }}>
                 <CustomText
-                  $weight={'Medium'}
-                  $color={'#202020'}
+                  $weight={'SemiBold'}
+                  $color={props => props.theme.colors.black_01}
                   $fontSize={24}>
                   {item.title}
                 </CustomText>
@@ -102,7 +102,7 @@ export default function Sidebar({open}) {
               {index < menu.length - 1 && <HorizontalRule color={'#202020'} />}
             </React.Fragment>
           ))}
-          <LanguageSelection />
+          <LanguageSelection hasLabel={false} />
           <Logout />
         </Card>
       </ContainerScroll>

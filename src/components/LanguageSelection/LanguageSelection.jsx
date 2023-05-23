@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect, useState} from 'react';
 import Container2 from '../Container/Container';
 
-export default function LanguageSelection() {
+export default function LanguageSelection({hasLabel}) {
   const [selectedLanguage, setSelectedLanguage] = useState('en');
 
   const languages = [
@@ -45,7 +45,9 @@ export default function LanguageSelection() {
 
   return (
     <Container2 gap={16}>
-      <ContainerTitle $white>{t('title_choose_language')}</ContainerTitle>
+      {hasLabel && (
+        <ContainerTitle $white>{t('title_choose_language')}</ContainerTitle>
+      )}
       <SelectDropdown
         data={languages}
         onSelect={(selectedItem, index) => {

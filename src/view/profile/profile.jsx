@@ -128,7 +128,7 @@ export default function Profile({navigation}) {
         <ProfilePassword />
         <HorizontalRule />
         {/* {plan && <Plan plan={plan} />} */}
-        <LanguageSelection />
+        <LanguageSelection hasLabel />
         <HorizontalRule />
 
         <Container2 gap={16}>
