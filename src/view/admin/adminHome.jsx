@@ -60,6 +60,15 @@ export default function AdminHome({navigation}) {
     loadCountExercises();
     loadCountCategories();
   }, []);
+
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      loadCountGyms();
+      loadCountExercises();
+      loadCountCategories();
+    });
+  }, [navigation]);
+
   return (
     <ViewDefault>
       <ContainerScroll contentContainerStyle={{gap: 32}}>
