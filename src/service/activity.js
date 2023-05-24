@@ -18,7 +18,7 @@ export async function countExercisesService() {
   return await fetch(`${API_END_POINT}/countExercises`);
 }
 
-export async function updateActivity(data) {
+export async function updateExerciseService(data) {
   return await fetch(`${API_END_POINT}`, {
     method: 'PUT',
     headers: {'Content-type': 'application/json'},

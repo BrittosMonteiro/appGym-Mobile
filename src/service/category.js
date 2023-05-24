@@ -25,3 +25,11 @@ export async function deleteCategoryService(idCategory) {
     body: JSON.stringify(idCategory),
   });
 }
+
+export async function updateCategoryService(data) {
+  return await fetch(`${API_END_POINT}`, {
+    method: 'PUT',
+    headers: {'Content-type': 'application/json'},
+    body: JSON.stringify(data),
+  });
+}

@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 
 import ModalDefault from '../../../../components/ModalDefault/ModalDefault';
@@ -9,11 +9,20 @@ import {
   InputDataDefault,
   Link,
 } from '../../../style';
-import {createCategoryService} from '../../../../service/category';
+import {
+  createCategoryService,
+  updateCategoryService,
+} from '../../../../service/category';
 
-export default function ModalCreateAndUpdateCategory({onClose, open, reload}) {
+export default function ModalCreateAndUpdateCategory({
+  category,
+  onClose,
+  open,
+  reload,
+}) {
   const {t} = useTranslation();
   const [title, setTitle] = useState('');
+  const [idCategory, setIdCategory] = useState('');
 
   async function createCategory() {
     if (!title) return;
@@ -29,6 +38,26 @@ export default function ModalCreateAndUpdateCategory({onClose, open, reload}) {
       .catch(err => {})
       .finally(() => {});
   }
+
+  async function updateCategory() {
+    if (!title) return;
+    await updateCategoryService({title, idCategory})
+      .then(responseUpdate => {
+        if (responseUpdate.status === 200) {
+          onClose();
+          reload();
+        }
+      })
+      .catch(implementar => {})
+      .finally(implementar => {});
+  }
+
+  useEffect(() => {
+    if (category) {
+      setTitle(category.title);
+      setIdCategory(category.id);
+    }
+  }, [category]);
 
   return (
     <ModalDefault openModal={open} title={t('lbl_manage_category')}>
@@ -48,19 +77,29 @@ export default function ModalCreateAndUpdateCategory({onClose, open, reload}) {
       <Row $align={'center'} $justifyContent={'space-between'}>
         <Link
           onPress={() => {
-            setTitle('');
             onClose();
           }}>
           <CustomText $fontSize={18}>{t('lbl_cancel')}</CustomText>
         </Link>
-        <ButtonDefault $turquoise onPress={() => createCategory()}>
-          <CustomText
-            $fontSize={18}
-            $weight={'SemiBold'}
-            $color={props => props.theme.colors.white_02}>
-            {t('lbl_create')}
-          </CustomText>
-        </ButtonDefault>
+        {idCategory ? (
+          <ButtonDefault $turquoise onPress={() => updateCategory()}>
+            <CustomText
+              $fontSize={18}
+              $weight={'SemiBold'}
+              $color={props => props.theme.colors.white_02}>
+              {t('lbl_update')}
+            </CustomText>
+          </ButtonDefault>
+        ) : (
+          <ButtonDefault $turquoise onPress={() => createCategory()}>
+            <CustomText
+              $fontSize={18}
+              $weight={'SemiBold'}
+              $color={props => props.theme.colors.white_02}>
+              {t('lbl_create')}
+            </CustomText>
+          </ButtonDefault>
+        )}
       </Row>
     </ModalDefault>
   );

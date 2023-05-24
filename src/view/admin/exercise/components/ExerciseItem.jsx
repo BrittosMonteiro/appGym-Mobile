@@ -8,6 +8,7 @@ import {Column} from '../../../profile/components/style';
 import {CustomText} from '../../../style';
 import {PencilSimple, Trash} from 'phosphor-react-native';
 import ModalDeleteExercise from './ModalDeleteExercise';
+import ModalCreateAndUpdateExercise from './ModalCreateAndUpdateExercise';
 
 export default function ExerciseItem({exercise, reload}) {
   const [openDelete, setOpenDelete] = useState(false);
@@ -27,7 +28,7 @@ export default function ExerciseItem({exercise, reload}) {
           </ContainerListItemTitle>
         </Column>
         <View style={{display: 'flex', flexDirection: 'row', gap: 8}}>
-          <Pressable onPress={() => console.log('Editar')}>
+          <Pressable onPress={() => setOpenEdit(true)}>
             <PencilSimple weight="regular" size={24} color={'#202020'} />
           </Pressable>
           <Pressable onPress={() => setOpenDelete(true)}>
@@ -35,6 +36,12 @@ export default function ExerciseItem({exercise, reload}) {
           </Pressable>
         </View>
       </ContainerListItem>
+      <ModalCreateAndUpdateExercise
+        onClose={closeModal}
+        open={openEdit}
+        reload={reload}
+        exercise={exercise}
+      />
       <ModalDeleteExercise
         onClose={closeModal}
         open={openDelete}

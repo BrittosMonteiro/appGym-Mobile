@@ -20,14 +20,24 @@ import {
 import {useDispatch} from 'react-redux';
 import {readCategoriesService} from '../../../../service/category';
 import SelectDropdown from 'react-native-select-dropdown';
-import {createActivityService} from '../../../../service/activity';
+import {
+  createActivityService,
+  updateExerciseService,
+} from '../../../../service/activity';
 
-export default function ModalCreateAndUpdateCategory({onClose, open, reload}) {
+export default function ModalCreateAndUpdateExercise({
+  exercise,
+  onClose,
+  open,
+  reload,
+}) {
   const {t} = useTranslation();
   const DISPATCH = useDispatch();
   const [categories, setCategories] = useState([]);
   const [title, setTitle] = useState('');
+  const [idExercise, setIdExercise] = useState('');
   const [idCategory, setIdCategory] = useState('');
+  const [dropDownIndex, setDropDownIndex] = useState('');
 
   function setMessage(text) {
     DISPATCH(setMessageError(text));
@@ -59,6 +69,15 @@ export default function ModalCreateAndUpdateCategory({onClose, open, reload}) {
     loadCategories();
   }, []);
 
+  useEffect(() => {
+    if (exercise) {
+      setTitle(exercise.title);
+      setIdExercise(exercise.id);
+      setIdCategory(exercise.group);
+      setDropDownIndex(categories.findIndex(e => e.title === exercise.group));
+    }
+  }, [exercise]);
+
   async function createCategory() {
     if (!title || !idCategory) return;
 
@@ -80,7 +99,24 @@ export default function ModalCreateAndUpdateCategory({onClose, open, reload}) {
       .finally(implementar => {});
   }
 
-  async function updateCategory() {}
+  async function updateCategory() {
+    if (!title || !idCategory) return;
+
+    const data = {
+      idExercise,
+      idGroup: idCategory,
+    };
+
+    await updateExerciseService(data)
+      .then(responseUpdate => {
+        if (responseUpdate.status === 200) {
+          onClose();
+          reload();
+        }
+      })
+      .catch(implementar => {})
+      .finally(implementar => {});
+  }
 
   return (
     <ModalDefault openModal={open} title={t('lbl_manage_exercise')}>
@@ -105,7 +141,6 @@ export default function ModalCreateAndUpdateCategory({onClose, open, reload}) {
           onSelect={(selectedItem, id) => {
             setIdCategory(selectedItem.id);
           }}
-          defaultValue={idCategory}
           buttonTextAfterSelection={(selectedItem, index) => {
             return selectedItem.title;
           }}
@@ -148,6 +183,7 @@ export default function ModalCreateAndUpdateCategory({onClose, open, reload}) {
             backgroundColor: '#fcf3f3',
             borderRadius: 4,
           }}
+          defaultValueByIndex={dropDownIndex}
         />
       </Column>
 
@@ -155,14 +191,25 @@ export default function ModalCreateAndUpdateCategory({onClose, open, reload}) {
         <Link onPress={() => onClose()}>
           <CustomText $fontSize={18}>{t('lbl_cancel')}</CustomText>
         </Link>
-        <ButtonDefault $turquoise onPress={() => createCategory()}>
-          <CustomText
-            $fontSize={18}
-            $weight={'SemiBold'}
-            $color={props => props.theme.colors.white_02}>
-            {t('lbl_create')}
-          </CustomText>
-        </ButtonDefault>
+        {idExercise ? (
+          <ButtonDefault $turquoise onPress={() => updateCategory()}>
+            <CustomText
+              $fontSize={18}
+              $weight={'SemiBold'}
+              $color={props => props.theme.colors.white_02}>
+              {t('lbl_update')}
+            </CustomText>
+          </ButtonDefault>
+        ) : (
+          <ButtonDefault $turquoise onPress={() => createCategory()}>
+            <CustomText
+              $fontSize={18}
+              $weight={'SemiBold'}
+              $color={props => props.theme.colors.white_02}>
+              {t('lbl_create')}
+            </CustomText>
+          </ButtonDefault>
+        )}
       </Row>
     </ModalDefault>
   );

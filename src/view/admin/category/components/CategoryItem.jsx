@@ -8,12 +8,15 @@ import {
 import {Column} from '../../../profile/components/style';
 import {PencilSimple, Trash} from 'phosphor-react-native';
 import ModalDeleteCategory from './ModalDeleteCategory';
+import ModalCreateAndUpdateCategory from './ModalCreateAndUpdateCategory';
 
 export default function CategoryItem({category, reload}) {
+  const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
 
   function closeModal() {
     setOpenDelete(false);
+    setOpenEdit(false);
   }
 
   return (
@@ -25,7 +28,7 @@ export default function CategoryItem({category, reload}) {
           </ContainerListItemTitle>
         </Column>
         <View style={{display: 'flex', flexDirection: 'row', gap: 8}}>
-          <Pressable onPress={() => console.log('Editar Categoria')}>
+          <Pressable onPress={() => setOpenEdit(true)}>
             <PencilSimple weight="regular" size={24} color={'#202020'} />
           </Pressable>
           <Pressable onPress={() => setOpenDelete(true)}>
@@ -33,6 +36,12 @@ export default function CategoryItem({category, reload}) {
           </Pressable>
         </View>
       </ContainerListItem>
+      <ModalCreateAndUpdateCategory
+        onClose={closeModal}
+        open={openEdit}
+        reload={reload}
+        category={category}
+      />
       <ModalDeleteCategory
         open={openDelete}
         onClose={closeModal}
