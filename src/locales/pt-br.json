@@ -105,6 +105,8 @@
   "lbl_cpf": "CPF",
   "lbl_password_confirm": "CONFIRMAR SENHA",
   "lbl_remember_me": "LEMBRAR DE MIM",
+  "lbl_display_password": "EXIBIR SENHA",
+  "lbl_hide_password": "ESCONDER SENHA",
 
   "title_profile": "PERFIL",
   "title_user_management": "GERENCIAR USUÁRIO",

@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 export const Column = styled.View`
   display: flex;
   flex-direction: column;
+  ${props => props.$fullWidth && 'width: 100%;'}
   ${props => props.$flex && 'flex: 1'};
   ${props => props.$gap && `gap: 8px`};
 `;

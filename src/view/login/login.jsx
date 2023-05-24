@@ -7,7 +7,7 @@ import {useTranslation} from 'react-i18next';
 
 import ViewDefault from '../ViewDefault';
 import {Button, CustomText, InputDataDefault, Link} from '../style';
-import {Row} from '../profile/components/style';
+import {Column, Row} from '../profile/components/style';
 import {loginService} from '../../service/login';
 import {setUser} from '../../store/actions/userSessionAction';
 import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
@@ -132,18 +132,30 @@ export default function Login({navigation}) {
             defaultValue={username}
             onChangeText={text => setUsername(text)}
           />
-          <InputDataDefault
-            $padding={16}
-            $bgColor={'#202020'}
-            $color={props => props.theme.colors.white_02}
-            keyboardType={'default'}
-            inputMode={'text'}
-            editable={!isLoading}
-            secureTextEntry={!showPassword}
-            placeholder={t('lbl_password')}
-            defaultValue={password}
-            onChangeText={text => setPassword(text)}
-          />
+          <Column $gap $fullWidth>
+            <InputDataDefault
+              $padding={16}
+              $bgColor={'#202020'}
+              $color={props => props.theme.colors.white_02}
+              keyboardType={'default'}
+              inputMode={'text'}
+              editable={!isLoading}
+              secureTextEntry={!showPassword}
+              placeholder={t('lbl_password')}
+              defaultValue={password}
+              onChangeText={text => setPassword(text)}
+            />
+            <Row $justifyContent={'flex-end'}>
+              <Link
+                onPress={() => !isLoading && setShowPassword(!showPassword)}>
+                <CustomText>
+                  {showPassword
+                    ? t('lbl_hide_password')
+                    : t('lbl_display_password')}
+                </CustomText>
+              </Link>
+            </Row>
+          </Column>
 
           {/* <Row $align={'center'}>
             <Link onPress={() => setRememberMe(!rememberMe)}>
@@ -158,7 +170,7 @@ export default function Login({navigation}) {
 
           <Button
             $bgColor={props => props.theme.colors.turquoise_01}
-            onPress={() => access()}
+            onPress={() => !isLoading && access()}
             disabled={isLoading}>
             <CustomText
               $textAlign={'center'}

@@ -30,7 +30,7 @@ export const HeaderGreetingsStrong = styled.Text`
   font-size: 22px;
   line-height: 29px;
   font-weight: 500;
-  font-family: IBMPlexSansCondensed-Medium;
+  font-family: IBMPlexSansCondensed-SemiBold;
   color: ${props => props.theme.colors.white_02};
 `;
 

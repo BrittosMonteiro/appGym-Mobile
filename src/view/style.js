@@ -69,6 +69,7 @@ export const CustomText = styled.Text`
 export const InputDataDefault = styled.TextInput.attrs(() => ({
   placeholderTextColor: `#828282`,
 }))`
+  display: flex;
   width: 100%;
   font-size: 18px;
   border-radius: 4px;

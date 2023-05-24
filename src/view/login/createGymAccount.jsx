@@ -18,6 +18,7 @@ import {
 import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
 import Container from '../../components/Container/Container';
 import {SignInSignUpTitle} from './style';
+import {Row} from '../profile/components/style';
 
 export default function CreateGymAccount({navigation, route}) {
   const DISPATCH = useDispatch();
@@ -252,6 +253,17 @@ export default function CreateGymAccount({navigation, route}) {
               defaultValue={confirmPassword}
               onChangeText={text => setConfirmPassword(text)}
             />
+            <Row $justifyContent={'flex-end'}>
+              <Link
+                onPress={() => !isLoading && setShowPassword(!showPassword)}>
+                <CustomText>
+                  {showPassword
+                    ? t('lbl_hide_password')
+                    : t('lbl_display_password')}
+                </CustomText>
+              </Link>
+            </Row>
+
             <Button
               $bgColor={props => props.theme.colors.turquoise_01}
               onPress={() => createAccount()}
@@ -273,7 +285,9 @@ export default function CreateGymAccount({navigation, route}) {
             </Button>
           </Container>
           <Container gap={16}>
-            <Link $fullWidth onPress={() => navigation.navigate('Login')}>
+            <Link
+              $fullWidth
+              onPress={() => !isLoading && navigation.navigate('Login')}>
               <CustomText $fontSize={18}>{t('go_to_login')}</CustomText>
               <CaretRight color={'#202020'} />
             </Link>

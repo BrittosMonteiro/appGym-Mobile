@@ -105,6 +105,8 @@
   "lbl_cpf": "CPF",
   "lbl_password_confirm": "CONFIRM PASSWORD",
   "lbl_remember_me": "REMEMBER ME",
+  "lbl_display_password": "DISPLAY PASSWORD",
+  "lbl_hide_password": "HIDE PASSWORD",
 
   "title_profile": "PROFILE",
   "title_user_management": "USER MANAGEMENT",

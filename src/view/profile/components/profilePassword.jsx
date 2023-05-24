@@ -96,11 +96,20 @@ export default function ProfilePassword() {
           $color={props => props.theme.colors.white_02}
           $padding={16}
           $fontSize={18}
+          $fontWeight={'SemiBold'}
           placeholder={t('lbl_confirm_your_new_password')}
           secureTextEntry={!showPassword}
           defaultValue={confirmPassword}
           onChangeText={text => setConfirmPassword(text)}
         />
+      </Row>
+
+      <Row $justifyContent={'flex-end'}>
+        <Link onPress={() => setShowPassword(!showPassword)}>
+          <CustomText>
+            {showPassword ? t('lbl_hide_password') : t('lbl_display_password')}
+          </CustomText>
+        </Link>
       </Row>
     </Container2>
   );
