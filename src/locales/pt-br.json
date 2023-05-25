@@ -90,6 +90,9 @@
   "title_set_workout": "DETALHES DO EXERCÍCIO",
   "lbl_save": "SALVAR",
   "lbl_workout_description": "DESCRIÇÃO DO TREINO",
+  "lbl_workout_history": "HISTÓRICO DE TREINOS",
+  "lbl_last_workout": "ÚLTIMO TREINO",
+  "lbl_workouts_done": "TREINOS FEITOS",
 
   "access_account_1": "ACESSAR",
   "access_account_2": "CRIAR",

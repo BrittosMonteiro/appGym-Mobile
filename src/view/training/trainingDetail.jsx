@@ -15,6 +15,7 @@ import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
 import Container from '../../components/Container/Container';
 import ExerciseDetail from './components/ExerciseDetail';
+import Container2 from '../../components/Container/Container';
 
 export default function TrainingDetail({navigation, route}) {
   const {idActivity} = route.params;
@@ -113,6 +114,20 @@ export default function TrainingDetail({navigation, route}) {
               </CustomText>
             </Button>
           )}
+
+        {trainingHistory.qty > 0 && (
+          <Container2 gap={16}>
+            <ContainerTitle>{t('lbl_workout_history')}</ContainerTitle>
+            <Container2 gap={8}>
+              <CustomText $fontSize={16}>{`${t('lbl_last_workout')}: ${new Date(
+                trainingHistory.last,
+              ).toLocaleDateString()}`}</CustomText>
+              <CustomText $fontSize={16}>{`${t('lbl_workouts_done')}: ${
+                trainingHistory.qty
+              }`}</CustomText>
+            </Container2>
+          </Container2>
+        )}
 
         <Container gap={16}>
           <ContainerTitle>{t('lbl_workout_description')}</ContainerTitle>

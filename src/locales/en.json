@@ -90,6 +90,9 @@
   "title_set_workout": "SET YOUR EXERCISE",
   "lbl_save": "SAVE",
   "lbl_workout_description": "WORKOUT DESCRIPTION",
+  "lbl_workout_history": "WORKOUT HISTORY",
+  "lbl_last_workout": "LAST WORKOUT",
+  "lbl_workouts_done": "WORKOUTS DONE",
 
   "access_account_1": "ACCESS",
   "access_account_2": "CREATE",
