@@ -107,6 +107,11 @@
   "lbl_remember_me": "LEMBRAR DE MIM",
   "lbl_display_password": "EXIBIR SENHA",
   "lbl_hide_password": "ESCONDER SENHA",
+  "lbl_email_already_registered": "E-MAIL JÁ REGISTRADO",
+  "lbl_user_already_registered": "USUÁRIO JÁ REGISTRADO",
+  "lbl_cnpj_already_registered": "CNPJ JÁ REGISTRADO",
+  "lbl_cref_already_registered": "CREF JÁ REGISTRADO",
+  "lbl_cpf_already_registered": "CPF JÁ REGISTRADO",
 
   "title_profile": "PERFIL",
   "title_user_management": "GERENCIAR USUÁRIO",
@@ -116,6 +121,7 @@
   "lbl_cref": "CREF",
   "lbl_birthdate": "DATA DE NASCIMENTO",
   "lbl_gym": "ACADEMIA",
+  "lbl_my_profile": "MEU PERFIL",
 
   "lbl_logout": "SAIR",
 

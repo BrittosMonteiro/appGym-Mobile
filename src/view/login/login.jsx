@@ -37,7 +37,7 @@ export default function Login({navigation}) {
       await AsyncStorage.setItem('USERSESSION', JSON.stringify(data));
       getUserSession();
     } catch (err) {
-      setMessage(`${t('system_message_user_could_not_set_session')}`);
+      setMessage(['system_message_user_could_not_set_session']);
     }
   };
 
@@ -66,7 +66,7 @@ export default function Login({navigation}) {
 
     if (!username || !password) {
       setIsLoading(false);
-      setMessage(`${t('system_message_user_login_missing_information')}`);
+      setMessage(['system_message_user_login_missing_information']);
       return;
     }
 
@@ -85,7 +85,7 @@ export default function Login({navigation}) {
         setUserSession(response);
       })
       .catch(() => {
-        setMessage(`${t('system_message_user_could_not_set_session')}`);
+        setMessage(['system_message_user_could_not_set_session']);
       })
       .finally(() => {
         setIsLoading(false);

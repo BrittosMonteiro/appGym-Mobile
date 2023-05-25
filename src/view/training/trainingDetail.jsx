@@ -46,7 +46,7 @@ export default function TrainingDetail({navigation, route}) {
         setTraining(response.data);
       })
       .catch(() => {
-        setMessage(`${t('system_message_workout_could_not_load')}`);
+        setMessage(['system_message_workout_could_not_load']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());
@@ -65,7 +65,7 @@ export default function TrainingDetail({navigation, route}) {
         setTrainingHistory(response.data);
       })
       .catch(() => {
-        setMessage(`${t('system_message_workout_could_not_load_history')}`);
+        setMessage(['system_message_workout_could_not_load_history']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());

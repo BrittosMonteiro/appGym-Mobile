@@ -23,14 +23,14 @@ import {Row} from '../profile/components/style';
 export default function CreateGymAccount({navigation, route}) {
   const DISPATCH = useDispatch();
   const {userLevel} = route.params;
-  const [cpf, setCpf] = useState('');
+  const [cpf, setCpf] = useState('42112442123');
   const [cnpj, setCnpj] = useState('');
-  const [name, setName] = useState('');
+  const [name, setName] = useState('Lucas');
   const [shortName, setShortName] = useState('');
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [email, setEmail] = useState('brittosmonteiro@gmail.com');
+  const [username, setUsername] = useState('brittosmonteiro');
+  const [password, setPassword] = useState('teste123');
+  const [confirmPassword, setConfirmPassword] = useState('teste123');
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const {t} = useTranslation();
@@ -40,7 +40,7 @@ export default function CreateGymAccount({navigation, route}) {
       await AsyncStorage.setItem('USERSESSION', JSON.stringify(data));
       getUserSession();
     } catch (err) {
-      setMessage(`${t('system_message_user_could_not_load_session')}`);
+      setMessage(['system_message_user_could_not_load_session']);
     }
   };
 
@@ -75,15 +75,19 @@ export default function CreateGymAccount({navigation, route}) {
     setIsLoading(true);
     await createAccountService(data)
       .then(responseCreate => {
-        if (responseCreate.status === 201) {
+        if (responseCreate.status === 201 || responseCreate.status === 400) {
           return responseCreate.json();
         }
       })
       .then(response => {
-        setUserSession(response.data);
+        if (response.data) {
+          setUserSession(response.data);
+        } else {
+          setMessage(response.errors);
+        }
       })
       .catch(() => {
-        setMessage(`${t('system_message_user_could_not_create')}`);
+        setMessage(['system_message_user_could_not_create']);
       })
       .finally(() => {
         setIsLoading(false);
@@ -95,7 +99,7 @@ export default function CreateGymAccount({navigation, route}) {
 
     if (password !== confirmPassword) {
       setIsLoading(false);
-      setMessage(`${t('system_message_user_password_does_not_match')}`);
+      setMessage(['system_message_user_password_does_not_match']);
       return;
     }
 
@@ -110,7 +114,7 @@ export default function CreateGymAccount({navigation, route}) {
         !userLevel
       ) {
         setIsLoading(false);
-        setMessage(`${t('system_message_user_login_missing_information')}`);
+        setMessage(['system_message_user_login_missing_information']);
         return;
       }
       sendData({cnpj, name, shortName, email, username, password, userLevel});
@@ -118,7 +122,7 @@ export default function CreateGymAccount({navigation, route}) {
       if (userLevel === 3) {
         if (!cpf || !name || !email || !username || !password || !userLevel) {
           setIsLoading(false);
-          setMessage(`${t('system_message_user_login_missing_information')}`);
+          setMessage(['system_message_user_login_missing_information']);
           return;
         }
         sendData({cpf, name, email, username, password, userLevel});

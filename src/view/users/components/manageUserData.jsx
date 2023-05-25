@@ -43,7 +43,7 @@ export default function ManageUserData({navigation, route}) {
 
   function proceedToPlan(hasPlan) {
     if (!name || !birthdate || !email || !cpf) {
-      setMessage(`${t('system_message_user_login_missing_information')}`);
+      setMessage(['system_message_user_login_missing_information']);
       return;
     }
 
@@ -79,7 +79,7 @@ export default function ManageUserData({navigation, route}) {
         setPlanValidDate(response.data.planValidDate);
       })
       .catch(() => {
-        setMessage(`${t('system_message_user_could_not_load_profile')}`);
+        setMessage(['system_message_user_could_not_load_profile']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());
@@ -96,7 +96,7 @@ export default function ManageUserData({navigation, route}) {
         }
       })
       .catch(() => {
-        setMessage(`${t('system_message_plans_remove_plan_from_user')}`);
+        setMessage(['system_message_plans_remove_plan_from_user']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());

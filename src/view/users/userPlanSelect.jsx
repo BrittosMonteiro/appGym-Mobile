@@ -53,7 +53,7 @@ export default function UserPlanSelect({navigation, route}) {
         setPlanList(response.data);
       })
       .catch(() => {
-        setMessage(`${t('system_message_plans_could_not_load')}`);
+        setMessage(['system_message_plans_could_not_load']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());
@@ -64,7 +64,7 @@ export default function UserPlanSelect({navigation, route}) {
     DISPATCH(setLoading());
     if (!idPlan) {
       DISPATCH(unsetLoading());
-      setMessage(`${t('system_message_plans_select')}`);
+      setMessage(['system_message_plans_select']);
       return;
     }
 
@@ -79,7 +79,7 @@ export default function UserPlanSelect({navigation, route}) {
         }
       })
       .catch(() => {
-        setMessage(`${t('system_message_user_could_not_create')}`);
+        setMessage(['system_message_user_could_not_create']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());
@@ -90,7 +90,7 @@ export default function UserPlanSelect({navigation, route}) {
     DISPATCH(setLoading());
     if (!idPlan) {
       DISPATCH(unsetLoading());
-      setMessage(`${t('system_message_plans_select')}`);
+      setMessage(['system_message_plans_select']);
       return;
     }
 
@@ -110,7 +110,7 @@ export default function UserPlanSelect({navigation, route}) {
         }
       })
       .catch(() => {
-        setMessage(`${t('system_message_plans_could_not_set_plan_to_user')}`);
+        setMessage(['system_message_plans_could_not_set_plan_to_user']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());

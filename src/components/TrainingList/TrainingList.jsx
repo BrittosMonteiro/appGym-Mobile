@@ -37,7 +37,7 @@ export default function TrainingList({userId, navigation, limit, routeName}) {
         filterTrainings(response.data);
       })
       .catch(() => {
-        setMessage(`${t('system_message_workout_could_not_load_list')}`);
+        setMessage(['system_message_workout_could_not_load_list']);
       })
       .finally(() => {
         dispatch(unsetLoading());

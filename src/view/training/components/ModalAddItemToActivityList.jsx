@@ -53,7 +53,7 @@ export default function ModalAddItemToActivityList({
         setAvailableActivities(response.data);
       })
       .catch(() => {
-        setMessage(`${t('system_message_workout_could_not_load_list')}`);
+        setMessage(['system_message_workout_could_not_load_list']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());

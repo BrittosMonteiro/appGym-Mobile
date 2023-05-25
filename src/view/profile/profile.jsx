@@ -55,7 +55,7 @@ export default function Profile({navigation}) {
         setUserData(response.data);
       })
       .catch(() => {
-        setMessage(`${t('system_message_user_could_not_update_profile')}`);
+        setMessage(['system_message_user_could_not_update_profile']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());
@@ -71,7 +71,7 @@ export default function Profile({navigation}) {
         }
       })
       .catch(() => {
-        setMessage(`${t('system_message_user_could_not_load_profile')}`);
+        setMessage(['system_message_user_could_not_load_profile']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());
@@ -103,7 +103,7 @@ export default function Profile({navigation}) {
         }
       })
       .catch(() => {
-        setMessage(`${t('system_message_user_could_not_delete_profile')}`);
+        setMessage(['system_message_user_could_not_delete_profile']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());

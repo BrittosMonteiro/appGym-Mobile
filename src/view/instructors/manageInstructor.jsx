@@ -38,7 +38,7 @@ export default function ManageInstructor({navigation, route}) {
     DISPATCH(setLoading());
     if (!name || !email) {
       DISPATCH(unsetLoading());
-      setMessage(`${t('system_message_instructors_missing_information')}`);
+      setMessage(['system_message_instructors_missing_information']);
       return;
     }
 
@@ -67,7 +67,7 @@ export default function ManageInstructor({navigation, route}) {
         }
       })
       .catch(() => {
-        setMessage(`${t('system_message_instructors_could_not_create')}`);
+        setMessage(['system_message_instructors_could_not_create']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());
@@ -90,9 +90,9 @@ export default function ManageInstructor({navigation, route}) {
         setCref(response.data.cref);
       })
       .catch(() => {
-        setMessage(
-          `${t('system_message_instructors_could_not_load_instructor_data')}`,
-        );
+        setMessage([
+          'system_message_instructors_could_not_load_instructor_data',
+        ]);
       })
       .finally(() => {
         DISPATCH(unsetLoading());
@@ -104,7 +104,7 @@ export default function ManageInstructor({navigation, route}) {
 
     if (!name || !email) {
       DISPATCH(unsetLoading());
-      setMessage(`${t('system_message_instructors_missing_information')}`);
+      setMessage(['system_message_instructors_missing_information']);
       return;
     }
 
@@ -134,7 +134,7 @@ export default function ManageInstructor({navigation, route}) {
         }
       })
       .catch(() => {
-        setMessage(`${t('system_message_instructors_could_not_update')}`);
+        setMessage(['system_message_instructors_could_not_update']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());
@@ -150,7 +150,7 @@ export default function ManageInstructor({navigation, route}) {
         }
       })
       .catch(() => {
-        setMessage(`${t('system_message_instructors_could_not_delete')}`);
+        setMessage(['system_message_instructors_could_not_delete']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());

@@ -76,7 +76,7 @@ export default function ProfileData({userData, updateProfile}) {
   return (
     <Container2 gap={16}>
       <Row $align={'center'} $justifyContent={'space-between'}>
-        <ContainerTitle>MY PROFILE</ContainerTitle>
+        <ContainerTitle>{t('lbl_my_profile')}</ContainerTitle>
         {!edit ? (
           <Link onPress={() => setEdit(!edit)}>
             <CustomText $fontSize={18}>{t('edit')}</CustomText>

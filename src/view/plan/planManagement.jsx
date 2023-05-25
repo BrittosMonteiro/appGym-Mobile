@@ -100,7 +100,7 @@ export default function PlanManagement({navigation, route}) {
         }
       })
       .catch(() => {
-        setMessage(`${t('system_message_plans_could_not_create')}`);
+        setMessage(['system_message_plans_could_not_create']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());
@@ -125,7 +125,7 @@ export default function PlanManagement({navigation, route}) {
         setValidMonths(response.data.validMonths);
       })
       .catch(() => {
-        setMessage(`${t('system_message_plans_could_not_load_data')}`);
+        setMessage(['system_message_plans_could_not_load_data']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());
@@ -153,7 +153,7 @@ export default function PlanManagement({navigation, route}) {
         }
       })
       .catch(() => {
-        setMessage(`${t('system_message_plans_could_not_update')}`);
+        setMessage(['system_message_plans_could_not_update']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());
@@ -169,7 +169,7 @@ export default function PlanManagement({navigation, route}) {
         }
       })
       .catch(() => {
-        setMessage(`${t('system_message_plans_could_not_delete')}`);
+        setMessage(['system_message_plans_could_not_delete']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());

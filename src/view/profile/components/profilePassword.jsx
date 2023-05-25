@@ -35,13 +35,13 @@ export default function ProfilePassword() {
     DISPATCH(setLoading());
     if (!password || !confirmPassword) {
       DISPATCH(unsetLoading());
-      setMessage(`${t('system_message_user_login_missing_information')}`);
+      setMessage(['system_message_user_login_missing_information']);
       return;
     }
 
     if (password !== confirmPassword) {
       DISPATCH(unsetLoading());
-      setMessage(`${t('system_message_user_password_does_not_match')}`);
+      setMessage(['system_message_user_password_does_not_match']);
       return;
     }
 
@@ -59,7 +59,7 @@ export default function ProfilePassword() {
         }
       })
       .catch(() => {
-        setMessage(`${t('system_message_default_error')}`);
+        setMessage(['system_message_default_error']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());

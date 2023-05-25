@@ -43,7 +43,7 @@ export default function Instructors({navigation}) {
         setInstructorList(response.data);
       })
       .catch(err => {
-        setMessage(`${t('system_message_instructors_could_not_load_list')}`);
+        setMessage(['system_message_instructors_could_not_load_list']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());

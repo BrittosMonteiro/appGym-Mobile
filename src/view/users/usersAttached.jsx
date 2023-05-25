@@ -39,7 +39,7 @@ export default function UsersAttached({isAttached, navigation}) {
         setUserList(response.data);
       })
       .catch(() => {
-        setMessage(`${t('system_message_user_could_not_load_users')}`);
+        setMessage(['system_message_user_could_not_load_users']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());

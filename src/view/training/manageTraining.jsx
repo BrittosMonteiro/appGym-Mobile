@@ -48,7 +48,7 @@ export default function ManageActivity({navigation, route}) {
         setWorkoutDays(response.data.workoutDays);
       })
       .catch(() => {
-        setMessage(`${t('system_message_workout_could_not_load')}`);
+        setMessage(['system_message_workout_could_not_load']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());
@@ -63,7 +63,7 @@ export default function ManageActivity({navigation, route}) {
     DISPATCH(setLoading());
     if (!name) {
       DISPATCH(unsetLoading());
-      setMessage(`${t('system_message_workout_missing_name')}`);
+      setMessage(['system_message_workout_missing_name']);
       return;
     }
     const data = {
@@ -82,7 +82,7 @@ export default function ManageActivity({navigation, route}) {
         setIdTraining(response.idTraining);
       })
       .catch(() => {
-        setMessage(`${t('system_message_workout_default_error')}`);
+        setMessage(['system_message_workout_default_error']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());
@@ -145,7 +145,7 @@ export default function ManageActivity({navigation, route}) {
         }
       })
       .catch(() => {
-        setMessage(`${t('system_message_workout_error_updating')}`);
+        setMessage(['system_message_workout_error_updating']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());

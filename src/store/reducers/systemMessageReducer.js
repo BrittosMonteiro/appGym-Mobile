@@ -2,7 +2,7 @@ let initialState = {
   show: false,
   cardBackgroundColor: '',
   textBackgroundColor: '',
-  text: '',
+  text: [],
 };
 
 export default function systemMessageReducer(state = initialState, action) {

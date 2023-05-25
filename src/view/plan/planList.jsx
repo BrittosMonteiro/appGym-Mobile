@@ -43,7 +43,7 @@ export default function PlanList({navigation}) {
         setPlanList(response.data);
       })
       .catch(() => {
-        setMessage(`${t('system_message_plans_could_not_load')}`);
+        setMessage(['system_message_plans_could_not_load']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());

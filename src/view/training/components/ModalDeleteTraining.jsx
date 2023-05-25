@@ -37,7 +37,7 @@ export default function ModalDeleteTraining({
         }
       })
       .catch(() => {
-        setMessage(`${t('system_message_workout_could_not_delete')}`);
+        setMessage(['system_message_workout_could_not_delete']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());

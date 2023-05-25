@@ -107,6 +107,11 @@
   "lbl_remember_me": "REMEMBER ME",
   "lbl_display_password": "DISPLAY PASSWORD",
   "lbl_hide_password": "HIDE PASSWORD",
+  "lbl_email_already_registered": "EMAIL ALREADY REGISTERED",
+  "lbl_user_already_registered": "USERNAME ALREADY REGISTERED",
+  "lbl_cnpj_already_registered": "CNPJ ALREADY REGISTERED",
+  "lbl_cref_already_registered": "CREF ALREADY REGISTERED",
+  "lbl_cpf_already_registered": "CPF ALREADY REGISTERED",
 
   "title_profile": "PROFILE",
   "title_user_management": "USER MANAGEMENT",
@@ -116,6 +121,7 @@
   "lbl_cref": "CREF",
   "lbl_birthdate": "BIRTH DATE",
   "lbl_gym": "GYM",
+  "lbl_my_profile": "MY PROFILE",
 
   "lbl_logout": "LOGOUT",
 

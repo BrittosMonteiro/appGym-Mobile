@@ -33,7 +33,7 @@ export default function TrainingOnGoing({route, navigation}) {
         navigation.goBack();
       })
       .catch(() => {
-        setMessage(`${t('system_message_default_error')}`);
+        setMessage(['system_message_default_error']);
       })
       .finally(() => {
         DISPATCH(unsetLoading());
