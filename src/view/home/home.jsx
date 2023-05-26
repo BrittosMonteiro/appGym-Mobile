@@ -5,6 +5,7 @@ import HeaderStart from '../../components/Header/HeaderStart';
 import WeekPerformance from '../../components/WeekPerformance/WeekPerformance';
 import TrainingList from '../../components/TrainingList/TrainingList';
 import {ContainerScroll} from '../style';
+import WorkoutGoal from '../../components/WorkoutGoal/WorkoutGoal';
 
 export default function Home({navigation, route}) {
   const USERSESSION = useSelector(state => {
@@ -15,7 +16,7 @@ export default function Home({navigation, route}) {
     <ViewDefault>
       <HeaderStart navigation={navigation} />
       <ContainerScroll
-        contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
+        contentContainerStyle={{alignItems: 'flex-start', gap: 32}}>
         <WeekPerformance />
         <TrainingList
           limit={5}
@@ -23,6 +24,7 @@ export default function Home({navigation, route}) {
           userId={USERSESSION.id}
           routeName={route.name}
         />
+        <WorkoutGoal navigation={navigation} />
       </ContainerScroll>
     </ViewDefault>
   );

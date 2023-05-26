@@ -206,5 +206,15 @@
   "lbl_manage_category": "MANAGE CATEGORY",
   "lbl_category": "CATEGORY",
   "lbl_category_name": "CATEGORY NAME",
-  "lbl_choose_category": "CHOOSE CATEGORY"
+  "lbl_choose_category": "CHOOSE CATEGORY",
+
+  "lbl_workout_goals": "WORKOUT GOALS",
+  "lbl_year": "YEAR",
+  "lbl_week": "WEEK",
+  "lbl_workouts_completed": "WORKOUTS COMPLETED",
+  "lbl_completed": "COMPLETED",
+  "go_to_manage_workout_goals": "MANAGE GOALS",
+  "lbl_manage_workout_goals": "MANAGE GOALS",
+  "lbl_workouts_whole_year": "WORKOUTS TO DO IN THE WHOLE YEAR",
+  "lbl_your_goal": "YOUR GOAL"
 }

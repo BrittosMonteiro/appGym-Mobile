@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 
 import ViewDefault from '../ViewDefault';
@@ -15,6 +15,9 @@ import Container2 from '../../components/Container/Container';
 
 export default function TrainingOnGoing({route, navigation}) {
   const DISPATCH = useDispatch();
+  const USERSESSION = useSelector(state => {
+    return state.userSessionReducer;
+  });
   const {training, idActivity} = route.params;
   const [items, setItems] = useState(training.items);
   const {t} = useTranslation();
@@ -28,7 +31,7 @@ export default function TrainingOnGoing({route, navigation}) {
 
   async function activityFinish() {
     DISPATCH(setLoading());
-    await createTrainingHistoryService({idActivity})
+    await createTrainingHistoryService({idUser: USERSESSION.id, idActivity})
       .then(() => {
         navigation.goBack();
       })

@@ -206,5 +206,15 @@
   "lbl_manage_category": "GERENCIAR CATEGORIA",
   "lbl_category": "CATEGORIA",
   "lbl_category_name": "NOME CATEGORIA",
-  "lbl_choose_category": "ESCOLHER CATEGORIA"
+  "lbl_choose_category": "ESCOLHER CATEGORIA",
+
+  "lbl_workout_goals": "META DE TREINOS",
+  "lbl_year": "ANO",
+  "lbl_week": "SEMANA",
+  "lbl_workouts_completed": "TREINOS FINALIZADOS",
+  "lbl_completed": "FINALIZADO",
+  "go_to_manage_workout_goals": "GERENCIAR META",
+  "lbl_manage_workout_goals": "GERENCIAR META",
+  "lbl_workouts_whole_year": "TREINOS QUE DESEJA FAZER NO ANO",
+  "lbl_your_goal": "SUA META"
 }
