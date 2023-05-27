@@ -50,8 +50,8 @@ export default function PeriodGoal({period, total, done, hasBar}) {
             {total}
             {!done ? null : (
               <CustomText $fontSize={18} $weight={'Regular'} $color={'#fcf3f3'}>
-                {workoutDone > 100
-                  ? `/${t('lbl_completed')}`
+                {workoutDone >= 100
+                  ? `/${done} - ${t('lbl_goal_achieved')}`
                   : `/${workoutDone.toFixed(2)}%`}
               </CustomText>
             )}

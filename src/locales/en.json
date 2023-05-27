@@ -216,5 +216,9 @@
   "go_to_manage_workout_goals": "MANAGE GOALS",
   "lbl_manage_workout_goals": "MANAGE GOALS",
   "lbl_workouts_whole_year": "WORKOUTS TO DO IN THE WHOLE YEAR",
-  "lbl_your_goal": "YOUR GOAL"
+  "lbl_your_goal": "YOUR GOAL",
+  "lbl_goal_achieved": "GOAL ACHIEVED",
+  "lbl_set_your_goal": "SET YOUR GOAL",
+  "lbl_your_goal_history_list": "YOUR GOAL HISTORY LIST",
+  "lbl_no_goal_set": "YOU HAVEN'T SET ANY WORKOUT GOAL"
 }

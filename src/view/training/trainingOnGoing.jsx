@@ -12,6 +12,7 @@ import {Button, ContainerScroll, CustomText} from '../style';
 import Timer from '../../components/Timer/Timer';
 import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
 import Container2 from '../../components/Container/Container';
+import {getWeekNumber} from '../../utils/dateManagement';
 
 export default function TrainingOnGoing({route, navigation}) {
   const DISPATCH = useDispatch();
@@ -31,7 +32,12 @@ export default function TrainingOnGoing({route, navigation}) {
 
   async function activityFinish() {
     DISPATCH(setLoading());
-    await createTrainingHistoryService({idUser: USERSESSION.id, idActivity})
+    await createTrainingHistoryService({
+      idUser: USERSESSION.id,
+      idActivity,
+      weekNumber: getWeekNumber(),
+      createdAd: Date.now(),
+    })
       .then(() => {
         navigation.goBack();
       })
