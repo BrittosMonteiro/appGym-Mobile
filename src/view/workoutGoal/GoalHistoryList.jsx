@@ -14,7 +14,7 @@ export default function GoalHistoryList({goalList}) {
     <Container2 gap={16}>
       {goalList.length > 0 ? (
         <React.Fragment>
-          <ContainerTitle>{t('lbl_set_your_goal')}</ContainerTitle>
+          <ContainerTitle>{t('lbl_your_goal_history_list')}</ContainerTitle>
           <Container2
             bgColor={props => props.theme.colors.black_01}
             padding={'16px'}

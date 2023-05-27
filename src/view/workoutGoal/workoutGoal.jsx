@@ -19,7 +19,7 @@ export default function WorkoutGoal({navigation}) {
     return state.userSessionReducer;
   });
   const {t} = useTranslation();
-  const [goal, setGoal] = useState('');
+  const [goalValue, setGoalValue] = useState(0);
   const [goalList, setGoalList] = useState([]);
 
   async function loadGoal() {
@@ -28,17 +28,17 @@ export default function WorkoutGoal({navigation}) {
         return responseFind.json();
       })
       .then(response => {
-        setGoal(response.data);
+        setGoalValue(response.data.value);
       })
       .catch(implementar => {})
       .finally(implementar => {});
   }
 
   async function setNewGoal() {
-    if (!goal) return;
+    if (!goalValue) return;
     const data = {
       idUser: USERSESSION.id,
-      value: goal,
+      value: goalValue,
     };
     await createGoalService(data)
       .then(responseCreate => {
@@ -93,22 +93,23 @@ export default function WorkoutGoal({navigation}) {
                 keyboardType={'numeric'}
                 inputMode={'numeric'}
                 placeholder={t('lbl_your_goal')}
-                defaultValue={goal}
-                onChangeText={number => setGoal(number)}
+                defaultValue={goalValue}
+                onChangeText={number => setGoalValue(number)}
               />
+              <Button
+                $bgColor={props => props.theme.colors.turquoise_01}
+                onPress={() => setNewGoal()}>
+                <CustomText
+                  $textAlign={'center'}
+                  $fontSize={18}
+                  $weight={'SemiBold'}
+                  $color={props => props.theme.colors.white_02}>
+                  {t('lbl_set_your_goal')}
+                </CustomText>
+              </Button>
             </Column>
           </Row>
-          <Button
-            $bgColor={props => props.theme.colors.turquoise_01}
-            onPress={() => setNewGoal()}>
-            <CustomText
-              $textAlign={'center'}
-              $fontSize={18}
-              $weight={'SemiBold'}
-              $color={props => props.theme.colors.white_02}>
-              {t('lbl_set_your_goal')}
-            </CustomText>
-          </Button>
+
           <GoalHistoryList goalList={goalList} />
         </Container2>
       </ContainerScroll>

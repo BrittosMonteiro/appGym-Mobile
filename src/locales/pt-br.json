@@ -220,5 +220,6 @@
   "lbl_goal_achieved": "META ATINGIDA",
   "lbl_set_your_goal": "DEFINA SUA META",
   "lbl_your_goal_history_list": "SUA LISTA DE METAS",
-  "lbl_no_goal_set": "NENHUMA META DEFINIDA"
+  "lbl_no_goal_set": "NENHUMA META DEFINIDA",
+  "lbl_current_goal": "META ATUAL"
 }
