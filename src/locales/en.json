@@ -93,6 +93,8 @@
   "lbl_workout_history": "WORKOUT HISTORY",
   "lbl_last_workout": "LAST WORKOUT",
   "lbl_workouts_done": "WORKOUTS DONE",
+  "lbl_workout_history_empty": "THERE'S NO WORKOUT HISTORY",
+  "lbl_workout_history_delete": "DO YOU WANT TO REMOVE THIS RECORD?",
 
   "access_account_1": "ACCESS",
   "access_account_2": "CREATE",
@@ -221,5 +223,7 @@
   "lbl_set_your_goal": "SET YOUR GOAL",
   "lbl_your_goal_history_list": "YOUR GOAL HISTORY LIST",
   "lbl_no_goal_set": "YOU HAVEN'T SET ANY WORKOUT GOAL",
-  "lbl_current_goal": "CURRENT GOAL"
+  "lbl_current_goal": "CURRENT GOAL",
+  "lbl_workouts_thru_week_goal": "WEEK WORKOUT GOAL",
+  "lbl_workout_goal_delete": "DO YOU WANT TO DELETE THIS GOAL?"
 }

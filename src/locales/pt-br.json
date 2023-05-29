@@ -93,6 +93,8 @@
   "lbl_workout_history": "HISTÓRICO DE TREINOS",
   "lbl_last_workout": "ÚLTIMO TREINO",
   "lbl_workouts_done": "TREINOS FEITOS",
+  "lbl_workout_history_empty": "NÃO HÁ HISTÓRICO DE TREINOS",
+  "lbl_workout_history_delete": "DESEJA REMOVER ESTE HISTÓRICO?",
 
   "access_account_1": "ACESSAR",
   "access_account_2": "CRIAR",
@@ -221,5 +223,7 @@
   "lbl_set_your_goal": "DEFINA SUA META",
   "lbl_your_goal_history_list": "SUA LISTA DE METAS",
   "lbl_no_goal_set": "NENHUMA META DEFINIDA",
-  "lbl_current_goal": "META ATUAL"
+  "lbl_current_goal": "META ATUAL",
+  "lbl_workouts_thru_week_goal": "META DE TREINOS SEMANAL",
+  "lbl_workout_goal_delete": "DESEJA REMOVER ESTA META?"
 }

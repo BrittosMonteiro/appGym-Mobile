@@ -59,6 +59,11 @@ export default function Sidebar({open}) {
       goTo: 'Profile',
       canSee: 3,
     },
+    {
+      title: `${t('lbl_workout_history')}`,
+      goTo: 'WorkoutHistory',
+      canSee: 3,
+    },
     // {
     //   title: `${t('go_to_payments')}`,
     //   goTo: 'PaymentHistory',

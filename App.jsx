@@ -34,6 +34,7 @@ import AdminHome from './src/view/admin/adminHome';
 import ExercisesList from './src/view/admin/exercise/exercisesList';
 import CategoriesList from './src/view/admin/category/categoriesList';
 import WorkoutGoal from './src/view/workoutGoal/workoutGoal';
+import WorkoutHistory from './src/view/training/workoutHistory';
 
 export default function App() {
   const sidebarState = useSelector(state => {
@@ -85,6 +86,7 @@ export default function App() {
           <Stack.Screen name="ExercisesList" component={ExercisesList} />
           <Stack.Screen name="CategoriesList" component={CategoriesList} />
           <Stack.Screen name="WorkoutGoal" component={WorkoutGoal} />
+          <Stack.Screen name="WorkoutHistory" component={WorkoutHistory} />
 
           <Stack.Screen name="PaymentHistory" component={PaymentHistory} />
           <Stack.Screen name="Instructors" component={Instructors} />

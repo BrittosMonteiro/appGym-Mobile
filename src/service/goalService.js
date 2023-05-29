@@ -18,7 +18,7 @@ export async function updateGoalService(data) {
   });
 }
 
-export async function deleteGoalService(data) {
+export async function deleteWorkoutGoalService(data) {
   return await fetch(`${API_END_POINT}/`, {
     method: 'DELETE',
     headers: {'Content-type': 'application/json'},

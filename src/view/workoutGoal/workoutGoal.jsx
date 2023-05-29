@@ -6,15 +6,16 @@ import ViewDefault from '../ViewDefault';
 import {Button, ContainerScroll, CustomText, InputDataDefault} from '../style';
 import Container2 from '../../components/Container/Container';
 import {Column, Row} from '../profile/components/style';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   createGoalService,
-  readGoalService,
   readGoalsListService,
 } from '../../service/goalService';
 import GoalHistoryList from './GoalHistoryList';
+import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 
 export default function WorkoutGoal({navigation}) {
+  const DISPATCH = useDispatch();
   const USERSESSION = useSelector(state => {
     return state.userSessionReducer;
   });
@@ -22,36 +23,31 @@ export default function WorkoutGoal({navigation}) {
   const [goalValue, setGoalValue] = useState(0);
   const [goalList, setGoalList] = useState([]);
 
-  async function loadGoal() {
-    await readGoalService(USERSESSION.id)
-      .then(responseFind => {
-        return responseFind.json();
-      })
-      .then(response => {
-        setGoalValue(response.data.value);
-      })
-      .catch(implementar => {})
-      .finally(implementar => {});
-  }
-
   async function setNewGoal() {
-    if (!goalValue) return;
+    DISPATCH(setLoading());
+    if (!goalValue) {
+      DISPATCH(unsetLoading());
+      return;
+    }
     const data = {
       idUser: USERSESSION.id,
       value: goalValue,
+      createdAt: new Date(),
     };
     await createGoalService(data)
       .then(responseCreate => {
         if (responseCreate.status === 201) {
-          loadGoal();
           loadGoalList();
         }
       })
       .catch(implementar => {})
-      .finally(implementar => {});
+      .finally(implementar => {
+        DISPATCH(unsetLoading());
+      });
   }
 
   async function loadGoalList() {
+    DISPATCH(setLoading());
     await readGoalsListService(USERSESSION.id)
       .then(responseFind => {
         if (responseFind.status === 200) {
@@ -62,11 +58,12 @@ export default function WorkoutGoal({navigation}) {
         setGoalList(response.data);
       })
       .catch(implementar => {})
-      .finally(implementar => {});
+      .finally(implementar => {
+        DISPATCH(unsetLoading());
+      });
   }
 
   useEffect(() => {
-    loadGoal();
     loadGoalList();
   }, []);
 
@@ -82,7 +79,7 @@ export default function WorkoutGoal({navigation}) {
           <Row>
             <Column $gap $fullWidth>
               <CustomText $fontSize={14}>
-                {t('lbl_workouts_whole_year')}
+                {t('lbl_workouts_thru_week_goal')}
               </CustomText>
               <InputDataDefault
                 $fontSize={18}
@@ -109,8 +106,7 @@ export default function WorkoutGoal({navigation}) {
               </Button>
             </Column>
           </Row>
-
-          <GoalHistoryList goalList={goalList} />
+          <GoalHistoryList goalList={goalList} reload={loadGoalList} />
         </Container2>
       </ContainerScroll>
     </ViewDefault>

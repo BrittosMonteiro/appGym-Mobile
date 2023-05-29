@@ -7,7 +7,7 @@ import GoalHistoryListItem from './GoalHistoryListItem';
 import {useTranslation} from 'react-i18next';
 import {Row} from '../profile/components/style';
 
-export default function GoalHistoryList({goalList}) {
+export default function GoalHistoryList({goalList, reload}) {
   const {t} = useTranslation();
 
   return (
@@ -15,15 +15,12 @@ export default function GoalHistoryList({goalList}) {
       {goalList.length > 0 ? (
         <React.Fragment>
           <ContainerTitle>{t('lbl_your_goal_history_list')}</ContainerTitle>
-          <Container2
-            bgColor={props => props.theme.colors.black_01}
-            padding={'16px'}
-            gap={16}>
+          <Container2 gap={16}>
             {goalList.map((goal, index) => (
               <React.Fragment key={index}>
-                <GoalHistoryListItem goal={goal} />
+                <GoalHistoryListItem goal={goal} reload={reload} />
                 {index < goalList.length - 1 && (
-                  <HorizontalRule color={'#fcf3f3'} />
+                  <HorizontalRule color={'#202020'} />
                 )}
               </React.Fragment>
             ))}
