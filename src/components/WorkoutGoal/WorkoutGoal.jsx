@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 
-import {ContainerTitle, CustomText, Link} from '../../view/style';
+import {Button, ContainerTitle, CustomText, Link} from '../../view/style';
 import Container2 from '../Container/Container';
 import PeriodGoal from './PeriodGoal';
 import HorizontalRule from '../HorizontalRule/HorizontalRule';
@@ -48,8 +48,8 @@ export default function WorkoutGoal({navigation}) {
   return (
     <Container2 gap={16}>
       <ContainerTitle>{t('lbl_workout_goals')}</ContainerTitle>
-      <Container2 gap={16} bgColor={'#202020'} padding={'16px'}>
-        {goalYear > 0 ? (
+      {goalYear > 0 ? (
+        <Container2 gap={16} bgColor={'#202020'} padding={'16px'}>
           <React.Fragment>
             <PeriodGoal
               period={t('lbl_year')}
@@ -70,22 +70,29 @@ export default function WorkoutGoal({navigation}) {
               total={totalCompleted}
             />
           </React.Fragment>
-        ) : (
-          <Row $justifyContent={'center'}>
+        </Container2>
+      ) : (
+        <Row $justifyContent={'center'}>
+          <CustomText $fontSize={16}>{t('lbl_no_goal_set')}</CustomText>
+          <Button
+            $bgColor={props => props.theme.colors.black_01}
+            onPress={() => navigation.navigate('WorkoutGoal')}>
             <CustomText
               $fontSize={18}
               $color={props => props.theme.colors.white_02}>
-              {t('lbl_no_goal_set')}
+              {t('go_to_manage_workout_goals')}
             </CustomText>
-          </Row>
-        )}
-      </Container2>
-      <Link $fullWidth onPress={() => navigation.navigate('WorkoutGoal')}>
-        <CustomText $fontSize={18}>
-          {t('go_to_manage_workout_goals')}
-        </CustomText>
-        <CaretRight size={24} color={'#202020'} />
-      </Link>
+          </Button>
+        </Row>
+      )}
+      {goalYear > 0 && (
+        <Link $fullWidth onPress={() => navigation.navigate('WorkoutGoal')}>
+          <CustomText $fontSize={18}>
+            {t('go_to_manage_workout_goals')}
+          </CustomText>
+          <CaretRight size={24} color={'#202020'} />
+        </Link>
+      )}
     </Container2>
   );
 }

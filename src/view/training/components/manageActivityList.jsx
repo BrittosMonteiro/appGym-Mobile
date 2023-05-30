@@ -4,13 +4,13 @@ import {useTranslation} from 'react-i18next';
 import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
 import ModalAddItemToActivityList from './ModalAddItemToActivityList';
 import {Row} from '../../profile/components/style';
-import {ContainerTitle, CustomText, Link} from '../../style';
+import {Button, ButtonDefault, ContainerTitle, CustomText} from '../../style';
 import Container2 from '../../../components/Container/Container';
 import ExerciseDetail from './ExerciseDetail';
+import {Plus} from 'phosphor-react-native';
 
 export default function ManageActivityList({
   selectedActivities,
-  title,
   addItemToList,
   deleteItemFromList,
   updateTraining,
@@ -26,9 +26,11 @@ export default function ManageActivityList({
     <Container2 gap={16}>
       <Row $align={'center'} $justifyContent={'space-between'}>
         <ContainerTitle>{t('lbl_workout_description')}</ContainerTitle>
-        <Link onPress={() => setOpenModal(!openModal)}>
-          <CustomText>{t('lbl_add')}</CustomText>
-        </Link>
+        {selectedActivities.length > 0 && (
+          <ButtonDefault $black onPress={() => setOpenModal(!openModal)}>
+            <Plus size={24} color="#fcf3f3" />
+          </ButtonDefault>
+        )}
       </Row>
       {selectedActivities.length > 0 ? (
         <Container2
@@ -53,6 +55,14 @@ export default function ManageActivityList({
       ) : (
         <Row $justifyContent={'center'}>
           <CustomText>{t('empty_exercises_list')}</CustomText>
+          <Button
+            $bgColor={props => props.theme.colors.black_01}
+            onPress={() => setOpenModal(!openModal)}>
+            <Plus size={24} color="#fcf3f3" />
+            <CustomText $color={props => props.theme.colors.white_02}>
+              {t('lbl_add')}
+            </CustomText>
+          </Button>
         </Row>
       )}
       <ModalAddItemToActivityList

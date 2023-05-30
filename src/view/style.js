@@ -56,6 +56,7 @@ export const ButtonDefault = styled.Pressable`
   ${props => props.$red && `background: ${props.theme.colors.red_01}`};
   ${props =>
     props.$turquoise && `background: ${props.theme.colors.turquoise_01}`};
+  ${props => props.$black && `background: ${props.theme.colors.black_01}`};
 `;
 
 export const CustomText = styled.Text`
@@ -82,6 +83,11 @@ export const InputDataDefault = styled.TextInput.attrs(() => ({
 `;
 
 export const Button = styled.Pressable`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   width: 100%;
   padding: 16px;
   background-color: ${props =>

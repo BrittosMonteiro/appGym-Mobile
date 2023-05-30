@@ -1,13 +1,18 @@
 import React, {useState, useEffect} from 'react';
-import {Pressable} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 
 import ViewDefault from '../ViewDefault';
 import Header from '../../components/Header/Header';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
-import {Button, ContainerScroll, ContainerTitle, CustomText} from '../style';
-import {Label, Row} from '../profile/components/style';
+import {
+  Button,
+  ButtonDefault,
+  ContainerScroll,
+  ContainerTitle,
+  CustomText,
+} from '../style';
+import {Row} from '../profile/components/style';
 import {readTrainingHistoryByIdService} from '../../service/trainingHistory';
 import {readTrainingByIdService} from '../../service/training';
 import ModalDeleteTraining from './components/ModalDeleteTraining';
@@ -16,6 +21,7 @@ import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
 import Container from '../../components/Container/Container';
 import ExerciseDetail from './components/ExerciseDetail';
 import Container2 from '../../components/Container/Container';
+import {PencilSimple} from 'phosphor-react-native';
 
 export default function TrainingDetail({navigation, route}) {
   const {idActivity} = route.params;
@@ -91,10 +97,11 @@ export default function TrainingDetail({navigation, route}) {
       <ContainerScroll contentContainerStyle={{gap: 32}}>
         <Row $align={'center'} $justifyContent={'space-between'}>
           <ContainerTitle>{training.title}</ContainerTitle>
-          <Pressable
+          <ButtonDefault
+            $black
             onPress={() => navigation.navigate('ManageTraining', {idActivity})}>
-            <Label $black>{t('edit')}</Label>
-          </Pressable>
+            <PencilSimple color="#fcf3f3" size={24} weight="regular" />
+          </ButtonDefault>
         </Row>
 
         {training?.items &&
@@ -118,13 +125,22 @@ export default function TrainingDetail({navigation, route}) {
         {trainingHistory.qty > 0 && (
           <Container2 gap={16}>
             <ContainerTitle>{t('lbl_workout_history')}</ContainerTitle>
-            <Container2 gap={8}>
-              <CustomText $fontSize={16}>{`${t('lbl_last_workout')}: ${new Date(
+            <Container2
+              gap={8}
+              bgColor={props => props.theme.colors.black_01}
+              padding={'16px'}>
+              <CustomText
+                $fontSize={16}
+                $color={props => props.theme.colors.white_02}>{`${t(
+                'lbl_last_workout',
+              )}: ${new Date(
                 trainingHistory.last,
               ).toLocaleDateString()}`}</CustomText>
-              <CustomText $fontSize={16}>{`${t('lbl_workouts_done')}: ${
-                trainingHistory.qty
-              }`}</CustomText>
+              <CustomText
+                $fontSize={16}
+                $color={props => props.theme.colors.white_02}>{`${t(
+                'lbl_workouts_done',
+              )}: ${trainingHistory.qty}`}</CustomText>
             </Container2>
           </Container2>
         )}
