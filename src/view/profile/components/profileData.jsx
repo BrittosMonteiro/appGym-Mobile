@@ -15,7 +15,6 @@ export default function ProfileData({userData, updateProfile}) {
 
   const [birthdate, setBirthdate] = useState('');
   const [cnpj, setCnpj] = useState('');
-  const [cpf, setCpf] = useState('');
   const [cref, setCref] = useState('');
   const [email, setEmail] = useState('');
   const [gymName, setGymName] = useState('');
@@ -33,7 +32,6 @@ export default function ProfileData({userData, updateProfile}) {
   function setOriginalData() {
     setBirthdate(userData.birthdate);
     setCnpj(userData.cnpj);
-    setCpf(userData.cpf);
     setCref(userData.cref);
     setEmail(userData.email);
     setGymName(userData.gym);
@@ -62,7 +60,7 @@ export default function ProfileData({userData, updateProfile}) {
       case 2:
         return (data = {...data, birthdate, cref});
       case 3:
-        return (data = {...data, birthdate, cpf});
+        return (data = {...data, birthdate});
       default:
         return data;
     }
@@ -199,25 +197,6 @@ export default function ProfileData({userData, updateProfile}) {
             />
           </Row>
         </Pressable>
-      )}
-
-      {cpf && (
-        <Row>
-          <CustomText $fontSize={14}>{t('lbl_cpf')}</CustomText>
-          <InputDataDefault
-            $fontSize={18}
-            $fontWeight={'SemiBold'}
-            $padding={16}
-            $color={props => props.theme.colors.white_02}
-            $bgColor={props => props.theme.colors.black_01}
-            keyboardType={'numeric'}
-            inputMode={'numeric'}
-            placeholder={t('lbl_cpf')}
-            editable={edit}
-            defaultValue={cpf}
-            onChangeText={text => setCpf(text)}
-          />
-        </Row>
       )}
 
       {cnpj && (

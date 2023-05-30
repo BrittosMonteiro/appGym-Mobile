@@ -1,9 +1,10 @@
 import {useState} from 'react';
-import {ActivityIndicator} from 'react-native';
+import {ActivityIndicator, Pressable} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
 import {CaretRight} from 'phosphor-react-native';
 import {useTranslation} from 'react-i18next';
+import DatePicker from 'react-native-date-picker';
 
 import ViewDefault from '../ViewDefault';
 import {createAccountService} from '../../service/login';
@@ -23,7 +24,6 @@ import {Row} from '../profile/components/style';
 export default function CreateGymAccount({navigation, route}) {
   const DISPATCH = useDispatch();
   const {userLevel} = route.params;
-  const [cpf, setCpf] = useState('');
   const [cnpj, setCnpj] = useState('');
   const [name, setName] = useState('');
   const [shortName, setShortName] = useState('');
@@ -33,6 +33,8 @@ export default function CreateGymAccount({navigation, route}) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [birthdate, setBirthdate] = useState('');
+  const [openDatePicker, setOpenDatePicker] = useState(false);
   const {t} = useTranslation();
 
   const setUserSession = async data => {
@@ -86,7 +88,7 @@ export default function CreateGymAccount({navigation, route}) {
           setMessage(response.errors);
         }
       })
-      .catch(() => {
+      .catch(e => {
         setMessage(['system_message_user_could_not_create']);
       })
       .finally(() => {
@@ -120,12 +122,19 @@ export default function CreateGymAccount({navigation, route}) {
       sendData({cnpj, name, shortName, email, username, password, userLevel});
     } else {
       if (userLevel === 3) {
-        if (!cpf || !name || !email || !username || !password || !userLevel) {
+        if (
+          !name ||
+          !email ||
+          !username ||
+          !password ||
+          !userLevel ||
+          !birthdate
+        ) {
           setIsLoading(false);
           setMessage(['system_message_user_login_missing_information']);
           return;
         }
-        sendData({cpf, name, email, username, password, userLevel});
+        sendData({name, email, username, password, userLevel, birthdate});
       }
     }
   }
@@ -162,6 +171,44 @@ export default function CreateGymAccount({navigation, route}) {
               defaultValue={name}
               onChangeText={text => setName(text)}
             />
+
+            {userLevel === 3 && (
+              <Pressable onPress={() => setOpenDatePicker(true)}>
+                <Row>
+                  <InputDataDefault
+                    $fontSize={18}
+                    $fontWeight={'SemiBold'}
+                    $padding={16}
+                    $color={props => props.theme.colors.white_02}
+                    $bgColor={props => props.theme.colors.black_01}
+                    placeholder={t('lbl_birthdate')}
+                    defaultValue={
+                      birthdate
+                        ? new Date(birthdate).toLocaleDateString()
+                        : null
+                    }
+                    editable={false}
+                  />
+                  <DatePicker
+                    modal
+                    open={openDatePicker}
+                    date={new Date()}
+                    androidVariant="nativeAndroid"
+                    mode="date"
+                    onConfirm={date => {
+                      setOpenDatePicker(false);
+                      setBirthdate(date);
+                    }}
+                    onCancel={() => {
+                      setOpenDatePicker(false);
+                    }}
+                    title={null}
+                    confirmText={t('lbl_confirm')}
+                    cancelText={t('lbl_cancel')}
+                  />
+                </Row>
+              </Pressable>
+            )}
 
             {userLevel === 1 && (
               <InputDataDefault
@@ -201,19 +248,6 @@ export default function CreateGymAccount({navigation, route}) {
                 placeholder="CNPJ"
                 defaultValue={cnpj}
                 onChangeText={text => setCnpj(text)}
-              />
-            )}
-
-            {userLevel === 3 && (
-              <InputDataDefault
-                $padding={16}
-                $bgColor={'#202020'}
-                $color={props => props.theme.colors.white_02}
-                keyboardType={'numeric'}
-                inputMode={'numeric'}
-                placeholder={t('lbl_cpf')}
-                defaultValue={cpf}
-                onChangeText={text => setCpf(text)}
               />
             )}
 

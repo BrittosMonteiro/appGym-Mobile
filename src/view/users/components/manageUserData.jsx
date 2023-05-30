@@ -27,7 +27,6 @@ export default function ManageUserData({navigation, route}) {
   const [name, setName] = useState('');
   const [birthdate, setBirthdate] = useState('');
   const [email, setEmail] = useState('');
-  const [cpf, setCpf] = useState('');
   const [username, setUsername] = useState('');
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [plan, setPlan] = useState('');
@@ -42,7 +41,7 @@ export default function ManageUserData({navigation, route}) {
   }
 
   function proceedToPlan(hasPlan) {
-    if (!name || !birthdate || !email || !cpf) {
+    if (!name || !birthdate || !email) {
       setMessage(['system_message_user_login_missing_information']);
       return;
     }
@@ -51,7 +50,6 @@ export default function ManageUserData({navigation, route}) {
       name,
       email,
       birthdate,
-      cpf,
       idGym: USERSESSION.idGym,
     };
 
@@ -73,7 +71,6 @@ export default function ManageUserData({navigation, route}) {
         setName(response.data.name);
         setBirthdate(response.data.birthdate);
         setEmail(response.data.email);
-        setCpf(response.data.cpf);
         setUsername(response.data.username);
         setPlan(response.data.plan);
         setPlanValidDate(response.data.planValidDate);
@@ -173,16 +170,6 @@ export default function ManageUserData({navigation, route}) {
             />
           </Column>
         </Pressable>
-
-        <Column $gap>
-          <Label>{t('lbl_cpf')}</Label>
-          <InputText
-            placeholder={t('lbl_cpf')}
-            defaultValue={cpf}
-            editable={!id}
-            onChangeText={data => setCpf(data)}
-          />
-        </Column>
 
         {plan && (
           <>
