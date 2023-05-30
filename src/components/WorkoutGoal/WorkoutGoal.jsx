@@ -1,11 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
+import ViewShot from 'react-native-view-shot';
+import Share from 'react-native-share';
 
-import {Button, ContainerTitle, CustomText, Link} from '../../view/style';
+import {
+  Button,
+  ButtonDefault,
+  ContainerTitle,
+  CustomText,
+  Link,
+} from '../../view/style';
 import Container2 from '../Container/Container';
 import PeriodGoal from './PeriodGoal';
 import HorizontalRule from '../HorizontalRule/HorizontalRule';
-import {CaretRight, Plus} from 'phosphor-react-native';
+import {CaretRight, Plus, ShareNetwork} from 'phosphor-react-native';
 import {useSelector} from 'react-redux';
 import {readGoalResumeService} from '../../service/goalService';
 import {Row} from '../../view/profile/components/style';
@@ -45,32 +53,48 @@ export default function WorkoutGoal({navigation}) {
     });
   }, [navigation]);
 
+  async function captureAndShareMyGoal() {
+    try {
+      const uri = await this.viewShotRef.capture();
+      await Share.open({url: uri});
+    } catch (error) {}
+  }
+
   return (
     <Container2 gap={16}>
-      <ContainerTitle>{t('lbl_workout_goals')}</ContainerTitle>
+      <Row $align={'center'} $justifyContent={'space-between'}>
+        <ContainerTitle>{t('lbl_workout_goals')}</ContainerTitle>
+        {goalYear > 0 && (
+          <ButtonDefault $black onPress={() => captureAndShareMyGoal()}>
+            <ShareNetwork color={'#fcf3f3'} />
+          </ButtonDefault>
+        )}
+      </Row>
       {goalYear > 0 ? (
-        <Container2 gap={16} bgColor={'#202020'} padding={'16px'}>
-          <React.Fragment>
-            <PeriodGoal
-              period={t('lbl_year')}
-              total={goalYear}
-              done={totalCompleted}
-              hasBar={true}
-            />
-            <HorizontalRule color={'#FCF3F3'} />
-            <PeriodGoal
-              period={t('lbl_week')}
-              total={goalWeek}
-              done={totalCompletedThisWeek}
-              hasBar={true}
-            />
-            <HorizontalRule color={'#FCF3F3'} />
-            <PeriodGoal
-              period={t('lbl_workouts_completed')}
-              total={totalCompleted}
-            />
-          </React.Fragment>
-        </Container2>
+        <ViewShot ref={ref => (this.viewShotRef = ref)}>
+          <Container2 gap={16} bgColor={'#202020'} padding={'16px'}>
+            <React.Fragment>
+              <PeriodGoal
+                period={t('lbl_year')}
+                total={goalYear}
+                done={totalCompleted}
+                hasBar={true}
+              />
+              <HorizontalRule color={'#FCF3F3'} />
+              <PeriodGoal
+                period={t('lbl_week')}
+                total={goalWeek}
+                done={totalCompletedThisWeek}
+                hasBar={true}
+              />
+              <HorizontalRule color={'#FCF3F3'} />
+              <PeriodGoal
+                period={t('lbl_workouts_completed')}
+                total={totalCompleted}
+              />
+            </React.Fragment>
+          </Container2>
+        </ViewShot>
       ) : (
         <Row $justifyContent={'center'}>
           <CustomText $fontSize={16}>{t('lbl_no_goal_set')}</CustomText>
