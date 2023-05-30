@@ -30,8 +30,8 @@ export default function ModalAddItemToActivityList({
   addItemToList,
 }) {
   const DISPATCH = useDispatch();
+  const [originalList, setOriginalList] = useState([]);
   const [availableActivities, setAvailableActivities] = useState([]);
-  const [searchExercice, setSearchExercise] = useState('');
   const {t} = useTranslation();
 
   function setMessage(text) {
@@ -50,6 +50,7 @@ export default function ModalAddItemToActivityList({
         }
       })
       .then(response => {
+        setOriginalList(response.data);
         setAvailableActivities(response.data);
       })
       .catch(() => {
@@ -63,6 +64,16 @@ export default function ModalAddItemToActivityList({
   useEffect(() => {
     loadActivities();
   }, []);
+
+  function filterExercises(text) {
+    setAvailableActivities(
+      originalList.filter(
+        exercises =>
+          exercises.title.includes(text.toLowerCase()) ||
+          exercises.title.includes(text.toUpperCase()),
+      ),
+    );
+  }
 
   return (
     <Modal animationType="fade" visible={open} transparent={true}>
@@ -102,11 +113,10 @@ export default function ModalAddItemToActivityList({
               $padding={16}
               $bgColor={props => props.theme.colors.black_01}
               $color={props => props.theme.colors.white_02}
-              placeholder={'SEARCH'}
+              placeholder={t('lbl_search')}
               keyboardType={'default'}
               inputMode={'text'}
-              defaultValue={searchExercice}
-              onChangeText={text => setSearchExercise(text)}
+              onChangeText={text => filterExercises(text)}
             />
             {availableActivities.map((activity, index) => (
               <React.Fragment key={index}>
