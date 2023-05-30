@@ -5,7 +5,7 @@ import {Button, ContainerTitle, CustomText, Link} from '../../view/style';
 import Container2 from '../Container/Container';
 import PeriodGoal from './PeriodGoal';
 import HorizontalRule from '../HorizontalRule/HorizontalRule';
-import {CaretRight} from 'phosphor-react-native';
+import {CaretRight, Plus} from 'phosphor-react-native';
 import {useSelector} from 'react-redux';
 import {readGoalResumeService} from '../../service/goalService';
 import {Row} from '../../view/profile/components/style';
@@ -77,10 +77,11 @@ export default function WorkoutGoal({navigation}) {
           <Button
             $bgColor={props => props.theme.colors.black_01}
             onPress={() => navigation.navigate('WorkoutGoal')}>
+            <Plus color={'#fcf3f3'} size={24} weight={'regular'} />
             <CustomText
               $fontSize={18}
               $color={props => props.theme.colors.white_02}>
-              {t('go_to_manage_workout_goals')}
+              {t('lbl_set_your_goal')}
             </CustomText>
           </Button>
         </Row>
