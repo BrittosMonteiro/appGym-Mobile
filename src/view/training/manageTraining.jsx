@@ -14,7 +14,11 @@ import {
 import {Button, ContainerScroll, CustomText, InputDataDefault} from '../style';
 import {Column} from '../profile/components/style';
 import WorkoutDays from '../../components/WorkoutDays/WorkoutDays';
-import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
+import {
+  setMessageError,
+  setMessageOff,
+  setMessageSuccess,
+} from '../../store/actions/systemAction';
 
 export default function ManageActivity({navigation, route}) {
   const {userId, idActivity} = route.params;
@@ -28,6 +32,13 @@ export default function ManageActivity({navigation, route}) {
 
   function setMessage(text) {
     DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
+
+  function setSuccessMessage(text) {
+    DISPATCH(setMessageSuccess(text));
     setTimeout(() => {
       DISPATCH(setMessageOff());
     }, 5000);
@@ -80,6 +91,7 @@ export default function ManageActivity({navigation, route}) {
       })
       .then(response => {
         setIdTraining(response.idTraining);
+        setSuccessMessage(['lbl_workout_created']);
       })
       .catch(() => {
         setMessage(['system_message_workout_default_error']);

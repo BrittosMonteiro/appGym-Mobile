@@ -10,7 +10,11 @@ import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import {createTrainingHistoryService} from '../../service/trainingHistory';
 import {Button, ContainerScroll, CustomText} from '../style';
 import Timer from '../../components/Timer/Timer';
-import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
+import {
+  setMessageError,
+  setMessageOff,
+  setMessageSuccess,
+} from '../../store/actions/systemAction';
 import Container2 from '../../components/Container/Container';
 import {getWeekNumber} from '../../utils/dateManagement';
 
@@ -30,16 +34,27 @@ export default function TrainingOnGoing({route, navigation}) {
     }, 5000);
   }
 
+  function setSuccessMessage(text) {
+    DISPATCH(setMessageSuccess(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
+
   async function activityFinish() {
     DISPATCH(setLoading());
-    await createTrainingHistoryService({
+
+    const data = {
       idUser: USERSESSION.id,
       idActivity,
       weekNumber: getWeekNumber(),
       createdAd: Date.now(),
-    })
+    };
+
+    await createTrainingHistoryService(data)
       .then(() => {
         navigation.goBack();
+        setSuccessMessage(['lbl_you_have_finished_workout']);
       })
       .catch(() => {
         setMessage(['system_message_default_error']);

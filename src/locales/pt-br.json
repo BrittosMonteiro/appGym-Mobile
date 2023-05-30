@@ -95,6 +95,9 @@
   "lbl_workouts_done": "TREINOS FEITOS",
   "lbl_workout_history_empty": "NÃO HÁ HISTÓRICO DE TREINOS",
   "lbl_workout_history_delete": "DESEJA REMOVER ESTE HISTÓRICO?",
+  "lbl_well_done": "BOA",
+  "lbl_you_have_finished_workout": "VOCÊ FINALIZOU SEU TREINO!",
+  "lbl_workout_created": "TREINO CRIADO!",
 
   "access_account_1": "ACESSAR",
   "access_account_2": "CRIAR",
@@ -117,6 +120,7 @@
   "lbl_cnpj_already_registered": "CNPJ JÁ REGISTRADO",
   "lbl_cref_already_registered": "CREF JÁ REGISTRADO",
   "lbl_cpf_already_registered": "CPF JÁ REGISTRADO",
+  "lbl_account_created": "CONTA CRIADA COM SUCESSO!",
 
   "title_profile": "PERFIL",
   "title_user_management": "GERENCIAR USUÁRIO",

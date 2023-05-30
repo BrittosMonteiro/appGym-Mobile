@@ -95,6 +95,9 @@
   "lbl_workouts_done": "WORKOUTS DONE",
   "lbl_workout_history_empty": "THERE'S NO WORKOUT HISTORY",
   "lbl_workout_history_delete": "DO YOU WANT TO REMOVE THIS RECORD?",
+  "lbl_well_done": "WELL DONE",
+  "lbl_you_have_finished_workout": "YOU'VE FINISHED YOUR WORKOUT!",
+  "lbl_workout_created": "WORKOUT CREATED!",
 
   "access_account_1": "ACCESS",
   "access_account_2": "CREATE",
@@ -117,6 +120,7 @@
   "lbl_cnpj_already_registered": "CNPJ ALREADY REGISTERED",
   "lbl_cref_already_registered": "CREF ALREADY REGISTERED",
   "lbl_cpf_already_registered": "CPF ALREADY REGISTERED",
+  "lbl_account_created": "CONTA CRIADA COM SUCESSO!",
 
   "title_profile": "PROFILE",
   "title_user_management": "USER MANAGEMENT",

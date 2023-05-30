@@ -16,7 +16,11 @@ import {
   InputDataDefault,
   Link,
 } from '../style';
-import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
+import {
+  setMessageError,
+  setMessageOff,
+  setMessageSuccess,
+} from '../../store/actions/systemAction';
 import Container from '../../components/Container/Container';
 import {SignInSignUpTitle} from './style';
 import {Row} from '../profile/components/style';
@@ -73,6 +77,13 @@ export default function CreateGymAccount({navigation, route}) {
     }, 5000);
   }
 
+  function setSuccessMessage(text) {
+    DISPATCH(setMessageSuccess(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
+
   async function sendData(data) {
     setIsLoading(true);
     await createAccountService(data)
@@ -84,6 +95,7 @@ export default function CreateGymAccount({navigation, route}) {
       .then(response => {
         if (response.data) {
           setUserSession(response.data);
+          setSuccessMessage(['lbl_account_created']);
         } else {
           setMessage(response.errors);
         }
