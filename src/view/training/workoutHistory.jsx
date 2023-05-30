@@ -10,6 +10,7 @@ import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import WorkoutHistoryItem from './components/workoutHistoryItem';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import {useTranslation} from 'react-i18next';
+import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
 
 export default function WorkoutHistory({navigation}) {
   const {t} = useTranslation();
@@ -19,6 +20,13 @@ export default function WorkoutHistory({navigation}) {
   });
 
   const [workoutHistoryList, setWorkoutHistoryList] = useState([]);
+
+  function setMessage(text) {
+    DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
 
   async function loadWorkoutHistory() {
     DISPATCH(setLoading());
@@ -31,8 +39,10 @@ export default function WorkoutHistory({navigation}) {
       .then(response => {
         setWorkoutHistoryList(response.data);
       })
-      .catch(implementar => {})
-      .finally(implementar => {
+      .catch(() => {
+        setMessage(['system_message_default_error']);
+      })
+      .finally(() => {
         DISPATCH(unsetLoading());
       });
   }

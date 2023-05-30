@@ -14,11 +14,13 @@ import Container2 from '../Container/Container';
 import PeriodGoal from './PeriodGoal';
 import HorizontalRule from '../HorizontalRule/HorizontalRule';
 import {CaretRight, Plus, ShareNetwork} from 'phosphor-react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {readGoalResumeService} from '../../service/goalService';
 import {Row} from '../../view/profile/components/style';
+import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 
 export default function WorkoutGoal({navigation}) {
+  const DISPATCH = useDispatch();
   const {t} = useTranslation();
   const USERSESSION = useSelector(state => {
     return state.userSessionReducer;
@@ -29,6 +31,7 @@ export default function WorkoutGoal({navigation}) {
   const [totalCompletedThisWeek, setTotalCompletedThiWeek] = useState('');
 
   async function loadGoal() {
+    DISPATCH(setLoading());
     await readGoalResumeService(USERSESSION.id)
       .then(responseFind => {
         return responseFind.json();
@@ -39,8 +42,10 @@ export default function WorkoutGoal({navigation}) {
         setTotalCompleted(response.data.workoutsCompleted);
         setTotalCompletedThiWeek(response.data.workoutsCompletedThisWeek);
       })
-      .catch(implementar => {})
-      .finally(implementar => {});
+      .catch(() => {})
+      .finally(() => {
+        DISPATCH(unsetLoading());
+      });
   }
 
   useEffect(() => {

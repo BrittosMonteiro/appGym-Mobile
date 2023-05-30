@@ -5,6 +5,10 @@ import {ButtonDefault, CustomText, Link} from '../../style';
 import {useDispatch} from 'react-redux';
 import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
 import {deleteWorkoutGoalService} from '../../../service/goalService';
+import {
+  setMessageError,
+  setMessageOff,
+} from '../../../store/actions/systemAction';
 
 export default function ModalDeleteWorkoutGoal({
   idWorkoutGoal,
@@ -14,6 +18,13 @@ export default function ModalDeleteWorkoutGoal({
 }) {
   const {t} = useTranslation();
   const DISPATCH = useDispatch();
+
+  function setMessage(text) {
+    DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    });
+  }
 
   async function deleteWorkoutGoal() {
     DISPATCH(setLoading());
@@ -25,7 +36,9 @@ export default function ModalDeleteWorkoutGoal({
           onClose();
         }
       })
-      .catch(implementar => {})
+      .catch(() => {
+        setMessage(['system_message_default_error']);
+      })
       .finally(() => {
         DISPATCH(unsetLoading());
       });

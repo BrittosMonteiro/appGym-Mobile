@@ -13,6 +13,11 @@ import {
   createCategoryService,
   updateCategoryService,
 } from '../../../../service/category';
+import {useDispatch} from 'react-redux';
+import {
+  setLoading,
+  unsetLoading,
+} from '../../../../store/actions/loadingAction';
 
 export default function ModalCreateAndUpdateCategory({
   category,
@@ -20,12 +25,17 @@ export default function ModalCreateAndUpdateCategory({
   open,
   reload,
 }) {
+  const DISPATCH = useDispatch();
   const {t} = useTranslation();
   const [title, setTitle] = useState('');
   const [idCategory, setIdCategory] = useState('');
 
   async function createCategory() {
-    if (!title) return;
+    DISPATCH(setLoading());
+    if (!title) {
+      DISPATCH(unsetLoading());
+      return;
+    }
 
     await createCategoryService({title})
       .then(responseCreate => {
@@ -35,12 +45,18 @@ export default function ModalCreateAndUpdateCategory({
           setTitle('');
         }
       })
-      .catch(err => {})
-      .finally(() => {});
+      .catch(() => {})
+      .finally(() => {
+        DISPATCH(unsetLoading());
+      });
   }
 
   async function updateCategory() {
-    if (!title) return;
+    DISPATCH(setLoading());
+    if (!title) {
+      DISPATCH(unsetLoading());
+      return;
+    }
     await updateCategoryService({title, idCategory})
       .then(responseUpdate => {
         if (responseUpdate.status === 200) {
@@ -48,8 +64,10 @@ export default function ModalCreateAndUpdateCategory({
           reload();
         }
       })
-      .catch(implementar => {})
-      .finally(implementar => {});
+      .catch(() => {})
+      .finally(() => {
+        DISPATCH(unsetLoading());
+      });
   }
 
   useEffect(() => {

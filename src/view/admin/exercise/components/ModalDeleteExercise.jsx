@@ -8,6 +8,10 @@ import {
   setMessageOff,
 } from '../../../../store/actions/systemAction';
 import {useDispatch} from 'react-redux';
+import {
+  setLoading,
+  unsetLoading,
+} from '../../../../store/actions/loadingAction';
 
 export default function ModalDeleteExercise({idItem, open, onClose, reload}) {
   const DISPATCH = useDispatch();
@@ -21,6 +25,8 @@ export default function ModalDeleteExercise({idItem, open, onClose, reload}) {
   }
 
   async function deleteExercise() {
+    DISPATCH(setLoading());
+
     await deleteExerciseService({idItem})
       .then(responseDelete => {
         if (responseDelete.status === 200) {
@@ -28,8 +34,12 @@ export default function ModalDeleteExercise({idItem, open, onClose, reload}) {
           onClose();
         }
       })
-      .catch(err => {})
-      .finally(implementar => {});
+      .catch(() => {
+        setMessage(['system_message_default_error']);
+      })
+      .finally(() => {
+        DISPATCH(unsetLoading());
+      });
   }
 
   return (

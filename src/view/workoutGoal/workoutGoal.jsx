@@ -13,6 +13,7 @@ import {
 } from '../../service/goalService';
 import GoalHistoryList from './GoalHistoryList';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
+import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
 
 export default function WorkoutGoal({navigation}) {
   const DISPATCH = useDispatch();
@@ -22,6 +23,13 @@ export default function WorkoutGoal({navigation}) {
   const {t} = useTranslation();
   const [goalValue, setGoalValue] = useState(0);
   const [goalList, setGoalList] = useState([]);
+
+  function setMessage(text) {
+    DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
 
   async function setNewGoal() {
     DISPATCH(setLoading());
@@ -40,8 +48,10 @@ export default function WorkoutGoal({navigation}) {
           loadGoalList();
         }
       })
-      .catch(implementar => {})
-      .finally(implementar => {
+      .catch(() => {
+        setMessage(['system_message_default_error']);
+      })
+      .finally(() => {
         DISPATCH(unsetLoading());
       });
   }
@@ -57,8 +67,10 @@ export default function WorkoutGoal({navigation}) {
       .then(response => {
         setGoalList(response.data);
       })
-      .catch(implementar => {})
-      .finally(implementar => {
+      .catch(() => {
+        setMessage(['system_message_default_error']);
+      })
+      .finally(() => {
         DISPATCH(unsetLoading());
       });
   }

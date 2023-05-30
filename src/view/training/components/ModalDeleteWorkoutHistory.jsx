@@ -4,6 +4,12 @@ import ModalDefault from '../../../components/ModalDefault/ModalDefault';
 import {ButtonDefault, CustomText, Link} from '../../style';
 import {Row} from '../../profile/components/style';
 import {deleteWorkoutHistoryByIdService} from '../../../service/trainingHistory';
+import {useDispatch} from 'react-redux';
+import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
+import {
+  setMessageError,
+  setMessageOff,
+} from '../../../store/actions/systemAction';
 
 export default function ModalDeleteWorkoutHistory({
   idWorkoutHistory,
@@ -11,9 +17,18 @@ export default function ModalDeleteWorkoutHistory({
   reload,
   onClose,
 }) {
+  const DISPATCH = useDispatch();
   const {t} = useTranslation();
 
+  function setMessage(text) {
+    DISPATCH(setMessageError(text));
+    setTimeout(() => {
+      DISPATCH(setMessageOff());
+    }, 5000);
+  }
+
   async function deleteWorkout() {
+    DISPATCH(setLoading());
     await deleteWorkoutHistoryByIdService({idWorkoutHistory})
       .then(responseDelete => {
         if (responseDelete.status === 200) {
@@ -21,8 +36,12 @@ export default function ModalDeleteWorkoutHistory({
           onClose();
         }
       })
-      .catch(implementar => {})
-      .finally(implementar => {});
+      .catch(() => {
+        setMessage(['system_message_default_error']);
+      })
+      .finally(() => {
+        DISPATCH(unsetLoading());
+      });
   }
 
   return (

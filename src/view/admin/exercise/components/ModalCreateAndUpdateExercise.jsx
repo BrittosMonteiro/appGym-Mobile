@@ -79,7 +79,11 @@ export default function ModalCreateAndUpdateExercise({
   }, [exercise]);
 
   async function createCategory() {
-    if (!title || !idCategory) return;
+    DISPATCH(setLoading());
+    if (!title || !idCategory) {
+      DISPATCH(unsetLoading());
+      return;
+    }
 
     const data = {
       title,
@@ -95,12 +99,18 @@ export default function ModalCreateAndUpdateExercise({
           setIdCategory('');
         }
       })
-      .catch(err => {})
-      .finally(implementar => {});
+      .catch(() => {})
+      .finally(() => {
+        DISPATCH(unsetLoading());
+      });
   }
 
   async function updateCategory() {
-    if (!title || !idCategory) return;
+    DISPATCH(setLoading());
+    if (!title || !idCategory) {
+      DISPATCH(unsetLoading());
+      return;
+    }
 
     const data = {
       idExercise,
@@ -114,8 +124,10 @@ export default function ModalCreateAndUpdateExercise({
           reload();
         }
       })
-      .catch(implementar => {})
-      .finally(implementar => {});
+      .catch(() => {})
+      .finally(() => {
+        DISPATCH(unsetLoading());
+      });
   }
 
   return (
