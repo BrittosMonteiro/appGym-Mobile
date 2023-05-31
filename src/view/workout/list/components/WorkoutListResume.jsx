@@ -5,7 +5,7 @@ import Container2 from '../../../../components/Container/Container';
 import WorkoutOfTheDay from './WorkoutOfTheDay';
 import WorkoutList from './WorkoutList';
 
-import {readActivityListService} from '../../../../service/training';
+import {readWorkoutListService} from '../../../../service/workoutService';
 
 import {setLoading, unsetLoading} from '../../../../store/actions/loadingAction';
 import {setMessageError, setMessageOff} from '../../../../store/actions/systemAction';
@@ -29,7 +29,7 @@ export default function WorkoutResume({userId, navigation, limit, routeName}) {
 
   async function loadActivities() {
     DISPATCH(setLoading());
-    await readActivityListService(userId)
+    await readWorkoutListService(userId)
       .then(responseFind => {
         return responseFind.json();
       })

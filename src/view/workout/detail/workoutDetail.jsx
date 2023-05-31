@@ -21,7 +21,7 @@ import {
 import {Row} from '../../profile/components/style';
 
 import {readTrainingHistoryByIdService} from '../../../service/trainingHistory';
-import {readTrainingByIdService} from '../../../service/training';
+import {readWorkoutByIdService} from '../../../service/workoutService';
 
 import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
 import {
@@ -49,7 +49,7 @@ export default function WorkoutDetail({navigation, route}) {
 
   async function loadActivity() {
     DISPATCH(setLoading());
-    await readTrainingByIdService(idActivity)
+    await readWorkoutByIdService(idActivity)
       .then(responseFind => {
         if (responseFind) {
           return responseFind.json();

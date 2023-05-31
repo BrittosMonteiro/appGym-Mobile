@@ -16,10 +16,10 @@ import {
 import {Column} from '../../profile/components/style';
 
 import {
-  createTrainingService,
-  readTrainingByIdService,
-  updateTrainingByIdService,
-} from '../../../service/training';
+  createWorkoutService,
+  readWorkoutByIdService,
+  updateWorkoutByIdService,
+} from '../../../service/workoutService';
 
 import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
 import {
@@ -55,7 +55,7 @@ export default function WorkoutManagement({navigation, route}) {
   async function loadActivity() {
     DISPATCH(setLoading());
 
-    await readTrainingByIdService(idActivity)
+    await readWorkoutByIdService(idActivity)
       .then(responseFind => {
         if (responseFind) {
           return responseFind.json();
@@ -91,7 +91,7 @@ export default function WorkoutManagement({navigation, route}) {
       title: name,
     };
 
-    await createTrainingService(data)
+    await createWorkoutService(data)
       .then(responseCreate => {
         if (responseCreate.status === 201) {
           return responseCreate.json();
@@ -158,7 +158,7 @@ export default function WorkoutManagement({navigation, route}) {
 
   async function manageUpdate(data) {
     DISPATCH(setLoading());
-    await updateTrainingByIdService(data)
+    await updateWorkoutByIdService(data)
       .then(responseUpdate => {
         if (responseUpdate.status === 200) {
           loadActivity();

@@ -6,7 +6,7 @@ import ModalDefault from '../../../../components/ModalDefault/ModalDefault';
 import {Label, Row} from '../../../profile/components/style';
 import {ButtonDefault} from '../../../style';
 
-import {deleteTrainingByIdService} from '../../../../service/training';
+import {deleteWorkoutByIdService} from '../../../../service/workoutService';
 
 import {setLoading, unsetLoading} from '../../../../store/actions/loadingAction';
 import {
@@ -33,7 +33,7 @@ export default function DeleteWorkout({
   async function deleteActivity() {
     DISPATCH(setLoading());
 
-    await deleteTrainingByIdService({idTraining})
+    await deleteWorkoutByIdService({idTraining})
       .then(responseDelete => {
         if (responseDelete.status === 200) {
           navigation.goBack();

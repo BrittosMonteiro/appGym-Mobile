@@ -2,7 +2,7 @@ import API_URL from './config';
 
 const API_END_POINT = `${API_URL}/training`;
 
-export async function createTrainingService(data) {
+export async function createWorkoutService(data) {
   return await fetch(`${API_END_POINT}`, {
     method: 'POST',
     headers: {'Content-type': 'application/json'},
@@ -10,15 +10,15 @@ export async function createTrainingService(data) {
   });
 }
 
-export async function readActivityListService(idUser) {
+export async function readWorkoutListService(idUser) {
   return await fetch(`${API_END_POINT}/list/${idUser}`);
 }
 
-export async function readTrainingByIdService(idActivity) {
+export async function readWorkoutByIdService(idActivity) {
   return await fetch(`${API_END_POINT}/byId/${idActivity}`);
 }
 
-export async function updateTrainingByIdService(data) {
+export async function updateWorkoutByIdService(data) {
   return await fetch(`${API_END_POINT}/`, {
     method: 'PUT',
     headers: {'Content-type': 'application/json'},
@@ -26,7 +26,7 @@ export async function updateTrainingByIdService(data) {
   });
 }
 
-export async function deleteTrainingByIdService(idTraining) {
+export async function deleteWorkoutByIdService(idTraining) {
   return await fetch(`${API_END_POINT}`, {
     method: 'DELETE',
     headers: {'Content-type': 'application/json'},

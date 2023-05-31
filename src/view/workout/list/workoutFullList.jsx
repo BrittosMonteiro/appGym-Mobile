@@ -9,7 +9,7 @@ import {ContainerScroll} from '../../style';
 import WorkoutOfTheDay from './components/WorkoutOfTheDay';
 import WorkoutList from './components/WorkoutList';
 
-import {readActivityListService} from '../../../service/training';
+import {readWorkoutListService} from '../../../service/workoutService';
 
 import {
   setMessageError,
@@ -38,7 +38,7 @@ export default function WorkoutFullList({navigation, route}) {
 
   async function loadActivities() {
     DISPATCH(setLoading());
-    await readActivityListService(USERSESSION.id)
+    await readWorkoutListService(USERSESSION.id)
       .then(responseFind => {
         return responseFind.json();
       })
