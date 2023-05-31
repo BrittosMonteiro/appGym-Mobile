@@ -2,7 +2,7 @@ import API_URL from './config';
 
 const API_END_POINT = `${API_URL}/workoutHistory`;
 
-export async function createTrainingHistoryService(data) {
+export async function createWorkoutHistoryService(data) {
   return await fetch(`${API_END_POINT}`, {
     method: 'POST',
     headers: {'Content-type': 'application/json'},
@@ -10,11 +10,11 @@ export async function createTrainingHistoryService(data) {
   });
 }
 
-export async function readTrainingHistoryByIdService({idActivity}) {
+export async function readWorkoutHistoryByIdService({idActivity}) {
   return await fetch(`${API_END_POINT}/byId/${idActivity}`);
 }
 
-export async function readWorkoutHistoryListByIdUser(idUser) {
+export async function readWorkoutHistoryListByIdUserService(idUser) {
   return await fetch(`${API_END_POINT}/list/${idUser}`);
 }
 

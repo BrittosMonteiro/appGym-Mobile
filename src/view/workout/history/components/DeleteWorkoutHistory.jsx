@@ -3,7 +3,7 @@ import {useTranslation} from 'react-i18next';
 import ModalDefault from '../../../../components/ModalDefault/ModalDefault';
 import {ButtonDefault, CustomText, Link} from '../../../style';
 import {Row} from '../../../profile/components/style';
-import {deleteWorkoutHistoryByIdService} from '../../../../service/trainingHistory';
+import {deleteWorkoutHistoryByIdService} from '../../../../service/workoutHistory';
 import {useDispatch} from 'react-redux';
 import {
   setLoading,

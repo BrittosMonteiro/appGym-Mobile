@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 
-import {readWorkoutHistoryListByIdUser} from '../../../../service/trainingHistory';
+import {readWorkoutHistoryListByIdUserService} from '../../../../service/workoutHistory';
 import {
   setMessageError,
   setMessageOff,
@@ -34,7 +34,7 @@ export default function WorkoutHistoryList({navigation}) {
 
   async function loadWorkoutHistory() {
     DISPATCH(setLoading());
-    await readWorkoutHistoryListByIdUser(USERSESSION.id)
+    await readWorkoutHistoryListByIdUserService(USERSESSION.id)
       .then(responseFind => {
         if (responseFind.status === 200) {
           return responseFind.json();

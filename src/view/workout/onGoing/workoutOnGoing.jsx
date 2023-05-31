@@ -7,7 +7,7 @@ import Header from '../../../components/Header/Header';
 import ActivityItem from '../../../components/Activity/ActivityItem';
 import HorizontalRule from '../../../components/HorizontalRule/HorizontalRule';
 import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
-import {createTrainingHistoryService} from '../../../service/trainingHistory';
+import {createWorkoutHistoryService} from '../../../service/workoutHistory';
 import {Button, ContainerScroll, CustomText} from '../../style';
 import Timer from '../../../components/Timer/Timer';
 import {
@@ -51,7 +51,7 @@ export default function TrainingOnGoing({route, navigation}) {
       createdAd: Date.now(),
     };
 
-    await createTrainingHistoryService(data)
+    await createWorkoutHistoryService(data)
       .then(() => {
         navigation.goBack();
         setSuccessMessage(['lbl_you_have_finished_workout']);

@@ -20,7 +20,7 @@ import {
 } from '../../style';
 import {Row} from '../../profile/components/style';
 
-import {readTrainingHistoryByIdService} from '../../../service/trainingHistory';
+import {readWorkoutHistoryByIdService} from '../../../service/workoutHistory';
 import {readWorkoutByIdService} from '../../../service/workoutService';
 
 import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
@@ -68,7 +68,7 @@ export default function WorkoutDetail({navigation, route}) {
 
   async function loadActivityHistory() {
     DISPATCH(setLoading());
-    await readTrainingHistoryByIdService({idActivity})
+    await readWorkoutHistoryByIdService({idActivity})
       .then(responseFind => {
         if (responseFind) {
           return responseFind.json();
