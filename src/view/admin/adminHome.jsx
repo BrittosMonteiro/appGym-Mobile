@@ -8,7 +8,7 @@ import Container2 from '../../components/Container/Container';
 import {CaretRight} from 'phosphor-react-native';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import {countGymsService} from '../../service/user';
-import {countExercisesService} from '../../service/activity';
+import {countExercisesService} from '../../service/exerciseService';
 import {countCategoriesService} from '../../service/category';
 import LanguageSelection from '../../components/LanguageSelection/LanguageSelection';
 

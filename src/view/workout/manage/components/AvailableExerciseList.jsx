@@ -19,7 +19,7 @@ import {
 import styles from '../../../../styles';
 import {Column, Row} from '../../../profile/components/style';
 
-import {readActivityListService} from '../../../../service/activity';
+import {readExerciseListService} from '../../../../service/exerciseService';
 
 import {
   setLoading,
@@ -45,7 +45,7 @@ export default function AvailableExerciseList({open, onClose, addItemToList}) {
 
   async function loadActivities() {
     DISPATCH(setLoading());
-    await readActivityListService()
+    await readExerciseListService()
       .then(responseRead => {
         if (responseRead.status === 200) {
           return responseRead.json();

@@ -12,7 +12,7 @@ import {
 } from '../../style';
 import {Row} from '../../profile/components/style';
 import {setLoading, unsetLoading} from '../../../store/actions/loadingAction';
-import {readActivityListService} from '../../../service/activity';
+import {readExerciseListService} from '../../../service/exerciseService';
 import {
   setMessageError,
   setMessageOff,
@@ -39,7 +39,7 @@ export default function ExercisesList({navigation}) {
 
   async function loadExercises() {
     DISPATCH(setLoading());
-    await readActivityListService()
+    await readExerciseListService()
       .then(responseRead => {
         if (responseRead.status === 200) {
           return responseRead.json();

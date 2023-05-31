@@ -2,7 +2,7 @@ import {useTranslation} from 'react-i18next';
 import ModalDefault from '../../../../components/ModalDefault/ModalDefault';
 import {Row} from '../../../profile/components/style';
 import {ButtonDefault, CustomText, Link} from '../../../style';
-import {deleteExerciseService} from '../../../../service/activity';
+import {deleteExerciseService} from '../../../../service/exerciseService';
 import {
   setMessageError,
   setMessageOff,

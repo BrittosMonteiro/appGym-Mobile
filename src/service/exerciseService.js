@@ -2,7 +2,7 @@ import API_URL from './config';
 
 const API_END_POINT = `${API_URL}/activity`;
 
-export async function createActivityService(data) {
+export async function createExerciseService(data) {
   return await fetch(`${API_END_POINT}`, {
     method: 'POST',
     headers: {'Content-type': 'application/json'},
@@ -10,7 +10,7 @@ export async function createActivityService(data) {
   });
 }
 
-export async function readActivityListService() {
+export async function readExerciseListService() {
   return await fetch(`${API_END_POINT}`);
 }
 

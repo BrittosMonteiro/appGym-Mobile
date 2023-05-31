@@ -21,9 +21,9 @@ import {useDispatch} from 'react-redux';
 import {readCategoriesService} from '../../../../service/category';
 import SelectDropdown from 'react-native-select-dropdown';
 import {
-  createActivityService,
+  createExerciseService,
   updateExerciseService,
-} from '../../../../service/activity';
+} from '../../../../service/exerciseService';
 
 export default function ModalCreateAndUpdateExercise({
   exercise,
@@ -90,7 +90,7 @@ export default function ModalCreateAndUpdateExercise({
       idGroup: idCategory,
     };
 
-    await createActivityService(data)
+    await createExerciseService(data)
       .then(responseCreate => {
         if (responseCreate.status === 201) {
           reload();
