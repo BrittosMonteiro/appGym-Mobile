@@ -12,7 +12,7 @@ import {ButtonDefault, Card, ContainerScroll, CustomText} from '../style';
 import {
   ContainerListItem,
   ContainerListItemTitle,
-} from '../../components/TrainingList/style';
+} from '../workout/components/style';
 import {setLoading, unsetLoading} from '../../store/actions/loadingAction';
 import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
 

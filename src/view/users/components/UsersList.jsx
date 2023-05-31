@@ -6,7 +6,7 @@ import {Card} from '../../style';
 import {
   ContainerListItem,
   ContainerListItemTitle,
-} from '../../../components/TrainingList/style';
+} from '../../workout/components/style';
 
 export default function UsersList({isAttached, list, navigation}) {
   return (

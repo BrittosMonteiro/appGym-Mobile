@@ -8,7 +8,7 @@ import {setClose} from '../store/actions/sidebarAction';
 import * as RootNavigation from '../utils/RootNavigation';
 import HorizontalRule from './HorizontalRule/HorizontalRule';
 import {ButtonDefault, Card, ContainerScroll, CustomText} from '../view/style';
-import {ContainerListItem} from './TrainingList/style';
+import {ContainerListItem} from '../view/workout/components/style';
 import {Row} from '../view/profile/components/style';
 import LanguageSelection from './LanguageSelection/LanguageSelection';
 import Logout from './Logout';

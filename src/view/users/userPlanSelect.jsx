@@ -14,7 +14,7 @@ import {ButtonDefault, Card, ContainerScroll, CustomText} from '../style';
 import {
   ContainerListItem,
   ContainerListItemTitle,
-} from '../../components/TrainingList/style';
+} from '../workout/components/style';
 import {Column, Label, Row} from '../profile/components/style';
 import {setMessageError, setMessageOff} from '../../store/actions/systemAction';
 

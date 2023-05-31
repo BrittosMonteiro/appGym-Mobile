@@ -17,10 +17,14 @@ import Login from './src/view/login/login';
 import CreateGymAccount from './src/view/login/createGymAccount';
 import Home from './src/view/home/home';
 import Profile from './src/view/profile/profile';
-import TrainingDetail from './src/view/training/trainingDetail';
-import TrainingOnGoing from './src/view/training/trainingOnGoing';
-import ManageTraining from './src/view/training/manageTraining';
-import TrainingFullList from './src/view/training/trainingFullList';
+
+import WorkoutDetail from './src/view/workout/detail/workoutDetail';
+import WorkoutHistory from './src/view/workout/history/workoutHistory';
+import WorkoutFullList from './src/view/workout/list/workoutFullList';
+import WorkoutManagement from './src/view/workout/manage/workoutManagement';
+import WorkoutOnGoing from './src/view/workout/onGoing/workoutOnGoing';
+import WorkoutGoal from './src/view/workout/goal/workoutGoal';
+
 import Instructors from './src/view/instructors/instructors';
 import ManageInstructor from './src/view/instructors/manageInstructor';
 import PlanList from './src/view/plan/planList';
@@ -33,8 +37,6 @@ import SystemMessage from './src/components/SystemMessage/SystemMessage';
 import AdminHome from './src/view/admin/adminHome';
 import ExercisesList from './src/view/admin/exercise/exercisesList';
 import CategoriesList from './src/view/admin/category/categoriesList';
-import WorkoutGoal from './src/view/workoutGoal/workoutGoal';
-import WorkoutHistory from './src/view/training/workoutHistory';
 
 export default function App() {
   const sidebarState = useSelector(state => {
@@ -77,16 +79,22 @@ export default function App() {
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="CreateGymAccount" component={CreateGymAccount} />
           <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="TrainingFullList" component={TrainingFullList} />
-          <Stack.Screen name="TrainingDetail" component={TrainingDetail} />
-          <Stack.Screen name="TrainingOnGoing" component={TrainingOnGoing} />
+
+          <Stack.Screen name="WorkoutDetail" component={WorkoutDetail} />
+          <Stack.Screen name="WorkoutFullList" component={WorkoutFullList} />
+          <Stack.Screen name="WorkoutGoal" component={WorkoutGoal} />
+          <Stack.Screen name="WorkoutHistory" component={WorkoutHistory} />
+          <Stack.Screen
+            name="WorkoutManagement"
+            component={WorkoutManagement}
+          />
+          <Stack.Screen name="WorkoutOnGoing" component={WorkoutOnGoing} />
+
           <Stack.Screen name="Profile" component={Profile} />
 
           <Stack.Screen name="AdminHome" component={AdminHome} />
           <Stack.Screen name="ExercisesList" component={ExercisesList} />
           <Stack.Screen name="CategoriesList" component={CategoriesList} />
-          <Stack.Screen name="WorkoutGoal" component={WorkoutGoal} />
-          <Stack.Screen name="WorkoutHistory" component={WorkoutHistory} />
 
           <Stack.Screen name="PaymentHistory" component={PaymentHistory} />
           <Stack.Screen name="Instructors" component={Instructors} />
@@ -95,7 +103,6 @@ export default function App() {
           <Stack.Screen name="PlanManagement" component={PlanManagement} />
           <Stack.Screen name="Users" component={Users} />
           <Stack.Screen name="ManageUser" component={ManageUser} />
-          <Stack.Screen name="ManageTraining" component={ManageTraining} />
           <Stack.Screen name="UserPlanSelect" component={UserPlanSelect} />
         </Stack.Navigator>
         <Sidebar open={sidebarState} />

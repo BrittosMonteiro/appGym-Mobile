@@ -5,7 +5,7 @@ import ViewDefault from '../ViewDefault';
 import Header from '../../components/Header/Header';
 import Tab from '../../components/Tab';
 import ManageUserData from './components/manageUserData';
-import TrainingList from '../../components/TrainingList/TrainingList';
+import TrainingList from '../workout/list/components/WorkoutListResume';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import {ContainerScroll} from '../style';
 

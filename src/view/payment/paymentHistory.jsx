@@ -5,7 +5,7 @@ import ViewDefault from '../ViewDefault';
 import HorizontalRule from '../../components/HorizontalRule/HorizontalRule';
 import {Card, ContainerScroll, CustomText} from '../style';
 import {Column, Row} from '../profile/components/style';
-import {ContainerListItemTitle} from '../../components/TrainingList/style';
+import {ContainerListItemTitle} from '../workout/components/style';
 
 export default function PaymentHistory({navigation}) {
   const paymentList = [

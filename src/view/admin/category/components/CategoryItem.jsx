@@ -4,7 +4,7 @@ import {Pressable, View} from 'react-native';
 import {
   ContainerListItem,
   ContainerListItemTitle,
-} from '../../../../components/TrainingList/style';
+} from '../../../workout/components/style';
 import {Column} from '../../../profile/components/style';
 import {PencilSimple, Trash} from 'phosphor-react-native';
 import ModalDeleteCategory from './ModalDeleteCategory';
