@@ -1,6 +1,6 @@
 import API_URL from './config';
 
-const API_END_POINT = `${API_URL}/training`;
+const API_END_POINT = `${API_URL}/workout`;
 
 export async function createWorkoutService(data) {
   return await fetch(`${API_END_POINT}`, {
