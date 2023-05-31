@@ -33,7 +33,7 @@ export default function Users({navigation}) {
       <Header navigation={navigation} title={t('title_users')} />
       <HorizontalRule color={'#202020'} />
       <ContainerScroll
-        contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
+        contentContainerStyle={{alignItems: 'flex-start', gap: 32}}>
         <Tab
           tabList={tabList}
           changeTab={changeTab}

@@ -76,7 +76,7 @@ export default function WorkoutFullList({navigation, route}) {
       <ContainerScroll
         contentContainerStyle={{
           alignItems: 'flex-start',
-          gap: 24,
+          gap: 32,
         }}>
         <WorkoutOfTheDay
           todayTrainings={todayTrainings}

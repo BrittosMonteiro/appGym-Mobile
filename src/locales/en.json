@@ -105,6 +105,8 @@
   "lbl_well_done": "WELL DONE",
   "lbl_you_have_finished_workout": "YOU'VE FINISHED YOUR WORKOUT!",
   "lbl_workout_created": "WORKOUT CREATED!",
+  "go_to_workout_history": "SEE FULL HISTORY",
+  "empty_workout_of_the_day": "YOU HAVEN'T SET ANY WORKOUT FOR TODAY",
 
   "access_account_1": "ACCESS",
   "access_account_2": "CREATE",

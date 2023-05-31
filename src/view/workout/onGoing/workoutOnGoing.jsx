@@ -48,7 +48,7 @@ export default function TrainingOnGoing({route, navigation}) {
       idUser: USERSESSION.id,
       idActivity,
       weekNumber: getWeekNumber(),
-      createdAd: Date.now(),
+      createdAd: new Date(),
     };
 
     await createWorkoutHistoryService(data)

@@ -15,9 +15,15 @@ import {
 import HorizontalRule from '../../../../components/HorizontalRule/HorizontalRule';
 import Container2 from '../../../../components/Container/Container';
 import WorkoutHistoryItem from './WorkoutHistoryItem';
-import {CustomText} from '../../../style';
+import {ContainerTitle, CustomText, Link} from '../../../style';
+import {CaretRight} from 'phosphor-react-native';
 
-export default function WorkoutHistoryList({navigation}) {
+export default function WorkoutHistoryList({
+  navigation,
+  hasTitle,
+  limit,
+  routeName,
+}) {
   const {t} = useTranslation();
   const DISPATCH = useDispatch();
   const USERSESSION = useSelector(state => {
@@ -41,7 +47,7 @@ export default function WorkoutHistoryList({navigation}) {
         }
       })
       .then(response => {
-        setWorkoutHistoryList(response.data);
+        setWorkoutHistoryList(response.data.slice(0, limit));
       })
       .catch(() => {
         setMessage(['system_message_default_error']);
@@ -59,27 +65,46 @@ export default function WorkoutHistoryList({navigation}) {
     navigation.addListener('focus', () => {
       loadWorkoutHistory();
     });
-  }, []);
+  }, [navigation]);
 
   return (
     <React.Fragment>
-      {workoutHistoryList && workoutHistoryList.length > 0 ? (
+      {(routeName === 'WorkoutHistory' ||
+        (routeName === 'Home' && workoutHistoryList.length > 0)) && (
         <Container2 gap={16}>
-          {workoutHistoryList.map((workout, index) => (
-            <React.Fragment key={index}>
-              <WorkoutHistoryItem
-                navigation={navigation}
-                reload={loadWorkoutHistory}
-                workout={workout}
-              />
-              {index < workoutHistoryList.length - 1 && <HorizontalRule />}
-            </React.Fragment>
-          ))}
+          {hasTitle && (
+            <ContainerTitle>{t('lbl_workout_history')}</ContainerTitle>
+          )}
+          {workoutHistoryList && workoutHistoryList.length > 0 ? (
+            <Container2 gap={16}>
+              {workoutHistoryList.map((workout, index) => (
+                <React.Fragment key={index}>
+                  <WorkoutHistoryItem
+                    navigation={navigation}
+                    reload={loadWorkoutHistory}
+                    workout={workout}
+                  />
+                  {index < workoutHistoryList.length - 1 && <HorizontalRule />}
+                </React.Fragment>
+              ))}
+            </Container2>
+          ) : (
+            <CustomText $textAlign={'center'} $fontSize={18}>
+              {t('lbl_workout_history_empty')}
+            </CustomText>
+          )}
+
+          {routeName === 'Home' && (
+            <Link
+              $fullWidth
+              onPress={() => navigation.navigate('WorkoutHistory')}>
+              <CustomText $fontSize={18}>
+                {t('go_to_workout_history')}
+              </CustomText>
+              <CaretRight size={24} color={'#202020'} />
+            </Link>
+          )}
         </Container2>
-      ) : (
-        <CustomText $textAlign={'center'} $fontSize={18}>
-          {t('lbl_workout_history_empty')}
-        </CustomText>
       )}
     </React.Fragment>
   );

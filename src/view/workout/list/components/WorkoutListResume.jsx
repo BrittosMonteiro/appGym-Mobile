@@ -7,10 +7,16 @@ import WorkoutList from './WorkoutList';
 
 import {readWorkoutListService} from '../../../../service/workoutService';
 
-import {setLoading, unsetLoading} from '../../../../store/actions/loadingAction';
-import {setMessageError, setMessageOff} from '../../../../store/actions/systemAction';
+import {
+  setLoading,
+  unsetLoading,
+} from '../../../../store/actions/loadingAction';
+import {
+  setMessageError,
+  setMessageOff,
+} from '../../../../store/actions/systemAction';
 
-export default function WorkoutResume({userId, navigation, limit, routeName}) {
+export default function WorkoutResume({limit, navigation, routeName, userId}) {
   const DISPATCH = useDispatch();
   const USERSESSION = useSelector(state => {
     return state.userSessionReducer;
@@ -62,7 +68,7 @@ export default function WorkoutResume({userId, navigation, limit, routeName}) {
   }
 
   return (
-    <Container2>
+    <Container2 gap={48}>
       <WorkoutOfTheDay
         todayTrainings={todayTrainings}
         navigation={navigation}

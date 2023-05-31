@@ -138,7 +138,7 @@ export default function UserPlanSelect({navigation, route}) {
       <Header navigation={navigation} title={t('title_select_plan')} />
       <HorizontalRule color={'#202020'} />
       <ContainerScroll
-        contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
+        contentContainerStyle={{alignItems: 'flex-start', gap: 32}}>
         <CustomText>
           {t('message_select_plan')}{' '}
           <CustomText $weight={'Medium'}>{user.name.split(' ')[0]}</CustomText>:

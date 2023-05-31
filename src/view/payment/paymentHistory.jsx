@@ -39,7 +39,7 @@ export default function PaymentHistory({navigation}) {
       <Header navigation={navigation} title={'PAGAMENTO'} />
       <HorizontalRule />
       <ContainerScroll
-        contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
+        contentContainerStyle={{alignItems: 'flex-start', gap: 32}}>
         <CustomText>Histórico de pagamentos do seu plano</CustomText>
         <Card $black $fullWidth $padding>
           {paymentList.map((payment, index) => (

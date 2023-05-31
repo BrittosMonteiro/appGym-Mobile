@@ -187,7 +187,7 @@ export default function PlanManagement({navigation, route}) {
       <Header navigation={navigation} title={t('title_manage_plan')} />
       <HorizontalRule color={'#202020'} />
       <ContainerScroll
-        contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
+        contentContainerStyle={{alignItems: 'flex-start', gap: 32}}>
         <Card $black $fullWidth $padding>
           <Column $gap>
             <Label>{t('lbl_plan_status')}</Label>

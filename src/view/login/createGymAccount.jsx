@@ -167,7 +167,7 @@ export default function CreateGymAccount({navigation, route}) {
   return (
     <ViewDefault>
       <ContainerScroll
-        contentContainerStyle={{gap: 24, justifyContent: 'center', flex: 1}}>
+        contentContainerStyle={{gap: 32, justifyContent: 'center', flex: 1}}>
         <Container flex={true} justifyContent={'center'}>
           <SignInSignUpTitle>{t('lbl_sign_up')}</SignInSignUpTitle>
           <Container gap={16}>

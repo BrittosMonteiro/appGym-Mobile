@@ -65,7 +65,7 @@ export default function PlanList({navigation}) {
       <Header navigation={navigation} title={t('title_plan')} />
       <HorizontalRule color={'#202020'} />
       <ContainerScroll
-        contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
+        contentContainerStyle={{alignItems: 'flex-start', gap: 32}}>
         <CustomText>{t('lbl_plans_list')}</CustomText>
 
         <Row>

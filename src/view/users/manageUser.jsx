@@ -42,7 +42,7 @@ export default function ManageUser({navigation, route}) {
         />
       )}
       <ContainerScroll
-        contentContainerStyle={{alignItems: 'flex-start', gap: 24}}>
+        contentContainerStyle={{alignItems: 'flex-start', gap: 32}}>
         {tablist[selectedTab].component}
       </ContainerScroll>
     </ViewDefault>

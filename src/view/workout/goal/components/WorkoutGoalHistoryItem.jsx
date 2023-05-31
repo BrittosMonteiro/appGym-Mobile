@@ -13,6 +13,8 @@ export default function GoalHistoryListItem({goal, reload}) {
   function closeModal() {
     setOpenModal(false);
   }
+
+  console.log(goal);
   return (
     <React.Fragment>
       <Column $gap $fullWidth>
