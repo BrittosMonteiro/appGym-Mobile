@@ -46,12 +46,18 @@ export default function TrainingOnGoing({route, navigation}) {
 
     const data = {
       idUser: USERSESSION.id,
+      title: training.title,
       idActivity,
       weekNumber: getWeekNumber(),
-      createdAd: new Date(),
+      createdAt: new Date(),
     };
 
     await createWorkoutHistoryService(data)
+      .then(responseCreate => {
+        if (responseCreate.status === 201) {
+          return responseCreate.json();
+        }
+      })
       .then(() => {
         navigation.goBack();
         setSuccessMessage(['lbl_you_have_finished_workout']);

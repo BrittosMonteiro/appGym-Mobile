@@ -19,6 +19,7 @@ export default function WorkoutHistoryItem({navigation, reload, workout}) {
         <Row $align={'center'} $justifyContent={'space-between'}>
           <Pressable
             onPress={() =>
+              workout.idWorkout &&
               navigation.navigate('WorkoutDetail', {
                 idActivity: workout.idWorkout,
               })
