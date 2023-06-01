@@ -32,9 +32,12 @@ export default function WorkoutHistoryItem({navigation, reload, workout}) {
             <Trash color={'#EB5757'} weight="regular" size={24} />
           </Pressable>
         </Row>
-        <CustomText $fontSize={14}>
-          {new Date(workout.date).toLocaleDateString()}
-        </CustomText>
+        <Row $align={'center'} $justifyContent={'space-between'}>
+          <CustomText $fontSize={14}>{workout.totalTime}</CustomText>
+          <CustomText $fontSize={14}>
+            {new Date(workout.date).toLocaleDateString()}
+          </CustomText>
+        </Row>
       </Column>
       <DeleteWorkoutHistory
         idWorkoutHistory={workout.id}
