@@ -15,11 +15,17 @@ import {
 import HorizontalRule from '../../../../components/HorizontalRule/HorizontalRule';
 import Container2 from '../../../../components/Container/Container';
 import WorkoutHistoryItem from './WorkoutHistoryItem';
-import {ContainerTitle, CustomText, Link} from '../../../style';
+import {
+  ContainerTitle,
+  CustomText,
+  InputDataDefault,
+  Link,
+} from '../../../style';
 import {CaretRight} from 'phosphor-react-native';
 
 export default function WorkoutHistoryList({
   navigation,
+  hasSearch,
   hasTitle,
   limit,
   routeName,
@@ -29,6 +35,7 @@ export default function WorkoutHistoryList({
   const USERSESSION = useSelector(state => {
     return state.userSessionReducer;
   });
+  const [originalList, setOriginalList] = useState([]);
   const [workoutHistoryList, setWorkoutHistoryList] = useState([]);
 
   function setMessage(text) {
@@ -47,6 +54,7 @@ export default function WorkoutHistoryList({
         }
       })
       .then(response => {
+        setOriginalList(response.data);
         setWorkoutHistoryList(response.data.slice(0, limit));
       })
       .catch(() => {
@@ -67,6 +75,16 @@ export default function WorkoutHistoryList({
     });
   }, [navigation]);
 
+  function filterWorkoutHistory(text) {
+    setWorkoutHistoryList(
+      originalList.filter(
+        workout =>
+          workout.title.includes(text.toUpperCase()) ||
+          workout.title.includes(text.toLowerCase()),
+      ),
+    );
+  }
+
   return (
     <React.Fragment>
       {(routeName === 'WorkoutHistory' ||
@@ -74,6 +92,16 @@ export default function WorkoutHistoryList({
         <Container2 gap={16}>
           {hasTitle && (
             <ContainerTitle>{t('lbl_workout_history')}</ContainerTitle>
+          )}
+          {hasSearch && (
+            <InputDataDefault
+              $padding={16}
+              $bgColor={props => props.theme.colors.black_01}
+              $color={props => props.theme.colors.white_02}
+              placeholder={t('lbl_search')}
+              autoCapitalize={'characters'}
+              onChangeText={text => filterWorkoutHistory(text)}
+            />
           )}
           {workoutHistoryList && workoutHistoryList.length > 0 ? (
             <Container2 gap={16}>

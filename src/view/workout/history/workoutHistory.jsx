@@ -12,7 +12,11 @@ export default function WorkoutHistory({navigation, route}) {
     <ViewDefault>
       <Header navigation={navigation} title={t('lbl_workout_history')} />
       <ContainerScroll contentContainerStyle={{gap: 32}}>
-        <WorkoutHistoryList navigation={navigation} routeName={route.name} />
+        <WorkoutHistoryList
+          navigation={navigation}
+          routeName={route.name}
+          hasSearch
+        />
       </ContainerScroll>
     </ViewDefault>
   );
